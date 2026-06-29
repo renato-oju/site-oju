@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OJU — Criação e produção no mesmo lugar</title>
+
+<!-- head.html (centralizado) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ===== Sistema de Design OJU — variáveis (ver oju-design-system.md) ===== */
+:root{
+  --site-side: clamp(20px, 6vw, 64px);
+
+  /* fonte */
+  --font-display: 'Syne', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Helvetica Neue', Arial, sans-serif;
+
+  /* cores */
+  --cor-texto-principal: #000000;
+  --cor-texto-secundario: rgba(0,0,0,0.74);
+  --cor-texto-terciario: rgba(0,0,0,0.65);
+  --cor-borda: #000000;
+  --cor-fundo-primario: #FFFFFF;
+  --cor-fundo-secundario: #F4F4F5;
+  --cor-overlay-escuro: rgba(0,0,0,0.38);
+  --cor-destaque: #FEC200;
+
+  /* escala tipográfica — peso único 800 (Decisão 24, até termos arquivos reais de peso) */
+  --tipo-display: clamp(40px, 6vw, 90px);
+  --tipo-titulo-1: clamp(34px, 4.6vw, 72px);
+  --tipo-titulo-2: clamp(26px, 3vw, 46px);
+  --tipo-titulo-3: clamp(18px, 2.1vw, 26px);
+  --tipo-corpo: clamp(14px, 1.2vw, 19px);
+}
+
+@font-face{
+  font-family: 'Okomito Next';
+  src: url('/fonts/Okomito-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; background:var(--cor-fundo-primario); color:var(--cor-texto-principal); font-family:var(--font-body); }
+h1, h2, h3{ font-family: var(--font-display); font-weight:800; margin:0; }
+img, video{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+
+/* ===== Botão — 1 componente, 2 variantes (Decisão 23 / seção 3.1) ===== */
+.btn{
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: clamp(54px, 6vw, 68px);
+  padding: 14px 22px;
+  border: 1px solid var(--cor-borda);
+  font: inherit;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.btn--primario{ background:var(--cor-texto-principal); color:#fff; }
+.btn--primario:hover{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario:hover{ background:var(--cor-texto-principal); color:#fff; }
+
+/* ===== Container padrão ===== */
+.container{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="site-nav" id="site-nav" role="banner">
+  <div class="site-nav__wrap container">
+    <a href="/" class="nav-logo" aria-label="OJU — página inicial">
+      <span class="nav-logo__mark">OJU</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Principal">
+      <a class="nav-link" href="producao.html">Produção</a>
+      <a class="nav-link" href="agencia.html">Agência</a>
+      <a class="nav-link" href="hub.html">Hub</a>
+      <a class="nav-link" href="orcamento.html">Orçamento</a>
+    </nav>
+    <a class="nav-cta" href="#calendly-embed">+ Fale com a gente</a>
+    <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger__bar"></span>
+      <span class="nav-burger__bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" aria-label="Primeira seção">
+  <video class="hero__video" autoplay muted loop playsinline preload="auto">
+    <source src="midia/intro_hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <p class="hero__eyebrow">produção e agência audiovisual</p>
+    <h1 class="hero__title">CRIAÇÃO E PRODUÇÃO<br>NO MESMO LUGAR</h1>
+    <p class="hero__subtitle">do conceito à entrega — sem agência tradicional no meio</p>
+    <div class="hero__actions">
+      <button class="btn btn--hero-primario" type="button" data-action="contato">FALE COM A GENTE</button>
+      <button class="btn btn--hero-secundario" type="button" data-action="agendar">AGENDAR CONVERSA</button>
+    </div>
+  </div>
+
+  <div class="hero__preview-card" aria-label="Showreel OJU">
+    <div class="hero__preview-thumb">
+      <video class="hero__preview-vid" src="midia/intro_hero.mp4" muted loop playsinline></video>
+      <button class="hero__preview-play" aria-label="Assistir showreel">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="17" stroke="white" stroke-opacity="0.7" stroke-width="1.5"/>
+          <path d="M15 12L24 18L15 24V12Z" fill="white"/>
+        </svg>
+      </button>
+    </div>
+    <p class="hero__preview-label">OJU — Criação e Produção Audiovisual</p>
+  </div>
+</section>
+
+<!-- ===================== 4 PILARES ===================== -->
+<section class="pillars" aria-label="Áreas de atuação">
+  <div class="container">
+    <p class="pillars__eyebrow">por onde você quer começar</p>
+    <div class="pillars__grid">
+
+      <a class="pillar-card" href="producao.html">
+        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+        <h2 class="pillar-card__title">PRODUÇÃO</h2>
+        <p class="pillar-card__desc">execução e entrega</p>
+      </a>
+
+      <a class="pillar-card" href="agencia.html">
+        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+        <h2 class="pillar-card__title">AGÊNCIA</h2>
+        <p class="pillar-card__desc">concepção e gestão</p>
+      </a>
+
+      <a class="pillar-card" href="hub.html">
+        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+        <h2 class="pillar-card__title">OJU HUB</h2>
+        <p class="pillar-card__desc">acervo e plataforma</p>
+      </a>
+
+      <a class="pillar-card pillar-card--externo" href="https://packshot.oju.com.br" target="_blank" rel="noopener">
+        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+        <h2 class="pillar-card__title">OJU PACKSHOT</h2>
+        <p class="pillar-card__desc">imagens de produto &#8599;</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROVA SOCIAL — CLIENTES ===================== -->
+<section class="clients" aria-label="Clientes">
+  <div class="container clients__inner">
+    <p class="clients__label">alguns clientes</p>
+    <div class="clients__logos">
+      <div class="clients__logo-placeholder" aria-label="Logo de cliente"></div>
+      <div class="clients__logo-placeholder" aria-label="Logo de cliente"></div>
+      <div class="clients__logo-placeholder" aria-label="Logo de cliente"></div>
+      <div class="clients__logo-placeholder" aria-label="Logo de cliente"></div>
+      <div class="clients__logo-placeholder" aria-label="Logo de cliente"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURED WORK ===================== -->
+<section class="featured" aria-label="Trabalhos em destaque">
+  <div class="container">
+    <p class="featured__eyebrow">trabalhos em destaque</p>
+    <div class="featured__grid">
+      <article class="featured__item">
+        <div class="featured__media" aria-hidden="true"></div>
+        <p class="featured__caption">01</p>
+      </article>
+      <article class="featured__item">
+        <div class="featured__media" aria-hidden="true"></div>
+        <p class="featured__caption">02</p>
+      </article>
+      <article class="featured__item">
+        <div class="featured__media" aria-hidden="true"></div>
+        <p class="featured__caption">03</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE EM DESTAQUE ===================== -->
+<section class="case-highlight" aria-label="Case em destaque">
+  <div class="container case-highlight__inner">
+    <div class="case-highlight__media" aria-hidden="true"></div>
+    <div class="case-highlight__text">
+      <p class="case-highlight__label">case em destaque</p>
+      <h3 class="case-highlight__title">GENTE COM HISTÓRIA</h3>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER COM CALENDLY (Decisão 18) ===================== -->
+<footer class="site-footer" aria-label="Contato e agendamento">
+  <div class="container">
+    <h3 class="site-footer__title">VAMOS CONVERSAR?</h3>
+    <div class="site-footer__calendly" id="calendly-embed">
+      <!--
+        Embed real do Calendly entra aqui em produção, por exemplo:
+        <div class="calendly-inline-widget" data-url="https://calendly.com/oju/conversa" style="min-width:320px;height:480px;"></div>
+        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      -->
+      <p class="site-footer__calendly-placeholder">[ widget do calendly — calendário e horários disponíveis ]</p>
+    </div>
+    <div class="site-footer__bottom">
+      <p class="site-footer__contact">contato@oju.com.br</p>
+      <nav class="site-footer__nav" aria-label="Navegação secundária">
+        <a href="sobre.html">sobre</a>
+        <a href="cases.html">cases</a>
+        <a href="orcamento.html">orçamento</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+
+/* ===================== NAV ===================== */
+.site-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background .35s ease, backdrop-filter .35s ease, box-shadow .35s ease;
+}
+.site-nav.scrolled{
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+}
+.site-nav__wrap{
+  display: flex;
+  align-items: center;
+  height: 68px;
+  gap: 0;
+}
+.nav-logo{ flex-shrink:0; margin-right: auto; }
+.nav-logo__mark{
+  display: inline-block;
+  background: var(--cor-destaque);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  padding: 7px 11px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition: opacity .2s ease;
+}
+.nav-logo:hover .nav-logo__mark{ opacity: .85; }
+.nav-links{
+  display: flex;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  margin: 0 clamp(24px, 3.5vw, 56px);
+}
+.nav-link{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: rgba(255,255,255,.8);
+  position: relative;
+  transition: color .2s ease;
+}
+.nav-link::after{
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--cor-destaque);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+.nav-link:hover{ color: #fff; }
+.nav-link:hover::after{ transform: scaleX(1); }
+.site-nav.scrolled .nav-link{ color: rgba(0,0,0,.6); }
+.site-nav.scrolled .nav-link:hover{ color: #000; }
+.nav-cta{
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.35);
+  padding: 10px 20px;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.nav-cta:hover{ background: #fff; color: #000; border-color: #fff; }
+.site-nav.scrolled .nav-cta{ color: #000; border-color: rgba(0,0,0,.22); }
+.site-nav.scrolled .nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
+.nav-burger{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-burger__bar{
+  display: block;
+  width: 22px; height: 2px;
+  background: #fff;
+  transition: background .2s ease, transform .3s ease, opacity .3s ease;
+}
+.site-nav.scrolled .nav-burger__bar{ background: #000; }
+.site-nav.menu-open .nav-burger__bar:first-child{ transform: rotate(45deg) translate(4px, 4px); }
+.site-nav.menu-open .nav-burger__bar:last-child{ transform: rotate(-45deg) translate(4px, -4px); }
+@media (max-width: 760px){
+  .nav-links, .nav-cta{ display: none; }
+  .nav-burger{ display: flex; }
+  .site-nav.menu-open .nav-links{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.96);
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 99;
+    margin: 0;
+  }
+  .site-nav.menu-open .nav-link{
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .site-nav.menu-open .nav-link::after{ bottom: -6px; }
+}
+
+/* ===================== HERO ===================== */
+.hero{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  background: #080808;
+}
+.hero__video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__overlay{
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(108deg,
+    rgba(0,0,0,.72) 0%,
+    rgba(0,0,0,.46) 42%,
+    rgba(0,0,0,.15) 75%,
+    rgba(0,0,0,.05) 100%
+  );
+  pointer-events: none;
+}
+.hero__content{
+  position: relative; z-index: 2;
+  padding-top: clamp(88px, 14vh, 140px);
+  padding-bottom: clamp(40px, 8vh, 80px);
+  max-width: 64%;
+}
+.hero__eyebrow{
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin: 0 0 22px;
+}
+.hero__title{
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7.8vw, 112px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -.025em;
+  line-height: .92;
+  color: #fff;
+  margin: 0 0 28px;
+}
+.hero__subtitle{
+  font-size: clamp(12px, 1.1vw, 16px);
+  color: rgba(255,255,255,.55);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin: 0 0 44px;
+  max-width: 38ch;
+}
+.hero__actions{ display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Botões variante hero */
+.btn--hero-primario{
+  background: #fff; color: #000; border-color: #fff;
+}
+.btn--hero-primario:hover{
+  background: transparent; color: #fff; border-color: rgba(255,255,255,.6);
+}
+.btn--hero-secundario{
+  background: transparent; color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.35);
+}
+.btn--hero-secundario:hover{
+  background: #fff; color: #000; border-color: #fff;
+}
+
+/* Card de preview flutuante */
+.hero__preview-card{
+  position: absolute;
+  bottom: clamp(28px, 5vh, 52px);
+  right: clamp(24px, 4vw, 52px);
+  z-index: 10;
+  width: clamp(200px, 22vw, 300px);
+  background: rgba(10,10,10,.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 0 .5px rgba(255,255,255,.06);
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.hero__preview-card:hover{
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+}
+.hero__preview-thumb{
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #111;
+}
+.hero__preview-vid{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .55;
+  transition: opacity .3s ease;
+}
+.hero__preview-card:hover .hero__preview-vid{ opacity: .75; }
+.hero__preview-play{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer;
+  transition: transform .25s ease;
+}
+.hero__preview-card:hover .hero__preview-play{ transform: scale(1.08); }
+.hero__preview-label{
+  padding: 10px 14px 12px;
+  font-size: 10px;
+  color: rgba(255,255,255,.6);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.4;
+}
+@media (max-width: 900px){
+  .hero__content{ max-width: 80%; }
+  .hero__preview-card{ display: none; }
+}
+@media (max-width: 560px){
+  .hero__content{ max-width: 100%; }
+}
+
+/* ===================== PILARES ===================== */
+.pillars{ padding-block: clamp(40px, 6vw, 72px); }
+.pillars__eyebrow{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0 0 20px; }
+.pillars__grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:1px;
+  background:var(--cor-borda);
+  border:1px solid var(--cor-borda);
+}
+.pillar-card{
+  background:#fff;
+  padding: clamp(20px, 2.6vw, 32px) clamp(16px, 2vw, 24px);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  transition: background .2s ease;
+}
+.pillar-card:hover{ background:var(--cor-fundo-secundario); }
+.pillar-card--externo{ border-left:3px solid var(--cor-destaque); }
+.pillar-card__icon{ font-size:18px; color:var(--cor-texto-terciario); }
+.pillar-card__title{ font-size:var(--tipo-titulo-3); text-transform:uppercase; letter-spacing:-0.01em; }
+.pillar-card__desc{ font-size:13px; color:var(--cor-texto-terciario); margin:0; }
+
+@media (max-width:900px){
+  .pillars__grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width:560px){
+  .pillars__grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================== CLIENTES ===================== */
+.clients{ border-top:0.5px solid var(--cor-borda); padding-block: clamp(20px, 3vw, 32px); }
+.clients__inner{ display:flex; align-items:center; gap:clamp(20px,3vw,36px); flex-wrap:wrap; }
+.clients__label{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0; white-space:nowrap; }
+.clients__logos{ display:flex; gap:24px; flex-wrap:wrap; align-items:center; }
+.clients__logo-placeholder{ width:84px; height:28px; background:var(--cor-fundo-secundario); }
+
+/* ===================== FEATURED WORK ===================== */
+.featured{ padding-block: clamp(40px, 6vw, 72px); }
+.featured__eyebrow{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0 0 20px; }
+.featured__grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 28px); }
+.featured__media{ aspect-ratio:16/10; background:var(--cor-fundo-secundario); border:1px solid var(--cor-borda); }
+.featured__caption{ font-size:12px; color:var(--cor-texto-terciario); margin:10px 0 0; }
+
+@media (max-width:700px){
+  .featured__grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================== CASE EM DESTAQUE ===================== */
+.case-highlight{ border-top:0.5px solid var(--cor-borda); padding-block: clamp(32px, 5vw, 56px); }
+.case-highlight__inner{ display:flex; align-items:center; gap: clamp(20px, 3vw, 32px); flex-wrap:wrap; }
+.case-highlight__media{ width: clamp(120px, 16vw, 180px); aspect-ratio:4/3; flex-shrink:0; background:var(--cor-fundo-secundario); }
+.case-highlight__label{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0 0 6px; }
+.case-highlight__title{ font-size:var(--tipo-titulo-3); text-transform:uppercase; }
+
+/* ===================== FOOTER ===================== */
+.site-footer{ background:var(--cor-fundo-secundario); border-top:1px solid var(--cor-borda); padding-block: clamp(40px, 6vw, 64px) clamp(24px, 4vw, 36px); }
+.site-footer__title{ font-size:var(--tipo-titulo-2); text-transform:uppercase; margin:0 0 24px; }
+.site-footer__calendly{
+  background:#fff;
+  border:1px solid var(--cor-borda);
+  min-height: 220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:28px;
+}
+.site-footer__calendly-placeholder{ font-size:13px; color:var(--cor-texto-terciario); margin:0; padding:20px; text-align:center; }
+.site-footer__bottom{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; border-top:0.5px solid var(--cor-borda); padding-top:20px; }
+.site-footer__contact{ font-size:13px; margin:0; }
+.site-footer__nav{ display:flex; gap:20px; }
+.site-footer__nav a{ font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+.site-footer__nav a:hover{ color:var(--cor-destaque); }
+
+</style>
+
+<script>
+(function(){
+
+  /* --- Botões do hero --- */
+  var contatoBtn = document.querySelector('[data-action="contato"]');
+  var agendarBtn = document.querySelector('[data-action="agendar"]');
+  if(contatoBtn){
+    contatoBtn.addEventListener('click', function(){
+      document.querySelector('.site-footer').scrollIntoView({behavior:'smooth'});
+    });
+  }
+  if(agendarBtn){
+    agendarBtn.addEventListener('click', function(){
+      document.querySelector('#calendly-embed').scrollIntoView({behavior:'smooth'});
+    });
+  }
+
+  /* --- Nav: efeito scroll --- */
+  var nav = document.getElementById('site-nav');
+  if(nav){
+    function onScroll(){
+      nav.classList.toggle('scrolled', window.scrollY > 72);
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  }
+
+  /* --- Nav: burger mobile --- */
+  var burger = document.querySelector('.nav-burger');
+  var navLinks = document.getElementById('nav-links');
+  if(burger && navLinks){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click', function(){
+        nav.classList.remove('menu-open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* --- Card de preview: play/pause do vídeo de preview --- */
+  var previewCard = document.querySelector('.hero__preview-card');
+  var previewVid = document.querySelector('.hero__preview-vid');
+  if(previewCard && previewVid){
+    previewVid.play();
+    previewCard.addEventListener('click', function(){
+      var mainVideo = document.querySelector('.hero__video');
+      if(mainVideo){
+        mainVideo.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
