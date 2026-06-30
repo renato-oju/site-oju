@@ -701,17 +701,23 @@ a{ color:inherit; text-decoration:none; }
    mesma da célula (--cellW), e diminui em ETAPAS por breakpoint —
    não fluida — para a escala da mão sempre bater com a do fundo. */
 .ag-pin{
-  --cellW: 216px;           /* largura fixa do celular (etapa) */
-  --gap: 22px;
+  /* Largura do celular maior que viewport/5 → colunas das pontas
+     "vazam" além das margens (sensação de infinito). Em ETAPAS. */
+  --cellW: 380px;           /* ≥ 1700px */
+  --gap: 30px;
   height: 300vh;            /* duração do scroll (ajustável) */
   min-height: 0;
   display: block;
   padding: 0;
   background: #fff;         /* fundo branco (≠ referência) */
 }
-@media (max-width: 1279px){ .ag-pin{ --cellW: 178px; --gap: 18px; } }
-@media (max-width: 1023px){ .ag-pin{ --cellW: 142px; --gap: 15px; } }
-@media (max-width:  860px){ .ag-pin{ --cellW: 118px; --gap: 12px; } }
+@media (max-width: 1699px){ .ag-pin{ --cellW: 330px; --gap: 26px; } }
+@media (max-width: 1535px){ .ag-pin{ --cellW: 305px; --gap: 24px; } }
+@media (max-width: 1365px){ .ag-pin{ --cellW: 280px; --gap: 22px; } }
+@media (max-width: 1279px){ .ag-pin{ --cellW: 255px; --gap: 20px; } }
+@media (max-width: 1100px){ .ag-pin{ --cellW: 230px; --gap: 18px; } }
+@media (max-width: 1023px){ .ag-pin{ --cellW: 205px; --gap: 16px; } }
+@media (max-width:  859px){ .ag-pin{ --cellW: 178px; --gap: 14px; } }
 
 .ag-pin__stage{
   position: sticky;
