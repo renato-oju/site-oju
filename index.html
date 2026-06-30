@@ -140,7 +140,8 @@ a{ color:inherit; text-decoration:none; }
 <!-- ===================== 4 PILARES ===================== -->
 <section class="pillars" aria-label="Áreas de atuação">
   <div class="pillars__header">
-    <p class="pillars__eyebrow">por onde você quer começar</p>
+    <span class="pillars__dot" aria-hidden="true"></span>
+    <p class="pillars__eyebrow">01 — Por onde você quer começar</p>
     <p class="pillars__subtext">Agência e produtora, você já conhece: criamos e filmamos. O Hub é o que ninguém te ofereceu ainda — seu acervo de vídeo organizado e fácil de virar conteúdo. Tem produto? O Packshot é pra você. Quatro frentes, um time só.</p>
   </div>
   <div class="pillars__grid">
@@ -505,8 +506,9 @@ a{ color:inherit; text-decoration:none; }
 /* ===================== PILARES ===================== */
 .pillars{ padding-block: 0 clamp(48px, 7vw, 80px); }
 .pillars__header{ padding: clamp(32px, 5vw, 56px) var(--site-side) clamp(20px, 3vw, 32px); }
-.pillars__eyebrow{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0; }
-.pillars__subtext{ font-size: clamp(15px, 1.6vw, 19px); line-height:1.5; color:var(--cor-texto-secundario); max-width:62ch; margin: clamp(14px, 2vw, 20px) 0 0; }
+.pillars__dot{ display:block; width:8px; height:8px; border-radius:50%; background:var(--cor-destaque); margin: 0 0 clamp(14px, 2vw, 20px); }
+.pillars__eyebrow{ font-size:13px; letter-spacing:.02em; text-transform:none; color:var(--cor-texto-terciario); margin:0; }
+.pillars__subtext{ font-size: clamp(22px, 2.8vw, 38px); line-height:1.3; font-weight:400; color:var(--cor-texto-secundario); max-width:none; margin: clamp(14px, 2vw, 20px) 0 0; }
 .pillars__grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:2px; background:rgba(0,0,0,.08); }
 
 .pillar-card{ display:flex; flex-direction:column; text-decoration:none; cursor:pointer; background:#fff; }
