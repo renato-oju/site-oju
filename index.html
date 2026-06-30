@@ -227,9 +227,7 @@ a{ color:inherit; text-decoration:none; }
   <div class="ag-pin__stage">
     <div class="ag-pin__wall" id="ag-wall" aria-hidden="true"><!-- células injetadas via JS --></div>
     <div class="ag-pin__hand" id="ag-hand">
-      <div class="ag-pin__phone">
-        <span class="ag-pin__phone-label">mão + celular<br><small>(PNG depois)</small></span>
-      </div>
+      <img class="ag-pin__hand-img" src="midia/agencia/hand.webp" alt="" draggable="false">
     </div>
   </div>
 </section>
@@ -705,6 +703,9 @@ a{ color:inherit; text-decoration:none; }
      "vazam" além das margens (sensação de infinito). Em ETAPAS. */
   --cellW: 380px;           /* ≥ 1700px */
   --gap: 30px;
+  /* hand.webp: 2048px de largura; o celular que a mão segura tem ~430px
+     e fica no topo-centro. Fator p/ o celular-da-mão = célula da parede. */
+  --hand-scale: 4.72;
   height: 300vh;            /* duração do scroll (ajustável) */
   min-height: 0;
   display: block;
@@ -738,51 +739,26 @@ a{ color:inherit; text-decoration:none; }
 }
 .ag-pin__cell{
   width: var(--cellW);
-  aspect-ratio: 9 / 19.5;
-  border-radius: 20px;
-  background: var(--cor-fundo-secundario);
-  border: 1px solid rgba(0,0,0,.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.ag-pin__cell span{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(18px, 2vw, 32px);
-  color: rgba(0,0,0,.13);
+  aspect-ratio: 434 / 859;          /* proporção real do mobile.png */
+  background-image: url('midia/agencia/mobile.png');
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 .ag-pin__hand{
   position: absolute;
   left: 50%; top: 0;
-  width: var(--cellW);      /* = largura da célula */
+  width: calc(var(--cellW) * var(--hand-scale)); /* celular-da-mão = célula */
   z-index: 5;
   transform: translateX(-50%);
   will-change: transform;
+  pointer-events: none;             /* não bloqueia nada por baixo */
 }
-.ag-pin__phone{
+.ag-pin__hand-img{
+  display: block;
   width: 100%;
-  aspect-ratio: 9 / 19.5;
-  border-radius: 28px;
-  background: #0e0e0e;
-  border: 5px solid #1c1c1c;
-  box-shadow: 0 30px 80px rgba(0,0,0,.28), 0 8px 24px rgba(0,0,0,.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: auto;
 }
-.ag-pin__phone-label{
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgba(255,255,255,.6);
-  line-height: 1.5;
-  padding: 0 6px;
-}
-.ag-pin__phone-label small{ font-size: 9px; color: rgba(255,255,255,.4); }
 
 /* Fallback estático: mobile e quem prefere menos movimento */
 .ag-pin.ag-pin--static{ height: auto; }
@@ -984,7 +960,6 @@ a{ color:inherit; text-decoration:none; }
         cell.style.gridColumn = COLS[c];
         cell.style.gridRow = r;
         cell.setAttribute('data-index', idx);
-        cell.innerHTML = '<span>' + (idx < 10 ? '0' + idx : idx) + '</span>';
         wall.appendChild(cell);
         idx++;
       }
