@@ -6,9 +6,6 @@
 <title>OJU — Criação e produção no mesmo lugar</title>
 
 <!-- head.html (centralizado) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 
 /* ===== Sistema de Design OJU — variáveis (ver oju-design-system.md) ===== */
@@ -16,7 +13,7 @@
   --site-side: clamp(20px, 6vw, 64px);
 
   /* fonte */
-  --font-display: 'Syne', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Helvetica Neue', Arial, sans-serif;
 
   /* cores */
@@ -108,15 +105,19 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Primeira seção">
-  <video class="hero__video" autoplay muted loop playsinline preload="auto">
+  <video class="hero__video" autoplay muted playsinline preload="auto">
     <source src="midia/intro_hero.mp4" type="video/mp4">
   </video>
   <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__fade-bottom" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow">produção e agência audiovisual</p>
-    <h1 class="hero__title">CRIAÇÃO E PRODUÇÃO<br>NO MESMO LUGAR</h1>
-    <p class="hero__subtitle">do conceito à entrega — sem agência tradicional no meio</p>
+    <p class="hero__eyebrow">agência e produtora audiovisual</p>
+    <h1 class="hero__title">
+      <span class="hero__title-line hero__title-line--a">CRIAÇÃO E</span>
+      <span class="hero__title-line hero__title-line--b">PRODUÇÃO</span>
+      <span class="hero__title-line hero__title-line--c">NO MESMO LUGAR<span class="hero__title-dot">.</span></span>
+    </h1>
     <div class="hero__actions">
       <button class="btn btn--hero-primario" type="button" data-action="contato">FALE COM A GENTE</button>
       <button class="btn btn--hero-secundario" type="button" data-action="agendar">AGENDAR CONVERSA</button>
@@ -125,7 +126,6 @@ a{ color:inherit; text-decoration:none; }
 
   <div class="hero__preview-card" aria-label="Showreel OJU">
     <div class="hero__preview-thumb">
-      <video class="hero__preview-vid" src="midia/intro_hero.mp4" muted loop playsinline></video>
       <button class="hero__preview-play" aria-label="Assistir showreel">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="18" cy="18" r="17" stroke="white" stroke-opacity="0.7" stroke-width="1.5"/>
@@ -139,35 +139,59 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== 4 PILARES ===================== -->
 <section class="pillars" aria-label="Áreas de atuação">
-  <div class="container">
+  <div class="pillars__header">
     <p class="pillars__eyebrow">por onde você quer começar</p>
-    <div class="pillars__grid">
+  </div>
+  <div class="pillars__grid">
 
-      <a class="pillar-card" href="producao.html">
-        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+    <a class="pillar-card pillar-card--producao" href="producao.html">
+      <div class="pillar-card__media">
+        <div class="pillar-card__bg"></div>
+      </div>
+      <div class="pillar-card__body">
+        <span class="pillar-card__num">01</span>
         <h2 class="pillar-card__title">PRODUÇÃO</h2>
         <p class="pillar-card__desc">execução e entrega</p>
-      </a>
+        <span class="pillar-card__arrow">ver mais</span>
+      </div>
+    </a>
 
-      <a class="pillar-card" href="agencia.html">
-        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+    <a class="pillar-card pillar-card--agencia" href="agencia.html">
+      <div class="pillar-card__media">
+        <div class="pillar-card__bg"></div>
+      </div>
+      <div class="pillar-card__body">
+        <span class="pillar-card__num">02</span>
         <h2 class="pillar-card__title">AGÊNCIA</h2>
         <p class="pillar-card__desc">concepção e gestão</p>
-      </a>
+        <span class="pillar-card__arrow">ver mais</span>
+      </div>
+    </a>
 
-      <a class="pillar-card" href="hub.html">
-        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+    <a class="pillar-card pillar-card--hub" href="hub.html">
+      <div class="pillar-card__media">
+        <div class="pillar-card__bg"></div>
+      </div>
+      <div class="pillar-card__body">
+        <span class="pillar-card__num">03</span>
         <h2 class="pillar-card__title">OJU HUB</h2>
         <p class="pillar-card__desc">acervo e plataforma</p>
-      </a>
+        <span class="pillar-card__arrow">ver mais</span>
+      </div>
+    </a>
 
-      <a class="pillar-card pillar-card--externo" href="https://packshot.oju.com.br" target="_blank" rel="noopener">
-        <span class="pillar-card__icon" aria-hidden="true">&#9656;</span>
+    <a class="pillar-card pillar-card--packshot" href="https://packshot.oju.com.br" target="_blank" rel="noopener">
+      <div class="pillar-card__media">
+        <div class="pillar-card__bg"></div>
+      </div>
+      <div class="pillar-card__body">
+        <span class="pillar-card__num">04</span>
         <h2 class="pillar-card__title">OJU PACKSHOT</h2>
-        <p class="pillar-card__desc">imagens de produto &#8599;</p>
-      </a>
+        <p class="pillar-card__desc">imagens de produto</p>
+        <span class="pillar-card__arrow">ver mais</span>
+      </div>
+    </a>
 
-    </div>
   </div>
 </section>
 
@@ -242,23 +266,18 @@ a{ color:inherit; text-decoration:none; }
 
 <style>
 
-/* ===================== NAV ===================== */
+/* ===================== NAV — sempre sólido, nunca invadido pelo vídeo ===================== */
 .site-nav{
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  transition: background .35s ease, backdrop-filter .35s ease, box-shadow .35s ease;
-}
-.site-nav.scrolled{
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.07);
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.08);
 }
 .site-nav__wrap{
   display: flex;
   align-items: center;
-  height: 68px;
+  height: 64px;
   gap: 0;
 }
 .nav-logo{ flex-shrink:0; margin-right: auto; }
@@ -286,7 +305,7 @@ a{ color:inherit; text-decoration:none; }
   font-size: 13px;
   font-weight: 500;
   letter-spacing: .05em;
-  color: rgba(255,255,255,.8);
+  color: rgba(0,0,0,.55);
   position: relative;
   transition: color .2s ease;
 }
@@ -300,25 +319,21 @@ a{ color:inherit; text-decoration:none; }
   transform-origin: left;
   transition: transform .28s ease;
 }
-.nav-link:hover{ color: #fff; }
+.nav-link:hover{ color: #000; }
 .nav-link:hover::after{ transform: scaleX(1); }
-.site-nav.scrolled .nav-link{ color: rgba(0,0,0,.6); }
-.site-nav.scrolled .nav-link:hover{ color: #000; }
 .nav-cta{
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.9);
-  border: 1px solid rgba(255,255,255,.35);
+  color: #000;
+  border: 1px solid rgba(0,0,0,.22);
   padding: 10px 20px;
   white-space: nowrap;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
-.nav-cta:hover{ background: #fff; color: #000; border-color: #fff; }
-.site-nav.scrolled .nav-cta{ color: #000; border-color: rgba(0,0,0,.22); }
-.site-nav.scrolled .nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
+.nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
 .nav-burger{
   display: none;
   flex-direction: column;
@@ -332,10 +347,9 @@ a{ color:inherit; text-decoration:none; }
 .nav-burger__bar{
   display: block;
   width: 22px; height: 2px;
-  background: #fff;
-  transition: background .2s ease, transform .3s ease, opacity .3s ease;
+  background: #000;
+  transition: transform .3s ease;
 }
-.site-nav.scrolled .nav-burger__bar{ background: #000; }
 .site-nav.menu-open .nav-burger__bar:first-child{ transform: rotate(45deg) translate(4px, 4px); }
 .site-nav.menu-open .nav-burger__bar:last-child{ transform: rotate(-45deg) translate(4px, -4px); }
 @media (max-width: 760px){
@@ -366,12 +380,13 @@ a{ color:inherit; text-decoration:none; }
 .hero{
   position: relative;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  margin-top: 64px;
   overflow: hidden;
-  display: grid;
+  display: flex;
   align-items: center;
-  background: #080808;
+  background: #f0ede8;
 }
 .hero__video{
   position: absolute; inset: 0;
@@ -381,65 +396,70 @@ a{ color:inherit; text-decoration:none; }
 }
 .hero__overlay{
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(108deg,
-    rgba(0,0,0,.72) 0%,
-    rgba(0,0,0,.46) 42%,
-    rgba(0,0,0,.15) 75%,
-    rgba(0,0,0,.05) 100%
+  background: linear-gradient(160deg,
+    rgba(240,237,232,.90) 0%,
+    rgba(240,237,232,.75) 50%,
+    rgba(240,237,232,.35) 100%
   );
   pointer-events: none;
 }
+.hero__fade-bottom{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
+  pointer-events: none;
+}
 .hero__content{
-  position: relative; z-index: 2;
-  padding-top: clamp(88px, 14vh, 140px);
-  padding-bottom: clamp(40px, 8vh, 80px);
-  max-width: 64%;
+  position: relative; z-index: 3;
+  padding-top: clamp(60px, 10vh, 100px);
+  padding-bottom: clamp(64px, 10vh, 100px);
+  width: 100%;
 }
 .hero__eyebrow{
   font-size: 11px;
-  letter-spacing: .15em;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.5);
-  margin: 0 0 22px;
+  color: rgba(0,0,0,.45);
+  margin: 0 0 clamp(20px, 3vh, 36px);
+  font-family: var(--font-body);
 }
 .hero__title{
   font-family: var(--font-display);
-  font-size: clamp(48px, 7.8vw, 112px);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -.025em;
-  line-height: .92;
-  color: #fff;
-  margin: 0 0 28px;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: #000;
+  margin: 0 0 clamp(32px, 5vh, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: .08em;
 }
-.hero__subtitle{
-  font-size: clamp(12px, 1.1vw, 16px);
-  color: rgba(255,255,255,.55);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  margin: 0 0 44px;
-  max-width: 38ch;
-}
+.hero__title-line{ display: block; font-size: clamp(32px, 4.8vw, 68px); }
+.hero__title-dot{ color: var(--cor-destaque); }
 .hero__actions{ display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* Botões variante hero */
 .btn--hero-primario{
-  background: #fff; color: #000; border-color: #fff;
+  background: #000; color: #fff; border-color: #000;
 }
 .btn--hero-primario:hover{
-  background: transparent; color: #fff; border-color: rgba(255,255,255,.6);
+  background: transparent; color: #000; border-color: #000;
 }
 .btn--hero-secundario{
-  background: transparent; color: rgba(255,255,255,.85); border-color: rgba(255,255,255,.35);
+  background: transparent; color: rgba(0,0,0,.7); border-color: rgba(0,0,0,.3);
 }
 .btn--hero-secundario:hover{
-  background: #fff; color: #000; border-color: #fff;
+  background: #000; color: #fff; border-color: #000;
 }
+@media (max-width: 560px){ .hero__title-line{ font-size: clamp(40px, 12vw, 80px); } }
 
 /* Card de preview flutuante */
 .hero__preview-card{
   position: absolute;
-  bottom: clamp(28px, 5vh, 52px);
+  bottom: clamp(80px, 12vh, 140px);
   right: clamp(24px, 4vw, 52px);
   z-index: 10;
   width: clamp(200px, 22vw, 300px);
@@ -449,7 +469,7 @@ a{ color:inherit; text-decoration:none; }
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 0 .5px rgba(255,255,255,.06);
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
   cursor: pointer;
   transition: transform .3s ease, box-shadow .3s ease;
 }
@@ -463,14 +483,6 @@ a{ color:inherit; text-decoration:none; }
   overflow: hidden;
   background: #111;
 }
-.hero__preview-vid{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .55;
-  transition: opacity .3s ease;
-}
-.hero__preview-card:hover .hero__preview-vid{ opacity: .75; }
 .hero__preview-play{
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
@@ -487,43 +499,42 @@ a{ color:inherit; text-decoration:none; }
   margin: 0;
   line-height: 1.4;
 }
-@media (max-width: 900px){
-  .hero__content{ max-width: 80%; }
-  .hero__preview-card{ display: none; }
-}
-@media (max-width: 560px){
-  .hero__content{ max-width: 100%; }
-}
+@media (max-width: 900px){ .hero__preview-card{ display: none; } }
 
 /* ===================== PILARES ===================== */
-.pillars{ padding-block: clamp(40px, 6vw, 72px); }
-.pillars__eyebrow{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0 0 20px; }
-.pillars__grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:1px;
-  background:var(--cor-borda);
-  border:1px solid var(--cor-borda);
-}
-.pillar-card{
-  background:#fff;
-  padding: clamp(20px, 2.6vw, 32px) clamp(16px, 2vw, 24px);
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  transition: background .2s ease;
-}
-.pillar-card:hover{ background:var(--cor-fundo-secundario); }
-.pillar-card--externo{ border-left:3px solid var(--cor-destaque); }
-.pillar-card__icon{ font-size:18px; color:var(--cor-texto-terciario); }
-.pillar-card__title{ font-size:var(--tipo-titulo-3); text-transform:uppercase; letter-spacing:-0.01em; }
-.pillar-card__desc{ font-size:13px; color:var(--cor-texto-terciario); margin:0; }
+.pillars{ padding-block: 0 clamp(48px, 7vw, 80px); }
+.pillars__header{ padding: clamp(32px, 5vw, 56px) var(--site-side) clamp(20px, 3vw, 32px); }
+.pillars__eyebrow{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0; }
+.pillars__grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:2px; background:rgba(0,0,0,.08); }
+
+.pillar-card{ display:flex; flex-direction:column; text-decoration:none; cursor:pointer; background:#fff; }
+
+/* Área da imagem — quadrada */
+.pillar-card__media{ position:relative; aspect-ratio:1/1; overflow:hidden; }
+.pillar-card__bg{ position:absolute; inset:0; background-size:cover; background-position:center; transition: transform .6s ease; }
+.pillar-card:hover .pillar-card__bg{ transform: scale(1.05); }
+
+/* Imagens dos pilares */
+.pillar-card--producao .pillar-card__bg{ background-image: url('midia/pilar-producao.png'); }
+.pillar-card--agencia .pillar-card__bg{ background-image: url('midia/pilar-agencia.png'); }
+.pillar-card--hub .pillar-card__bg{ background-image: url('midia/pilar-hub.png'); }
+.pillar-card--packshot .pillar-card__bg{ background-image: url('midia/pilar-packshot.png'); }
+
+/* Área de texto — abaixo da imagem */
+.pillar-card__body{ padding: clamp(14px, 1.8vw, 24px) clamp(14px, 1.8vw, 24px) clamp(18px, 2.2vw, 28px); display:flex; flex-direction:column; gap:6px; border-top:1px solid rgba(0,0,0,.08); flex:1; }
+.pillar-card__num{ font-size:10px; letter-spacing:.12em; color:var(--cor-texto-terciario); font-family: var(--font-body); }
+.pillar-card__title{ font-family: var(--font-display); font-weight:800; font-size: clamp(16px, 1.6vw, 22px); text-transform:uppercase; letter-spacing:-.02em; color:#000; line-height:1; margin:0; }
+.pillar-card__desc{ font-size:12px; color:var(--cor-texto-terciario); letter-spacing:.04em; margin:0; }
+.pillar-card__arrow{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#000; margin-top:auto; padding-top:10px; transition: gap .3s ease, color .2s ease; }
+.pillar-card__arrow::after{ content:'→'; transition: transform .3s ease; }
+.pillar-card:hover .pillar-card__arrow{ gap:10px; color:var(--cor-destaque); }
+.pillar-card:hover .pillar-card__arrow::after{ transform: translateX(4px); }
 
 @media (max-width:900px){
   .pillars__grid{ grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width:560px){
-  .pillars__grid{ grid-template-columns: 1fr; }
+  .pillars__grid{ grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ===================== CLIENTES ===================== */
@@ -589,20 +600,11 @@ a{ color:inherit; text-decoration:none; }
     });
   }
 
-  /* --- Nav: efeito scroll --- */
+  /* --- Nav: burger mobile (nav é sempre sólido, sem efeito de scroll) --- */
   var nav = document.getElementById('site-nav');
-  if(nav){
-    function onScroll(){
-      nav.classList.toggle('scrolled', window.scrollY > 72);
-    }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
-  }
-
-  /* --- Nav: burger mobile --- */
   var burger = document.querySelector('.nav-burger');
   var navLinks = document.getElementById('nav-links');
-  if(burger && navLinks){
+  if(nav && burger && navLinks){
     burger.addEventListener('click', function(){
       var open = nav.classList.toggle('menu-open');
       burger.setAttribute('aria-expanded', open);
@@ -617,11 +619,9 @@ a{ color:inherit; text-decoration:none; }
     });
   }
 
-  /* --- Card de preview: play/pause do vídeo de preview --- */
+  /* --- Card de preview: leva até o vídeo do hero --- */
   var previewCard = document.querySelector('.hero__preview-card');
-  var previewVid = document.querySelector('.hero__preview-vid');
-  if(previewCard && previewVid){
-    previewVid.play();
+  if(previewCard){
     previewCard.addEventListener('click', function(){
       var mainVideo = document.querySelector('.hero__video');
       if(mainVideo){
