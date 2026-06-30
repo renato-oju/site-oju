@@ -1,0 +1,3 @@
+Coloque aqui as imagens da seção Agência:
+- mockups da parede (substituem os placeholders .ag-pin__cell)
+- mão+celular em PNG transparente (substitui .ag-pin__phone)
