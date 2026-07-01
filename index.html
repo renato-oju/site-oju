@@ -95,7 +95,7 @@ a{ color:inherit; text-decoration:none; }
       <a class="nav-link" href="hub.html">Hub</a>
       <a class="nav-link" href="orcamento.html">Orçamento</a>
     </nav>
-    <a class="nav-cta" href="#calendly-embed">+ Fale com a gente</a>
+    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Fale com a gente</a>
     <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
       <span class="nav-burger__bar"></span>
       <span class="nav-burger__bar"></span>
@@ -110,6 +110,9 @@ a{ color:inherit; text-decoration:none; }
 <nav class="pilar-nav" id="pilar-nav" aria-label="Navegação rápida dos pilares" aria-hidden="true">
   <div class="pilar-nav__inner"><!-- itens injetados via JS --></div>
 </nav>
+
+<!-- ===================== PAGE SHELL (cobre o footer revelado) ===================== -->
+<main class="page-shell">
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Primeira seção">
@@ -294,26 +297,54 @@ a{ color:inherit; text-decoration:none; }
   </div>
 </section>
 
-<!-- ===================== FOOTER COM CALENDLY (Decisão 18) ===================== -->
-<footer class="site-footer" aria-label="Contato e agendamento">
-  <div class="container">
-    <h3 class="site-footer__title">VAMOS CONVERSAR?</h3>
-    <div class="site-footer__calendly" id="calendly-embed">
-      <!--
-        Embed real do Calendly entra aqui em produção, por exemplo:
-        <div class="calendly-inline-widget" data-url="https://calendly.com/oju/conversa" style="min-width:320px;height:480px;"></div>
-        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      -->
-      <p class="site-footer__calendly-placeholder">[ widget do calendly — calendário e horários disponíveis ]</p>
-    </div>
-    <div class="site-footer__bottom">
-      <p class="site-footer__contact">contato@oju.com.br</p>
-      <nav class="site-footer__nav" aria-label="Navegação secundária">
-        <a href="sobre.html">sobre</a>
-        <a href="cases.html">cases</a>
-        <a href="orcamento.html">orçamento</a>
+</main><!-- /.page-shell -->
+
+<!-- ===================== FOOTER REVELADO (curtain reveal) ===================== -->
+<footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
+  <div class="reveal-footer__inner container">
+
+    <div class="reveal-footer__top">
+      <div class="reveal-footer__lead">
+        <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
+        <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
+        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+      </div>
+
+      <nav class="reveal-footer__col" aria-label="Áreas">
+        <p class="reveal-footer__col-title">Áreas</p>
+        <a href="producao.html">Produção</a>
+        <a href="agencia.html">Agência</a>
+        <a href="hub.html">OJU Hub</a>
+        <a href="https://packshot.oju.com.br" target="_blank" rel="noopener">OJU Packshot <span aria-hidden="true">↗</span></a>
       </nav>
+
+      <nav class="reveal-footer__col" aria-label="Redes sociais">
+        <p class="reveal-footer__col-title">Redes</p>
+        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="reveal-footer__col">
+        <p class="reveal-footer__col-title">Contato</p>
+        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
+        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="reveal-footer__addr">São Paulo · Brasil</p>
+      </div>
     </div>
+
+    <div class="reveal-footer__brand" aria-hidden="true">OJU</div>
+
+    <div class="reveal-footer__bottom">
+      <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
+      <div class="reveal-footer__bottom-right">
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+
   </div>
 </footer>
 
@@ -796,42 +827,148 @@ a{ color:inherit; text-decoration:none; }
 .case-highlight__label{ font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--cor-texto-terciario); margin:0 0 6px; }
 .case-highlight__title{ font-size:var(--tipo-titulo-3); text-transform:uppercase; }
 
-/* ===================== FOOTER ===================== */
-.site-footer{ background:var(--cor-fundo-secundario); border-top:1px solid var(--cor-borda); padding-block: clamp(40px, 6vw, 64px) clamp(24px, 4vw, 36px); }
-.site-footer__title{ font-size:var(--tipo-titulo-2); text-transform:uppercase; margin:0 0 24px; }
-.site-footer__calendly{
-  background:#fff;
-  border:1px solid var(--cor-borda);
-  min-height: 220px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:28px;
+/* ===================== FOOTER REVELADO (curtain reveal) ===================== */
+/* A shell cobre o footer; ao chegar no fim do scroll, ela "sobe" e o revela. */
+.page-shell{
+  position: relative;
+  z-index: 1;
+  background: var(--cor-fundo-primario);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+  /* margin-bottom = altura do footer, definido via JS */
 }
-.site-footer__calendly-placeholder{ font-size:13px; color:var(--cor-texto-terciario); margin:0; padding:20px; text-align:center; }
-.site-footer__bottom{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; border-top:0.5px solid var(--cor-borda); padding-top:20px; }
-.site-footer__contact{ font-size:13px; margin:0; }
-.site-footer__nav{ display:flex; gap:20px; }
-.site-footer__nav a{ font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
-.site-footer__nav a:hover{ color:var(--cor-destaque); }
+.reveal-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  background: #0c0c0c;
+  color: #fff;
+  display: flex;
+  align-items: stretch;
+  min-height: 100svh;
+}
+.reveal-footer__inner{
+  width: calc(100% - 2 * var(--site-side));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(28px, 5vh, 60px);
+  padding-block: clamp(36px, 6vh, 76px) clamp(20px, 3vh, 34px);
+}
+.reveal-footer__top{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+}
+.reveal-footer__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(38px, 6vw, 92px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(18px, 2.4vw, 30px);
+}
+.reveal-footer__dot{ color: var(--cor-destaque); }
+.reveal-footer__text{
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.55;
+  color: rgba(255,255,255,.6);
+  max-width: 46ch;
+  margin: 0 0 clamp(24px, 3vw, 34px);
+}
+.reveal-footer__cta{
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--cor-destaque); color: #000;
+  font-weight: 700; letter-spacing: .04em;
+  padding: 16px 26px; border-radius: 100px;
+  font-size: 15px;
+  transition: transform .25s ease, background .25s ease;
+}
+.reveal-footer__cta span{ transition: transform .25s ease; }
+.reveal-footer__cta:hover{ background: #fff; }
+.reveal-footer__cta:hover span{ transform: translateX(4px); }
+.reveal-footer__alt{
+  margin: clamp(20px, 2.6vw, 30px) 0 0;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.reveal-footer__alt a{ color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.reveal-footer__alt a:hover{ color: var(--cor-destaque); }
+.reveal-footer__col{ display: flex; flex-direction: column; gap: 12px; }
+.reveal-footer__col-title{
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin: 0 0 6px;
+}
+.reveal-footer__col a{
+  font-size: 15px; color: rgba(255,255,255,.78);
+  width: fit-content; transition: color .2s ease;
+}
+.reveal-footer__col a:hover{ color: var(--cor-destaque); }
+.reveal-footer__addr{ font-size: 15px; color: rgba(255,255,255,.5); margin: 0; }
+.reveal-footer__brand{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(60px, 12vw, 190px);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: rgba(255,255,255,.05);
+  user-select: none;
+}
+.reveal-footer__bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: clamp(18px, 2.4vw, 28px);
+}
+.reveal-footer__copy{ font-size: 12px; color: rgba(255,255,255,.45); margin: 0; }
+.reveal-footer__bottom-right{ display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+.reveal-footer__bottom-right a,
+.reveal-footer__totop{
+  font: inherit; font-size: 12px; color: rgba(255,255,255,.6);
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .2s ease;
+}
+.reveal-footer__bottom-right a:hover,
+.reveal-footer__totop:hover{ color: #fff; }
+
+@media (max-width: 900px){
+  .reveal-footer{ min-height: auto; }
+  .reveal-footer__top{ grid-template-columns: 1fr 1fr; row-gap: clamp(32px, 6vw, 48px); }
+  .reveal-footer__lead{ grid-column: 1 / -1; }
+  .reveal-footer__brand{ font-size: clamp(80px, 30vw, 200px); }
+}
+@media (max-width: 520px){
+  .reveal-footer__top{ grid-template-columns: 1fr; }
+}
 
 </style>
 
 <script>
 (function(){
 
-  /* --- Botões do hero --- */
-  var contatoBtn = document.querySelector('[data-action="contato"]');
-  var agendarBtn = document.querySelector('[data-action="agendar"]');
-  if(contatoBtn){
-    contatoBtn.addEventListener('click', function(){
-      document.querySelector('.site-footer').scrollIntoView({behavior:'smooth'});
-    });
+  /* --- Footer revelado: shell precisa de margin-bottom = altura do footer --- */
+  var shell = document.querySelector('.page-shell');
+  var footer = document.getElementById('site-footer');
+  function syncFooterSpace(){
+    if(shell && footer){ shell.style.marginBottom = footer.offsetHeight + 'px'; }
   }
-  if(agendarBtn){
-    agendarBtn.addEventListener('click', function(){
-      document.querySelector('#calendly-embed').scrollIntoView({behavior:'smooth'});
-    });
+  syncFooterSpace();
+  window.addEventListener('resize', syncFooterSpace, { passive: true });
+  window.addEventListener('load', syncFooterSpace);
+
+  /* --- CTAs que revelam o footer (rolam até o fim da página) --- */
+  function revealFooter(){
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-action="contato"], [data-action="agendar"], [data-action="reveal"]').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
+  });
+
+  /* --- Voltar ao topo --- */
+  var toTop = document.querySelector('[data-action="totop"]');
+  if(toTop){
+    toTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
   }
 
   /* --- Nav: burger mobile (nav é sempre sólido, sem efeito de scroll) --- */
