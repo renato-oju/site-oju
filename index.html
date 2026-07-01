@@ -960,6 +960,11 @@ a{ color:inherit; text-decoration:none; }
         cell.style.gridColumn = COLS[c];
         cell.style.gridRow = r;
         cell.setAttribute('data-index', idx);
+        /* cada célula tem sua própria imagem (mobile-01..mobile-20),
+           com fallback para mobile.png se o arquivo não existir. */
+        var nn = idx < 10 ? '0' + idx : '' + idx;
+        cell.style.backgroundImage =
+          "url('midia/agencia/mobile-" + nn + ".png'), url('midia/agencia/mobile.png')";
         wall.appendChild(cell);
         idx++;
       }
@@ -997,9 +1002,10 @@ a{ color:inherit; text-decoration:none; }
       var rowTopL   = rowTop0 + (ROWS - 1) * rowH;         /* topo da última linha */
       var centerTop = (stageH - cellH) / 2;                /* linha de "trava" no centro */
 
-      /* Translação da parede: 1ª linha centrada no início → última sai por cima no fim */
+      /* Translação da parede: 1ª linha centrada no início → ÚLTIMA linha
+         centrada no fim (sem rolar até esvaziar — evita o cinza sobrando). */
       var W0 = centerTop - rowTop0;
-      var W1 = -cellH - rowTopL;
+      var W1 = centerTop - rowTopL;
       var W  = W0 + (W1 - W0) * p;
       wall.style.transform = 'translateY(' + W + 'px)';
 
