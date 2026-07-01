@@ -300,6 +300,7 @@ a{ color:inherit; text-decoration:none; }
 </main><!-- /.page-shell -->
 
 <!-- ===================== FOOTER REVELADO (curtain reveal) ===================== -->
+<div class="reveal-stage" aria-hidden="true"></div>
 <footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
   <div class="reveal-footer__inner container">
 
@@ -837,6 +838,13 @@ a{ color:inherit; text-decoration:none; }
   border-bottom-right-radius: clamp(28px, 4vw, 60px);
   /* margin-bottom = altura do footer, definido via JS */
 }
+/* Palco escuro fixo atrás da shell: preenche a área revelada enquanto o
+   footer sobe, para não abrir buraco claro. Fica coberto pela shell no
+   scroll normal e só aparece na zona de reveal. */
+.reveal-stage{
+  position: fixed; inset: 0; z-index: 0;
+  background: #0c0c0c; pointer-events: none;
+}
 .reveal-footer{
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -845,9 +853,10 @@ a{ color:inherit; text-decoration:none; }
   color: #fff;
   display: flex;
   overflow: hidden;
+  border-top-left-radius: clamp(28px, 4vw, 60px);
+  border-top-right-radius: clamp(28px, 4vw, 60px);
   will-change: transform;
 }
-.reveal-footer__inner{ will-change: transform; }
 .reveal-footer__inner{
   width: calc(100% - 2 * var(--site-side));
   display: flex;
@@ -948,53 +957,54 @@ a{ color:inherit; text-decoration:none; }
 <script>
 (function(){
 
-  /* --- Footer revelado (curtain reveal) + PARALLAX de 2 camadas -----------
-     A shell (z-index:1) desliza sobre o footer fixo (z-index:0), revelando-o.
-     Enquanto o footer é descoberto, ele "assenta" na posição final:
-       • a caixa do footer sobe a ~0.55× a velocidade do scroll;
-       • o conteúdo interno sobe ainda mais devagar (camada extra),
-         criando a sensação de profundidade / parallax.
-     Lido a cada frame por um loop rAF (não depende de eventos de scroll),
-     com listener de scroll como reforço.                                   */
+  /* --- Footer parallax: ENTRA topo-primeiro, sobe mais devagar que o scroll --
+     A shell (z-index:1) tem uma margin-bottom = zona de reveal (Z), maior que
+     a altura do footer — isso cria o espaço de scroll onde o parallax acontece.
+     Atrás da shell fica o palco escuro (.reveal-stage). O footer (fixo) começa
+     com o TOPO na borda inferior da tela (abaixo da dobra) e sobe até estacionar
+     em translateY(0) quando o scroll chega ao fim. Como percorre footerH ao
+     longo de Z = 1.35·footerH de scroll, sobe a ~0.74× a velocidade da página:
+     vê-se o topo do footer surgir primeiro e subir devagar, assentando no fim.
+     Lido a cada frame por um loop rAF (não depende de eventos de scroll).     */
   var shell  = document.querySelector('.page-shell');
   var footer = document.getElementById('site-footer');
-  var fInner = footer ? footer.querySelector('.reveal-footer__inner') : null;
 
-  var _footerH = 0, _revealStart = 0, _lastY = -1;
+  var _footerH = 0, _Z = 0, _zoneStart = 0, _lastY = -1;
 
-  function syncFooterSpace(){
-    if(shell && footer){ shell.style.marginBottom = footer.offsetHeight + 'px'; }
-  }
   function measureFooter(){
-    if(!footer) return;
-    _footerH     = footer.offsetHeight;
-    var scrollMax = document.body.scrollHeight - window.innerHeight;
-    _revealStart = scrollMax - _footerH;
-    _lastY = -1; /* força re-aplicar no próximo frame */
+    if(!footer || !shell) return;
+    _footerH = footer.offsetHeight;
+    _Z = _footerH * 1.35;                         /* zona de reveal (> footerH → parallax mais lento que o scroll) */
+    shell.style.marginBottom = _Z + 'px';         /* espaço de scroll no fim */
+    /* documentElement.scrollHeight inclui o margin-bottom da shell; body.scrollHeight NÃO.
+       Usar o valor errado desalinhava a zona de reveal (~800px), deixando o footer
+       estacionado ANTES de ser revelado — daí a sensação de "estático". */
+    var scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    _zoneStart = scrollMax - _Z;
+    _lastY = -1;                                  /* força re-aplicar no próximo frame */
   }
   function applyFooter(){
     if(!footer || !_footerH) return;
     var y = window.pageYOffset;
-    if(y === _lastY) return;   /* nada mudou: não toca no DOM */
+    if(y === _lastY) return;                      /* nada mudou: não toca no DOM */
     _lastY = y;
-    var p = Math.max(0, Math.min(1, (y - _revealStart) / _footerH));  /* 0→1 na zona de reveal */
-    var ease = 1 - p;
-    footer.style.transform = 'translateY(' + (_footerH * 0.55 * ease) + 'px)';
-    if(fInner){ fInner.style.transform = 'translateY(' + (_footerH * 0.28 * ease) + 'px)'; }
+    var p = Math.max(0, Math.min(1, (y - _zoneStart) / _Z));   /* 0→1 na zona final */
+    /* p=0 → translateY(footerH): topo do footer na borda de baixo da tela.
+       p=1 → translateY(0): footer estacionado. Velocidade = footerH/Z ≈ 0.6×. */
+    footer.style.transform = 'translateY(' + (_footerH * (1 - p)) + 'px)';
   }
   function footerLoop(){ applyFooter(); requestAnimationFrame(footerLoop); }
 
-  syncFooterSpace();
   measureFooter();
   applyFooter();
   requestAnimationFrame(footerLoop);
   window.addEventListener('scroll', applyFooter, { passive: true });
-  window.addEventListener('resize', function(){ syncFooterSpace(); measureFooter(); }, { passive: true });
-  window.addEventListener('load',   function(){ syncFooterSpace(); measureFooter(); });
+  window.addEventListener('resize', measureFooter, { passive: true });
+  window.addEventListener('load',   measureFooter);
 
   /* --- CTAs que revelam o footer (rolam até o fim da página) --- */
   function revealFooter(){
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
   }
   document.querySelectorAll('[data-action="contato"], [data-action="agendar"], [data-action="reveal"]').forEach(function(btn){
     btn.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
