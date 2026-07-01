@@ -966,15 +966,15 @@ a{ color:inherit; text-decoration:none; }
      longo de Z = 1.35·footerH de scroll, sobe a ~0.74× a velocidade da página:
      vê-se o topo do footer surgir primeiro e subir devagar, assentando no fim.
 
-     INÉRCIA: a posição não é aplicada direto do scroll (que seria linear e
-     freia bruscamente). A cada frame, a posição atual persegue o alvo por uma
-     fração (lerp) — quando o scroll para, o footer desliza os últimos pixels e
-     freia exponencialmente até assentar. Fator menor = freio mais longo/lento.
-     Loop rAF contínuo (não depende de eventos de scroll).                     */
+     VELOCIDADE MÁXIMA: em scroll lento o footer segue o alvo exatamente
+     (parallax direto). Mas o passo por frame é limitado a MAX_SPEED px — então,
+     num scroll rápido/fling, ele não acompanha de imediato: continua subindo no
+     seu ritmo-teto e "estaciona" sempre de forma controlada, por mais rápido que
+     seja o scroll. Loop rAF contínuo (não depende de eventos de scroll).       */
   var shell  = document.querySelector('.page-shell');
   var footer = document.getElementById('site-footer');
 
-  var INERTIA = 0.09;                             /* força do "freio": ↓ = mais lento/suave */
+  var MAX_SPEED = 10;                             /* px/frame: teto de velocidade (↓ = estaciona mais devagar) */
   var _footerH = 0, _Z = 0, _zoneStart = 0;
   var _target = 0, _current = 0, _applied = -1;
 
@@ -997,8 +997,12 @@ a{ color:inherit; text-decoration:none; }
   }
   function footerLoop(){
     computeTarget();
-    _current += (_target - _current) * INERTIA;   /* lerp: persegue o alvo com folga */
-    if(Math.abs(_target - _current) < 0.15) _current = _target;   /* encaixa no fim */
+    /* passo até o alvo, limitado ao teto de velocidade:
+       scroll lento → segue exato; scroll rápido → sobe no ritmo-teto e assenta controlado. */
+    var step = _target - _current;
+    if(step >  MAX_SPEED) step =  MAX_SPEED;
+    else if(step < -MAX_SPEED) step = -MAX_SPEED;
+    _current += step;
     if(footer && Math.abs(_current - _applied) >= 0.05){
       _applied = _current;
       footer.style.transform = 'translateY(' + _current + 'px)';
