@@ -966,17 +966,11 @@ a{ color:inherit; text-decoration:none; }
      longo de Z = 1.35·footerH de scroll, sobe a ~0.74× a velocidade da página:
      vê-se o topo do footer surgir primeiro e subir devagar, assentando no fim.
 
-     SUAVIDADE SÓ NO FIM: durante quase toda a revelação (p < SETTLE_START) o
-     footer segue o scroll EXATAMENTE — parallax direto, sem atraso. Só na
-     fração final (p ≥ SETTLE_START), quando ele está quase totalmente revelado,
-     a posição passa a assentar com easing: ao parar no fundo ele desliza os
-     últimos pixels e estaciona com suavidade, sem travar de forma brusca.
+     Parallax direto: a posição segue o scroll exatamente (1:1), sem easing.
      Loop rAF contínuo (não depende de eventos de scroll).                      */
   var shell  = document.querySelector('.page-shell');
   var footer = document.getElementById('site-footer');
 
-  var SETTLE_START = 0.72;                        /* p a partir do qual entra o assentamento suave (↓ = começa antes) */
-  var SETTLE_EASE  = 0.12;                        /* suavidade do assentamento final (↓ = mais lento/macio) */
   var _footerH = 0, _Z = 0, _zoneStart = 0, _p = 0;
   var _target = 0, _current = 0, _applied = -1;
 
@@ -999,12 +993,7 @@ a{ color:inherit; text-decoration:none; }
   }
   function footerLoop(){
     computeTarget();
-    if(_p < SETTLE_START){
-      _current = _target;                          /* revelação direta: segue o scroll exato, sem atraso */
-    } else {
-      _current += (_target - _current) * SETTLE_EASE;   /* fração final: assenta com suavidade */
-      if(Math.abs(_target - _current) < 0.1) _current = _target;
-    }
+    _current = _target;                            /* parallax direto, sem easing */
     if(footer && Math.abs(_current - _applied) >= 0.05){
       _applied = _current;
       footer.style.transform = 'translateY(' + _current + 'px)';
