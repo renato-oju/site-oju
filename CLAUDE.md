@@ -1,5 +1,15 @@
 # CLAUDE.md — Site institucional OJU
 
+## Grafo de conhecimento (Graphify)
+
+O grafo atualizado deste projeto está em:
+`/Users/renatomac/Desktop/RENATO OBSIDIAN VAULT/RENATO/03-empresa/portal-oju/graphify-out/graph.json`
+
+Antes de ler arquivos do projeto, consulte o grafo com:
+`graphify query "<sua pergunta>" --graph "/Users/renatomac/Desktop/RENATO OBSIDIAN VAULT/RENATO/03-empresa/portal-oju/graphify-out/graph.json"`
+
+Relatório legível do projeto: `graphify-out/GRAPH_REPORT.md`
+
 Contexto condensado de uma sessão de planejamento (wireframe + decisões de arquitetura de informação + design) feita em outro chat. Este arquivo resume o que já foi decidido, para que o trabalho de código continue de onde paramos, sem precisar redecidir o que já está fechado.
 
 ## O que é a OJU

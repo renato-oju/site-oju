@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oju-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/private/tmp/claude-501/-Users-renatomac-Desktop-SITE-OJU-CLAUDE/629e2895-064e-4221-bda7-bdc8942df237/scratchpad/serve.py"],
+      "port": 3456
+    }
+  ]
+}
