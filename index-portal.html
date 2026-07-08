@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OJU — Portal</title>
+
+<style>
+
+/* ===== Sistema de Design OJU — variáveis (ver oju-design-system.md) ===== */
+:root{
+  --font-display: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
+
+  --cor-texto-principal: #000000;
+  --cor-texto-secundario: rgba(0,0,0,0.74);
+  --cor-texto-terciario: rgba(0,0,0,0.55);
+  --cor-borda: #000000;
+  --cor-linha: rgba(0,0,0,0.14);
+  --cor-fundo-primario: #FFFFFF;
+  --cor-fundo-secundario: #F4F4F5;
+  --cor-destaque: #FEC200;
+  --site-side: clamp(48px, 7vw, 120px); /* mesma regra de espaçamento lateral do packshot.html */
+  --portal-vpad: clamp(22px, 3vw, 44px);
+
+  /* escala tipográfica — mesma da Home (index.html) */
+  --tipo-titulo-2: clamp(26px, 3vw, 46px);
+  --tipo-titulo-3: clamp(18px, 2.1vw, 26px);
+  --tipo-corpo: clamp(15px, 1.15vw, 18px);
+
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-io: cubic-bezier(.65,.05,.36,1);
+}
+
+@font-face{
+  font-family: 'Okomito Next';
+  src: url('fonts/Okomito-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing: border-box; }
+html, body{
+  margin:0; padding:0;
+  background: var(--cor-fundo-primario);
+  color: var(--cor-texto-principal);
+  font-family: var(--font-body);
+}
+h1, h2, h3{ font-family: var(--font-display); font-weight:800; margin:0; }
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; }
+
+/* dot-grid tecnológico de fundo */
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ===================== SHELL ===================== */
+.portal{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  min-height:100dvh;
+  display:grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); /* esquerda dominante; minmax(0,…) impede que o conteúdo da esquerda "roube" a largura da coluna da direita */
+}
+
+/* ===================== ESQUERDA — 4 ÁREAS ===================== */
+.portal__left{
+  position:relative;
+  min-width:0; /* permite a coluna encolher até sua fração de grade, sem estourar */
+  border-right: 1px solid var(--cor-borda);
+  display:flex;
+  flex-direction:column;
+  padding: var(--portal-vpad) var(--site-side);
+  /* sem altura travada nem overflow:hidden — se o conteúdo não couber na
+     viewport, a página inteira ganha scroll em vez de sobrepor elementos */
+}
+
+.portal-top, .portal-intro, .portal-scroll, .portal-foot{
+  position:relative; z-index:1;
+}
+
+/* barra superior tech */
+.portal-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom: clamp(6px, 1vh, 12px);
+}
+.portal-brand{ display:flex; align-items:center; gap:12px; }
+.portal-brand__mark{
+  font-family: var(--font-display);
+  font-weight:800; font-size: 22px; letter-spacing:-0.02em;
+}
+.portal-brand__tag{
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color: var(--cor-texto-terciario);
+  border-left:1px solid var(--cor-linha); padding-left:12px;
+}
+.portal-status{
+  display:flex; align-items:center; gap:9px;
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color: var(--cor-texto-terciario);
+}
+.portal-status__dot{
+  width:7px; height:7px; border-radius:50%;
+  background: #12b76a;
+  box-shadow: 0 0 0 0 rgba(18,183,106,.5);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(18,183,106,.5); }
+  70%{ box-shadow:0 0 0 7px rgba(18,183,106,0); }
+  100%{ box-shadow:0 0 0 0 rgba(18,183,106,0); }
+}
+
+.portal-intro{ margin-bottom: clamp(4px, 0.8vh, 10px); }
+.portal-intro__eyebrow{
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+  color: var(--cor-texto-terciario); margin-top:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.portal-intro__eyebrow::before{
+  content:''; width:22px; height:1px; background: var(--cor-texto-principal);
+}
+/* maior texto da página — mesma escala do .hero__title do packshot.html */
+.portal-intro__title{
+  font-size: clamp(34px, 4.4vw, 62px);
+  font-weight:800;
+  line-height:.95;
+  letter-spacing:-0.025em; line-height:1.02;
+}
+.portal-intro__title em{ font-style:normal; color: var(--cor-destaque); }
+
+/* ===== Grade dos 4 pilares — réplica fiel do padrão da Home (.pillars__grid / .pillar-card),
+   adaptada à metade da página ===== */
+.portal-grid-wrap{
+  display:flex;
+  justify-content:flex-start;
+}
+.pillars__grid{
+  width:74%;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:2px;
+  background: rgba(0,0,0,.08);
+}
+
+.pillar-card{ display:flex; flex-direction:column; text-decoration:none; cursor:pointer; background:#fff; }
+
+/* Área do vídeo — quadrada */
+.pillar-card__media{ position:relative; aspect-ratio:1/1; overflow:hidden; background:#fff; }
+
+/* Vídeo no lugar da imagem — dá play em loop no hover, via JS.
+   object-fit:contain garante que o vídeo inteiro fique sempre visível, sem cortes. */
+.pillar-card__video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  background:#fff;
+  object-fit:contain;
+  transition: transform .6s ease;
+}
+.pillar-card:hover .pillar-card__video{ transform: scale(1.05); }
+
+/* Área de texto — abaixo da imagem */
+.pillar-card__body{ padding: clamp(8px, 1vw, 12px) clamp(8px, 1vw, 12px) clamp(9px, 1.1vw, 14px); display:flex; flex-direction:column; gap:3px; border-top:1px solid rgba(0,0,0,.08); flex:0 0 auto; }
+.pillar-card__title{ font-family: var(--font-display); font-weight:800; font-size: clamp(14px, 1.4vw, 19px); text-transform:uppercase; letter-spacing:-.02em; color:#000; line-height:1; margin:0; }
+.pillar-card__desc{ font-size:11px; color:var(--cor-texto-terciario); letter-spacing:.04em; margin:0; }
+.pillar-card__arrow{ display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#000; margin-top:auto; padding-top:6px; transition: gap .3s ease, color .2s ease; }
+.pillar-card__arrow::after{ content:'→'; transition: transform .3s ease; }
+.pillar-card:hover .pillar-card__arrow{ gap:10px; color:var(--cor-destaque); }
+.pillar-card:hover .pillar-card__arrow::after{ transform: translateX(4px); }
+
+/* ===== Área "Apresentamos a OJU Hub" =====
+   Flui normalmente após a grade dos pilares — sem altura travada, para que
+   janelas menores empurrem a página (scroll) em vez de sobrepor conteúdo. */
+.portal-hub{
+  margin-top: clamp(40px, 6vh, 72px);
+  padding-top: clamp(36px, 5.4vh, 64px);
+  border-top: 1px solid var(--cor-linha);
+}
+.portal-editorial{
+  width:100%;
+  display:grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+  gap: clamp(14px, 1.8vw, 26px);
+  align-items:start;
+}
+/* Escala tipográfica igual à do packshot.html (.hero__intro-title / .hero__subtitle / .hero__intro-text) */
+.portal-editorial__lede{
+  font-family: var(--font-display);
+  font-weight:800;
+  font-size: clamp(22px, 2.3vw, 34px);
+  line-height:.98;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  color:#000;
+  margin:0 0 6px;
+}
+.portal-editorial__lede::first-letter{
+  color: var(--cor-destaque);
+}
+.portal-editorial__subtitle{
+  font-size: clamp(14px, 1.3vw, 18px);
+  line-height:1.25;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color: rgba(0,0,0,.65);
+  margin:0 0 8px;
+  max-width: 80ch;
+}
+.portal-editorial__text{
+  font-size: clamp(13px, 1.05vw, 16px);
+  line-height:1.35;
+  color: rgba(0,0,0,.74);
+  margin:0 0 6px;
+  max-width: 72ch;
+}
+.portal-editorial__text:last-child{ margin-bottom:0; }
+
+/* Player — mesma linguagem dos cards de pilar: moldura fina, imagem, hover com zoom */
+.editorial-player{
+  display:block; width:100%;
+  border:1px solid var(--cor-borda); background:#0a0a0a;
+  padding:0; font:inherit; cursor:pointer;
+}
+.editorial-player__frame{
+  display:block;
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+}
+.editorial-player__frame img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transition: transform .6s ease;
+}
+.editorial-player:hover .editorial-player__frame img{ transform: scale(1.05); }
+.editorial-player__caption{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 10px 12px;
+  background:#fff;
+  border-top:1px solid rgba(0,0,0,.08);
+  font-family: var(--font-mono);
+  font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color: var(--cor-texto-terciario);
+}
+.editorial-player__caption strong{
+  font-family: var(--font-mono); font-weight:400; color:#000;
+}
+
+/* rodapé esquerdo */
+.portal-foot{
+  margin-top: clamp(2px,0.5vh,6px);
+  display:flex; align-items:center; justify-content:space-between;
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color: var(--cor-texto-terciario);
+}
+
+/* ===================== DIREITA — LOGIN ===================== */
+.portal__right{
+  position:sticky;
+  top:0;
+  height:100vh;
+  height:100dvh;
+  min-width:0;
+  background: var(--cor-fundo-primario);
+  color: var(--cor-texto-principal);
+  display:flex; align-items:center; justify-content:center;
+  padding: clamp(24px, 4vw, 56px);
+  overflow:hidden;
+}
+/* brilho âmbar ambiente */
+.portal__right::before{
+  content:'';
+  position:absolute; width:520px; height:520px; border-radius:50%;
+  top:-140px; right:-140px;
+  background: radial-gradient(circle, rgba(254,194,0,.12), transparent 62%);
+  pointer-events:none;
+}
+.portal__right::after{
+  content:'';
+  position:absolute; inset:0;
+  background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events:none;
+}
+
+.login-card{
+  position:relative; z-index:1;
+  width:100%; max-width: 380px;
+  animation: cardIn .8s var(--ease-out) .35s both;
+}
+@keyframes cardIn{
+  from{ opacity:0; transform: translateY(14px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+.login-card__header{ margin-bottom: clamp(22px, 3.4vh, 34px); }
+.login-card__eyebrow{
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.24em; text-transform:uppercase;
+  color: var(--cor-texto-terciario); margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.login-card__eyebrow::before{
+  content:''; width:22px; height:1px; background: var(--cor-destaque);
+}
+.login-card__title{ font-size: clamp(24px, 2.4vw, 32px); letter-spacing:-0.02em; }
+.login-card__sub{
+  font-size:13px; color: var(--cor-texto-terciario); margin-top:10px; line-height:1.5;
+}
+
+.login-field{ margin-bottom:16px; position:relative; }
+.login-field label{
+  display:block;
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color: var(--cor-texto-terciario); margin-bottom:8px;
+}
+.login-field input{
+  width:100%; height:50px; padding: 0 14px;
+  border: 1px solid rgba(0,0,0,.18);
+  background: #fff;
+  font: inherit; font-size: 14px; color:#000;
+  outline:none; border-radius:2px;
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.login-field input::placeholder{ color: rgba(0,0,0,.32); }
+.login-field input:focus{
+  border-color: #000;
+  background: rgba(254,194,0,.04);
+  box-shadow: 0 0 0 3px rgba(254,194,0,.22);
+}
+
+.login-row{
+  display:flex; align-items:center; justify-content:space-between;
+  margin: 4px 0 22px; font-size:12.5px;
+}
+.login-remember{
+  display:flex; align-items:center; gap:9px;
+  color: var(--cor-texto-secundario); cursor:pointer; user-select:none;
+}
+.login-remember input{ position:absolute; opacity:0; width:0; height:0; }
+.login-check{
+  width:16px; height:16px; border:1px solid rgba(0,0,0,.35);
+  border-radius:3px; display:inline-flex; align-items:center; justify-content:center;
+  transition: background .2s ease, border-color .2s ease;
+}
+.login-check svg{ width:10px; height:10px; opacity:0; transform: scale(.5); transition: all .2s var(--ease-out); }
+.login-remember input:checked + .login-check{ background: var(--cor-destaque); border-color: var(--cor-destaque); }
+.login-remember input:checked + .login-check svg{ opacity:1; transform: scale(1); }
+.login-remember input:focus-visible + .login-check{ box-shadow:0 0 0 3px rgba(254,194,0,.25); }
+.login-forgot{ color: var(--cor-texto-terciario); border-bottom:1px solid transparent; transition: color .2s, border-color .2s; }
+.login-forgot:hover{ color:#000; border-color: rgba(0,0,0,.5); }
+
+.btn{
+  position:relative; overflow:hidden;
+  display:inline-flex; align-items:center; justify-content:center;
+  width:100%; min-height:42px; padding: 11px 18px;
+  border: 1px solid transparent; border-radius:2px;
+  font: inherit; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+  cursor:pointer; transition: color .25s ease, border-color .25s ease;
+}
+.btn span{ position:relative; z-index:1; display:inline-flex; align-items:center; gap:10px; }
+/* efeito de preenchimento no hover */
+.btn::after{
+  content:''; position:absolute; inset:0;
+  transform: translateY(100%);
+  transition: transform .4s var(--ease-io);
+}
+.btn:hover::after{ transform: translateY(0); }
+
+.btn--primary{ background: var(--cor-destaque); color:#000; }
+.btn--primary::after{ background:#000; }
+.btn--primary:hover{ color:#fff; }
+
+.login-divider{
+  display:flex; align-items:center; gap:12px; margin: 20px 0;
+  font-family: var(--font-mono);
+  font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color: var(--cor-texto-terciario);
+}
+.login-divider::before, .login-divider::after{
+  content:''; flex:1; height:1px; background: var(--cor-linha);
+}
+
+.btn--google{
+  background: #fff; color:#000; border-color: rgba(0,0,0,.25);
+}
+.btn--google::after{ background:#000; }
+.btn--google:hover{ color:#fff; border-color:#000; }
+
+.login-footer{
+  margin-top:22px; text-align:center;
+  font-size:12.5px; color: var(--cor-texto-terciario);
+}
+.login-footer a{ color:#000; border-bottom:1px solid var(--cor-destaque); }
+
+.login-secure{
+  margin-top:18px; display:flex; align-items:center; justify-content:center; gap:8px;
+  font-family: var(--font-mono);
+  font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color: rgba(0,0,0,.35);
+}
+.login-secure svg{ width:11px; height:11px; }
+
+/* ===================== RESPONSIVO ===================== */
+@media (max-width: 900px){
+  .portal{ grid-template-columns: 1fr; }
+  .portal__left{ border-right:none; border-bottom:1px solid var(--cor-borda); }
+  .portal__right{ position:static; height:auto; padding-block: 44px; }
+  .pillars__grid{ width:100%; grid-template-columns: repeat(2, 1fr); }
+  .portal-editorial{ grid-template-columns: 1fr; align-items:start; }
+}
+@media (max-width: 560px){
+  .pillars__grid{ grid-template-columns: repeat(2, 1fr); }
+  .portal-intro__title{ font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition-duration:.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="portal">
+
+  <!-- ================= ESQUERDA: 4 áreas ================= -->
+  <div class="portal__left">
+
+    <div class="portal-top">
+      <div class="portal-brand">
+        <span class="portal-brand__mark">OJU</span>
+        <span class="portal-brand__tag">Portal</span>
+      </div>
+      <div class="portal-status">
+        <span class="portal-status__dot"></span>
+        <span id="portal-clock">Sistema online</span>
+      </div>
+    </div>
+
+    <div class="portal-intro">
+      <h1 class="portal-intro__title">CRIAÇÃO E<br>PRODUÇÃO<br>NO MESMO LUGAR<em>.</em></h1>
+      <div class="portal-intro__eyebrow">Selecione uma área</div>
+    </div>
+
+    <div class="portal-scroll">
+
+    <div class="portal-grid-wrap">
+    <div class="pillars__grid">
+
+      <a class="pillar-card pillar-card--agencia" href="agencia.html">
+        <div class="pillar-card__media">
+          <video class="pillar-card__video" id="agencia-card-video" src="midia/bt_agencia.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="pillar-card__body">
+          <h2 class="pillar-card__title">AGÊNCIA</h2>
+          <p class="pillar-card__desc">concepção e gestão</p>
+          <span class="pillar-card__arrow">ver mais</span>
+        </div>
+      </a>
+
+      <a class="pillar-card pillar-card--producao" href="producao.html">
+        <div class="pillar-card__media">
+          <video class="pillar-card__video" id="producao-card-video" src="midia/bt_producao.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="pillar-card__body">
+          <h2 class="pillar-card__title">PRODUÇÃO</h2>
+          <p class="pillar-card__desc">execução e entrega</p>
+          <span class="pillar-card__arrow">ver mais</span>
+        </div>
+      </a>
+
+      <a class="pillar-card pillar-card--packshot" href="packshot.html">
+        <div class="pillar-card__media">
+          <video class="pillar-card__video" id="packshot-card-video" src="midia/bt_pack.mp4" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="pillar-card__body">
+          <h2 class="pillar-card__title">OJU PACKSHOT</h2>
+          <p class="pillar-card__desc">imagens de produto</p>
+          <span class="pillar-card__arrow">ver mais</span>
+        </div>
+      </a>
+
+    </div>
+    </div>
+
+    <div class="portal-hub">
+      <div class="portal-editorial">
+
+        <div class="portal-editorial__col">
+          <p class="portal-editorial__lede">Apresentamos a OJU Hub</p>
+          <p class="portal-editorial__subtitle">Seu acervo de vídeo, organizado pra virar conteúdo.</p>
+          <p class="portal-editorial__text">Todo cliente que produz vídeo com a gente acumula um acervo. Brutos, cortes, versões, aprovações. Com o tempo, esse material vira um problema: ninguém sabe onde está, ninguém lembra o que já existe, e boa parte dele nunca mais é usado.</p>
+          <p class="portal-editorial__text">A Hub resolve isso. Organiza, cataloga e deixa pronto pra virar conteúdo, sem depender de pedir arquivo pra ninguém.</p>
+        </div>
+
+        <a class="editorial-player" href="hub.html" aria-label="Conhecer o OJU Hub">
+          <span class="editorial-player__frame">
+            <img src="midia/pilar-hub.png" alt="">
+          </span>
+          <span class="editorial-player__caption">
+            <strong>OJU Hub</strong>
+            <span>acervo e plataforma →</span>
+          </span>
+        </a>
+
+      </div>
+    </div>
+
+    </div>
+
+    <div class="portal-foot">
+      <span>OJU © 2026</span>
+      <span>Produtora &amp; agência audiovisual</span>
+    </div>
+
+  </div>
+
+  <!-- ================= DIREITA: login ================= -->
+  <div class="portal__right">
+    <div class="login-card">
+
+      <div class="login-card__header">
+        <div class="login-card__eyebrow">Acesso</div>
+        <h2 class="login-card__title">Entrar no portal</h2>
+        <p class="login-card__sub">Acompanhe entregas, aprove materiais e converse com o seu time OJU.</p>
+      </div>
+
+      <form onsubmit="event.preventDefault();" autocomplete="off">
+
+        <div class="login-field">
+          <label for="portal-email">E-mail</label>
+          <input type="email" id="portal-email" name="email" placeholder="voce@empresa.com">
+        </div>
+
+        <div class="login-field">
+          <label for="portal-senha">Senha</label>
+          <input type="password" id="portal-senha" name="senha" placeholder="••••••••">
+        </div>
+
+        <div class="login-row">
+          <label class="login-remember">
+            <input type="checkbox" name="lembrar">
+            <span class="login-check"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            Lembrar de mim
+          </label>
+          <a class="login-forgot" href="#">Esqueceu a senha?</a>
+        </div>
+
+        <button type="submit" class="btn btn--primary"><span>Entrar</span></button>
+
+        <div class="login-divider">ou</div>
+
+        <button type="button" class="btn btn--google">
+          <span>
+            <svg width="18" height="18" viewBox="0 0 18 18">
+              <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/>
+              <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.95v2.33A9 9 0 0 0 9 18z"/>
+              <path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.95A9 9 0 0 0 0 9c0 1.45.35 2.83.95 4.03z"/>
+              <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .95 4.97L3.95 7.3C4.66 5.17 6.65 3.58 9 3.58z"/>
+            </svg>
+            Continuar com Google
+          </span>
+        </button>
+
+      </form>
+
+      <div class="login-footer">
+        Ainda não tem acesso? <a href="#">Fale com a gente</a>
+      </div>
+
+      <div class="login-secure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        Conexão segura · OJU
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===== Cards com vídeo: dão play em loop no hover ===== */
+(function(){
+  document.querySelectorAll('.pillar-card__video').forEach(function(video){
+    var card = video.closest('.pillar-card');
+    if(!card) return;
+
+    function play(){ video.play().catch(function(){}); }
+    function pause(){ video.pause(); }
+
+    card.addEventListener('mouseenter', play);
+    card.addEventListener('mouseleave', pause);
+    /* teclado: mesmo comportamento ao focar o card */
+    card.addEventListener('focusin', play);
+    card.addEventListener('focusout', pause);
+  });
+})();
+
+/* ===== Relógio no readout tech ===== */
+(function(){
+  var el = document.getElementById('portal-clock');
+  function tick(){
+    var d = new Date();
+    var hh = String(d.getHours()).padStart(2,'0');
+    var mm = String(d.getMinutes()).padStart(2,'0');
+    var ss = String(d.getSeconds()).padStart(2,'0');
+    el.textContent = 'Online · ' + hh + ':' + mm + ':' + ss;
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
+
+</body>
+</html>

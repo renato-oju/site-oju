@@ -10,10 +10,12 @@
 
 ### 1.1 Fontes
 
-| Uso | Fonte | Fallback |
-|---|---|---|
-| Títulos (H1, H2, H3, hero, destaques) | Okomito Next (bold) | Helvetica Neue, Arial, sans-serif |
-| Corpo de texto, parágrafos, botões | Helvetica Neue (ou system font) | Arial, sans-serif |
+| Uso | Fonte | Fallback | Variável CSS |
+|---|---|---|---|
+| Títulos (H1, H2, H3, hero, destaques) | Okomito Next (bold) | Helvetica Neue, Arial, sans-serif | `--font-display` |
+| Corpo de texto, parágrafos, botões, legendas | system-ui (fonte nativa do sistema) | -apple-system, 'Segoe UI', Roboto, Arial, sans-serif | `--font-body` |
+
+**Decisão (confirmada):** o corpo de texto usa a pilha de fontes nativas do sistema (`system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif`) — é o padrão que já era usado no OJU Packshot e deve ser **o único padrão em todo o site**, substituindo qualquer declaração antiga de `'Helvetica Neue'` como fonte primária. Toda página deve declarar `--font-body` com exatamente essa pilha (ver `agencia.html` para referência de implementação).
 
 **Achado na auditoria:** o arquivo fonte (`Okomito-Bold.woff2`) está sendo declarado três vezes com pesos diferentes (700, 800, 900) apontando para o **mesmo arquivo físico** — ou seja, hoje não existe variação real de peso, é o mesmo arquivo "fingindo" ser 3 pesos.
 
@@ -25,15 +27,15 @@
 
 **Regra normalizada — escala de 5 níveis:**
 
-| Nível | Uso | Tamanho (mobile → desktop) | Peso |
-|---|---|---|---|
-| Display | Hero principal (1 por página) | 40px → 90px | 800 |
-| Título 1 | Títulos de seção grandes (ex: "SEU CATÁLOGO") | 34px → 72px | 800 |
-| Título 2 | Subtítulos de bloco (ex: "Produção e performance...") | 26px → 46px | 800 |
-| Título 3 | Títulos de card / item | 18px → 26px | 800 |
-| Corpo | Texto corrido, parágrafos | 14px → 19px | 400 |
+| Nível | Uso | Tamanho (mobile → desktop) | Peso | Variável CSS |
+|---|---|---|---|---|
+| Display | Hero principal (1 por página) | 40px → 90px | 800 | `--tipo-display` |
+| Título 1 | Títulos de seção grandes (ex: "SEU CATÁLOGO") | 34px → 72px | 800 | `--tipo-titulo-1` |
+| Título 2 | Subtítulos de bloco (ex: "Produção e performance...") | 26px → 46px | 800 | `--tipo-titulo-2` |
+| Título 3 | Títulos de card / item | 18px → 26px | 800 | `--tipo-titulo-3` |
+| Corpo | Texto corrido, parágrafos | 14px → 19px | 400 | `--tipo-corpo` |
 
-Cada nível usa `clamp(mínimo, valor-fluido, máximo)` com o mesmo padrão de unidade fluida (`vw`), evitando que cada bloco invente sua própria curva de escala.
+Cada nível usa `clamp(mínimo, valor-fluido, máximo)` com o mesmo padrão de unidade fluida (`vw`), evitando que cada bloco invente sua própria curva de escala. **Toda página nova deve declarar essas 5 variáveis em `:root` com os valores exatos acima** — nenhum título/subtítulo deve usar um `clamp()` "solto" fora dessas 5 variáveis, garantindo que a proporção entre títulos e subtítulos seja sempre a mesma em todas as páginas do site.
 
 ### 1.3 Estilo de texto
 
@@ -101,6 +103,24 @@ Padrão único de card (visto em `catalogo.html`, aplicável a Produção/Agênc
 - Estrutura de "stack" de cards rotativos (visto no Packshot) é um componente interativo válido e reutilizável — pode servir de referência para o carrossel de serviços da página de Produção (Decisão 11).
 
 ---
+
+### 3.4 Navegação (header fixo)
+
+Padrão único em todas as páginas internas (referência de implementação: `agencia.html`):
+- Header fixo no topo, 64px de altura, fundo branco sólido, borda inferior sutil (`rgba(0,0,0,.08)`).
+- Logo "OJU" em pastilha amarela (`cor-destaque`) à esquerda, linkando para a página de entrada (`index-portal.html`).
+- Links: Produção · Agência · Hub · Orçamento · Packshot — a página atual recebe `is-current` (texto preto + sublinhado amarelo fixo).
+- CTA "+ Fale com a gente" à direita (revela o footer via scroll).
+- Mobile (≤760px): menu burger em tela cheia com fundo preto.
+- Como o header é fixo, a primeira seção da página precisa compensar os 64px (`margin-top: 64px`).
+
+### 3.5 Footer revelado (curtain reveal)
+
+Padrão único em todas as páginas internas (referência: `agencia.html`):
+- O conteúdo vive numa `.page-shell` (z-index 1, cantos inferiores arredondados) que cobre um palco escuro fixo (`.reveal-stage`) e o footer fixo (`.reveal-footer`, ambos z-index 0).
+- **Regra estrutural importante:** o espaço de scroll da zona de revelação é criado por um `div.reveal-spacer` transparente **em fluxo, depois da shell** — nunca por `margin-bottom` (o navegador ignora margem no cálculo da área rolável) nem por `padding-bottom` (o fundo branco da shell pintaria por cima do footer).
+- A altura do spacer (`1.35 × altura do footer`) e o parallax são calculados via JS; páginas com mídia que carrega tarde (vídeos, widgets externos como Cal.com) devem recalcular a medição com `ResizeObserver` na shell.
+- Conteúdo do footer: lead "VAMOS CRIAR JUNTOS." + CTA pílula amarela, colunas Áreas/Redes/Contato, marca d'água "OJU" e barra inferior de copyright.
 
 ## 4. Espaçamento e layout
 

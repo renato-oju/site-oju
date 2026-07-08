@@ -1,0 +1,211 @@
+<!-- Fragmento do modal de demonstracao. Carregado sob demanda (fetch) quando o usuario abre a demo, para nao pesar o carregamento inicial da pagina. -->
+<section class="showcase" aria-label="Exposicao de catalogo">
+  <div class="showcase__inner">
+    <div class="showcase__shell">
+      <div class="showcase__left">
+        <div class="showcase__viewport" id="showcase-viewport">
+          <img class="showcase__image" id="showcase-image" src="midia/packshot/foto.jpg" alt="Preview do produto" loading="lazy" decoding="async" />
+
+          <video class="showcase__video" id="showcase-video" preload="metadata" controls playsinline>
+            <source src="midia/intro_hero.mp4" type="video/mp4" />
+          </video>
+
+          <iframe class="showcase__iframe" id="showcase-iframe" title="Visualizacao 3D" style="border:0;width:100%;height:100%;display:block"></iframe>
+        </div>
+
+        <div class="showcase__controls" aria-label="Controles de exibicao">
+          <div class="showcase__modes" role="tablist" aria-label="Tipo de visualizacao">
+            <button class="showcase__mode is-active" type="button" data-mode="photos">FOTOS</button>
+            <button class="showcase__mode" type="button" data-mode="video">VIDEO</button>
+            <button class="showcase__mode" type="button" data-mode="three">3D</button>
+          </div>
+
+          <div class="showcase__nav">
+            <div class="showcase__count" id="showcase-count">1/5</div>
+            <button class="showcase__arrow" type="button" id="showcase-prev" aria-label="Foto anterior">&#8592;</button>
+            <button class="showcase__arrow" type="button" id="showcase-next" aria-label="Proxima foto">&#8594;</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="showcase__right" aria-label="Detalhes do projeto">
+        <div class="showcase__head">
+          <h2>CATALOGO DEMO</h2>
+          <button class="showcase__close" type="button" aria-label="Fechar demonstracao">+</button>
+        </div>
+
+        <div class="showcase__content">
+          <h3>Descricao</h3>
+          <p>
+            Texto generico para descricao do produto e da campanha. Substitua este conteudo
+            com informacoes finais sobre proposta, objetivos e detalhes comerciais.
+          </p>
+          <p>
+            Este bloco foi pensado para simular uma pagina de vendas com foco em visualizacao
+            de catalogo, mantendo a mesma linguagem do restante do site.
+          </p>
+
+          <div class="showcase__line"><span>DIFERENCIAIS</span><button type="button" aria-label="Abrir diferenciais">+</button></div>
+          <div class="showcase__line"><span>ESCOPO</span><button type="button" aria-label="Abrir escopo">+</button></div>
+          <div class="showcase__line"><span>REQUISITOS</span><button type="button" aria-label="Abrir requisitos">+</button></div>
+          <div class="showcase__line"><span>EXTRAS</span><button type="button" aria-label="Abrir extras">+</button></div>
+        </div>
+
+        <div class="showcase__footer">
+          <a class="showcase__cta" href="#">START BRIEF &#8594;</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <style>
+    .showcase{ background:#fff; color:#000; padding: 0 0 clamp(44px, 7vw, 96px); }
+    .showcase__inner{ width: calc(100% - 2 * var(--site-side)); margin-left: var(--site-side); margin-right: var(--site-side); }
+    .showcase__shell{ border:1px solid #000; display:grid; grid-template-columns: 2fr 1fr; background:#fff; }
+
+    .showcase__left{ border-right:1px solid #000; background:#ececee; display:flex; flex-direction:column; }
+    .showcase__viewport{ position:relative; min-height: clamp(420px, 62vw, 880px); }
+    .showcase__image,
+    .showcase__video,
+    .showcase__iframe{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .showcase__video,
+    .showcase__iframe{ display:none; }
+
+    .showcase__controls{ display:flex; justify-content:space-between; align-items:stretch; border-top:1px solid #000; background:#f7f7f8; }
+    .showcase__modes{ display:flex; }
+    .showcase__mode{ border:0; border-right:1px solid #000; background:#f7f7f8; color:#000; font-weight:700; letter-spacing:.04em; padding:18px 22px; cursor:pointer; }
+    .showcase__mode.is-active{ background:#000; color:#fff; }
+
+    .showcase__nav{ display:grid; grid-template-columns: minmax(96px,auto) 84px 84px; }
+    .showcase__count,
+    .showcase__arrow{ border:0; border-left:1px solid #000; display:flex; align-items:center; justify-content:center; background:#f7f7f8; font-size:34px; }
+    .showcase__count{ font-size:36px; font-family: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif; line-height:1; padding: 0 16px; }
+    .showcase__arrow{ cursor:pointer; }
+
+    .showcase__right{ display:flex; flex-direction:column; min-height:100%; background:#f4f4f5; }
+    .showcase__head{ border-bottom:1px solid #000; display:grid; grid-template-columns: 1fr 86px; }
+    .showcase__head h2{ margin:0; padding:24px 20px; font-size: clamp(30px, 2.8vw, 54px); line-height:.95; font-weight:800; text-transform:uppercase; }
+    .showcase__close{ border:0; border-left:1px solid #000; background:transparent; font-size:54px; line-height:1; cursor:pointer; transform: rotate(45deg); }
+
+    .showcase__content{ padding:26px 20px 20px; }
+    .showcase__content h3{ margin:0 0 14px; font-size:36px; line-height:1; font-weight:800; }
+    .showcase__content p{ margin:0 0 16px; color:rgba(0,0,0,.78); font-size:17px; line-height:1.5; }
+    .showcase__line{ display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(0,0,0,.2); padding:15px 0; font-weight:700; }
+    .showcase__line:last-child{ border-bottom:1px solid rgba(0,0,0,.2); }
+    .showcase__line button{ border:0; background:transparent; font-size:34px; line-height:1; cursor:pointer; }
+
+    .showcase__footer{ margin-top:auto; border-top:1px solid #000; padding:20px; }
+    .showcase__cta{ display:block; width:100%; box-sizing:border-box; background:#000; color:#fff; text-align:center; padding:18px 22px; text-decoration:none; font-weight:700; letter-spacing:.02em; }
+
+    @media (max-width:1200px){
+      .showcase__shell{ grid-template-columns: 1fr; }
+      .showcase__left{ border-right:0; border-bottom:1px solid #000; }
+      .showcase__viewport{ min-height: clamp(360px, 64vw, 720px); }
+      .showcase__head h2{ font-size: clamp(26px, 7vw, 44px); }
+      .showcase__content h3{ font-size: clamp(28px, 8vw, 40px); }
+    }
+
+    @media (max-width:900px){
+      .showcase__inner{ margin-left: clamp(24px,6vw,40px); margin-right: clamp(24px,6vw,40px); width: calc(100% - 2 * clamp(24px,6vw,40px)); }
+      .showcase__controls{ flex-direction:column; }
+      .showcase__modes{ width:100%; }
+      .showcase__mode{ flex:1; border-bottom:1px solid #000; }
+      .showcase__nav{ grid-template-columns: 1fr 74px 74px; }
+      .showcase__count{ font-size:32px; }
+    }
+  </style>
+
+  <script>
+    (function(){
+      var root = document.currentScript && document.currentScript.closest('.showcase');
+      if(!root){
+        var all = document.querySelectorAll('.showcase');
+        root = all[all.length - 1];
+      }
+      if(!root) return;
+
+      var photos = [
+        'midia/packshot/foto.jpg',
+        'midia/packshot/foto_site_tennis.jpg',
+        'midia/packshot/foto.jpg',
+        'midia/packshot/foto_site_tennis.jpg',
+        'midia/packshot/foto.jpg'
+      ];
+
+      var mode = 'photos';
+      var index = 0;
+      var iframeLoaded = false;
+
+      var image = root.querySelector('#showcase-image');
+      var video = root.querySelector('#showcase-video');
+      var iframe = root.querySelector('#showcase-iframe');
+      var count = root.querySelector('#showcase-count');
+      var prev = root.querySelector('#showcase-prev');
+      var next = root.querySelector('#showcase-next');
+      var modeButtons = root.querySelectorAll('.showcase__mode');
+      var nav = root.querySelector('.showcase__nav');
+
+      function render(){
+        modeButtons.forEach(function(btn){
+          btn.classList.toggle('is-active', btn.getAttribute('data-mode') === mode);
+        });
+
+        if(mode === 'photos'){
+          image.style.display = 'block';
+          video.style.display = 'none';
+          iframe.style.display = 'none';
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'auto';
+          image.src = photos[index];
+          count.textContent = (index + 1) + '/' + photos.length;
+          try{ video.pause(); }catch(e){}
+          return;
+        }
+
+        image.style.display = 'none';
+        nav.style.opacity = '.45';
+        nav.style.pointerEvents = 'none';
+
+        if(mode === 'video'){
+          video.style.display = 'block';
+          iframe.style.display = 'none';
+          if(!video.currentTime){
+            try{ video.play(); }catch(e){}
+          }
+          count.textContent = 'VIDEO';
+          return;
+        }
+
+        video.style.display = 'none';
+        iframe.style.display = 'block';
+        try{ video.pause(); }catch(e){}
+        if(!iframeLoaded){
+          iframe.src = 'bontempo.html';
+          iframeLoaded = true;
+        }
+        count.textContent = '3D';
+      }
+
+      prev.addEventListener('click', function(){
+        if(mode !== 'photos') return;
+        index = (index - 1 + photos.length) % photos.length;
+        render();
+      });
+
+      next.addEventListener('click', function(){
+        if(mode !== 'photos') return;
+        index = (index + 1) % photos.length;
+        render();
+      });
+
+      modeButtons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          mode = btn.getAttribute('data-mode');
+          render();
+        });
+      });
+
+      render();
+    })();
+  </script>
+</section>

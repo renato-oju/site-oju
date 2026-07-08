@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agência 02 (referência) — OJU</title>
+
+<style>
+
+/* ===== Sistema de Design OJU — variáveis ===== */
+:root{
+  --site-side: clamp(48px, 7vw, 120px);
+  --font-display: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --cor-texto-principal: #000000;
+  --cor-texto-secundario: rgba(0,0,0,0.74);
+  --cor-texto-terciario: rgba(0,0,0,0.65);
+  --cor-borda: #000000;
+  --cor-fundo-primario: #FFFFFF;
+  --cor-fundo-secundario: #F4F4F5;
+  --cor-overlay-escuro: rgba(0,0,0,0.38);
+  --cor-destaque: #FEC200;
+  --tipo-display: clamp(40px, 6vw, 90px);
+  --tipo-titulo-1: clamp(34px, 4.6vw, 72px);
+  --tipo-titulo-2: clamp(26px, 3vw, 46px);
+  --tipo-titulo-3: clamp(18px, 2.1vw, 26px);
+  --tipo-corpo: clamp(14px, 1.2vw, 19px);
+}
+
+@font-face{
+  font-family: 'Okomito Next';
+  src: url('fonts/Okomito-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; background:var(--cor-fundo-primario); color:var(--cor-texto-principal); font-family:var(--font-body); }
+h1, h2, h3{ font-family: var(--font-display); font-weight:800; margin:0; }
+img, video{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+
+.btn{
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: clamp(54px, 6vw, 68px);
+  padding: 14px 22px;
+  border: 1px solid var(--cor-borda);
+  font: inherit;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.btn--primario{ background:var(--cor-texto-principal); color:#fff; }
+.btn--primario:hover{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario:hover{ background:var(--cor-texto-principal); color:#fff; }
+
+.container{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+}
+
+/* ===== NAV ===== */
+.site-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.site-nav__wrap{
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 0;
+}
+.nav-logo{ flex-shrink:0; margin-right: auto; }
+.nav-logo__mark{
+  display: inline-block;
+  background: var(--cor-destaque);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  padding: 7px 11px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition: opacity .2s ease;
+}
+.nav-logo:hover .nav-logo__mark{ opacity: .85; }
+.nav-links{
+  display: flex;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  margin: 0 clamp(24px, 3.5vw, 56px);
+}
+.nav-link{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: rgba(0,0,0,.55);
+  position: relative;
+  transition: color .2s ease;
+}
+.nav-link::after{
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--cor-destaque);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+.nav-link:hover{ color: #000; }
+.nav-link:hover::after{ transform: scaleX(1); }
+.nav-link.is-current{ color: #000; }
+.nav-link.is-current::after{ transform: scaleX(1); }
+.nav-cta{
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #000;
+  border: 1px solid rgba(0,0,0,.22);
+  padding: 10px 20px;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
+.nav-burger{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-burger__bar{
+  display: block;
+  width: 22px; height: 2px;
+  background: #000;
+  transition: transform .3s ease;
+}
+.site-nav.menu-open .nav-burger__bar:first-child{ transform: rotate(45deg) translate(4px, 4px); }
+.site-nav.menu-open .nav-burger__bar:last-child{ transform: rotate(-45deg) translate(4px, -4px); }
+@media (max-width: 760px){
+  .nav-links, .nav-cta{ display: none; }
+  .nav-burger{ display: flex; }
+  .site-nav.menu-open .nav-links{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.96);
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 99;
+    margin: 0;
+  }
+  .site-nav.menu-open .nav-link{
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .site-nav.menu-open .nav-link::after{ bottom: -6px; }
+}
+
+/* ===== PAGE SHELL ===== */
+.page-shell{
+  position: relative;
+  z-index: 1;
+  background: var(--cor-fundo-primario);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+}
+
+/* ===== HERO ===== */
+.ag-hero{
+  margin-top: 64px;
+  padding-top: clamp(56px, 10vh, 100px);
+  padding-bottom: clamp(48px, 8vh, 80px);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  background: var(--cor-fundo-primario);
+}
+.ag-hero__inner{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: clamp(32px, 5vw, 64px);
+}
+.ag-hero__left{}
+.ag-hero__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(16px, 2.5vh, 28px);
+  font-family: var(--font-body);
+}
+.ag-hero__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 10vw, 160px);
+  line-height: .88;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+  color: #000;
+  margin: 0;
+}
+.ag-hero__right{
+  padding-bottom: clamp(6px, 1vw, 12px);
+}
+.ag-hero__sub{
+  font-size: clamp(20px, 2.4vw, 36px);
+  line-height: 1.25;
+  color: rgba(0,0,0,.45);
+  font-weight: 400;
+  margin: 0;
+  max-width: 18ch;
+}
+@media (max-width: 760px){
+  .ag-hero__inner{
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 4vh, 32px);
+  }
+  .ag-hero__sub{
+    max-width: 24ch;
+  }
+}
+
+/* ===== TESE CENTRAL ===== */
+.ag-tese{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.ag-tese__inner{
+  display: grid;
+  grid-template-columns: 1fr 2.4fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+.ag-tese__label{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  padding-top: .3em;
+}
+.ag-tese__body{}
+.ag-tese__lead{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 3.6vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  color: #000;
+  margin: 0 0 clamp(20px, 2.5vw, 32px);
+}
+.ag-tese__lead em{
+  font-style: normal;
+  color: var(--cor-destaque);
+  -webkit-text-stroke: 0;
+}
+.ag-tese__text{
+  font-size: clamp(15px, 1.3vw, 20px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.55);
+  max-width: 52ch;
+  margin: 0;
+}
+@media (max-width: 760px){
+  .ag-tese__inner{
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 3vw, 24px);
+  }
+}
+
+/* ===== CÉLULA DEDICADA ===== */
+.ag-celula{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-secundario);
+}
+.ag-celula__header{
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.ag-celula__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.ag-celula__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.ag-celula__intro{
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(0,0,0,.55);
+  margin: 0;
+  max-width: 48ch;
+  line-height: 1.5;
+}
+.ag-celula__roles{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+.ag-celula__role{
+  background: var(--cor-fundo-secundario);
+  padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ag-celula__role-num{
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+}
+.ag-celula__role-name{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(16px, 1.6vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: #000;
+}
+.ag-celula__note{
+  font-size: clamp(12px, 1vw, 15px);
+  color: rgba(0,0,0,.42);
+  margin: 0;
+  max-width: 72ch;
+  line-height: 1.55;
+  border-left: 2px solid rgba(0,0,0,.12);
+  padding-left: clamp(14px, 1.5vw, 20px);
+}
+@media (max-width: 860px){
+  .ag-celula__roles{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px){
+  .ag-celula__roles{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== GESTÃO DE INFLUENCIADORES ===== */
+.ag-influ{
+  padding-block: clamp(64px, 9vw, 112px);
+  background: #0c0c0c;
+  color: #fff;
+  border-bottom: none;
+}
+.ag-influ__inner{
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.ag-influ__left{}
+.ag-influ__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin: 0 0 clamp(14px, 1.8vw, 22px);
+}
+.ag-influ__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: .95;
+  color: #fff;
+  margin: 0;
+}
+.ag-influ__title em{
+  font-style: normal;
+  color: var(--cor-destaque);
+}
+.ag-influ__right{}
+.ag-influ__text{
+  font-size: clamp(15px, 1.3vw, 20px);
+  line-height: 1.6;
+  color: rgba(255,255,255,.6);
+  margin: 0 0 clamp(24px, 3vw, 36px);
+  max-width: 46ch;
+}
+.ag-influ__tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ag-influ__tag{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 8px 14px;
+}
+@media (max-width: 760px){
+  .ag-influ__inner{
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 48px);
+  }
+}
+
+/* ===== PROVA SOCIAL — BREVANT ===== */
+.ag-brevant{
+  border-top: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(40px, 5.5vw, 64px);
+  background: var(--cor-fundo-primario);
+}
+.ag-brevant__inner{
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 5vw, 64px);
+  flex-wrap: wrap;
+}
+.ag-brevant__stat{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(56px, 7vw, 110px);
+  letter-spacing: -.04em;
+  line-height: 1;
+  color: #000;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ag-brevant__divider{
+  width: 1px;
+  height: clamp(48px, 6vw, 80px);
+  background: rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+.ag-brevant__text{
+  flex: 1;
+  min-width: 200px;
+}
+.ag-brevant__label{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 8px;
+}
+.ag-brevant__desc{
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.45;
+  color: rgba(0,0,0,.65);
+  margin: 0;
+  max-width: 42ch;
+}
+.ag-brevant__logo{
+  width: clamp(80px, 8vw, 120px);
+  height: clamp(28px, 3vw, 40px);
+  background: var(--cor-fundo-secundario);
+  flex-shrink: 0;
+}
+@media (max-width: 640px){
+  .ag-brevant__divider{ display: none; }
+}
+
+/* ===== CTA INTERMEDIÁRIO ===== */
+.ag-cta-mid{
+  padding-block: clamp(64px, 9vw, 112px);
+  background: var(--cor-fundo-secundario);
+  text-align: center;
+}
+.ag-cta-mid__inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 3.5vw, 44px);
+}
+.ag-cta-mid__question{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(22px, 2.8vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  color: #000;
+  margin: 0;
+  max-width: 22ch;
+  text-transform: uppercase;
+}
+
+/* ===== FOOTER REVELADO (idêntico à Home) ===== */
+.reveal-stage{
+  position: fixed; inset: 0; z-index: 0;
+  background: #0c0c0c; pointer-events: none;
+}
+.reveal-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  background: #0c0c0c;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: clamp(28px, 4vw, 60px);
+  border-top-right-radius: clamp(28px, 4vw, 60px);
+  will-change: transform;
+}
+.reveal-footer__inner{
+  width: calc(100% - 2 * var(--site-side));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(14px, 2.5vh, 32px);
+  padding-block: clamp(24px, 4vh, 44px) clamp(14px, 2vh, 22px);
+}
+.reveal-footer__top{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+.reveal-footer__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 62px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__dot{ color: var(--cor-destaque); }
+.reveal-footer__text{
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255,255,255,.6);
+  max-width: 46ch;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+.reveal-footer__cta{
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--cor-destaque); color: #000;
+  font-weight: 700; letter-spacing: .04em;
+  padding: 16px 26px; border-radius: 100px;
+  font-size: 15px;
+  transition: transform .25s ease, background .25s ease;
+}
+.reveal-footer__cta span{ transition: transform .25s ease; }
+.reveal-footer__cta:hover{ background: #fff; }
+.reveal-footer__cta:hover span{ transform: translateX(4px); }
+.reveal-footer__alt{
+  margin: clamp(12px, 1.6vw, 18px) 0 0;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.reveal-footer__alt a{ color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.reveal-footer__alt a:hover{ color: var(--cor-destaque); }
+.reveal-footer__col{ display: flex; flex-direction: column; gap: 8px; }
+.reveal-footer__col-title{
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin: 0 0 6px;
+}
+.reveal-footer__col a{
+  font-size: 15px; color: rgba(255,255,255,.78);
+  width: fit-content; transition: color .2s ease;
+}
+.reveal-footer__col a:hover{ color: var(--cor-destaque); }
+.reveal-footer__addr{ font-size: 15px; color: rgba(255,255,255,.5); margin: 0; }
+.reveal-footer__brand{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(44px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: rgba(255,255,255,.05);
+  user-select: none;
+}
+.reveal-footer__bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__copy{ font-size: 12px; color: rgba(255,255,255,.45); margin: 0; }
+.reveal-footer__bottom-right{ display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+.reveal-footer__bottom-right a,
+.reveal-footer__totop{
+  font: inherit; font-size: 12px; color: rgba(255,255,255,.6);
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .2s ease;
+}
+.reveal-footer__bottom-right a:hover,
+.reveal-footer__totop:hover{ color: #fff; }
+
+@media (max-width: 900px){
+  .reveal-footer__top{ grid-template-columns: 1fr 1fr; row-gap: clamp(32px, 6vw, 48px); }
+  .reveal-footer__lead{ grid-column: 1 / -1; }
+  .reveal-footer__brand{ font-size: clamp(80px, 30vw, 200px); }
+}
+@media (max-width: 520px){
+  .reveal-footer__top{ grid-template-columns: 1fr; }
+}
+
+.lenis, .lenis-smooth{ scroll-behavior: auto !important; }
+
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="site-nav" id="site-nav" role="banner">
+  <div class="site-nav__wrap container">
+    <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
+      <span class="nav-logo__mark">OJU</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Principal">
+      <a class="nav-link" href="producao.html">Produção</a>
+      <a class="nav-link is-current" href="agencia.html" aria-current="page">Agência</a>
+      <a class="nav-link" href="hub.html">Hub</a>
+      <a class="nav-link" href="orcamento.html">Orçamento</a>
+      <a class="nav-link" href="packshot.html">Packshot</a>
+    </nav>
+    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Fale com a gente</a>
+    <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger__bar"></span>
+      <span class="nav-burger__bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== PAGE SHELL ===================== -->
+<main class="page-shell">
+
+<!-- ===================== HERO ===================== -->
+<section class="ag-hero" aria-label="Agência OJU">
+  <div class="ag-hero__inner container">
+    <div class="ag-hero__left">
+      <p class="ag-hero__eyebrow">02 — Agência</p>
+      <h1 class="ag-hero__title">AGÊNCIA</h1>
+    </div>
+    <div class="ag-hero__right">
+      <p class="ag-hero__sub">criação e produção no mesmo lugar</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESE CENTRAL ===================== -->
+<section class="ag-tese" aria-label="Posicionamento">
+  <div class="ag-tese__inner container">
+    <div class="ag-tese__label">posicionamento</div>
+    <div class="ag-tese__body">
+      <p class="ag-tese__lead">Criação, estratégia e produção no mesmo lugar.</p>
+      <p class="ag-tese__text">O processo criativo já nasce entendendo as possibilidades do orçamento. Isso torna o resultado mais rápido, mais coerente e mais econômico.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CÉLULA DEDICADA ===================== -->
+<section class="ag-celula" aria-label="Célula Dedicada">
+  <div class="container">
+    <div class="ag-celula__header">
+      <p class="ag-celula__eyebrow">modelo de trabalho</p>
+      <h2 class="ag-celula__title">CÉLULA DEDICADA</h2>
+      <p class="ag-celula__intro">Uma composição de partida. O tamanho e o perfil da equipe se ajustam ao porte e à necessidade de cada cliente.</p>
+    </div>
+    <div class="ag-celula__roles" role="list">
+      <div class="ag-celula__role" role="listitem">
+        <span class="ag-celula__role-num">01</span>
+        <span class="ag-celula__role-name">Atendimento</span>
+      </div>
+      <div class="ag-celula__role" role="listitem">
+        <span class="ag-celula__role-num">02</span>
+        <span class="ag-celula__role-name">Direção criativa</span>
+      </div>
+      <div class="ag-celula__role" role="listitem">
+        <span class="ag-celula__role-num">03</span>
+        <span class="ag-celula__role-name">Direção de arte</span>
+      </div>
+      <div class="ag-celula__role" role="listitem">
+        <span class="ag-celula__role-num">04</span>
+        <span class="ag-celula__role-name">Copywriter</span>
+      </div>
+    </div>
+    <p class="ag-celula__note">Essa composição é um exemplo de ponto de partida, nunca uma oferta fixa. O tamanho e o perfil da equipe se ajustam ao porte do acordo com cada cliente.</p>
+  </div>
+</section>
+
+<!-- ===================== GESTÃO DE INFLUENCIADORES ===================== -->
+<section class="ag-influ" aria-label="Gestão de Influenciadores">
+  <div class="ag-influ__inner container">
+    <div class="ag-influ__left">
+      <p class="ag-influ__eyebrow">nível máximo da oferta</p>
+      <h2 class="ag-influ__title">GESTÃO DE<br>INFLUENCIADORES</h2>
+    </div>
+    <div class="ag-influ__right">
+      <p class="ag-influ__text">Mapeamento, contratação, negociação e parte jurídica — tudo conectado à estrutura audiovisual da OJU. A produção dos conteúdos dos influenciadores acontece internamente.</p>
+      <div class="ag-influ__tags" aria-label="Escopo incluído">
+        <span class="ag-influ__tag">Mapeamento</span>
+        <span class="ag-influ__tag">Contratação</span>
+        <span class="ag-influ__tag">Negociação</span>
+        <span class="ag-influ__tag">Jurídico</span>
+        <span class="ag-influ__tag">Produção interna</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROVA SOCIAL — BREVANT ===================== -->
+<section class="ag-brevant" aria-label="Prova social">
+  <div class="ag-brevant__inner container">
+    <p class="ag-brevant__stat" aria-label="5 anos de parceria">5 anos</p>
+    <div class="ag-brevant__divider" aria-hidden="true"></div>
+    <div class="ag-brevant__text">
+      <p class="ag-brevant__label">prova real</p>
+      <p class="ag-brevant__desc">Do documentário inicial à célula dedicada de hoje. Brevant Sementes — Corteva.</p>
+    </div>
+    <div class="ag-brevant__logo" aria-label="Logo Brevant Sementes"></div>
+  </div>
+</section>
+
+<!-- ===================== CTA INTERMEDIÁRIO ===================== -->
+<section class="ag-cta-mid" aria-label="Contato">
+  <div class="ag-cta-mid__inner container">
+    <p class="ag-cta-mid__question">quer conversar sobre uma estrutura sob medida?</p>
+    <a class="btn btn--primario" href="#site-footer" data-action="reveal">fale com a gente</a>
+  </div>
+</section>
+
+</main><!-- /.page-shell -->
+
+<!-- Spacer transparente: cria o espaço de scroll da zona de reveal SEM pintar nada
+     (margin-bottom não conta na área rolável; padding pintava a shell por cima do footer) -->
+<div class="reveal-spacer" id="reveal-spacer" aria-hidden="true"></div>
+
+<!-- ===================== FOOTER REVELADO ===================== -->
+<div class="reveal-stage" aria-hidden="true"></div>
+<footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
+  <div class="reveal-footer__inner container">
+
+    <div class="reveal-footer__top">
+      <div class="reveal-footer__lead">
+        <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
+        <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
+        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+      </div>
+
+      <nav class="reveal-footer__col" aria-label="Áreas">
+        <p class="reveal-footer__col-title">Áreas</p>
+        <a href="producao.html">Produção</a>
+        <a href="agencia.html">Agência</a>
+        <a href="hub.html">OJU Hub</a>
+        <a href="packshot.html">OJU Packshot</a>
+      </nav>
+
+      <nav class="reveal-footer__col" aria-label="Redes sociais">
+        <p class="reveal-footer__col-title">Redes</p>
+        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="reveal-footer__col">
+        <p class="reveal-footer__col-title">Contato</p>
+        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
+        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="reveal-footer__addr">São Paulo · Brasil</p>
+      </div>
+    </div>
+
+    <div class="reveal-footer__brand" aria-hidden="true">OJU</div>
+
+    <div class="reveal-footer__bottom">
+      <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
+      <div class="reveal-footer__bottom-right">
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Lenis — smooth scroll de toda a página (referência awsmd.com) -->
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+
+  /* --- Lenis: anima a posição real de scroll (sem wrapper virtual),
+     então o resto do JS abaixo (parallax do footer) continua lendo
+     window.pageYOffset normalmente — só a transição fica suave. */
+  var lenis = new Lenis({
+    duration: 1.1,
+    easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
+    smoothWheel: true
+  });
+  function raf(time){
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  /* --- Footer parallax: idêntico à Home ---
+     Mesma mecânica: shell fixa, footer sobe topo-primeiro a 0.74× do scroll. */
+  var shell  = document.querySelector('.page-shell');
+  var spacer = document.getElementById('reveal-spacer');
+  var footer = document.getElementById('site-footer');
+
+  var _footerH = 0, _Z = 0, _zoneStart = 0;
+  var _target = 0, _current = 0, _applied = -1;
+
+  function measureFooter(){
+    if(!footer || !shell) return;
+    _footerH = footer.offsetHeight;
+    _Z = _footerH * 1.35;
+    if(spacer) spacer.style.height = _Z + 'px';
+    var scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    _zoneStart = scrollMax - _Z;
+  }
+  function computeTarget(){
+    if(!_footerH) return;
+    var p = Math.max(0, Math.min(1, (window.pageYOffset - _zoneStart) / _Z));
+    _target = _footerH * (1 - p);
+  }
+  function footerLoop(){
+    computeTarget();
+    _current = _target;
+    if(footer && Math.abs(_current - _applied) >= 0.05){
+      _applied = _current;
+      footer.style.transform = 'translateY(' + _current + 'px)';
+    }
+    requestAnimationFrame(footerLoop);
+  }
+  function initFooter(){
+    measureFooter();
+    computeTarget();
+    _current = _target;
+    if(footer){ footer.style.transform = 'translateY(' + _current + 'px)'; }
+  }
+  initFooter();
+  requestAnimationFrame(footerLoop);
+  window.addEventListener('resize', measureFooter, { passive: true });
+  window.addEventListener('load',   initFooter);
+
+  /* --- CTAs que revelam o footer --- */
+  function revealFooter(){
+    lenis.scrollTo(document.documentElement.scrollHeight, { duration: 1.4 });
+  }
+  document.querySelectorAll('[data-action="reveal"], [data-action="contato"], [data-action="agendar"]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
+  });
+
+  /* --- Voltar ao topo --- */
+  var toTop = document.querySelector('[data-action="totop"]');
+  if(toTop){
+    toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
+  }
+
+  /* --- Nav: burger mobile --- */
+  var nav     = document.getElementById('site-nav');
+  var burger  = document.querySelector('.nav-burger');
+  var navLinks = document.getElementById('nav-links');
+  if(nav && burger && navLinks){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click', function(){
+        nav.classList.remove('menu-open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
