@@ -2,3 +2,4 @@
 *.DS_Store
 serve.py
 node_modules/
+*.zip

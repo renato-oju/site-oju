@@ -116,38 +116,76 @@ a{ color:inherit; text-decoration:none; }
   <div class="hero__fade-bottom" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow">agência e produtora audiovisual</p>
-    <h1 class="hero__title">
-      <span class="hero__title-line hero__title-line--a">CRIAÇÃO E</span>
-      <span class="hero__title-line hero__title-line--b">PRODUÇÃO</span>
-      <span class="hero__title-line hero__title-line--c">NO MESMO LUGAR<span class="hero__title-dot">.</span></span>
-    </h1>
-    <div class="hero__actions">
-      <button class="btn btn--hero-primario" type="button" data-action="contato">FALE COM A GENTE</button>
-      <button class="btn btn--hero-secundario" type="button" data-action="agendar">AGENDAR CONVERSA</button>
-    </div>
-  </div>
+    <div class="hero__split">
+      <div class="hero__main">
+        <p class="hero__eyebrow">agência oju</p>
+        <h1 class="hero__title">
+          <span class="hero__title-line hero__title-line--a">SEU CALENDÁRIO</span>
+          <span class="hero__title-line hero__title-line--b">DIGITAL,</span>
+          <span class="hero__title-line hero__title-line--c">RESOLVIDO<span class="hero__title-dot">.</span></span>
+        </h1>
+        <p class="hero__subtitle">Uma agenda de conteúdo inteira, cuidada pelo mesmo time do início ao fim: estratégia, roteiro, produção e entrega, tudo dentro da mesma casa.</p>
+      </div>
 
-  <div class="hero__preview-card" aria-label="Showreel OJU">
-    <div class="hero__preview-thumb">
-      <button class="hero__preview-play" aria-label="Assistir showreel">
-        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="18" cy="18" r="17" stroke="white" stroke-opacity="0.7" stroke-width="1.5"/>
-          <path d="M15 12L24 18L15 24V12Z" fill="white"/>
-        </svg>
-      </button>
+      <div class="hero__divider" aria-hidden="true"></div>
+
+      <!-- Vídeo tour: substitui os antigos botões de CTA do Hero. Rola até o
+           vídeo de fundo do Hero ao ser clicado. Visual idêntico ao player
+           do OJU Hub em index-portal.html (.editorial-player). -->
+      <div class="hero__tour" aria-label="Vídeo tour da página">
+        <button class="hero__player" type="button" aria-label="Assistir vídeo tour">
+          <span class="hero__player-frame"></span>
+          <span class="hero__player-caption">
+            <strong>Vídeo Tour</strong>
+          </span>
+        </button>
+      </div>
     </div>
-    <p class="hero__preview-label">OJU — Criação e Produção Audiovisual</p>
   </div>
 </section>
 
-<!-- ===================== TESE CENTRAL (POSICIONAMENTO) ===================== -->
-<section class="ag-tese" aria-label="Posicionamento">
-  <div class="ag-tese__inner container">
-    <div class="ag-tese__label">posicionamento</div>
-    <div class="ag-tese__body">
-      <p class="ag-tese__lead">Criação, estratégia e produção no mesmo lugar.</p>
-      <p class="ag-tese__text">O processo criativo já nasce entendendo as possibilidades do orçamento. Isso torna o resultado mais rápido, mais coerente e mais econômico.</p>
+<!-- ===================== NA PRÁTICA ===================== -->
+<section class="ag-pratica" aria-label="Na prática">
+  <div class="container">
+    <h3 class="ag-creditos__exemplo-titulo">MÉTODO EM QUATRO ETAPAS</h3>
+    <div class="ag-creditos__passos">
+      <div class="ag-creditos__passo">
+        <span class="ag-creditos__passo-numero">01</span>
+        <figure class="ag-creditos__passo-imagem">
+          <video src="midia/agencia/vid_planejamento.mp4" autoplay loop muted playsinline aria-label="Planejamento da diária de captação"></video>
+        </figure>
+        <h4 class="ag-creditos__passo-titulo">Planejamento</h4>
+        <p class="ag-creditos__passo-texto">Definimos com você o que captar: produto, espaço, equipe ou depoimentos.</p>
+      </div>
+      <span class="ag-creditos__seta" aria-hidden="true">→</span>
+      <div class="ag-creditos__passo">
+        <span class="ag-creditos__passo-numero">02</span>
+        <figure class="ag-creditos__passo-imagem">
+          <video src="midia/agencia/vid_produçao.mp4" autoplay loop muted playsinline aria-label="Captação em um dia de set"></video>
+        </figure>
+        <h4 class="ag-creditos__passo-titulo">Captação</h4>
+        <p class="ag-creditos__passo-texto">Um dia de set reúne todo o material planejado.</p>
+        <a class="ag-creditos__passo-link" href="producao.html">Produção OJU <span aria-hidden="true">↗</span></a>
+      </div>
+      <span class="ag-creditos__seta" aria-hidden="true">→</span>
+      <div class="ag-creditos__passo">
+        <span class="ag-creditos__passo-numero">03</span>
+        <figure class="ag-creditos__passo-imagem">
+          <img src="midia/agencia/img_hub.png" alt="Material organizado no acervo do Hub" loading="lazy">
+        </figure>
+        <h4 class="ag-creditos__passo-titulo">Hub</h4>
+        <p class="ag-creditos__passo-texto">O material vira acervo organizado, pronto pra usar.</p>
+        <a class="ag-creditos__passo-link" href="hub.html">Saiba mais <span aria-hidden="true">↗</span></a>
+      </div>
+      <span class="ag-creditos__seta" aria-hidden="true">→</span>
+      <div class="ag-creditos__passo">
+        <span class="ag-creditos__passo-numero">04</span>
+        <figure class="ag-creditos__passo-imagem">
+          <img src="midia/agencia/img_distribuicao.png" alt="Distribuição do acervo em campanhas ao longo do calendário" loading="lazy">
+        </figure>
+        <h4 class="ag-creditos__passo-titulo">Distribuição</h4>
+        <p class="ag-creditos__passo-texto">Para cada data do calendário, transformamos acervo em conteúdo.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -156,29 +194,71 @@ a{ color:inherit; text-decoration:none; }
 <section class="ag-celula" aria-label="Célula Dedicada">
   <div class="container">
     <div class="ag-celula__header">
-      <p class="ag-celula__eyebrow">modelo de trabalho</p>
+      <p class="ag-celula__eyebrow">modelo de partida</p>
       <h2 class="ag-celula__title">CÉLULA DEDICADA</h2>
-      <p class="ag-celula__intro">Uma composição de partida. O tamanho e o perfil da equipe se ajustam ao porte e à necessidade de cada cliente.</p>
     </div>
     <div class="ag-celula__roles" role="list">
       <div class="ag-celula__role" role="listitem">
-        <span class="ag-celula__role-num">01</span>
-        <span class="ag-celula__role-name">Atendimento</span>
+        <div class="ag-celula__role-frame"></div>
+        <div class="ag-celula__role-caption"><strong>Atendimento</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <span class="ag-celula__role-num">02</span>
-        <span class="ag-celula__role-name">Direção criativa</span>
+        <div class="ag-celula__role-frame"></div>
+        <div class="ag-celula__role-caption"><strong>Direção criativa</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <span class="ag-celula__role-num">03</span>
-        <span class="ag-celula__role-name">Direção de arte</span>
+        <div class="ag-celula__role-frame"></div>
+        <div class="ag-celula__role-caption"><strong>Direção de arte</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <span class="ag-celula__role-num">04</span>
-        <span class="ag-celula__role-name">Copywriter</span>
+        <div class="ag-celula__role-frame"></div>
+        <div class="ag-celula__role-caption"><strong>Copywriter</strong></div>
       </div>
     </div>
-    <p class="ag-celula__note">Essa composição é um exemplo de ponto de partida, nunca uma oferta fixa. O tamanho e o perfil da equipe se ajustam ao porte do acordo com cada cliente.</p>
+    <p class="ag-celula__intro">O time se forma pro seu projeto e acompanha seu calendário.<br>O tamanho e o perfil se ajustam ao porte e à necessidade de cada cliente.</p>
+  </div>
+</section>
+
+<!-- ===================== MODELO DE CRÉDITOS (MODELO DE NEGÓCIO) ===================== -->
+<section class="ag-creditos" aria-label="Modelo de créditos">
+  <div class="container">
+    <div class="ag-creditos__header">
+      <div class="ag-creditos__header-text">
+        <p class="ag-creditos__eyebrow">modelo de negócio</p>
+        <h2 class="ag-creditos__title">PLANEJAMENTO<br>EM CRÉDITOS</h2>
+        <p class="ag-creditos__intro">Em vez de orçar cada campanha isoladamente, você opera com um saldo de créditos que cobre o seu calendário. Uma moeda única, que vira criação, produção e acervo organizado.</p>
+      </div>
+      <div class="ag-creditos__header-media">
+        <div class="ag-creditos__header-badge">
+          <span class="ag-creditos__header-badge-num">240</span>
+          <span class="ag-creditos__header-badge-label">créditos</span>
+        </div>
+      </div>
+    </div>
+    <div class="ag-creditos__blocos" role="list">
+      <div class="ag-creditos__bloco" role="listitem">
+        <span class="ag-creditos__bloco-numbg" aria-hidden="true">01</span>
+        <span class="ag-creditos__bloco-num">01</span>
+        <h3 class="ag-creditos__bloco-title">UM SALDO, UM PERÍODO</h3>
+        <p class="ag-creditos__bloco-text">Definimos juntos as datas e campanhas que importam no seu ano. O planejamento vira um saldo de créditos — e cada entrega consome dele, sem nova negociação a cada job.</p>
+      </div>
+      <div class="ag-creditos__bloco" role="listitem">
+        <span class="ag-creditos__bloco-numbg" aria-hidden="true">02</span>
+        <span class="ag-creditos__bloco-num">02</span>
+        <h3 class="ag-creditos__bloco-title">CRÉDITO VIRA ENTREGA</h3>
+        <p class="ag-creditos__bloco-text">O mesmo crédito atravessa todo o ecossistema OJU: pode virar uma campanha completa, um vídeo avulso ou a organização do seu acervo no Hub. Você decide onde investir, a cada momento.</p>
+      </div>
+      <div class="ag-creditos__bloco" role="listitem">
+        <span class="ag-creditos__bloco-numbg" aria-hidden="true">03</span>
+        <span class="ag-creditos__bloco-num">03</span>
+        <h3 class="ag-creditos__bloco-title">PREVISIBILIDADE DOS DOIS LADOS</h3>
+        <p class="ag-creditos__bloco-text">Você sabe quanto vai investir no período e o que tem disponível. A gente já entra em cada campanha sabendo o que cabe. Menos negociação repetida, mais tempo criando.</p>
+      </div>
+    </div>
+    <div class="ag-creditos__cta">
+      <a class="btn btn--primario" href="orcamento.html">SIMULE SEU ORÇAMENTO</a>
+      <p class="ag-creditos__alt">Prefere conversar antes? Agende um papo de 30 minutos no fim da página.</p>
+    </div>
   </div>
 </section>
 
@@ -470,13 +550,37 @@ a{ color:inherit; text-decoration:none; }
   padding-top: clamp(60px, 10vh, 100px);
   padding-bottom: clamp(64px, 10vh, 100px);
   width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Diagramação em duas metades, separadas por uma linha vertical central:
+   título encostado na linha pela direita, vídeo tour encostado pela esquerda. */
+.hero__split{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: clamp(32px, 5vw, 64px);
+  width: 100%;
+}
+.hero__divider{
+  width: 1px;
+  align-self: stretch;
+  background: rgba(0,0,0,.15);
+}
+.hero__main{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
 }
 .hero__eyebrow{
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: rgba(0,0,0,.45);
-  margin: 0 0 clamp(20px, 3vh, 36px);
+  margin: 0 0 clamp(18px, 2.6vh, 32px);
   font-family: var(--font-body);
 }
 .hero__title{
@@ -486,132 +590,101 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing: -.03em;
   line-height: 1;
   color: #000;
-  margin: 0 0 clamp(32px, 5vh, 56px);
+  margin: 0;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: .08em;
 }
-.hero__title-line{ display: block; font-size: clamp(32px, 4.8vw, 68px); }
+.hero__title-line{ display: block; font-size: clamp(28px, 3.6vw, 58px); }
 .hero__title-dot{ color: var(--cor-destaque); }
-.hero__actions{ display: flex; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 560px){ .hero__title-line{ font-size: clamp(34px, 9vw, 64px); } }
+.hero__subtitle{
+  font-size: clamp(14px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.55);
+  max-width: 42ch;
+  margin: clamp(16px, 2.2vh, 26px) 0 0;
+}
+@media (max-width: 900px){ .hero__subtitle{ max-width: none; } }
 
-/* Botões variante hero */
-.btn--hero-primario{
-  background: #000; color: #fff; border-color: #000;
+/* Vídeo tour (substitui os antigos botões de CTA do Hero) */
+.hero__tour{
+  align-self: center;
+  width: 100%;
+  max-width: 340px;
 }
-.btn--hero-primario:hover{
-  background: transparent; color: #000; border-color: #000;
+@media (max-width: 900px){
+  .hero__split{ grid-template-columns: 1fr; gap: clamp(28px, 6vw, 40px); }
+  .hero__divider{ width: 100%; height: 1px; }
+  .hero__main{ align-items: flex-start; text-align: left; }
+  .hero__title{ align-items: flex-start; }
+  .hero__tour{ max-width: none; }
 }
-.btn--hero-secundario{
-  background: transparent; color: rgba(0,0,0,.7); border-color: rgba(0,0,0,.3);
-}
-.btn--hero-secundario:hover{
-  background: #000; color: #fff; border-color: #000;
-}
-@media (max-width: 560px){ .hero__title-line{ font-size: clamp(40px, 12vw, 80px); } }
 
-/* Card de preview flutuante */
-.hero__preview-card{
-  position: absolute;
-  bottom: clamp(80px, 12vh, 140px);
-  right: clamp(24px, 4vw, 52px);
-  z-index: 10;
-  width: clamp(200px, 22vw, 300px);
-  background: rgba(10,10,10,.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+/* Player — visual idêntico ao .editorial-player do OJU Hub (index-portal.html):
+   moldura fina, frame 16:9 escuro, legenda em mono abaixo, zoom no hover. */
+.hero__player{
+  display: block;
+  width: 100%;
+  border: 1px solid var(--cor-borda);
+  background: #0a0a0a;
+  padding: 0;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
-  transition: transform .3s ease, box-shadow .3s ease;
 }
-.hero__preview-card:hover{
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 60px rgba(0,0,0,.6);
-}
-.hero__preview-thumb{
+.hero__player-frame{
+  display: block;
   position: relative;
+  width: 100%;
   aspect-ratio: 16/9;
   overflow: hidden;
-  background: #111;
+  background: #0a0a0a;
 }
-.hero__preview-play{
+.hero__player-frame img,
+.hero__player-frame video{
   position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: none; border: none; cursor: pointer;
-  transition: transform .25s ease;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
 }
-.hero__preview-card:hover .hero__preview-play{ transform: scale(1.08); }
-.hero__preview-label{
-  padding: 10px 14px 12px;
-  font-size: 10px;
-  color: rgba(255,255,255,.6);
-  letter-spacing: .06em;
+.hero__player:hover .hero__player-frame img,
+.hero__player:hover .hero__player-frame video{ transform: scale(1.05); }
+.hero__player-caption{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,.08);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  margin: 0;
-  line-height: 1.4;
+  color: var(--cor-texto-terciario);
 }
-@media (max-width: 900px){ .hero__preview-card{ display: none; } }
+.hero__player-caption strong{
+  font-weight: 400;
+  color: #000;
+}
 
-/* ===================== TESE CENTRAL (POSICIONAMENTO) ===================== */
-.ag-tese{
+/* ===================== NA PRÁTICA ===================== */
+.ag-pratica{
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-block: clamp(56px, 8vw, 96px);
   background: var(--cor-fundo-primario);
-}
-.ag-tese__inner{
-  display: grid;
-  grid-template-columns: 1fr 2.4fr;
-  gap: clamp(32px, 5vw, 64px);
-  align-items: start;
-}
-.ag-tese__label{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  padding-top: .3em;
-}
-.ag-tese__body{}
-.ag-tese__lead{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(28px, 3.6vw, 54px);
-  line-height: 1.05;
-  letter-spacing: -.03em;
-  text-transform: uppercase;
-  color: #000;
-  margin: 0 0 clamp(20px, 2.5vw, 32px);
-}
-.ag-tese__lead em{
-  font-style: normal;
-  color: var(--cor-destaque);
-  -webkit-text-stroke: 0;
-}
-.ag-tese__text{
-  font-size: clamp(15px, 1.3vw, 20px);
-  line-height: 1.55;
-  color: rgba(0,0,0,.55);
-  max-width: 52ch;
-  margin: 0;
-}
-@media (max-width: 760px){
-  .ag-tese__inner{
-    grid-template-columns: 1fr;
-    gap: clamp(16px, 3vw, 24px);
-  }
 }
 
 /* ===================== CÉLULA DEDICADA (MODELO DE TRABALHO) ===================== */
 .ag-celula{
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-block: clamp(56px, 8vw, 96px);
-  background: var(--cor-fundo-secundario);
+  background: var(--cor-fundo-primario);
 }
 .ag-celula__header{
   margin-bottom: clamp(40px, 5vw, 64px);
+  text-align: center;
 }
 .ag-celula__eyebrow{
   font-size: 11px;
@@ -627,52 +700,58 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing: -.03em;
   text-transform: uppercase;
   line-height: 1;
-  margin: 0 0 clamp(12px, 1.5vw, 18px);
-}
-.ag-celula__intro{
-  font-size: clamp(15px, 1.3vw, 19px);
-  color: rgba(0,0,0,.55);
   margin: 0;
-  max-width: 48ch;
-  line-height: 1.5;
 }
 .ag-celula__roles{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  background: rgba(0,0,0,.1);
-  margin-bottom: clamp(28px, 3.5vw, 44px);
+  gap: clamp(18px, 2.4vw, 28px);
+  max-width: 1100px;
+  margin: 0 auto clamp(28px, 3.5vw, 44px);
 }
 .ag-celula__role{
-  background: var(--cor-fundo-secundario);
-  padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border: 1px solid var(--cor-borda);
+  background: #0a0a0a;
 }
-.ag-celula__role-num{
-  font-size: 10px;
-  letter-spacing: .14em;
-  color: rgba(0,0,0,.35);
-  font-family: var(--font-body);
+.ag-celula__role-frame{
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: #0a0a0a;
 }
-.ag-celula__role-name{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(16px, 1.6vw, 22px);
+.ag-celula__role-frame img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+.ag-celula__role:hover .ag-celula__role-frame img{ transform: scale(1.05); }
+.ag-celula__role-caption{
+  padding: 10px 12px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,.08);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  letter-spacing: -.02em;
-  line-height: 1;
+  color: var(--cor-texto-terciario);
+}
+.ag-celula__role-caption strong{
+  font-weight: 400;
   color: #000;
 }
-.ag-celula__note{
-  font-size: clamp(12px, 1vw, 15px);
-  color: rgba(0,0,0,.42);
-  margin: 0;
-  max-width: 72ch;
-  line-height: 1.55;
-  border-left: 2px solid rgba(0,0,0,.12);
-  padding-left: clamp(14px, 1.5vw, 20px);
+.ag-celula__intro{
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.6;
+  color: rgba(0,0,0,.55);
+  max-width: 62ch;
+  text-align: center;
+  margin: 0 auto;
+}
+@media (max-width: 560px){
+  .ag-celula__intro br{ display: none; }
 }
 @media (max-width: 860px){
   .ag-celula__roles{
@@ -683,6 +762,260 @@ a{ color:inherit; text-decoration:none; }
   .ag-celula__roles{
     grid-template-columns: 1fr;
   }
+}
+
+/* ===================== MODELO DE CRÉDITOS (MODELO DE NEGÓCIO) ===================== */
+.ag-creditos{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.ag-creditos__header{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  margin-bottom: clamp(56px, 7vw, 96px);
+}
+.ag-creditos__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.ag-creditos__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.ag-creditos__intro{
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(0,0,0,.55);
+  margin: 0;
+  max-width: 42ch;
+  line-height: 1.5;
+}
+.ag-creditos__header-media{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-secundario);
+}
+.ag-creditos__header-badge{
+  position: absolute;
+  top: clamp(12px, 1.5vw, 18px);
+  left: clamp(12px, 1.5vw, 18px);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid var(--cor-borda);
+  padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 18px);
+}
+.ag-creditos__header-badge-num{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.1vw, 30px);
+  line-height: 1;
+  color: #000;
+}
+.ag-creditos__header-badge-label{
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+}
+@media (max-width: 900px){
+  .ag-creditos__header{ grid-template-columns: 1fr; }
+}
+.ag-creditos__blocos{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+.ag-creditos__bloco{
+  position: relative;
+  overflow: hidden;
+  background: var(--cor-fundo-secundario);
+  padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ag-creditos__bloco-numbg{
+  position: absolute;
+  top: clamp(2px, 0.6vw, 8px);
+  right: clamp(10px, 1.6vw, 20px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 7vw, 108px);
+  line-height: 1;
+  color: rgba(0,0,0,.05);
+  z-index: 0;
+  user-select: none;
+}
+.ag-creditos__bloco-num,
+.ag-creditos__bloco-title,
+.ag-creditos__bloco-text{
+  position: relative;
+  z-index: 1;
+}
+.ag-creditos__bloco-num{
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+}
+.ag-creditos__bloco-title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(16px, 1.6vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: #000;
+  margin: 0;
+}
+.ag-creditos__bloco-text{
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 34ch;
+  margin: 0;
+}
+
+/* --- Exemplo ilustrado: uma diária → Hub → 6 meses --- */
+.ag-creditos__exemplo-titulo{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 30px);
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #000;
+  margin: 0 0 clamp(10px, 1.2vw, 14px);
+}
+.ag-creditos__exemplo-texto{
+  font-size: clamp(14px, 1.15vw, 17px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 62ch;
+  margin: 0;
+}
+.ag-creditos__passos{
+  display: flex;
+  align-items: flex-start;
+  margin-top: clamp(24px, 3vw, 40px);
+}
+.ag-creditos__passo{
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ag-creditos__passo-numero{
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+}
+.ag-creditos__passo-imagem{
+  margin: 0;
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cor-fundo-secundario);
+}
+.ag-creditos__passo-imagem img,
+.ag-creditos__passo-imagem video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ag-creditos__passo-titulo{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.5vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: #000;
+  margin: 0;
+}
+.ag-creditos__passo-texto{
+  font-size: clamp(13px, 1.05vw, 15px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.5;
+  margin: 0;
+}
+.ag-creditos__passo-link{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  align-self: flex-start;
+  transition: border-color .2s ease, color .2s ease;
+}
+.ag-creditos__passo-link:hover{
+  color: #FEC200;
+  border-color: #FEC200;
+}
+.ag-creditos__passo-link span{
+  font-size: .9em;
+}
+.ag-creditos__seta{
+  flex: 0 0 auto;
+  align-self: center;
+  padding: 0 clamp(6px, 1vw, 16px);
+  margin-top: clamp(40px, 5vw, 62px);
+  font-size: 16px;
+  color: rgba(0,0,0,.3);
+}
+.ag-creditos__cta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 18px);
+  text-align: center;
+}
+.ag-creditos__alt{
+  font-size: clamp(12px, 1vw, 15px);
+  color: rgba(0,0,0,.42);
+  margin: 0;
+  line-height: 1.55;
+}
+@media (max-width: 860px){
+  .ag-creditos__blocos{
+    grid-template-columns: 1fr;
+  }
+  .ag-creditos__passos{
+    flex-wrap: wrap;
+    row-gap: clamp(24px, 4vw, 36px);
+  }
+  .ag-creditos__passo{
+    flex: 0 0 calc(50% - 1px);
+  }
+  .ag-creditos__seta{ display: none; }
+}
+@media (max-width: 480px){
+  .ag-creditos__passo{ flex: 0 0 100%; }
 }
 
 /* ===================== ÁREA AGÊNCIA (visual, não é mais página-alvo) ===================== */
@@ -1137,8 +1470,8 @@ a{ color:inherit; text-decoration:none; }
     });
   }
 
-  /* --- Card de preview: leva até o vídeo do hero --- */
-  var previewCard = document.querySelector('.hero__preview-card');
+  /* --- Player do vídeo tour: leva até o vídeo do hero --- */
+  var previewCard = document.querySelector('.hero__player');
   if(previewCard){
     previewCard.addEventListener('click', function(){
       var mainVideo = document.querySelector('.hero__video');

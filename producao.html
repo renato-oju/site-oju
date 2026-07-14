@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produção — OJU</title>
+
+<!-- head.html (centralizado) -->
+<style>
+
+/* ===== Sistema de Design OJU — variáveis (ver oju-design-system.md) ===== */
+:root{
+  --site-side: clamp(48px, 7vw, 120px);
+
+  /* fonte */
+  --font-display: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* cores */
+  --cor-texto-principal: #000000;
+  --cor-texto-secundario: rgba(0,0,0,0.74);
+  --cor-texto-terciario: rgba(0,0,0,0.65);
+  --cor-borda: #000000;
+  --cor-fundo-primario: #FFFFFF;
+  --cor-fundo-secundario: #F4F4F5;
+  --cor-overlay-escuro: rgba(0,0,0,0.38);
+  --cor-destaque: #FEC200;
+
+  /* escala tipográfica — peso único 800 (Decisão 24, até termos arquivos reais de peso) */
+  --tipo-display: clamp(40px, 6vw, 90px);
+  --tipo-titulo-1: clamp(34px, 4.6vw, 72px);
+  --tipo-titulo-2: clamp(26px, 3vw, 46px);
+  --tipo-titulo-3: clamp(18px, 2.1vw, 26px);
+  --tipo-corpo: clamp(14px, 1.2vw, 19px);
+}
+
+@font-face{
+  font-family: 'Okomito Next';
+  src: url('fonts/Okomito-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; background:var(--cor-fundo-primario); color:var(--cor-texto-principal); font-family:var(--font-body); }
+h1, h2, h3{ font-family: var(--font-display); font-weight:800; margin:0; }
+img, video{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+
+/* ===== Botão — 1 componente, 2 variantes (Decisão 23 / seção 3.1) ===== */
+.btn{
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: clamp(54px, 6vw, 68px);
+  padding: 14px 22px;
+  border: 1px solid var(--cor-borda);
+  font: inherit;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.btn--primario{ background:var(--cor-texto-principal); color:#fff; }
+.btn--primario:hover{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario:hover{ background:var(--cor-texto-principal); color:#fff; }
+
+/* ===== Container padrão ===== */
+.container{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="site-nav" id="site-nav" role="banner">
+  <div class="site-nav__wrap container">
+    <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
+      <span class="nav-logo__mark">OJU</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Principal">
+      <a class="nav-link is-current" href="producao.html" aria-current="page">Produção</a>
+      <a class="nav-link" href="agencia.html">Agência</a>
+      <a class="nav-link" href="hub.html">Hub</a>
+      <a class="nav-link" href="orcamento.html">Orçamento</a>
+      <a class="nav-link" href="packshot.html">Packshot</a>
+    </nav>
+    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Fale com a gente</a>
+    <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger__bar"></span>
+      <span class="nav-burger__bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== PAGE SHELL (cobre o footer revelado) ===================== -->
+<main class="page-shell">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" aria-label="Primeira seção">
+  <video class="hero__video" autoplay muted playsinline preload="auto">
+    <source src="midia/intro_hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__fade-bottom" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <div class="hero__split">
+      <div class="hero__main">
+        <p class="hero__eyebrow">produção oju</p>
+        <h1 class="hero__title">
+          <span class="hero__title-line hero__title-line--a">ESTRATÉGIA,</span>
+          <span class="hero__title-line hero__title-line--b">ROTEIRO E</span>
+          <span class="hero__title-line hero__title-line--c">PRODUÇÃO<span class="hero__title-dot">.</span></span>
+        </h1>
+      </div>
+
+      <div class="hero__divider" aria-hidden="true"></div>
+
+      <!-- Vídeo tour: rola até o vídeo de fundo do Hero ao ser clicado. -->
+      <div class="hero__tour" aria-label="Vídeo tour da página">
+        <button class="hero__player" type="button" aria-label="Assistir vídeo tour">
+          <span class="hero__player-frame"></span>
+          <span class="hero__player-caption">
+            <strong>Vídeo Tour</strong>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) =====================
+     Estrutura de comunicação central do site antigo (ojufilmes.com.br):
+     Estratégia → Roteiro → Produção. Copy adaptada do original. -->
+<section class="prod-metodo" aria-label="Como trabalhamos">
+  <div class="container">
+    <div class="prod-metodo__header">
+      <p class="prod-metodo__eyebrow">como trabalhamos</p>
+      <h2 class="prod-metodo__title">DO BRIEFING À ENTREGA</h2>
+    </div>
+    <div class="prod-metodo__passos" role="list">
+      <div class="prod-metodo__passo" role="listitem">
+        <span class="prod-metodo__passo-numbg" aria-hidden="true">01</span>
+        <span class="prod-metodo__passo-num">01</span>
+        <h3 class="prod-metodo__passo-title">ESTRATÉGIA</h3>
+        <p class="prod-metodo__passo-text">Desenvolvemos estratégias alinhadas às suas metas e ao seu público, garantindo que cada conteúdo cumpra um objetivo específico.</p>
+      </div>
+      <div class="prod-metodo__passo" role="listitem">
+        <span class="prod-metodo__passo-numbg" aria-hidden="true">02</span>
+        <span class="prod-metodo__passo-num">02</span>
+        <h3 class="prod-metodo__passo-title">ROTEIRO</h3>
+        <p class="prod-metodo__passo-text">Definida a estratégia, criamos roteiros envolventes: scripts detalhados pra vídeo ou pautas de podcast, com conteúdo direcionado e relevante.</p>
+      </div>
+      <div class="prod-metodo__passo" role="listitem">
+        <span class="prod-metodo__passo-numbg" aria-hidden="true">03</span>
+        <span class="prod-metodo__passo-num">03</span>
+        <h3 class="prod-metodo__passo-title">PRODUÇÃO</h3>
+        <p class="prod-metodo__passo-text">Aplicamos estratégia e roteiro na produção de conteúdo autêntico — no nosso estúdio ou em qualquer locação, refletindo sua marca com fidelidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DUAS CAPACIDADES CENTRAIS ===================== -->
+<section class="prod-capacidades" aria-label="Nossa estrutura">
+  <div class="container">
+    <div class="prod-capacidades__header">
+      <p class="prod-capacidades__eyebrow">nossa estrutura</p>
+      <h2 class="prod-capacidades__title">DUAS FORÇAS, UM SÓ FLUXO</h2>
+      <p class="prod-capacidades__intro">Captação real e geração por IA não competem: se complementam. Cada projeto usa a medida certa de cada uma — ou as duas juntas.</p>
+    </div>
+    <div class="prod-capacidades__split">
+      <div class="prod-capacidades__col">
+        <div class="prod-capacidades__frame">
+          <img src="midia/producao/captacao-aerea.jpg" alt="Imagem aérea de rodovias captada com drone" loading="lazy">
+        </div>
+        <h3 class="prod-capacidades__col-title">Estrutura física de captação</h3>
+        <p class="prod-capacidades__col-text">Estúdio próprio ou qualquer locação. Equipe e equipamento prontos pra gravar onde o seu conteúdo precisar acontecer.</p>
+      </div>
+
+      <div class="prod-capacidades__divider" aria-hidden="true"></div>
+
+      <div class="prod-capacidades__col">
+        <div class="prod-capacidades__frame"></div>
+        <h3 class="prod-capacidades__col-title">Força de IA</h3>
+        <p class="prod-capacidades__col-text">Vídeo gerado e acelerado por inteligência artificial, com as plataformas mais avançadas do mercado — mais variações, mais velocidade, sem abrir mão de qualidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SELEÇÃO DE SERVIÇOS (MENU INTERATIVO) =====================
+     Menu à esquerda seleciona; painel de detalhe aparece à direita (empilha
+     abaixo no mobile). Todo o conteúdo dos 5 painéis já existe no HTML —
+     o JS só alterna qual fica visível (nada de texto vindo de JS). -->
+<section class="prod-servicos" aria-label="Serviços de produção">
+  <div class="container">
+    <div class="prod-servicos__header">
+      <p class="prod-servicos__eyebrow">o que produzimos</p>
+      <h2 class="prod-servicos__title">ESCOLHA A FRENTE</h2>
+      <p class="prod-servicos__intro">Videocasts, conteúdo pra mídias sociais, treinamento e comunicação interna — gravando no nosso estúdio ou em locações diversas.</p>
+    </div>
+
+    <div class="prod-servicos__interactive">
+      <div class="prod-servicos__menu" role="tablist" aria-label="Serviços de produção">
+        <button class="prod-servicos__menu-item is-active" type="button" role="tab" aria-selected="true" aria-controls="servico-midias-sociais" data-target="servico-midias-sociais">
+          <span class="prod-servicos__menu-num">01</span>
+          <span class="prod-servicos__menu-name">Mídias Sociais</span>
+        </button>
+        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-podcast" data-target="servico-podcast">
+          <span class="prod-servicos__menu-num">02</span>
+          <span class="prod-servicos__menu-name">Podcast</span>
+        </button>
+        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-roteiro" data-target="servico-roteiro">
+          <span class="prod-servicos__menu-num">03</span>
+          <span class="prod-servicos__menu-name">Roteiro</span>
+        </button>
+        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-comunicacao-interna" data-target="servico-comunicacao-interna">
+          <span class="prod-servicos__menu-num">04</span>
+          <span class="prod-servicos__menu-name">Comunicação Interna</span>
+        </button>
+        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-imagens-produto" data-target="servico-imagens-produto">
+          <span class="prod-servicos__menu-num">05</span>
+          <span class="prod-servicos__menu-name">Imagens de Produto</span>
+        </button>
+      </div>
+
+      <div class="prod-servicos__panels">
+        <div class="prod-servicos__panel" id="servico-midias-sociais" role="tabpanel">
+          <div class="prod-servicos__frame"><img src="midia/producao/painel-midias-sociais.jpg" alt="Frame de campanha para a Jadlog" loading="lazy"></div>
+          <div class="prod-servicos__body">
+            <h3 class="prod-servicos__panel-title">Mídias Sociais</h3>
+            <p class="prod-servicos__panel-text">Vídeos que contam uma história, provocam emoção e incentivam a ação — pensados pra performar em cada rede.</p>
+          </div>
+        </div>
+
+        <div class="prod-servicos__panel" id="servico-podcast" role="tabpanel" hidden>
+          <div class="prod-servicos__frame"><img src="midia/producao/painel-podcast.jpg" alt="Frame de gravação em formato de entrevista" loading="lazy"></div>
+          <div class="prod-servicos__body">
+            <h3 class="prod-servicos__panel-title">Podcast</h3>
+            <p class="prod-servicos__panel-text">Edição em tempo real: o episódio sai pronto logo após a gravação, junto com cortes e conteúdos extras pra manter a campanha ativa.</p>
+          </div>
+        </div>
+
+        <div class="prod-servicos__panel" id="servico-roteiro" role="tabpanel" hidden>
+          <div class="prod-servicos__frame"><img src="midia/producao/painel-roteiro.jpg" alt="Frame de animação em estilo pop art" loading="lazy"></div>
+          <div class="prod-servicos__body">
+            <h3 class="prod-servicos__panel-title">Roteiro</h3>
+            <p class="prod-servicos__panel-text">Serviço pontual: scripts detalhados pra vídeo ou pauta de podcast, sem precisar contratar a produção inteira.</p>
+          </div>
+        </div>
+
+        <div class="prod-servicos__panel" id="servico-comunicacao-interna" role="tabpanel" hidden>
+          <div class="prod-servicos__frame"><img src="midia/producao/painel-comunicacao-interna.jpg" alt="Frame de vídeo corporativo em varejo" loading="lazy"></div>
+          <div class="prod-servicos__body">
+            <h3 class="prod-servicos__panel-title">Comunicação Interna</h3>
+            <p class="prod-servicos__panel-text">Vídeos que informam, engajam e capacitam — do lançamento de políticas à celebração de conquistas.</p>
+          </div>
+        </div>
+
+        <div class="prod-servicos__panel" id="servico-imagens-produto" role="tabpanel" hidden>
+          <div class="prod-servicos__frame"><img src="midia/pilar-packshot.png" alt="Imagens de produto do OJU Packshot" loading="lazy"></div>
+          <div class="prod-servicos__body">
+            <h3 class="prod-servicos__panel-title">Imagens de Produto</h3>
+            <p class="prod-servicos__panel-text">Catálogo fotográfico e giratório pro seu produto, pelo OJU Packshot.</p>
+            <a class="prod-servicos__panel-link" href="packshot.html">ver o packshot <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PORTFÓLIO =====================
+     Frames reais de trabalhos entregues (acervo do site antigo).
+     Links dos vídeos completos (YouTube/Vimeo) a definir — por ora
+     os cards são estáticos. -->
+<section class="prod-portfolio" aria-label="Portfólio">
+  <div class="container">
+    <div class="prod-portfolio__header">
+      <h2 class="prod-portfolio__title">PORTFÓLIO</h2>
+    </div>
+
+    <!-- Mural de cases (página Cases do site antigo): mesma estrutura de
+         conteúdo de lá — cliente + categoria + vídeo — em faixas finas
+         horizontais, 2 colunas × 2 linhas, acima do mosaico. -->
+    <p class="prod-portfolio__subeyebrow">cases</p>
+    <div class="prod-cases" role="list">
+      <div class="prod-case" role="listitem">
+        <div class="prod-case__video">
+          <iframe src="https://www.youtube.com/embed/j4I36zlsB0c" title="Case Brevant Sementes — web série" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="prod-case__text">
+          <p class="prod-case__cat">web série</p>
+          <h3 class="prod-case__client">BREVANT SEMENTES</h3>
+        </div>
+      </div>
+      <div class="prod-case" role="listitem">
+        <div class="prod-case__video">
+          <iframe src="https://www.youtube.com/embed/vB3pBQFcokg" title="Case Ambev — comunicação interna" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="prod-case__text">
+          <p class="prod-case__cat">comunicação interna</p>
+          <h3 class="prod-case__client">AMBEV</h3>
+        </div>
+      </div>
+      <div class="prod-case" role="listitem">
+        <div class="prod-case__video">
+          <iframe src="https://www.youtube.com/embed/U0OY34pF2jc" title="Case Jadlog — vídeos para mídias sociais" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="prod-case__text">
+          <p class="prod-case__cat">vídeos para mídias sociais</p>
+          <h3 class="prod-case__client">JADLOG</h3>
+        </div>
+      </div>
+      <div class="prod-case" role="listitem">
+        <div class="prod-case__video">
+          <iframe src="https://player.vimeo.com/video/743552615" title="Case Raízen — comunicação interna" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <div class="prod-case__text">
+          <p class="prod-case__cat">comunicação interna</p>
+          <h3 class="prod-case__client">RAÍZEN</h3>
+        </div>
+      </div>
+    </div>
+
+    <p class="prod-portfolio__subeyebrow">trabalhos selecionados</p>
+    <div class="prod-portfolio__grid" role="list">
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-klabin-natal.jpg" alt="Papai Noel em campanha de Natal da Klabin" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>Klabin</strong>
+          <span>campanha de natal</span>
+        </div>
+      </div>
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-jadlog.jpg" alt="Entregador em campanha da Jadlog" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>Jadlog</strong>
+          <span>campanha</span>
+        </div>
+      </div>
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-serramar.jpg" alt="Carros elétricos no Serramar Parque Shopping" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>Serramar</strong>
+          <span>branded content</span>
+        </div>
+      </div>
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-3coracoes-alok.jpg" alt="Alok em campanha da 3 Corações" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>3 Corações + Alok</strong>
+          <span>campanha</span>
+        </div>
+      </div>
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-ambev.jpg" alt="Vídeo do programa Gente da Ambev" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>Ambev</strong>
+          <span>institucional</span>
+        </div>
+      </div>
+      <div class="prod-portfolio__item" role="listitem">
+        <div class="prod-portfolio__frame">
+          <img src="midia/producao/portfolio-motion.jpg" alt="Animação em motion graphics com cadeado e correntes" loading="lazy">
+        </div>
+        <div class="prod-portfolio__caption">
+          <strong>Animação</strong>
+          <span>motion graphics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CHAMADA PARA PLANOS DE ASSINATURA ===================== -->
+<section class="prod-planos" aria-label="Planos de assinatura">
+  <div class="container prod-planos__inner">
+    <p class="prod-planos__eyebrow">planos de assinatura</p>
+    <h2 class="prod-planos__title">ESCOLHA O RITMO DA SUA PRODUÇÃO</h2>
+    <p class="prod-planos__text">Do vídeo avulso ao calendário fechado pro ano inteiro — monte um plano que acompanha o volume que você precisa produzir.</p>
+    <div class="prod-planos__cta">
+      <a class="btn btn--primario" href="orcamento.html">SIMULE SEU ORÇAMENTO</a>
+      <p class="prod-planos__alt">Prefere conversar antes? Agende um papo de 30 minutos no fim da página.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AGENDAMENTO (Cal.com — mesmo padrão do agencia.html) ===================== -->
+<section class="agenda-section" aria-label="Agende uma conversa">
+  <div class="agenda-section__inner">
+    <div class="agenda-section__copy">
+      <h2 class="agenda-section__title">AGENDE&nbsp;UMA<br>CONVERSA</h2>
+      <p class="agenda-section__text">
+        Tenha um bate-papo de 30 minutos para nos contar sobre seu projeto.
+      </p>
+    </div>
+
+    <div class="agenda-section__widget-shell">
+      <div class="agenda-section__widget-frame">
+        <img class="agenda-section__widget-corner-image" src="midia/packshot/caixa_icone_alpha.png" alt="" aria-hidden="true">
+        <!-- Cal inline embed code begins -->
+        <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+        <script type="text/javascript">
+        (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+        Cal("init", "30min", {origin:"https://app.cal.com"});
+
+        Cal.ns["30min"]("inline", {
+          elementOrSelector:"#my-cal-inline-30min",
+          config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+          calLink: "renato-nader-i4t8nh/30min",
+        });
+
+        Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#000000"}},"hideEventTypeDetails":true,"layout":"month_view"});
+        </script>
+        <!-- Cal inline embed code ends -->
+      </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- /.page-shell -->
+
+<!-- Spacer transparente: cria o espaço de scroll da zona de reveal SEM pintar nada
+     (margin-bottom não conta na área rolável; padding pintava a shell por cima do footer) -->
+<div class="reveal-spacer" id="reveal-spacer" aria-hidden="true"></div>
+
+<!-- ===================== FOOTER REVELADO (curtain reveal) ===================== -->
+<div class="reveal-stage" aria-hidden="true"></div>
+<footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
+  <div class="reveal-footer__inner container">
+
+    <div class="reveal-footer__top">
+      <div class="reveal-footer__lead">
+        <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
+        <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
+        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+      </div>
+
+      <nav class="reveal-footer__col" aria-label="Áreas">
+        <p class="reveal-footer__col-title">Áreas</p>
+        <a href="producao.html">Produção</a>
+        <a href="agencia.html">Agência</a>
+        <a href="hub.html">OJU Hub</a>
+        <a href="packshot.html">OJU Packshot</a>
+      </nav>
+
+      <nav class="reveal-footer__col" aria-label="Redes sociais">
+        <p class="reveal-footer__col-title">Redes</p>
+        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="reveal-footer__col">
+        <p class="reveal-footer__col-title">Contato</p>
+        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
+        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="reveal-footer__addr">São Paulo · Brasil</p>
+      </div>
+    </div>
+
+    <div class="reveal-footer__brand" aria-hidden="true">OJU</div>
+
+    <div class="reveal-footer__bottom">
+      <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
+      <div class="reveal-footer__bottom-right">
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+
+/* ===================== NAV — sempre sólido, nunca invadido pelo vídeo ===================== */
+.site-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.site-nav__wrap{
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 0;
+}
+.nav-logo{ flex-shrink:0; margin-right: auto; }
+.nav-logo__mark{
+  display: inline-block;
+  background: var(--cor-destaque);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  padding: 7px 11px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition: opacity .2s ease;
+}
+.nav-logo:hover .nav-logo__mark{ opacity: .85; }
+.nav-links{
+  display: flex;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  margin: 0 clamp(24px, 3.5vw, 56px);
+}
+.nav-link{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: rgba(0,0,0,.55);
+  position: relative;
+  transition: color .2s ease;
+}
+.nav-link::after{
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--cor-destaque);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+.nav-link:hover{ color: #000; }
+.nav-link:hover::after{ transform: scaleX(1); }
+.nav-link.is-current{ color: #000; }
+.nav-link.is-current::after{ transform: scaleX(1); }
+.nav-cta{
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #000;
+  border: 1px solid rgba(0,0,0,.22);
+  padding: 10px 20px;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
+.nav-burger{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-burger__bar{
+  display: block;
+  width: 22px; height: 2px;
+  background: #000;
+  transition: transform .3s ease;
+}
+.site-nav.menu-open .nav-burger__bar:first-child{ transform: rotate(45deg) translate(4px, 4px); }
+.site-nav.menu-open .nav-burger__bar:last-child{ transform: rotate(-45deg) translate(4px, -4px); }
+@media (max-width: 760px){
+  .nav-links, .nav-cta{ display: none; }
+  .nav-burger{ display: flex; }
+  .site-nav.menu-open .nav-links{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.96);
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 99;
+    margin: 0;
+  }
+  .site-nav.menu-open .nav-link{
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .site-nav.menu-open .nav-link::after{ bottom: -6px; }
+}
+
+/* ===================== HERO ===================== */
+.hero{
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  margin-top: 64px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: #f0ede8;
+}
+.hero__video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__overlay{
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg,
+    rgba(240,237,232,.90) 0%,
+    rgba(240,237,232,.75) 50%,
+    rgba(240,237,232,.35) 100%
+  );
+  pointer-events: none;
+}
+.hero__fade-bottom{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
+  pointer-events: none;
+}
+.hero__content{
+  position: relative; z-index: 3;
+  padding-top: clamp(60px, 10vh, 100px);
+  padding-bottom: clamp(64px, 10vh, 100px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Diagramação em duas metades, separadas por uma linha vertical central:
+   título encostado na linha pela direita, vídeo tour encostado pela esquerda. */
+.hero__split{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: clamp(32px, 5vw, 64px);
+  width: 100%;
+}
+.hero__divider{
+  width: 1px;
+  align-self: stretch;
+  background: rgba(0,0,0,.15);
+}
+.hero__main{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+.hero__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  margin: 0 0 clamp(18px, 2.6vh, 32px);
+  font-family: var(--font-body);
+}
+.hero__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: #000;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .08em;
+}
+.hero__title-line{ display: block; font-size: clamp(28px, 3.6vw, 58px); }
+.hero__title-dot{ color: var(--cor-destaque); }
+@media (max-width: 560px){ .hero__title-line{ font-size: clamp(34px, 9vw, 64px); } }
+
+/* Vídeo tour (link para o vídeo de fundo do Hero) */
+.hero__tour{
+  align-self: center;
+  width: 100%;
+  max-width: 340px;
+}
+@media (max-width: 900px){
+  .hero__split{ grid-template-columns: 1fr; gap: clamp(28px, 6vw, 40px); }
+  .hero__divider{ width: 100%; height: 1px; }
+  .hero__main{ align-items: flex-start; text-align: left; }
+  .hero__title{ align-items: flex-start; }
+  .hero__tour{ max-width: none; }
+}
+
+/* Player — visual idêntico ao .editorial-player do OJU Hub (index-portal.html):
+   moldura fina, frame 16:9 escuro, legenda em mono abaixo, zoom no hover. */
+.hero__player{
+  display: block;
+  width: 100%;
+  border: 1px solid var(--cor-borda);
+  background: #0a0a0a;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.hero__player-frame{
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.hero__player-frame img,
+.hero__player-frame video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+.hero__player:hover .hero__player-frame img,
+.hero__player:hover .hero__player-frame video{ transform: scale(1.05); }
+.hero__player-caption{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,.08);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--cor-texto-terciario);
+}
+.hero__player-caption strong{
+  font-weight: 400;
+  color: #000;
+}
+
+/* ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) ===================== */
+.prod-metodo{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.prod-metodo__header{
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.prod-metodo__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.prod-metodo__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+}
+.prod-metodo__passos{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+}
+.prod-metodo__passo{
+  position: relative;
+  overflow: hidden;
+  background: var(--cor-fundo-secundario);
+  padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.prod-metodo__passo-numbg{
+  position: absolute;
+  top: clamp(2px, 0.6vw, 8px);
+  right: clamp(10px, 1.6vw, 20px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 7vw, 108px);
+  line-height: 1;
+  color: rgba(0,0,0,.05);
+  z-index: 0;
+  user-select: none;
+}
+.prod-metodo__passo-num,
+.prod-metodo__passo-title,
+.prod-metodo__passo-text{
+  position: relative;
+  z-index: 1;
+}
+.prod-metodo__passo-num{
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+}
+.prod-metodo__passo-title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(16px, 1.6vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: #000;
+  margin: 0;
+}
+.prod-metodo__passo-text{
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 34ch;
+  margin: 0;
+}
+@media (max-width: 860px){
+  .prod-metodo__passos{ grid-template-columns: 1fr; }
+}
+
+/* ===================== DUAS CAPACIDADES CENTRAIS ===================== */
+.prod-capacidades{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.prod-capacidades__header{
+  margin-bottom: clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+.prod-capacidades__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.prod-capacidades__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+}
+.prod-capacidades__intro{
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.6;
+  color: rgba(0,0,0,.55);
+  max-width: 62ch;
+  margin: clamp(12px, 1.5vw, 18px) auto 0;
+}
+.prod-capacidades__split{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: clamp(32px, 5vw, 64px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.prod-capacidades__divider{
+  width: 1px;
+  align-self: stretch;
+  background: rgba(0,0,0,.15);
+}
+.prod-capacidades__frame{
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-secundario);
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+.prod-capacidades__frame img,
+.prod-capacidades__frame video{
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.prod-capacidades__col-title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 24px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  color: #000;
+  margin: 0 0 10px;
+}
+.prod-capacidades__col-text{
+  font-size: clamp(14px, 1.15vw, 17px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 40ch;
+}
+@media (max-width: 760px){
+  .prod-capacidades__split{ grid-template-columns: 1fr; }
+  .prod-capacidades__divider{ width: 100%; height: 1px; }
+}
+
+/* ===================== SELEÇÃO DE SERVIÇOS (MENU INTERATIVO) ===================== */
+.prod-servicos{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.prod-servicos__header{
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.prod-servicos__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.prod-servicos__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+}
+.prod-servicos__intro{
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.6;
+  color: rgba(0,0,0,.55);
+  max-width: 62ch;
+  margin: clamp(12px, 1.5vw, 18px) 0 0;
+}
+
+/* Menu (esquerda) + painel de detalhe (direita); empilha no mobile.
+   Ângulos retos e borda fina — mesma linguagem do resto do site. */
+.prod-servicos__interactive{
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  border: 1px solid var(--cor-borda);
+}
+.prod-servicos__menu{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--cor-borda);
+}
+.prod-servicos__menu-item{
+  display: flex;
+  align-items: baseline;
+  gap: clamp(10px, 1.2vw, 14px);
+  width: 100%;
+  padding: clamp(16px, 1.8vw, 22px) clamp(16px, 1.6vw, 20px);
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  border-left: 3px solid transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.prod-servicos__menu-item:last-child{ border-bottom: none; }
+.prod-servicos__menu-item:hover{ background: var(--cor-fundo-secundario); }
+.prod-servicos__menu-item.is-active{
+  background: var(--cor-fundo-secundario);
+  border-left-color: var(--cor-destaque);
+}
+.prod-servicos__menu-num{
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+  flex-shrink: 0;
+}
+.prod-servicos__menu-item.is-active .prod-servicos__menu-num{ color: rgba(0,0,0,.55); }
+.prod-servicos__menu-name{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.3vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+  color: rgba(0,0,0,.65);
+  transition: color .2s ease;
+}
+.prod-servicos__menu-item:hover .prod-servicos__menu-name,
+.prod-servicos__menu-item.is-active .prod-servicos__menu-name{ color: #000; }
+
+.prod-servicos__panels{ position: relative; }
+.prod-servicos__panel{
+  display: flex;
+  flex-direction: column;
+}
+.prod-servicos__panel[hidden]{ display: none; }
+@media (min-width: 761px){
+  .prod-servicos__panel{ flex-direction: row; height: 100%; }
+}
+.prod-servicos__frame{
+  flex: 1 1 55%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.prod-servicos__body{
+  flex: 1 1 45%;
+  padding: clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+@media (min-width: 761px){
+  .prod-servicos__body{ border-top: none; border-left: 1px solid rgba(0,0,0,.08); }
+}
+.prod-servicos__panel-title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  color: #000;
+  margin: 0;
+}
+.prod-servicos__panel-text{
+  font-size: clamp(14px, 1.15vw, 17px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 46ch;
+  margin: 0;
+}
+.prod-servicos__panel-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #000;
+  margin-top: 6px;
+  width: fit-content;
+  transition: color .2s ease;
+}
+.prod-servicos__panel-link:hover{ color: var(--cor-destaque); }
+@media (max-width: 760px){
+  .prod-servicos__interactive{ grid-template-columns: 1fr; }
+  .prod-servicos__menu{
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--cor-borda);
+  }
+  .prod-servicos__menu-item{
+    width: auto;
+    flex: 1 1 auto;
+    border-bottom: none;
+    border-left: none;
+    border-top: 3px solid transparent;
+  }
+  .prod-servicos__menu-item.is-active{ border-top-color: var(--cor-destaque); border-left-color: transparent; }
+  .prod-servicos__frame{ aspect-ratio: 4/3; }
+}
+
+/* ===================== PORTFÓLIO ===================== */
+.prod-portfolio{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.prod-portfolio__header{
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.prod-portfolio__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0;
+}
+.prod-portfolio__subeyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+/* Mural de cases: faixas finas horizontais em 2 colunas × 2 linhas.
+   Vídeo embedado à esquerda (player real, YouTube/Vimeo), texto à direita
+   com a mesma estrutura da página Cases antiga (categoria + cliente). */
+.prod-cases{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+.prod-case{
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--cor-borda);
+  background: #fff;
+}
+.prod-case__video{
+  position: relative;
+  flex: 0 0 clamp(150px, 16vw, 220px);
+  aspect-ratio: 16/9;
+  background: #0a0a0a;
+}
+.prod-case__video iframe{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+.prod-case__text{
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: clamp(12px, 1.6vw, 20px) clamp(14px, 1.8vw, 22px);
+  border-left: 1px solid rgba(0,0,0,.08);
+}
+.prod-case__cat{
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--cor-texto-terciario);
+  margin: 0;
+}
+.prod-case__client{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.4vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: 1.1;
+  color: #000;
+  margin: 0;
+}
+@media (max-width: 900px){
+  .prod-cases{ grid-template-columns: 1fr; }
+}
+
+/* Cards no mesmo padrão do player do Hero: moldura fina, frame escuro,
+   legenda em mono na barra branca abaixo, zoom no hover. */
+.prod-portfolio__grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+}
+.prod-portfolio__item{
+  border: 1px solid var(--cor-borda);
+  background: #0a0a0a;
+}
+.prod-portfolio__frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.prod-portfolio__frame img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+.prod-portfolio__item:hover .prod-portfolio__frame img{ transform: scale(1.05); }
+.prod-portfolio__caption{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,.08);
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--cor-texto-terciario);
+}
+.prod-portfolio__caption strong{
+  font-weight: 400;
+  color: #000;
+}
+@media (max-width: 900px){
+  .prod-portfolio__grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px){
+  .prod-portfolio__grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================== CHAMADA PARA PLANOS DE ASSINATURA ===================== */
+.prod-planos{
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.prod-planos__inner{
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.prod-planos__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.prod-planos__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--tipo-titulo-2);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.prod-planos__text{
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.5;
+  margin: 0 0 clamp(28px, 3.5vw, 40px);
+}
+.prod-planos__cta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 18px);
+}
+.prod-planos__alt{
+  font-size: clamp(12px, 1vw, 15px);
+  color: rgba(0,0,0,.42);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ===================== AGENDAMENTO (Cal.com — mesmo padrão do agencia.html) ===================== */
+.agenda-section{
+  background:#fff;
+  color:#000;
+  padding: clamp(96px, 12vw, 180px) 0 clamp(36px, 6vw, 80px);
+}
+.agenda-section__inner{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+  display:grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 700px);
+  align-items:start;
+  gap: clamp(24px, 4vw, 72px);
+}
+.agenda-section__copy{
+  align-self:start;
+  max-width: 38ch;
+  padding-top: 0;
+}
+.agenda-section__title{
+  margin:0;
+  font-family: var(--font-display);
+  font-size: var(--tipo-titulo-1);
+  line-height:.92;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+  font-weight:800;
+}
+.agenda-section__text{
+  margin:18px 0 0 0;
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height:1.55;
+  color:rgba(0,0,0,.74);
+  max-width:34ch;
+}
+.agenda-section__widget-shell{
+  align-self:start;
+  justify-self:end;
+  width:min(100%, 700px);
+}
+.agenda-section__widget-frame{
+  position:relative;
+  width:100%;
+  min-height:700px;
+  background:#fff;
+  overflow:visible;
+}
+.agenda-section__widget-corner-image{
+  position:absolute;
+  top:0;
+  right:0;
+  width: clamp(34px, 5vw, 68px);
+  height:auto;
+  transform: translateY(calc(-100% - 10px));
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  z-index:2;
+}
+.agenda-section__widget-frame #my-cal-inline-30min{
+  width:100%;
+  min-width:320px;
+}
+@media (max-width: 960px){
+  .agenda-section__inner{
+    grid-template-columns:1fr;
+  }
+  .agenda-section__copy{
+    max-width:none;
+    padding-top:0;
+  }
+  .agenda-section__text{
+    max-width:none;
+  }
+  .agenda-section__widget-shell{
+    justify-self:stretch;
+    width:100%;
+  }
+}
+@media (max-width: 800px){
+  .agenda-section__inner{
+    margin-left: clamp(24px,6vw,40px);
+    margin-right: clamp(24px,6vw,40px);
+    width: calc(100% - 2 * clamp(24px,6vw,40px));
+  }
+}
+
+/* ===================== FOOTER REVELADO (curtain reveal) ===================== */
+/* A shell cobre o footer; ao chegar no fim do scroll, ela "sobe" e o revela. */
+.page-shell{
+  position: relative;
+  z-index: 1;
+  background: var(--cor-fundo-primario);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+  /* margin-bottom = altura do footer, definido via JS */
+}
+/* Palco escuro fixo atrás da shell: preenche a área revelada enquanto o
+   footer sobe, para não abrir buraco claro. Fica coberto pela shell no
+   scroll normal e só aparece na zona de reveal. */
+.reveal-stage{
+  position: fixed; inset: 0; z-index: 0;
+  background: #0c0c0c; pointer-events: none;
+}
+.reveal-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  background: #0c0c0c;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: clamp(28px, 4vw, 60px);
+  border-top-right-radius: clamp(28px, 4vw, 60px);
+  will-change: transform;
+}
+.reveal-footer__inner{
+  width: calc(100% - 2 * var(--site-side));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(14px, 2.5vh, 32px);
+  padding-block: clamp(24px, 4vh, 44px) clamp(14px, 2vh, 22px);
+}
+.reveal-footer__top{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+.reveal-footer__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 62px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__dot{ color: var(--cor-destaque); }
+.reveal-footer__text{
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255,255,255,.6);
+  max-width: 46ch;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+.reveal-footer__cta{
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--cor-destaque); color: #000;
+  font-weight: 700; letter-spacing: .04em;
+  padding: 16px 26px; border-radius: 100px;
+  font-size: 15px;
+  transition: transform .25s ease, background .25s ease;
+}
+.reveal-footer__cta span{ transition: transform .25s ease; }
+.reveal-footer__cta:hover{ background: #fff; }
+.reveal-footer__cta:hover span{ transform: translateX(4px); }
+.reveal-footer__alt{
+  margin: clamp(12px, 1.6vw, 18px) 0 0;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.reveal-footer__alt a{ color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.reveal-footer__alt a:hover{ color: var(--cor-destaque); }
+.reveal-footer__col{ display: flex; flex-direction: column; gap: 8px; }
+.reveal-footer__col-title{
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin: 0 0 6px;
+}
+.reveal-footer__col a{
+  font-size: 15px; color: rgba(255,255,255,.78);
+  width: fit-content; transition: color .2s ease;
+}
+.reveal-footer__col a:hover{ color: var(--cor-destaque); }
+.reveal-footer__addr{ font-size: 15px; color: rgba(255,255,255,.5); margin: 0; }
+.reveal-footer__brand{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(44px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: rgba(255,255,255,.05);
+  user-select: none;
+}
+.reveal-footer__bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__copy{ font-size: 12px; color: rgba(255,255,255,.45); margin: 0; }
+.reveal-footer__bottom-right{ display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+.reveal-footer__bottom-right a,
+.reveal-footer__totop{
+  font: inherit; font-size: 12px; color: rgba(255,255,255,.6);
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .2s ease;
+}
+.reveal-footer__bottom-right a:hover,
+.reveal-footer__totop:hover{ color: #fff; }
+
+@media (max-width: 900px){
+  .reveal-footer{ min-height: auto; }
+  .reveal-footer__top{ grid-template-columns: 1fr 1fr; row-gap: clamp(32px, 6vw, 48px); }
+  .reveal-footer__lead{ grid-column: 1 / -1; }
+  .reveal-footer__brand{ font-size: clamp(80px, 30vw, 200px); }
+}
+@media (max-width: 520px){
+  .reveal-footer__top{ grid-template-columns: 1fr; }
+}
+
+.lenis, .lenis-smooth{ scroll-behavior: auto !important; }
+
+</style>
+
+<!-- Lenis — smooth scroll de toda a página (referência awsmd.com) -->
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+
+  /* --- Lenis: anima a posição real de scroll (sem wrapper virtual),
+     então o resto do JS abaixo (parallax do footer, menu sticky)
+     continua lendo window.pageYOffset/getBoundingClientRect
+     normalmente — só a transição entre posições passa a ser suave. */
+  var lenis = new Lenis({
+    duration: 1.1,
+    easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
+    smoothWheel: true
+  });
+  function raf(time){
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  /* --- Footer parallax: ENTRA topo-primeiro, sobe mais devagar que o scroll --
+     A shell (z-index:1) tem uma margin-bottom = zona de reveal (Z), maior que
+     a altura do footer — isso cria o espaço de scroll onde o parallax acontece.
+     Atrás da shell fica o palco escuro (.reveal-stage). O footer (fixo) começa
+     com o TOPO na borda inferior da tela (abaixo da dobra) e sobe até estacionar
+     em translateY(0) quando o scroll chega ao fim. Parallax direto: a posição
+     segue o scroll exatamente (1:1), sem easing. Loop rAF contínuo (não
+     depende de eventos de scroll). */
+  var shell  = document.querySelector('.page-shell');
+  var spacer = document.getElementById('reveal-spacer');
+  var footer = document.getElementById('site-footer');
+
+  var _footerH = 0, _Z = 0, _zoneStart = 0, _p = 0;
+  var _target = 0, _current = 0, _applied = -1;
+
+  function measureFooter(){
+    if(!footer || !shell) return;
+    _footerH = footer.offsetHeight;
+    _Z = _footerH * 1.35;                         /* zona de reveal (> footerH → parallax mais lento que o scroll) */
+    if(spacer) spacer.style.height = _Z + 'px';   /* espaço de scroll no fim */
+    /* documentElement.scrollHeight inclui o margin-bottom da shell; body.scrollHeight NÃO.
+       Usar o valor errado desalinhava a zona de reveal, deixando o footer
+       estacionado ANTES de ser revelado. */
+    var scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    _zoneStart = scrollMax - _Z;
+  }
+  function computeTarget(){
+    if(!_footerH) return;
+    _p = Math.max(0, Math.min(1, (window.pageYOffset - _zoneStart) / _Z));  /* 0→1 na zona final */
+    /* p=0 → footerH (topo na borda de baixo da tela); p=1 → 0 (estacionado) */
+    _target = _footerH * (1 - _p);
+  }
+  function footerLoop(){
+    computeTarget();
+    _current = _target;                            /* parallax direto, sem easing */
+    if(footer && Math.abs(_current - _applied) >= 0.05){
+      _applied = _current;
+      footer.style.transform = 'translateY(' + _current + 'px)';
+    }
+    requestAnimationFrame(footerLoop);
+  }
+
+  function initFooter(){
+    measureFooter();
+    computeTarget();
+    _current = _target;                           /* sem animar do zero no load */
+    if(footer){ footer.style.transform = 'translateY(' + _current + 'px)'; }
+  }
+  initFooter();
+  requestAnimationFrame(footerLoop);
+  window.addEventListener('resize', measureFooter, { passive: true });
+  window.addEventListener('load',   initFooter);
+
+  /* --- CTAs que revelam o footer (rolam até o fim da página) --- */
+  function revealFooter(){
+    lenis.scrollTo(document.documentElement.scrollHeight, { duration: 1.4 });
+  }
+  document.querySelectorAll('[data-action="contato"], [data-action="agendar"], [data-action="reveal"]').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
+  });
+
+  /* --- Voltar ao topo --- */
+  var toTop = document.querySelector('[data-action="totop"]');
+  if(toTop){
+    toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
+  }
+
+  /* --- Nav: burger mobile (nav é sempre sólido, sem efeito de scroll) --- */
+  var nav = document.getElementById('site-nav');
+  var burger = document.querySelector('.nav-burger');
+  var navLinks = document.getElementById('nav-links');
+  if(nav && burger && navLinks){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click', function(){
+        nav.classList.remove('menu-open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* --- Player do vídeo tour: leva até o vídeo do hero --- */
+  var previewCard = document.querySelector('.hero__player');
+  if(previewCard){
+    previewCard.addEventListener('click', function(){
+      var mainVideo = document.querySelector('.hero__video');
+      if(mainVideo){
+        lenis.scrollTo(mainVideo, { offset: -(window.innerHeight - mainVideo.offsetHeight) / 2 });
+      }
+    });
+  }
+
+  /* --- Serviços: menu interativo (seleciona à esquerda, mostra o painel) ---
+     Conteúdo de cada painel já existe no HTML; o JS só alterna qual fica
+     visível via [hidden], sem gerar texto. */
+  (function setupProdServicos(){
+    var menu = document.querySelector('.prod-servicos__menu');
+    if(!menu) return;
+    var items  = menu.querySelectorAll('.prod-servicos__menu-item');
+    var panels = document.querySelectorAll('.prod-servicos__panel');
+    items.forEach(function(item){
+      item.addEventListener('click', function(){
+        var targetId = item.getAttribute('data-target');
+        items.forEach(function(i){
+          i.classList.toggle('is-active', i === item);
+          i.setAttribute('aria-selected', i === item ? 'true' : 'false');
+        });
+        panels.forEach(function(p){ p.hidden = (p.id !== targetId); });
+      });
+    });
+  })();
+
+})();
+</script>
+
+</body>
+</html>
