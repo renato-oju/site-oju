@@ -90,13 +90,13 @@ a{ color:inherit; text-decoration:none; }
       <span class="nav-logo__mark">OJU</span>
     </a>
     <nav class="nav-links" id="nav-links" aria-label="Principal">
-      <a class="nav-link is-current" href="producao.html" aria-current="page">Produção</a>
       <a class="nav-link" href="agencia.html">Agência</a>
-      <a class="nav-link" href="hub.html">Hub</a>
-      <a class="nav-link" href="orcamento.html">Orçamento</a>
+      <a class="nav-link is-current" href="producao.html" aria-current="page">Produção</a>
       <a class="nav-link" href="packshot.html">Packshot</a>
+      <a class="nav-link" href="hub.html">Hub</a>
+      <a class="nav-link" href="#agenda-producao" data-action="ir-agenda">Contato</a>
     </nav>
-    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Fale com a gente</a>
+    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Área do cliente</a>
     <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
       <span class="nav-burger__bar"></span>
       <span class="nav-burger__bar"></span>
@@ -109,174 +109,122 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Primeira seção">
-  <video class="hero__video" autoplay muted playsinline preload="auto">
-    <source src="midia/intro_hero.mp4" type="video/mp4">
-  </video>
-  <div class="hero__overlay" aria-hidden="true"></div>
-  <div class="hero__fade-bottom" aria-hidden="true"></div>
 
   <div class="container hero__content">
     <div class="hero__split">
       <div class="hero__main">
-        <p class="hero__eyebrow">produção oju</p>
         <h1 class="hero__title">
-          <span class="hero__title-line hero__title-line--a">ESTRATÉGIA,</span>
-          <span class="hero__title-line hero__title-line--b">ROTEIRO E</span>
-          <span class="hero__title-line hero__title-line--c">PRODUÇÃO<span class="hero__title-dot">.</span></span>
+          <span class="hero__title-line hero__title-line--a">PRODUTORA</span>
+          <span class="hero__title-line hero__title-line--b">AUDIOVISUAL</span>
         </h1>
       </div>
 
       <div class="hero__divider" aria-hidden="true"></div>
 
-      <!-- Vídeo tour: rola até o vídeo de fundo do Hero ao ser clicado. -->
-      <div class="hero__tour" aria-label="Vídeo tour da página">
-        <button class="hero__player" type="button" aria-label="Assistir vídeo tour">
-          <span class="hero__player-frame"></span>
-          <span class="hero__player-caption">
-            <strong>Vídeo Tour</strong>
-          </span>
-        </button>
+      <!-- ===== Placeholder de vídeo: substitui o carrossel ===== -->
+      <div class="hero__reel" aria-label="Video Reel">
+        <div class="hero__reel-frame" aria-hidden="true">
+          <span class="hero__reel-play"></span>
+        </div>
+        <p class="hero__reel-title">VIDEO REEL 2026</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) =====================
-     Estrutura de comunicação central do site antigo (ojufilmes.com.br):
-     Estratégia → Roteiro → Produção. Copy adaptada do original. -->
-<section class="prod-metodo" aria-label="Como trabalhamos">
-  <div class="container">
-    <div class="prod-metodo__header">
-      <p class="prod-metodo__eyebrow">como trabalhamos</p>
-      <h2 class="prod-metodo__title">DO BRIEFING À ENTREGA</h2>
-    </div>
-    <div class="prod-metodo__passos" role="list">
-      <div class="prod-metodo__passo" role="listitem">
-        <span class="prod-metodo__passo-numbg" aria-hidden="true">01</span>
-        <span class="prod-metodo__passo-num">01</span>
-        <h3 class="prod-metodo__passo-title">ESTRATÉGIA</h3>
-        <p class="prod-metodo__passo-text">Desenvolvemos estratégias alinhadas às suas metas e ao seu público, garantindo que cada conteúdo cumpra um objetivo específico.</p>
-      </div>
-      <div class="prod-metodo__passo" role="listitem">
-        <span class="prod-metodo__passo-numbg" aria-hidden="true">02</span>
-        <span class="prod-metodo__passo-num">02</span>
-        <h3 class="prod-metodo__passo-title">ROTEIRO</h3>
-        <p class="prod-metodo__passo-text">Definida a estratégia, criamos roteiros envolventes: scripts detalhados pra vídeo ou pautas de podcast, com conteúdo direcionado e relevante.</p>
-      </div>
-      <div class="prod-metodo__passo" role="listitem">
-        <span class="prod-metodo__passo-numbg" aria-hidden="true">03</span>
-        <span class="prod-metodo__passo-num">03</span>
-        <h3 class="prod-metodo__passo-title">PRODUÇÃO</h3>
-        <p class="prod-metodo__passo-text">Aplicamos estratégia e roteiro na produção de conteúdo autêntico — no nosso estúdio ou em qualquer locação, refletindo sua marca com fidelidade.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== DUAS CAPACIDADES CENTRAIS ===================== -->
+<!-- ===================== DUAS CAPACIDADES CENTRAIS =====================
+     Seção independente logo após o hero (antes vivia incorporada ao hero). -->
 <section class="prod-capacidades" aria-label="Nossa estrutura">
   <div class="container">
     <div class="prod-capacidades__header">
-      <p class="prod-capacidades__eyebrow">nossa estrutura</p>
-      <h2 class="prod-capacidades__title">DUAS FORÇAS, UM SÓ FLUXO</h2>
-      <p class="prod-capacidades__intro">Captação real e geração por IA não competem: se complementam. Cada projeto usa a medida certa de cada uma — ou as duas juntas.</p>
+      <h2 class="prod-capacidades__title">Somos híbridos</h2>
+      <p class="prod-capacidades__intro">Captação real e geração por IA não competem: se complementam.</p>
     </div>
     <div class="prod-capacidades__split">
       <div class="prod-capacidades__col">
         <div class="prod-capacidades__frame">
           <img src="midia/producao/captacao-aerea.jpg" alt="Imagem aérea de rodovias captada com drone" loading="lazy">
         </div>
-        <h3 class="prod-capacidades__col-title">Estrutura física de captação</h3>
-        <p class="prod-capacidades__col-text">Estúdio próprio ou qualquer locação. Equipe e equipamento prontos pra gravar onde o seu conteúdo precisar acontecer.</p>
+        <h3 class="prod-capacidades__col-title">Live Action</h3>
+        <p class="prod-capacidades__col-text">Equipamento, estúdio e equipe prontos do início ao fim: da captação à pós-produção, com tudo que seu conteúdo precisa pra sair do papel.</p>
       </div>
 
       <div class="prod-capacidades__divider" aria-hidden="true"></div>
 
       <div class="prod-capacidades__col">
         <div class="prod-capacidades__frame"></div>
-        <h3 class="prod-capacidades__col-title">Força de IA</h3>
-        <p class="prod-capacidades__col-text">Vídeo gerado e acelerado por inteligência artificial, com as plataformas mais avançadas do mercado — mais variações, mais velocidade, sem abrir mão de qualidade.</p>
+        <h3 class="prod-capacidades__col-title">IA Generativa</h3>
+        <p class="prod-capacidades__col-text">De olho nas últimas plataformas e tendências de IA, sempre atualizadas, para compor e acelerar cada entrega.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== SELEÇÃO DE SERVIÇOS (MENU INTERATIVO) =====================
-     Menu à esquerda seleciona; painel de detalhe aparece à direita (empilha
-     abaixo no mobile). Todo o conteúdo dos 5 painéis já existe no HTML —
-     o JS só alterna qual fica visível (nada de texto vindo de JS). -->
-<section class="prod-servicos" aria-label="Serviços de produção">
+<!-- ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) =====================
+     Conteúdo recuperado (Conceito/Roteiro/Produção), reinserido logo abaixo
+     de "Nossa estrutura" — linhas finas, imagem à esquerda, texto à direita. -->
+<section class="prod-metodo" aria-label="Como trabalhamos">
   <div class="container">
-    <div class="prod-servicos__header">
-      <p class="prod-servicos__eyebrow">o que produzimos</p>
-      <h2 class="prod-servicos__title">ESCOLHA A FRENTE</h2>
-      <p class="prod-servicos__intro">Videocasts, conteúdo pra mídias sociais, treinamento e comunicação interna — gravando no nosso estúdio ou em locações diversas.</p>
+    <div class="prod-metodo__header">
+      <p class="prod-metodo__eyebrow">Como trabalhamos</p>
+      <h2 class="prod-metodo__title">DO BRIEFING À ENTREGA</h2>
     </div>
-
-    <div class="prod-servicos__interactive">
-      <div class="prod-servicos__menu" role="tablist" aria-label="Serviços de produção">
-        <button class="prod-servicos__menu-item is-active" type="button" role="tab" aria-selected="true" aria-controls="servico-midias-sociais" data-target="servico-midias-sociais">
-          <span class="prod-servicos__menu-num">01</span>
-          <span class="prod-servicos__menu-name">Mídias Sociais</span>
-        </button>
-        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-podcast" data-target="servico-podcast">
-          <span class="prod-servicos__menu-num">02</span>
-          <span class="prod-servicos__menu-name">Podcast</span>
-        </button>
-        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-roteiro" data-target="servico-roteiro">
-          <span class="prod-servicos__menu-num">03</span>
-          <span class="prod-servicos__menu-name">Roteiro</span>
-        </button>
-        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-comunicacao-interna" data-target="servico-comunicacao-interna">
-          <span class="prod-servicos__menu-num">04</span>
-          <span class="prod-servicos__menu-name">Comunicação Interna</span>
-        </button>
-        <button class="prod-servicos__menu-item" type="button" role="tab" aria-selected="false" aria-controls="servico-imagens-produto" data-target="servico-imagens-produto">
-          <span class="prod-servicos__menu-num">05</span>
-          <span class="prod-servicos__menu-name">Imagens de Produto</span>
-        </button>
+    <div class="prod-metodo__passos" role="list">
+      <div class="prod-metodo__passo" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/producao/img_conceito.png" alt="Ilustração da etapa de Conceito" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Conceito</h3>
+          <p class="prod-metodo__passo-texto">Antes de produzir, pensamos na melhor forma de contar sua história: definimos o conceito, a narrativa e os recursos criativos do projeto.</p>
+        </div>
       </div>
-
-      <div class="prod-servicos__panels">
-        <div class="prod-servicos__panel" id="servico-midias-sociais" role="tabpanel">
-          <div class="prod-servicos__frame"><img src="midia/producao/painel-midias-sociais.jpg" alt="Frame de campanha para a Jadlog" loading="lazy"></div>
-          <div class="prod-servicos__body">
-            <h3 class="prod-servicos__panel-title">Mídias Sociais</h3>
-            <p class="prod-servicos__panel-text">Vídeos que contam uma história, provocam emoção e incentivam a ação — pensados pra performar em cada rede.</p>
-          </div>
+      <div class="prod-metodo__passo" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/producao/img_roteiro.png" alt="Ilustração da etapa de Roteiro" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Roteiro</h3>
+          <p class="prod-metodo__passo-texto">Com o conceito definido, escrevemos os roteiros: scripts para vídeo, pautas para podcast, sempre direcionados ao que sua marca precisa dizer.</p>
         </div>
-
-        <div class="prod-servicos__panel" id="servico-podcast" role="tabpanel" hidden>
-          <div class="prod-servicos__frame"><img src="midia/producao/painel-podcast.jpg" alt="Frame de gravação em formato de entrevista" loading="lazy"></div>
-          <div class="prod-servicos__body">
-            <h3 class="prod-servicos__panel-title">Podcast</h3>
-            <p class="prod-servicos__panel-text">Edição em tempo real: o episódio sai pronto logo após a gravação, junto com cortes e conteúdos extras pra manter a campanha ativa.</p>
-          </div>
+      </div>
+      <div class="prod-metodo__passo" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/producao/img_producao.png" alt="Ilustração da etapa de Produção" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Produção</h3>
+          <p class="prod-metodo__passo-texto">Roteiro em mãos, produzimos conteúdo autêntico, no nosso estúdio ou em qualquer locação, com fidelidade à sua marca em cada detalhe.</p>
         </div>
-
-        <div class="prod-servicos__panel" id="servico-roteiro" role="tabpanel" hidden>
-          <div class="prod-servicos__frame"><img src="midia/producao/painel-roteiro.jpg" alt="Frame de animação em estilo pop art" loading="lazy"></div>
-          <div class="prod-servicos__body">
-            <h3 class="prod-servicos__panel-title">Roteiro</h3>
-            <p class="prod-servicos__panel-text">Serviço pontual: scripts detalhados pra vídeo ou pauta de podcast, sem precisar contratar a produção inteira.</p>
-          </div>
+      </div>
+      <div class="prod-metodo__passo prod-metodo__passo--cta" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/agencia/img_distribuicao.png" alt="Ilustração da etapa de Divulgação" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Divulgação</h3>
+          <p class="prod-metodo__passo-texto">Com o conteúdo pronto, cuidamos da divulgação: administração e publicação das suas mídias sociais, com a Agência OJU mantendo a presença da marca ativa e consistente.</p>
+          <a class="prod-metodo__passo-link" href="agencia.html">Visitar Agência <span aria-hidden="true">↗</span></a>
         </div>
-
-        <div class="prod-servicos__panel" id="servico-comunicacao-interna" role="tabpanel" hidden>
-          <div class="prod-servicos__frame"><img src="midia/producao/painel-comunicacao-interna.jpg" alt="Frame de vídeo corporativo em varejo" loading="lazy"></div>
-          <div class="prod-servicos__body">
-            <h3 class="prod-servicos__panel-title">Comunicação Interna</h3>
-            <p class="prod-servicos__panel-text">Vídeos que informam, engajam e capacitam — do lançamento de políticas à celebração de conquistas.</p>
-          </div>
+      </div>
+      <div class="prod-metodo__passo prod-metodo__passo--cta" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/agencia/img_hub.png" alt="Ilustração do OJU Hub" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Hub</h3>
+          <p class="prod-metodo__passo-texto">Depois de produzido, o material vira acervo: o OJU Hub organiza e cataloga cada entrega, pronta pra virar conteúdo sempre que sua marca precisar.</p>
+          <a class="prod-metodo__passo-link" href="hub.html">Visitar Hub <span aria-hidden="true">↗</span></a>
         </div>
-
-        <div class="prod-servicos__panel" id="servico-imagens-produto" role="tabpanel" hidden>
-          <div class="prod-servicos__frame"><img src="midia/pilar-packshot.png" alt="Imagens de produto do OJU Packshot" loading="lazy"></div>
-          <div class="prod-servicos__body">
-            <h3 class="prod-servicos__panel-title">Imagens de Produto</h3>
-            <p class="prod-servicos__panel-text">Catálogo fotográfico e giratório pro seu produto, pelo OJU Packshot.</p>
-            <a class="prod-servicos__panel-link" href="packshot.html">ver o packshot <span aria-hidden="true">→</span></a>
-          </div>
+      </div>
+      <div class="prod-metodo__passo prod-metodo__passo--cta" role="listitem">
+        <figure class="prod-metodo__passo-imagem">
+          <img src="midia/pilar-packshot.png" alt="Ilustração do OJU Packshot" loading="lazy">
+        </figure>
+        <div class="prod-metodo__passo-info">
+          <h3 class="prod-metodo__passo-titulo">Packshot</h3>
+          <p class="prod-metodo__passo-texto">Se a sua empresa vende produtos, seu lugar é aqui. Conheça a Oju Packshot.</p>
+          <a class="prod-metodo__passo-link" href="packshot.html">Visitar Packshot <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </div>
@@ -293,105 +241,176 @@ a{ color:inherit; text-decoration:none; }
       <h2 class="prod-portfolio__title">PORTFÓLIO</h2>
     </div>
 
-    <!-- Mural de cases (página Cases do site antigo): mesma estrutura de
-         conteúdo de lá — cliente + categoria + vídeo — em faixas finas
-         horizontais, 2 colunas × 2 linhas, acima do mosaico. -->
-    <p class="prod-portfolio__subeyebrow">cases</p>
-    <div class="prod-cases" role="list">
-      <div class="prod-case" role="listitem">
-        <div class="prod-case__video">
-          <iframe src="https://www.youtube.com/embed/j4I36zlsB0c" title="Case Brevant Sementes — web série" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="prod-case__text">
-          <p class="prod-case__cat">web série</p>
-          <h3 class="prod-case__client">BREVANT SEMENTES</h3>
-        </div>
-      </div>
-      <div class="prod-case" role="listitem">
-        <div class="prod-case__video">
-          <iframe src="https://www.youtube.com/embed/vB3pBQFcokg" title="Case Ambev — comunicação interna" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="prod-case__text">
-          <p class="prod-case__cat">comunicação interna</p>
-          <h3 class="prod-case__client">AMBEV</h3>
-        </div>
-      </div>
-      <div class="prod-case" role="listitem">
-        <div class="prod-case__video">
-          <iframe src="https://www.youtube.com/embed/U0OY34pF2jc" title="Case Jadlog — vídeos para mídias sociais" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="prod-case__text">
-          <p class="prod-case__cat">vídeos para mídias sociais</p>
-          <h3 class="prod-case__client">JADLOG</h3>
-        </div>
-      </div>
-      <div class="prod-case" role="listitem">
-        <div class="prod-case__video">
-          <iframe src="https://player.vimeo.com/video/743552615" title="Case Raízen — comunicação interna" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <div class="prod-case__text">
-          <p class="prod-case__cat">comunicação interna</p>
-          <h3 class="prod-case__client">RAÍZEN</h3>
-        </div>
-      </div>
+    <!-- Menu do portfólio: "Geral" mostra o acervo atual (cases + mosaico);
+         as demais abas filtram por frente, com mosaico de vídeos próprio
+         (placeholders por enquanto). Mesmo padrão de aba de "O que fazemos". -->
+    <div class="prod-portfolio__menu" role="tablist" aria-label="Filtrar portfólio">
+      <button class="prod-portfolio__menu-item is-active" type="button" role="tab" aria-selected="true" aria-controls="portfolio-geral" data-target="portfolio-geral">
+        <span class="prod-portfolio__menu-name">Geral</span>
+      </button>
+      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-podcast" data-target="portfolio-podcast">
+        <span class="prod-portfolio__menu-name">Podcast</span>
+      </button>
+      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-midias-sociais" data-target="portfolio-midias-sociais">
+        <span class="prod-portfolio__menu-name">Mídias Sociais</span>
+      </button>
+      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-comunicacao-interna" data-target="portfolio-comunicacao-interna">
+        <span class="prod-portfolio__menu-name">Comunicação Interna</span>
+      </button>
+      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-produto" data-target="portfolio-produto">
+        <span class="prod-portfolio__menu-name">Produto</span>
+      </button>
     </div>
 
-    <p class="prod-portfolio__subeyebrow">trabalhos selecionados</p>
-    <div class="prod-portfolio__grid" role="list">
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-klabin-natal.jpg" alt="Papai Noel em campanha de Natal da Klabin" loading="lazy">
+    <div class="prod-portfolio__panels">
+
+      <div class="prod-portfolio__panel" id="portfolio-geral" role="tabpanel">
+        <!-- Mural de cases (página Cases do site antigo): mesma estrutura de
+             conteúdo de lá — cliente + categoria + vídeo — em faixas finas
+             horizontais, 2 colunas × 2 linhas, acima do mosaico. -->
+        <p class="prod-portfolio__subeyebrow">cases</p>
+        <div class="prod-cases" role="list">
+          <div class="prod-case" role="listitem">
+            <div class="prod-case__video">
+              <iframe src="https://www.youtube.com/embed/j4I36zlsB0c" title="Case Brevant Sementes — web série" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <div class="prod-case__text">
+              <p class="prod-case__cat">web série</p>
+              <h3 class="prod-case__client">BREVANT SEMENTES</h3>
+            </div>
+          </div>
+          <div class="prod-case" role="listitem">
+            <div class="prod-case__video">
+              <iframe src="https://www.youtube.com/embed/vB3pBQFcokg" title="Case Ambev — comunicação interna" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <div class="prod-case__text">
+              <p class="prod-case__cat">comunicação interna</p>
+              <h3 class="prod-case__client">AMBEV</h3>
+            </div>
+          </div>
+          <div class="prod-case" role="listitem">
+            <div class="prod-case__video">
+              <iframe src="https://www.youtube.com/embed/U0OY34pF2jc" title="Case Jadlog — vídeos para mídias sociais" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <div class="prod-case__text">
+              <p class="prod-case__cat">vídeos para mídias sociais</p>
+              <h3 class="prod-case__client">JADLOG</h3>
+            </div>
+          </div>
+          <div class="prod-case" role="listitem">
+            <div class="prod-case__video">
+              <iframe src="https://player.vimeo.com/video/743552615" title="Case Raízen — comunicação interna" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <div class="prod-case__text">
+              <p class="prod-case__cat">comunicação interna</p>
+              <h3 class="prod-case__client">RAÍZEN</h3>
+            </div>
+          </div>
         </div>
-        <div class="prod-portfolio__caption">
-          <strong>Klabin</strong>
-          <span>campanha de natal</span>
+
+        <p class="prod-portfolio__subeyebrow">trabalhos selecionados</p>
+        <div class="prod-portfolio__grid" role="list">
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-klabin-natal.jpg" alt="Papai Noel em campanha de Natal da Klabin" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>Klabin</strong>
+              <span>campanha de natal</span>
+            </div>
+          </div>
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-jadlog.jpg" alt="Entregador em campanha da Jadlog" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>Jadlog</strong>
+              <span>campanha</span>
+            </div>
+          </div>
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-serramar.jpg" alt="Carros elétricos no Serramar Parque Shopping" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>Serramar</strong>
+              <span>branded content</span>
+            </div>
+          </div>
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-3coracoes-alok.jpg" alt="Alok em campanha da 3 Corações" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>3 Corações + Alok</strong>
+              <span>campanha</span>
+            </div>
+          </div>
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-ambev.jpg" alt="Vídeo do programa Gente da Ambev" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>Ambev</strong>
+              <span>institucional</span>
+            </div>
+          </div>
+          <div class="prod-portfolio__item" role="listitem">
+            <div class="prod-portfolio__frame">
+              <img src="midia/producao/portfolio-motion.jpg" alt="Animação em motion graphics com cadeado e correntes" loading="lazy">
+            </div>
+            <div class="prod-portfolio__caption">
+              <strong>Animação</strong>
+              <span>motion graphics</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-jadlog.jpg" alt="Entregador em campanha da Jadlog" loading="lazy">
-        </div>
-        <div class="prod-portfolio__caption">
-          <strong>Jadlog</strong>
-          <span>campanha</span>
-        </div>
-      </div>
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-serramar.jpg" alt="Carros elétricos no Serramar Parque Shopping" loading="lazy">
-        </div>
-        <div class="prod-portfolio__caption">
-          <strong>Serramar</strong>
-          <span>branded content</span>
+
+      <div class="prod-portfolio__panel" id="portfolio-podcast" role="tabpanel" hidden>
+        <div class="prod-portfolio__mosaico" role="list">
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
         </div>
       </div>
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-3coracoes-alok.jpg" alt="Alok em campanha da 3 Corações" loading="lazy">
-        </div>
-        <div class="prod-portfolio__caption">
-          <strong>3 Corações + Alok</strong>
-          <span>campanha</span>
-        </div>
-      </div>
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-ambev.jpg" alt="Vídeo do programa Gente da Ambev" loading="lazy">
-        </div>
-        <div class="prod-portfolio__caption">
-          <strong>Ambev</strong>
-          <span>institucional</span>
+
+      <div class="prod-portfolio__panel" id="portfolio-midias-sociais" role="tabpanel" hidden>
+        <div class="prod-portfolio__mosaico" role="list">
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
         </div>
       </div>
-      <div class="prod-portfolio__item" role="listitem">
-        <div class="prod-portfolio__frame">
-          <img src="midia/producao/portfolio-motion.jpg" alt="Animação em motion graphics com cadeado e correntes" loading="lazy">
-        </div>
-        <div class="prod-portfolio__caption">
-          <strong>Animação</strong>
-          <span>motion graphics</span>
+
+      <div class="prod-portfolio__panel" id="portfolio-comunicacao-interna" role="tabpanel" hidden>
+        <div class="prod-portfolio__mosaico" role="list">
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
         </div>
       </div>
+
+      <div class="prod-portfolio__panel" id="portfolio-produto" role="tabpanel" hidden>
+        <div class="prod-portfolio__mosaico" role="list">
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -401,16 +420,16 @@ a{ color:inherit; text-decoration:none; }
   <div class="container prod-planos__inner">
     <p class="prod-planos__eyebrow">planos de assinatura</p>
     <h2 class="prod-planos__title">ESCOLHA O RITMO DA SUA PRODUÇÃO</h2>
-    <p class="prod-planos__text">Do vídeo avulso ao calendário fechado pro ano inteiro — monte um plano que acompanha o volume que você precisa produzir.</p>
+    <p class="prod-planos__text">Do vídeo avulso ao calendário fechado pro ano inteiro.<br>Monte um plano que acompanha o volume que você precisa produzir.</p>
     <div class="prod-planos__cta">
       <a class="btn btn--primario" href="orcamento.html">SIMULE SEU ORÇAMENTO</a>
-      <p class="prod-planos__alt">Prefere conversar antes? Agende um papo de 30 minutos no fim da página.</p>
+      <p class="prod-planos__alt">Prefere conversar antes? <button type="button" class="prod-planos__alt-link" data-action="ir-agenda">Agende um papo de 30 minutos.</button></p>
     </div>
   </div>
 </section>
 
 <!-- ===================== AGENDAMENTO (Cal.com — mesmo padrão do agencia.html) ===================== -->
-<section class="agenda-section" aria-label="Agende uma conversa">
+<section class="agenda-section" id="agenda-producao" aria-label="Agende uma conversa">
   <div class="agenda-section__inner">
     <div class="agenda-section__copy">
       <h2 class="agenda-section__title">AGENDE&nbsp;UMA<br>CONVERSA</h2>
@@ -622,38 +641,13 @@ a{ color:inherit; text-decoration:none; }
   overflow: hidden;
   display: flex;
   align-items: center;
-  background: #f0ede8;
-}
-.hero__video{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-.hero__overlay{
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(160deg,
-    rgba(240,237,232,.90) 0%,
-    rgba(240,237,232,.75) 50%,
-    rgba(240,237,232,.35) 100%
-  );
-  pointer-events: none;
-}
-.hero__fade-bottom{
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 220px;
-  z-index: 2;
-  background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
-  pointer-events: none;
+  background: var(--cor-fundo-primario);
 }
 .hero__content{
   position: relative; z-index: 3;
   padding-top: clamp(60px, 10vh, 100px);
   padding-bottom: clamp(64px, 10vh, 100px);
   width: 100%;
-  display: flex;
-  align-items: center;
 }
 
 /* Diagramação em duas metades, separadas por uma linha vertical central:
@@ -677,14 +671,6 @@ a{ color:inherit; text-decoration:none; }
   justify-content: center;
   text-align: right;
 }
-.hero__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.45);
-  margin: 0 0 clamp(18px, 2.6vh, 32px);
-  font-family: var(--font-body);
-}
 .hero__title{
   font-family: var(--font-display);
   font-weight: 800;
@@ -699,153 +685,52 @@ a{ color:inherit; text-decoration:none; }
   gap: .08em;
 }
 .hero__title-line{ display: block; font-size: clamp(28px, 3.6vw, 58px); }
-.hero__title-dot{ color: var(--cor-destaque); }
 @media (max-width: 560px){ .hero__title-line{ font-size: clamp(34px, 9vw, 64px); } }
-
-/* Vídeo tour (link para o vídeo de fundo do Hero) */
-.hero__tour{
-  align-self: center;
-  width: 100%;
-  max-width: 340px;
-}
 @media (max-width: 900px){
   .hero__split{ grid-template-columns: 1fr; gap: clamp(28px, 6vw, 40px); }
   .hero__divider{ width: 100%; height: 1px; }
   .hero__main{ align-items: flex-start; text-align: left; }
   .hero__title{ align-items: flex-start; }
-  .hero__tour{ max-width: none; }
 }
 
-/* Player — visual idêntico ao .editorial-player do OJU Hub (index-portal.html):
-   moldura fina, frame 16:9 escuro, legenda em mono abaixo, zoom no hover. */
-.hero__player{
-  display: block;
+/* ===================== HERO — PLACEHOLDER DE VÍDEO ===================== */
+.hero__reel{
+  align-self: center;
   width: 100%;
-  border: 1px solid var(--cor-borda);
-  background: #0a0a0a;
-  padding: 0;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
 }
-.hero__player-frame{
-  display: block;
-  position: relative;
+.hero__reel-frame{
   width: 100%;
   aspect-ratio: 16/9;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-.hero__player-frame img,
-.hero__player-frame video{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform .6s ease;
-}
-.hero__player:hover .hero__player-frame img,
-.hero__player:hover .hero__player-frame video{ transform: scale(1.05); }
-.hero__player-caption{
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-secundario);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  background: #fff;
-  border-top: 1px solid rgba(0,0,0,.08);
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 9.5px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--cor-texto-terciario);
+  justify-content: center;
 }
-.hero__player-caption strong{
-  font-weight: 400;
-  color: #000;
-}
-
-/* ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) ===================== */
-.prod-metodo{
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  padding-block: clamp(56px, 8vw, 96px);
-  background: var(--cor-fundo-primario);
-}
-.prod-metodo__header{
-  margin-bottom: clamp(32px, 4vw, 48px);
-}
-.prod-metodo__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  margin: 0 0 clamp(12px, 1.5vw, 18px);
-}
-.prod-metodo__title{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--tipo-titulo-1);
-  letter-spacing: -.03em;
-  text-transform: uppercase;
-  line-height: 1;
-  margin: 0;
-}
-.prod-metodo__passos{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: rgba(0,0,0,.1);
-}
-.prod-metodo__passo{
-  position: relative;
-  overflow: hidden;
-  background: var(--cor-fundo-secundario);
-  padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+.hero__reel-play{
+  width: clamp(48px, 5vw, 64px);
+  height: clamp(48px, 5vw, 64px);
+  border-radius: 50%;
+  border: 1px solid var(--cor-borda);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
-.prod-metodo__passo-numbg{
-  position: absolute;
-  top: clamp(2px, 0.6vw, 8px);
-  right: clamp(10px, 1.6vw, 20px);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(64px, 7vw, 108px);
-  line-height: 1;
-  color: rgba(0,0,0,.05);
-  z-index: 0;
-  user-select: none;
+.hero__reel-play::after{
+  content: '';
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent #000;
+  margin-left: 3px;
 }
-.prod-metodo__passo-num,
-.prod-metodo__passo-title,
-.prod-metodo__passo-text{
-  position: relative;
-  z-index: 1;
-}
-.prod-metodo__passo-num{
-  font-size: 10px;
-  letter-spacing: .14em;
-  color: rgba(0,0,0,.35);
-  font-family: var(--font-body);
-}
-.prod-metodo__passo-title{
+.hero__reel-title{
+  margin: clamp(14px, 2vw, 20px) 0 0;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(16px, 1.6vw, 22px);
   text-transform: uppercase;
-  letter-spacing: -.02em;
-  line-height: 1;
+  letter-spacing: -.01em;
   color: #000;
-  margin: 0;
-}
-.prod-metodo__passo-text{
-  font-size: clamp(13px, 1.1vw, 16px);
-  color: rgba(0,0,0,.55);
-  line-height: 1.55;
-  max-width: 34ch;
-  margin: 0;
-}
-@media (max-width: 860px){
-  .prod-metodo__passos{ grid-template-columns: 1fr; }
 }
 
 /* ===================== DUAS CAPACIDADES CENTRAIS ===================== */
@@ -855,20 +740,13 @@ a{ color:inherit; text-decoration:none; }
   background: var(--cor-fundo-primario);
 }
 .prod-capacidades__header{
-  margin-bottom: clamp(40px, 5vw, 64px);
+  margin-bottom: clamp(32px, 4vw, 48px);
   text-align: center;
-}
-.prod-capacidades__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  margin: 0 0 clamp(12px, 1.5vw, 18px);
 }
 .prod-capacidades__title{
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--tipo-titulo-1);
+  font-size: var(--tipo-titulo-2);
   letter-spacing: -.03em;
   text-transform: uppercase;
   line-height: 1;
@@ -929,168 +807,115 @@ a{ color:inherit; text-decoration:none; }
   .prod-capacidades__divider{ width: 100%; height: 1px; }
 }
 
-/* ===================== SELEÇÃO DE SERVIÇOS (MENU INTERATIVO) ===================== */
-.prod-servicos{
+/* ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) ===================== */
+.prod-metodo{
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-block: clamp(56px, 8vw, 96px);
   background: var(--cor-fundo-primario);
 }
-.prod-servicos__header{
+.prod-metodo__header{
   margin-bottom: clamp(32px, 4vw, 48px);
+  text-align: left;
 }
-.prod-servicos__eyebrow{
+.prod-metodo__eyebrow{
   font-size: 11px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: rgba(0,0,0,.38);
   margin: 0 0 clamp(12px, 1.5vw, 18px);
 }
-.prod-servicos__title{
+.prod-metodo__title{
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--tipo-titulo-1);
+  font-size: var(--tipo-titulo-2);
   letter-spacing: -.03em;
   text-transform: uppercase;
   line-height: 1;
   margin: 0;
 }
-.prod-servicos__intro{
-  font-size: clamp(15px, 1.35vw, 19px);
-  line-height: 1.6;
-  color: rgba(0,0,0,.55);
-  max-width: 62ch;
-  margin: clamp(12px, 1.5vw, 18px) 0 0;
-}
-
-/* Menu (esquerda) + painel de detalhe (direita); empilha no mobile.
-   Ângulos retos e borda fina — mesma linguagem do resto do site. */
-.prod-servicos__interactive{
+.prod-metodo__passos{
   display: grid;
-  grid-template-columns: minmax(220px, 320px) 1fr;
-  border: 1px solid var(--cor-borda);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+  margin-top: clamp(24px, 3vw, 40px);
+  border: 1px solid rgba(0,0,0,.12);
 }
-.prod-servicos__menu{
+.prod-metodo__passo{
   display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--cor-borda);
-}
-.prod-servicos__menu-item{
-  display: flex;
-  align-items: baseline;
-  gap: clamp(10px, 1.2vw, 14px);
-  width: 100%;
-  padding: clamp(16px, 1.8vw, 22px) clamp(16px, 1.6vw, 20px);
-  background: #fff;
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  border-left: 3px solid transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
-}
-.prod-servicos__menu-item:last-child{ border-bottom: none; }
-.prod-servicos__menu-item:hover{ background: var(--cor-fundo-secundario); }
-.prod-servicos__menu-item.is-active{
-  background: var(--cor-fundo-secundario);
-  border-left-color: var(--cor-destaque);
-}
-.prod-servicos__menu-num{
-  font-size: 11px;
-  letter-spacing: .1em;
-  color: rgba(0,0,0,.35);
-  font-family: var(--font-body);
-  flex-shrink: 0;
-}
-.prod-servicos__menu-item.is-active .prod-servicos__menu-num{ color: rgba(0,0,0,.55); }
-.prod-servicos__menu-name{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(15px, 1.3vw, 18px);
-  text-transform: uppercase;
-  letter-spacing: -.01em;
-  line-height: 1.15;
-  color: rgba(0,0,0,.65);
-  transition: color .2s ease;
-}
-.prod-servicos__menu-item:hover .prod-servicos__menu-name,
-.prod-servicos__menu-item.is-active .prod-servicos__menu-name{ color: #000; }
-
-.prod-servicos__panels{ position: relative; }
-.prod-servicos__panel{
-  display: flex;
-  flex-direction: column;
-}
-.prod-servicos__panel[hidden]{ display: none; }
-@media (min-width: 761px){
-  .prod-servicos__panel{ flex-direction: row; height: 100%; }
-}
-.prod-servicos__frame{
-  flex: 1 1 55%;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  background: #0a0a0a;
-}
-.prod-servicos__body{
-  flex: 1 1 45%;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 28px);
   padding: clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
+  background: var(--cor-fundo-secundario);
+  text-decoration: none;
+}
+.prod-metodo__passo-imagem{
+  flex: 0 0 auto;
+  width: clamp(64px, 7vw, 96px);
+  margin: 0;
+  aspect-ratio: 1/1;
+  border: 1px solid var(--cor-borda);
+  overflow: hidden;
+  background: #fff;
+}
+.prod-metodo__passo-imagem img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.prod-metodo__passo-info{
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  justify-content: center;
-  border-top: 1px solid rgba(0,0,0,.08);
+  gap: 6px;
 }
-@media (min-width: 761px){
-  .prod-servicos__body{ border-top: none; border-left: 1px solid rgba(0,0,0,.08); }
-}
-.prod-servicos__panel-title{
+.prod-metodo__passo-titulo{
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(20px, 2.2vw, 30px);
+  font-size: clamp(15px, 1.5vw, 20px);
   text-transform: uppercase;
   letter-spacing: -.02em;
-  line-height: 1.05;
+  line-height: 1;
   color: #000;
   margin: 0;
 }
-.prod-servicos__panel-text{
-  font-size: clamp(14px, 1.15vw, 17px);
+.prod-metodo__passo-texto{
+  font-size: clamp(13px, 1.05vw, 15px);
   color: rgba(0,0,0,.55);
-  line-height: 1.55;
-  max-width: 46ch;
+  line-height: 1.5;
+  max-width: 60ch;
   margin: 0;
 }
-.prod-servicos__panel-link{
+.prod-metodo__passo-link{
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 600;
   color: #000;
-  margin-top: 6px;
-  width: fit-content;
-  transition: color .2s ease;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  align-self: flex-start;
+  transition: border-color .2s ease, color .2s ease;
 }
-.prod-servicos__panel-link:hover{ color: var(--cor-destaque); }
-@media (max-width: 760px){
-  .prod-servicos__interactive{ grid-template-columns: 1fr; }
-  .prod-servicos__menu{
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-right: none;
-    border-bottom: 1px solid var(--cor-borda);
-  }
-  .prod-servicos__menu-item{
-    width: auto;
-    flex: 1 1 auto;
-    border-bottom: none;
-    border-left: none;
-    border-top: 3px solid transparent;
-  }
-  .prod-servicos__menu-item.is-active{ border-top-color: var(--cor-destaque); border-left-color: transparent; }
-  .prod-servicos__frame{ aspect-ratio: 4/3; }
+.prod-metodo__passo-link:hover{
+  color: var(--cor-destaque);
+  border-color: var(--cor-destaque);
+}
+.prod-metodo__passo-link span{
+  font-size: .9em;
+}
+@media (max-width: 700px){
+  .prod-metodo__passos{ grid-template-columns: 1fr; }
+}
+@media (max-width: 560px){
+  .prod-metodo__passo{ gap: 14px; }
+  .prod-metodo__passo-imagem{ width: 56px; }
 }
 
 /* ===================== PORTFÓLIO ===================== */
@@ -1111,6 +936,94 @@ a{ color:inherit; text-decoration:none; }
   line-height: 1;
   margin: 0;
 }
+
+/* Menu do portfólio: mesmo padrão de aba de "O que fazemos" (linha de
+   botões, indicador ativo em âmbar embaixo), agora filtrando o mosaico. */
+.prod-portfolio__menu{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--cor-borda);
+  border-bottom: 1px solid var(--cor-borda);
+}
+.prod-portfolio__menu-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 12px);
+  flex: 1 1 clamp(140px, 20%, 220px);
+  padding: clamp(16px, 1.8vw, 22px) clamp(12px, 1.4vw, 18px);
+  background: #fff;
+  border: none;
+  border-right: 1px solid rgba(0,0,0,.08);
+  border-bottom: 3px solid transparent;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.prod-portfolio__menu-item:last-child{ border-right: none; }
+.prod-portfolio__menu-item:hover{ background: var(--cor-fundo-secundario); }
+.prod-portfolio__menu-item.is-active{
+  background: var(--cor-fundo-secundario);
+  border-bottom-color: var(--cor-destaque);
+}
+.prod-portfolio__menu-name{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(15px, 1.3vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+  color: rgba(0,0,0,.65);
+  transition: color .2s ease;
+}
+.prod-portfolio__menu-item:hover .prod-portfolio__menu-name,
+.prod-portfolio__menu-item.is-active .prod-portfolio__menu-name{ color: #000; }
+@media (max-width: 700px){
+  .prod-portfolio__menu-item{ flex: 1 1 50%; }
+}
+
+.prod-portfolio__panels{ position: relative; }
+.prod-portfolio__panel[hidden]{ display: none; }
+
+/* Mosaico placeholder das abas por frente (conteúdo real a definir) */
+.prod-portfolio__mosaico{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+}
+.prod-portfolio__placeholder{
+  aspect-ratio: 16/9;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-fundo-secundario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prod-portfolio__placeholder-play{
+  width: clamp(40px, 4vw, 52px);
+  height: clamp(40px, 4vw, 52px);
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prod-portfolio__placeholder-play::after{
+  content: '';
+  border-style: solid;
+  border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent rgba(0,0,0,.3);
+  margin-left: 2px;
+}
+@media (max-width: 900px){
+  .prod-portfolio__mosaico{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px){
+  .prod-portfolio__mosaico{ grid-template-columns: 1fr; }
+}
+
 .prod-portfolio__subeyebrow{
   font-size: 11px;
   letter-spacing: .18em;
@@ -1270,12 +1183,26 @@ a{ color:inherit; text-decoration:none; }
   margin: 0;
   line-height: 1.55;
 }
+.prod-planos__alt-link{
+  font: inherit;
+  color: rgba(0,0,0,.7);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.prod-planos__alt-link:hover{ color: #000; }
 
 /* ===================== AGENDAMENTO (Cal.com — mesmo padrão do agencia.html) ===================== */
 .agenda-section{
   background:#fff;
   color:#000;
   padding: clamp(96px, 12vw, 180px) 0 clamp(36px, 6vw, 80px);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+  overflow: hidden;
 }
 .agenda-section__inner{
   width: calc(100% - 2 * var(--site-side));
@@ -1575,6 +1502,16 @@ a{ color:inherit; text-decoration:none; }
     toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
   }
 
+  /* --- "Agende" (planos + Contato do header) rola até o calendário
+     embutido nesta página --- */
+  document.querySelectorAll('[data-action="ir-agenda"]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var alvo = document.getElementById('agenda-producao');
+      if(alvo) lenis.scrollTo(alvo, { duration: 3.0 });
+    });
+  });
+
   /* --- Nav: burger mobile (nav é sempre sólido, sem efeito de scroll) --- */
   var nav = document.getElementById('site-nav');
   var burger = document.querySelector('.nav-burger');
@@ -1594,25 +1531,12 @@ a{ color:inherit; text-decoration:none; }
     });
   }
 
-  /* --- Player do vídeo tour: leva até o vídeo do hero --- */
-  var previewCard = document.querySelector('.hero__player');
-  if(previewCard){
-    previewCard.addEventListener('click', function(){
-      var mainVideo = document.querySelector('.hero__video');
-      if(mainVideo){
-        lenis.scrollTo(mainVideo, { offset: -(window.innerHeight - mainVideo.offsetHeight) / 2 });
-      }
-    });
-  }
-
-  /* --- Serviços: menu interativo (seleciona à esquerda, mostra o painel) ---
-     Conteúdo de cada painel já existe no HTML; o JS só alterna qual fica
-     visível via [hidden], sem gerar texto. */
-  (function setupProdServicos(){
-    var menu = document.querySelector('.prod-servicos__menu');
+  /* --- Portfólio: menu de filtro (Geral/Podcast/Mídias Sociais/...) --- */
+  (function setupProdPortfolio(){
+    var menu = document.querySelector('.prod-portfolio__menu');
     if(!menu) return;
-    var items  = menu.querySelectorAll('.prod-servicos__menu-item');
-    var panels = document.querySelectorAll('.prod-servicos__panel');
+    var items  = menu.querySelectorAll('.prod-portfolio__menu-item');
+    var panels = document.querySelectorAll('.prod-portfolio__panel');
     items.forEach(function(item){
       item.addEventListener('click', function(){
         var targetId = item.getAttribute('data-target');
@@ -1621,6 +1545,11 @@ a{ color:inherit; text-decoration:none; }
           i.setAttribute('aria-selected', i === item ? 'true' : 'false');
         });
         panels.forEach(function(p){ p.hidden = (p.id !== targetId); });
+        /* Cada painel tem altura diferente (mosaico de placeholders vs.
+           cases+grid) — sem remedir, a zona de reveal do footer (calculada
+           uma vez no load) fica desalinhada com a nova altura da página. */
+        measureFooter();
+        computeTarget();
       });
     });
   })();

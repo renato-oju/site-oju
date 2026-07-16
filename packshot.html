@@ -962,6 +962,9 @@
         background:#fff;
         color:#000;
         padding: clamp(96px, 12vw, 180px) 0 clamp(36px, 6vw, 80px);
+        border-bottom-left-radius: clamp(28px, 4vw, 60px);
+        border-bottom-right-radius: clamp(28px, 4vw, 60px);
+        overflow: hidden;
       }
 
       .agenda-section__inner{
@@ -1309,13 +1312,13 @@
           <span class="nav-logo__mark">OJU</span>
         </a>
         <nav class="nav-links" id="nav-links" aria-label="Principal">
-          <a class="nav-link" href="producao.html">Produção</a>
           <a class="nav-link" href="agencia.html">Agência</a>
-          <a class="nav-link" href="hub.html">Hub</a>
-          <a class="nav-link" href="orcamento.html">Orçamento</a>
+          <a class="nav-link" href="producao.html">Produção</a>
           <a class="nav-link is-current" href="packshot.html" aria-current="page">Packshot</a>
+          <a class="nav-link" href="hub.html">Hub</a>
+          <a class="nav-link" href="#agenda-packshot" data-action="ir-agenda">Contato</a>
         </nav>
-        <a class="nav-cta" href="#site-footer" data-action="reveal">+ Fale com a gente</a>
+        <a class="nav-cta" href="#site-footer" data-action="reveal">+ Área do cliente</a>
         <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
           <span class="nav-burger__bar"></span>
           <span class="nav-burger__bar"></span>
@@ -1542,7 +1545,7 @@
     </section>
 
     <!-- ===== AGENDA ===== -->
-    <section class="agenda-section" aria-label="Agende uma conversa">
+    <section class="agenda-section" id="agenda-packshot" aria-label="Agende uma conversa">
       <div class="agenda-section__inner">
         <div class="agenda-section__copy">
           <h2 class="agenda-section__title">AGENDE&nbsp;UMA<br />CONVERSA</h2>
@@ -1705,6 +1708,14 @@
         if(toTop){
           toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
         }
+
+        document.querySelectorAll('[data-action="ir-agenda"]').forEach(function(el){
+          el.addEventListener('click', function(e){
+            e.preventDefault();
+            var alvo = document.getElementById('agenda-packshot');
+            if(alvo) lenis.scrollTo(alvo, { duration: 3.0 });
+          });
+        });
 
         var nav = document.getElementById('site-nav');
         var burger = document.querySelector('.nav-burger');

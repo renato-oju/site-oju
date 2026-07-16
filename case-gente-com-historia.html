@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Gente com História — OJU</title>
+
+<!-- head.html (centralizado) -->
+<style>
+
+/* ===== Sistema de Design OJU — variáveis (ver oju-design-system.md) ===== */
+:root{
+  --site-side: clamp(48px, 7vw, 120px);
+
+  /* fonte */
+  --font-display: 'Okomito Next', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* cores */
+  --cor-texto-principal: #000000;
+  --cor-texto-secundario: rgba(0,0,0,0.74);
+  --cor-texto-terciario: rgba(0,0,0,0.65);
+  --cor-borda: #000000;
+  --cor-fundo-primario: #FFFFFF;
+  --cor-fundo-secundario: #F4F4F5;
+  --cor-overlay-escuro: rgba(0,0,0,0.38);
+  --cor-destaque: #FEC200;
+
+  /* escala tipográfica — peso único 800 (até termos arquivos reais de peso) */
+  --tipo-display: clamp(40px, 6vw, 90px);
+  --tipo-titulo-1: clamp(34px, 4.6vw, 72px);
+  --tipo-titulo-2: clamp(26px, 3vw, 46px);
+  --tipo-titulo-3: clamp(18px, 2.1vw, 26px);
+  --tipo-corpo: clamp(14px, 1.2vw, 19px);
+}
+
+@font-face{
+  font-family: 'Okomito Next';
+  src: url('fonts/Okomito-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; background:var(--cor-fundo-primario); color:var(--cor-texto-principal); font-family:var(--font-body); }
+h1, h2, h3{ font-family: var(--font-display); font-weight:800; margin:0; }
+img, video{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+
+/* ===== Botão — 1 componente, 2 variantes ===== */
+.btn{
+  box-sizing:border-box;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height: clamp(54px, 6vw, 68px);
+  padding: 14px 22px;
+  border: 1px solid var(--cor-borda);
+  font: inherit;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-align:center;
+  white-space:nowrap;
+  cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.btn--primario{ background:var(--cor-texto-principal); color:#fff; }
+.btn--primario:hover{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario{ background:#fff; color:var(--cor-texto-principal); }
+.btn--secundario:hover{ background:var(--cor-texto-principal); color:#fff; }
+
+/* ===== Container padrão ===== */
+.container{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="site-nav" id="site-nav" role="banner">
+  <div class="site-nav__wrap container">
+    <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
+      <span class="nav-logo__mark">OJU</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Principal">
+      <a class="nav-link" href="agencia.html">Agência</a>
+      <a class="nav-link" href="producao.html">Produção</a>
+      <a class="nav-link" href="packshot.html">Packshot</a>
+      <a class="nav-link" href="hub.html">Hub</a>
+      <a class="nav-link" href="#agenda-case" data-action="ir-agenda">Contato</a>
+    </nav>
+    <a class="nav-cta" href="#site-footer" data-action="reveal">+ Área do cliente</a>
+    <button class="nav-burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger__bar"></span>
+      <span class="nav-burger__bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== PAGE SHELL (cobre o footer revelado) ===================== -->
+<main class="page-shell">
+
+<!-- ===================== CASE HERO ===================== -->
+<section class="case-hero" aria-label="Case Gente com História">
+  <img class="case-hero__bg" src="midia/case-gente-com-historia/hero-brevant-sementes.png" alt="" aria-hidden="true">
+  <div class="case-hero__overlay" aria-hidden="true"></div>
+  <div class="case-hero__fade-bottom" aria-hidden="true"></div>
+
+  <div class="container case-hero__content">
+    <a class="case-hero__back" href="agencia.html">← Agência</a>
+    <p class="case-hero__eyebrow">case · brevant sementes</p>
+    <h1 class="case-hero__title">GENTE COM<br>HISTÓRIA</h1>
+    <p class="case-hero__subtitle">Como uma campanha criada em poucos dias se tornou um dos conteúdos mais relevantes da marca Brevant no Brasil.</p>
+    <p class="case-hero__tag">Dia do Engenheiro Agrônomo · Série em 4 episódios</p>
+  </div>
+</section>
+
+<!-- ===================== INTRODUÇÃO DO CASE ===================== -->
+<section class="case-intro" aria-label="Introdução do case">
+  <div class="container case-intro__grid">
+    <div class="case-intro__text">
+      <p class="case-eyebrow">introdução do case</p>
+      <h2 class="case-intro__title">DE UM PRAZO<br>CRÍTICO A UMA<br>CAMPANHA LEMBRADA</h2>
+      <p class="case-intro__body">Em poucos dias, uma resposta criativa a um prazo apertado se transformou numa das campanhas mais lembradas da Brevant Sementes no Brasil — uma homenagem ao Dia do Engenheiro Agrônomo contada a partir de histórias reais do campo.</p>
+    </div>
+    <div class="case-intro__media">
+      <img src="midia/case-gente-com-historia/gente_intro.png" alt="Card de abertura da campanha Gente com História, com a marca Brevant Sementes" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== O CONTEXTO DO DESAFIO ===================== -->
+<section class="case-section" aria-label="O contexto do desafio">
+  <div class="container">
+    <div class="case-section__header">
+      <p class="case-eyebrow">o contexto</p>
+      <h2 class="case-section__title">O CONTEXTO DO DESAFIO</h2>
+      <p class="case-section__intro">O cenário que exigiu uma resposta rápida de comunicação.</p>
+    </div>
+
+    <div class="case-cards case-cards--4" role="list">
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">01</span>
+        <h3 class="case-card__title">Data estratégica</h3>
+        <p class="case-card__text">O Dia do Engenheiro Agrônomo se aproximava.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">02</span>
+        <h3 class="case-card__title">Necessidade de conteúdo</h3>
+        <p class="case-card__text">A marca precisava publicar algo relevante para a data.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">03</span>
+        <h3 class="case-card__title">Falta de alinhamento</h3>
+        <p class="case-card__text">As propostas desenvolvidas pela agência vigente não haviam gerado alinhamento interno nem atendido à expectativa do time responsável.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">04</span>
+        <h3 class="case-card__title">Prazo crítico</h3>
+        <p class="case-card__text">Estávamos a apenas dois dias da apresentação da nova proposta — o prazo para construir o conceito e estruturar a apresentação.</p>
+      </div>
+    </div>
+
+    <p class="case-callout">Era necessário encontrar rapidamente uma ideia simples, autêntica e capaz de representar o Dia do Engenheiro Agrônomo.</p>
+  </div>
+</section>
+
+<!-- ===================== O GATILHO DO PROJETO ===================== -->
+<section class="case-section case-section--secundaria" aria-label="O gatilho do projeto">
+  <div class="container">
+    <div class="case-section__header">
+      <p class="case-eyebrow">como a oju entrou</p>
+      <h2 class="case-section__title">O GATILHO DO PROJETO</h2>
+      <p class="case-section__intro">Como a Oju entrou no processo e estruturou a resposta ao desafio.</p>
+    </div>
+
+    <div class="case-cards case-cards--3" role="list">
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">01</span>
+        <h3 class="case-card__title">Oju é acionada</h3>
+        <p class="case-card__text">Diante do prazo crítico e da necessidade de uma nova abordagem, a Oju foi convidada a propor uma alternativa criativa para a campanha.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">02</span>
+        <h3 class="case-card__title">A data mais importante do ano para a marca</h3>
+        <p class="case-card__text">O Dia do Engenheiro Agrônomo é a data mais relevante do calendário da Brevant; a campanha precisava representar com autenticidade a relação da marca com o campo e com os profissionais da agronomia.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <span class="case-card__num">03</span>
+        <h3 class="case-card__title">48 horas para estruturar a proposta</h3>
+        <p class="case-card__text">Esse foi o prazo disponível para desenvolver o conceito, validar a viabilidade e preparar a apresentação da campanha.</p>
+      </div>
+    </div>
+
+    <p class="case-callout">A missão era transformar um prazo crítico em uma oportunidade de comunicação relevante para a marca.</p>
+  </div>
+</section>
+
+<!-- ===================== A LEITURA ESTRATÉGICA ===================== -->
+<section class="case-section" aria-label="A leitura estratégica">
+  <div class="container">
+    <div class="case-section__header">
+      <p class="case-eyebrow">antes de definir o formato</p>
+      <h2 class="case-section__title">A LEITURA ESTRATÉGICA</h2>
+      <p class="case-section__intro">Antes de definir o formato da campanha, foi necessário compreender o que realmente tornaria a comunicação relevante para essa data.</p>
+    </div>
+
+    <div class="case-cards case-cards--2" role="list">
+      <div class="case-card case-card--grande" role="listitem">
+        <p class="case-card__label">Insight</p>
+        <h3 class="case-card__title-grande">Agronomia não é apenas técnica.<br><span>É uma história de vida construída no campo.</span></h3>
+        <p class="case-card__text">Para o engenheiro agrônomo, a profissão representa mais do que uma atividade técnica. Ela envolve trajetória, dedicação e relação profunda com o campo.</p>
+      </div>
+      <div class="case-card case-card--grande" role="listitem">
+        <p class="case-card__label">Direção criativa</p>
+        <h3 class="case-card__title-grande">Celebrar o Dia do Engenheiro Agrônomo através de <span>histórias reais do campo</span>.</h3>
+        <p class="case-card__text">A comunicação deveria valorizar a dimensão humana da agronomia, dando visibilidade às experiências e trajetórias que conectam profissionais ao campo.</p>
+      </div>
+    </div>
+
+    <div class="case-callout-divider"></div>
+    <p class="case-callout case-callout--full">A estratégia apontou para uma comunicação baseada em autenticidade, proximidade e histórias reais.</p>
+  </div>
+</section>
+
+<!-- ===================== CONSTRUÇÃO CRIATIVA DA CAMPANHA (abas) ===================== -->
+<section class="case-section case-section--secundaria" aria-label="Construção criativa da campanha">
+  <div class="container">
+    <div class="case-section__header">
+      <p class="case-eyebrow">do conceito à tela</p>
+      <h2 class="case-section__title">CONSTRUÇÃO CRIATIVA<br>DA CAMPANHA</h2>
+      <p class="case-section__intro">As decisões criativas que transformaram uma resposta urgente em uma campanha com identidade, atmosfera e força narrativa.</p>
+    </div>
+
+    <div class="case-tabs">
+      <div class="case-tabs__menu" role="tablist" aria-label="Etapas da construção criativa">
+        <button class="case-tabs__menu-item is-active" type="button" role="tab" aria-selected="true" aria-controls="tab-conceito" data-target="tab-conceito">
+          <span class="case-tabs__menu-num">01</span>
+          <span class="case-tabs__menu-name">Conceito central</span>
+        </button>
+        <button class="case-tabs__menu-item" type="button" role="tab" aria-selected="false" aria-controls="tab-referencia" data-target="tab-referencia">
+          <span class="case-tabs__menu-num">02</span>
+          <span class="case-tabs__menu-name">Referência editorial</span>
+        </button>
+        <button class="case-tabs__menu-item" type="button" role="tab" aria-selected="false" aria-controls="tab-locacao" data-target="tab-locacao">
+          <span class="case-tabs__menu-num">03</span>
+          <span class="case-tabs__menu-name">Locação e atmosfera</span>
+        </button>
+        <button class="case-tabs__menu-item" type="button" role="tab" aria-selected="false" aria-controls="tab-participacao" data-target="tab-participacao">
+          <span class="case-tabs__menu-num">04</span>
+          <span class="case-tabs__menu-name">Participação criativa</span>
+        </button>
+        <button class="case-tabs__menu-item" type="button" role="tab" aria-selected="false" aria-controls="tab-estrutura" data-target="tab-estrutura">
+          <span class="case-tabs__menu-num">05</span>
+          <span class="case-tabs__menu-name">Estrutura narrativa</span>
+        </button>
+      </div>
+
+      <div class="case-tabs__panels">
+
+        <div class="case-tabs__panel" id="tab-conceito" role="tabpanel">
+          <div class="case-tabs__media case-tabs__media--2">
+            <img src="midia/case-gente-com-historia/a1.png" alt="Frame da campanha Gente com História" loading="lazy">
+            <img src="midia/case-gente-com-historia/a2.png" alt="Composição visual do universo rural" loading="lazy">
+          </div>
+          <div class="case-tabs__body">
+            <h3 class="case-tabs__panel-title">Gente com História</h3>
+            <p class="case-tabs__panel-text">O conceito foi desenvolvido para transformar o Dia do Engenheiro Agrônomo em uma homenagem com densidade humana. Em vez de uma comunicação protocolar, a campanha passou a valorizar trajetórias reais, memória, afeto e vínculo com o campo.</p>
+          </div>
+        </div>
+
+        <div class="case-tabs__panel" id="tab-referencia" role="tabpanel" hidden>
+          <div class="case-tabs__media case-tabs__media--2">
+            <img src="midia/case-gente-com-historia/b1.png" alt="Referência editorial de conversa e escuta" loading="lazy">
+            <img src="midia/case-gente-com-historia/b2.png" alt="Referência editorial de acolhimento" loading="lazy">
+          </div>
+          <div class="case-tabs__body">
+            <h3 class="case-tabs__panel-title">Da referência ao tom da campanha</h3>
+            <p class="case-tabs__panel-text">Partimos de uma referência editorial baseada em conversa, escuta, acolhimento e memória. A inspiração orientou a atmosfera intimista, traduzida com linguagem própria para o universo da agronomia e para a identidade Brevant.</p>
+          </div>
+        </div>
+
+        <div class="case-tabs__panel" id="tab-locacao" role="tabpanel" hidden>
+          <div class="case-tabs__media case-tabs__media--assimetrica">
+            <img class="case-tabs__media-grande" src="midia/case-gente-com-historia/c1.jpg" alt="Ambiente de gravação principal na Casa Vilella" loading="lazy">
+            <span class="case-tabs__media-coluna">
+              <img src="midia/case-gente-com-historia/c2.png" alt="Apoio visual de locação" loading="lazy">
+              <img src="midia/case-gente-com-historia/c3.jpeg" alt="Apoio visual de atmosfera" loading="lazy">
+            </span>
+          </div>
+          <div class="case-tabs__body">
+            <h3 class="case-tabs__panel-title">Casa Vilella como decisão de linguagem e produção</h3>
+            <p class="case-tabs__panel-text">A escolha da Casa Vilella, em Itatiba, combinou autenticidade de ambiente com viabilidade operacional para uma produção ágil.</p>
+          </div>
+        </div>
+
+        <div class="case-tabs__panel" id="tab-participacao" role="tabpanel" hidden>
+          <div class="case-tabs__media case-tabs__media--3">
+            <img src="midia/case-gente-com-historia/d1.png" alt="Participação criativa — bastidores 1" loading="lazy">
+            <img src="midia/case-gente-com-historia/d2.png" alt="Participação criativa — bastidores 2" loading="lazy">
+            <img src="midia/case-gente-com-historia/d3.png" alt="Participação criativa — bastidores 3" loading="lazy">
+          </div>
+          <div class="case-tabs__body">
+            <h3 class="case-tabs__panel-title">Camada autoral e sofisticação visual</h3>
+            <p class="case-tabs__panel-text">A participação de um diretor convidado trouxe repertório técnico e sensibilidade visual, reforçando o craft da campanha e sua assinatura narrativa.</p>
+          </div>
+        </div>
+
+        <div class="case-tabs__panel" id="tab-estrutura" role="tabpanel" hidden>
+          <div class="case-tabs__body case-tabs__body--full">
+            <h3 class="case-tabs__panel-title">Como a ideia se sustentava em formato</h3>
+            <p class="case-tabs__panel-text">A campanha combinava conversa, ambiência e direção editorial clara para gerar fluidez, proximidade e relevância emocional.</p>
+            <div class="case-tabs__tags">
+              <span>conversa guiada por escuta e espontaneidade</span>
+              <span>atmosfera de confraternização e acolhimento</span>
+              <span>direção visual voltada à proximidade</span>
+              <span>desdobramento em conteúdos derivados</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTADOS ATINGIDOS ===================== -->
+<section class="case-resultados" aria-label="Resultados atingidos">
+  <div class="container">
+    <div class="case-section__header">
+      <p class="case-eyebrow">fechamento do case</p>
+      <h2 class="case-section__title">RESULTADOS<br>ATINGIDOS</h2>
+      <p class="case-section__intro">Uma campanha construída com sensibilidade, agilidade e consistência, e que se tornou um conteúdo relevante dentro do universo da marca.</p>
+    </div>
+
+    <div class="case-resultados__grid">
+      <div class="case-resultados__texto">
+        <p class="case-resultados__paragrafo"><strong>Gente com História</strong> foi desenvolvido com extremo cuidado em cada etapa, da construção do conceito à execução final. O resultado foi uma campanha acolhida com entusiasmo, reconhecida pela sua sensibilidade, pela qualidade da entrega e pela capacidade de traduzir a relação da marca com o campo de forma mais humana e memorável.</p>
+        <p class="case-resultados__paragrafo case-resultados__paragrafo--sec">O projeto demonstrou força de conteúdo, boa receptividade e potencial de conexão com a audiência, gerando indicadores positivos de visualização e consolidando-se como uma entrega de valor dentro da comunicação da Brevant.</p>
+        <div class="case-resultados__quote">
+          <p>Mais do que cumprir um prazo crítico, o projeto gerou um conteúdo reconhecido, lembrado e valorizado pela marca.</p>
+        </div>
+      </div>
+
+      <div class="case-resultados__video">
+        <div class="case-resultados__player">
+          <iframe id="case-player" src="https://www.youtube.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" title="Gente com História — Episódio 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="case-resultados__episodios" id="episode-nav">
+          <button class="case-ep is-active" type="button" data-ep-src="https://www.youtube.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 1">
+            <span class="case-ep__frame"><img src="https://img.youtube.com/vi/Dy4p-9ePdsg/mqdefault.jpg" alt="Thumbnail episódio 1" loading="lazy"></span>
+            <span class="case-ep__caption">Episódio 1</span>
+          </button>
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/q8Sa_mLBvqI?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 2">
+            <span class="case-ep__frame"><img src="https://img.youtube.com/vi/q8Sa_mLBvqI/mqdefault.jpg" alt="Thumbnail episódio 2" loading="lazy"></span>
+            <span class="case-ep__caption">Episódio 2</span>
+          </button>
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/daS44FKYHaE?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 3">
+            <span class="case-ep__frame"><img src="https://img.youtube.com/vi/daS44FKYHaE/mqdefault.jpg" alt="Thumbnail episódio 3" loading="lazy"></span>
+            <span class="case-ep__caption">Episódio 3</span>
+          </button>
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/J28CDsQAFZY?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 4">
+            <span class="case-ep__frame"><img src="https://img.youtube.com/vi/J28CDsQAFZY/mqdefault.jpg" alt="Thumbnail episódio 4" loading="lazy"></span>
+            <span class="case-ep__caption">Episódio 4</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-cards case-cards--4 case-cards--stats" role="list">
+      <div class="case-card" role="listitem">
+        <p class="case-card__stat">4 episódios</p>
+        <h4 class="case-card__stat-label">Série completa</h4>
+        <p class="case-card__text">Conteúdo estruturado em formato seriado, ampliando permanência e interesse ao longo do tempo.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <p class="case-card__stat">Alcance positivo</p>
+        <h4 class="case-card__stat-label">Desempenho</h4>
+        <p class="case-card__text">Os conteúdos registraram visualizações e engajamento compatíveis com um projeto de forte apelo humano e institucional.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <p class="case-card__stat">Repercussão</p>
+        <h4 class="case-card__stat-label">Reconhecimento interno</h4>
+        <p class="case-card__text">A campanha foi reconhecida como uma entrega de valor e boa aderência à comunicação da marca.</p>
+      </div>
+      <div class="case-card" role="listitem">
+        <p class="case-card__stat">Legado</p>
+        <h4 class="case-card__stat-label">Legado de conteúdo</h4>
+        <p class="case-card__text">O projeto se consolidou como uma peça relevante dentro do universo de comunicação da Brevant.</p>
+      </div>
+    </div>
+
+    <p class="case-resultados__credito">Case desenvolvido pela <strong>Oju Filmes</strong> para a marca <strong>Brevant Sementes</strong> — Dia do Engenheiro Agrônomo.</p>
+  </div>
+</section>
+
+<!-- ===================== AGENDAMENTO (Cal.com — mesmo padrão de agencia.html / producao.html) ===================== -->
+<section class="agenda-section" id="agenda-case" aria-label="Agende uma conversa">
+  <div class="agenda-section__inner">
+    <div class="agenda-section__copy">
+      <h2 class="agenda-section__title">AGENDE&nbsp;UMA<br>CONVERSA</h2>
+      <p class="agenda-section__text">
+        Quer uma campanha com esse nível de sensibilidade e agilidade pra sua marca? Conta pra gente em 30 minutos.
+      </p>
+    </div>
+
+    <div class="agenda-section__widget-shell">
+      <div class="agenda-section__widget-frame">
+        <img class="agenda-section__widget-corner-image" src="midia/packshot/caixa_icone_alpha.png" alt="" aria-hidden="true">
+        <!-- Cal inline embed code begins -->
+        <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-30min"></div>
+        <script type="text/javascript">
+        (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+        Cal("init", "30min", {origin:"https://app.cal.com"});
+
+        Cal.ns["30min"]("inline", {
+          elementOrSelector:"#my-cal-inline-30min",
+          config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+          calLink: "renato-nader-i4t8nh/30min",
+        });
+
+        Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#000000"}},"hideEventTypeDetails":true,"layout":"month_view"});
+        </script>
+        <!-- Cal inline embed code ends -->
+      </div>
+    </div>
+  </div>
+</section>
+
+</main><!-- /.page-shell -->
+
+<!-- Spacer transparente: cria o espaço de scroll da zona de reveal SEM pintar nada -->
+<div class="reveal-spacer" id="reveal-spacer" aria-hidden="true"></div>
+
+<!-- ===================== FOOTER REVELADO (curtain reveal) ===================== -->
+<div class="reveal-stage" aria-hidden="true"></div>
+<footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
+  <div class="reveal-footer__inner container">
+
+    <div class="reveal-footer__top">
+      <div class="reveal-footer__lead">
+        <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
+        <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
+        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+      </div>
+
+      <nav class="reveal-footer__col" aria-label="Áreas">
+        <p class="reveal-footer__col-title">Áreas</p>
+        <a href="producao.html">Produção</a>
+        <a href="agencia.html">Agência</a>
+        <a href="hub.html">OJU Hub</a>
+        <a href="packshot.html">OJU Packshot</a>
+      </nav>
+
+      <nav class="reveal-footer__col" aria-label="Redes sociais">
+        <p class="reveal-footer__col-title">Redes</p>
+        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="reveal-footer__col">
+        <p class="reveal-footer__col-title">Contato</p>
+        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
+        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="reveal-footer__addr">São Paulo · Brasil</p>
+      </div>
+    </div>
+
+    <div class="reveal-footer__brand" aria-hidden="true">OJU</div>
+
+    <div class="reveal-footer__bottom">
+      <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
+      <div class="reveal-footer__bottom-right">
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+
+/* ===================== NAV — sempre sólido ===================== */
+.site-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.site-nav__wrap{
+  display: flex;
+  align-items: center;
+  height: 64px;
+  gap: 0;
+}
+.nav-logo{ flex-shrink:0; margin-right: auto; }
+.nav-logo__mark{
+  display: inline-block;
+  background: var(--cor-destaque);
+  color: #000;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  padding: 7px 11px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  transition: opacity .2s ease;
+}
+.nav-logo:hover .nav-logo__mark{ opacity: .85; }
+.nav-links{
+  display: flex;
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  margin: 0 clamp(24px, 3.5vw, 56px);
+}
+.nav-link{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: rgba(0,0,0,.55);
+  position: relative;
+  transition: color .2s ease;
+}
+.nav-link::after{
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--cor-destaque);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .28s ease;
+}
+.nav-link:hover{ color: #000; }
+.nav-link:hover::after{ transform: scaleX(1); }
+.nav-link.is-current{ color: #000; }
+.nav-link.is-current::after{ transform: scaleX(1); }
+.nav-cta{
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #000;
+  border: 1px solid rgba(0,0,0,.22);
+  padding: 10px 20px;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.nav-cta:hover{ background: #000; color: #fff; border-color: #000; }
+.nav-burger{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  margin-left: 16px;
+}
+.nav-burger__bar{
+  display: block;
+  width: 22px; height: 2px;
+  background: #000;
+  transition: transform .3s ease;
+}
+.site-nav.menu-open .nav-burger__bar:first-child{ transform: rotate(45deg) translate(4px, 4px); }
+.site-nav.menu-open .nav-burger__bar:last-child{ transform: rotate(-45deg) translate(4px, -4px); }
+@media (max-width: 760px){
+  .nav-links, .nav-cta{ display: none; }
+  .nav-burger{ display: flex; }
+  .site-nav.menu-open .nav-links{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.96);
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 99;
+    margin: 0;
+  }
+  .site-nav.menu-open .nav-link{
+    font-size: clamp(26px, 6vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .site-nav.menu-open .nav-link::after{ bottom: -6px; }
+}
+
+/* ===================== CASE HERO ===================== */
+.case-hero{
+  position: relative;
+  margin-top: 64px;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: #0a0505;
+}
+.case-hero__bg{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.case-hero__overlay{
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(100deg,
+    rgba(6,3,3,.86) 0%,
+    rgba(6,3,3,.62) 42%,
+    rgba(6,3,3,.28) 68%,
+    rgba(6,3,3,.08) 100%
+  );
+  pointer-events: none;
+}
+.case-hero__fade-bottom{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
+  pointer-events: none;
+}
+.case-hero__content{
+  position: relative; z-index: 3;
+  padding-top: clamp(64px, 10vh, 110px);
+  padding-bottom: clamp(90px, 13vh, 140px);
+  max-width: 780px;
+}
+.case-hero__back{
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: clamp(24px, 4vh, 48px);
+  transition: color .2s ease;
+}
+.case-hero__back:hover{ color: #fff; }
+.case-hero__eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+  margin: 0 0 clamp(14px, 2vh, 22px);
+}
+.case-hero__title{
+  font-size: var(--tipo-display);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: .96;
+  color: #fff;
+  margin: 0 0 clamp(20px, 3vh, 32px);
+}
+.case-hero__subtitle{
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.5;
+  color: rgba(255,255,255,.82);
+  max-width: 46ch;
+  margin: 0 0 clamp(18px, 2.4vh, 26px);
+}
+.case-hero__tag{
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin: 0;
+}
+
+/* ===================== EYEBROW / SECTION HEADER (compartilhados) ===================== */
+.case-eyebrow{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.38);
+  margin: 0 0 clamp(12px, 1.5vw, 18px);
+}
+.case-section__header{ margin-bottom: clamp(32px, 4vw, 48px); }
+.case-section__title{
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: 1.02;
+  margin: 0;
+}
+.case-section__intro{
+  font-size: clamp(15px, 1.3vw, 19px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.55);
+  max-width: 60ch;
+  margin: clamp(12px, 1.5vw, 18px) 0 0;
+}
+
+/* ===================== INTRODUÇÃO DO CASE ===================== */
+.case-intro{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.case-intro__grid{
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.case-intro__title{
+  font-size: var(--tipo-titulo-1);
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  line-height: .98;
+  margin: 0 0 clamp(16px, 2vw, 22px);
+}
+.case-intro__body{
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 48ch;
+  margin: 0;
+}
+.case-intro__media{
+  border: 1px solid var(--cor-borda);
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.case-intro__media img{ width:100%; height:100%; object-fit:cover; }
+@media (max-width: 900px){
+  .case-intro__grid{ grid-template-columns: 1fr; }
+}
+
+/* ===================== SEÇÕES DE CARD GRID (contexto / gatilho / leitura) ===================== */
+.case-section{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.case-section--secundaria{ background: var(--cor-fundo-secundario); }
+
+.case-cards{
+  display: grid;
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+  margin-bottom: clamp(28px, 3.5vw, 44px);
+}
+.case-cards--4{ grid-template-columns: repeat(4, 1fr); }
+.case-cards--3{ grid-template-columns: repeat(3, 1fr); }
+.case-cards--2{ grid-template-columns: repeat(2, 1fr); }
+.case-cards--stats{ margin-top: clamp(40px, 5vw, 64px); margin-bottom: 0; }
+.case-card{
+  background: var(--cor-fundo-secundario);
+  padding: clamp(24px, 3vw, 36px) clamp(18px, 2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.case-section--secundaria .case-card{ background: #fff; }
+.case-card__num{
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: rgba(0,0,0,.35);
+  font-family: var(--font-body);
+}
+.case-card__title{
+  font-size: clamp(16px, 1.5vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  color: #000;
+  margin: 0;
+}
+.case-card__text{
+  font-size: clamp(13px, 1.05vw, 15px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  margin: 0;
+}
+.case-card--grande{ padding: clamp(28px, 3.4vw, 44px) clamp(24px, 2.8vw, 36px); gap: 14px; }
+.case-card__label{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  margin: 0;
+}
+.case-card__title-grande{
+  font-size: clamp(22px, 2.4vw, 32px);
+  text-transform: none;
+  letter-spacing: -.01em;
+  line-height: 1.18;
+  color: #000;
+  margin: 4px 0 0;
+}
+.case-card__title-grande span{ display: block; }
+.case-card__stat{
+  font-size: clamp(19px, 1.8vw, 24px);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: #000;
+  margin: 0;
+}
+.case-card__stat-label{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  margin: 0;
+}
+@media (max-width: 860px){
+  .case-cards--4{ grid-template-columns: repeat(2, 1fr); }
+  .case-cards--3{ grid-template-columns: 1fr; }
+  .case-cards--2{ grid-template-columns: 1fr; }
+}
+@media (max-width: 520px){
+  .case-cards--4{ grid-template-columns: 1fr; }
+}
+
+.case-callout{
+  font-size: clamp(19px, 2vw, 28px);
+  font-weight: 600;
+  color: #000;
+  line-height: 1.35;
+  text-align: center;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+.case-callout--full{ margin-top: clamp(20px, 2.6vw, 28px); }
+.case-callout-divider{ height: 1px; background: rgba(0,0,0,.14); margin-bottom: clamp(20px, 2.6vw, 28px); }
+
+/* ===================== ABAS — CONSTRUÇÃO CRIATIVA ===================== */
+.case-tabs{
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  border: 1px solid var(--cor-borda);
+  background: #fff;
+}
+.case-tabs__menu{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--cor-borda);
+}
+.case-tabs__menu-item{
+  display: flex;
+  align-items: baseline;
+  gap: clamp(10px, 1.2vw, 14px);
+  width: 100%;
+  padding: clamp(16px, 1.8vw, 22px) clamp(16px, 1.6vw, 20px);
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  border-left: 3px solid transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.case-tabs__menu-item:last-child{ border-bottom: none; }
+.case-tabs__menu-item:hover{ background: var(--cor-fundo-secundario); }
+.case-tabs__menu-item.is-active{
+  background: var(--cor-fundo-secundario);
+  border-left-color: var(--cor-destaque);
+}
+.case-tabs__menu-num{
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: rgba(0,0,0,.35);
+}
+.case-tabs__menu-item.is-active .case-tabs__menu-num{ color: rgba(0,0,0,.55); }
+.case-tabs__menu-name{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(14px, 1.2vw, 17px);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+  color: rgba(0,0,0,.65);
+  transition: color .2s ease;
+}
+.case-tabs__menu-item:hover .case-tabs__menu-name,
+.case-tabs__menu-item.is-active .case-tabs__menu-name{ color: #000; }
+
+.case-tabs__panels{ position: relative; }
+.case-tabs__panel{ display: flex; flex-direction: column; }
+.case-tabs__panel[hidden]{ display: none; }
+@media (min-width: 761px){
+  .case-tabs__panel{ flex-direction: row; align-items: stretch; min-height: 380px; }
+}
+.case-tabs__media{
+  flex: 1 1 55%;
+  display: grid;
+  gap: 2px;
+  background: rgba(0,0,0,.1);
+  overflow: hidden;
+}
+.case-tabs__media--2{ grid-template-columns: repeat(2, 1fr); }
+.case-tabs__media--3{ grid-template-columns: repeat(3, 1fr); }
+.case-tabs__media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.case-tabs__media--assimetrica{ grid-template-columns: 2fr 1fr; }
+.case-tabs__media-grande{ height:100%; }
+.case-tabs__media-coluna{ display:grid; gap:2px; grid-template-rows: 1fr 1fr; }
+.case-tabs__body{
+  flex: 1 1 45%;
+  padding: clamp(24px, 3vw, 40px) clamp(20px, 2.4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+@media (min-width: 761px){
+  .case-tabs__body{ border-top: none; border-left: 1px solid rgba(0,0,0,.08); }
+}
+.case-tabs__body--full{ flex: 1 1 100%; }
+.case-tabs__panel-title{
+  font-size: clamp(20px, 2.2vw, 30px);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  color: #000;
+  margin: 0;
+}
+.case-tabs__panel-text{
+  font-size: clamp(14px, 1.15vw, 17px);
+  color: rgba(0,0,0,.55);
+  line-height: 1.55;
+  max-width: 52ch;
+  margin: 0;
+}
+.case-tabs__tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.case-tabs__tags span{
+  font-size: 12px;
+  color: rgba(0,0,0,.6);
+  border: 1px solid rgba(0,0,0,.15);
+  padding: 8px 14px;
+  line-height: 1.3;
+}
+@media (max-width: 760px){
+  .case-tabs{ grid-template-columns: 1fr; }
+  .case-tabs__menu{
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--cor-borda);
+  }
+  .case-tabs__menu-item{
+    width: auto;
+    flex: 1 1 auto;
+    border-bottom: none;
+    border-left: none;
+    border-top: 3px solid transparent;
+  }
+  .case-tabs__menu-item.is-active{ border-top-color: var(--cor-destaque); border-left-color: transparent; }
+  .case-tabs__media--assimetrica{ grid-template-columns: 1fr; }
+  .case-tabs__media-coluna{ grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+}
+
+/* ===================== RESULTADOS ATINGIDOS ===================== */
+.case-resultados{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding-block: clamp(56px, 8vw, 96px);
+  background: var(--cor-fundo-primario);
+}
+.case-resultados__grid{
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+.case-resultados__paragrafo{
+  font-size: clamp(14px, 1.1vw, 16px);
+  color: rgba(0,0,0,.7);
+  line-height: 1.6;
+  margin: 0 0 16px;
+  border-left: 3px solid var(--cor-destaque);
+  padding-left: clamp(16px, 1.8vw, 22px);
+}
+.case-resultados__paragrafo--sec{ border-left-color: transparent; padding-left: clamp(19px, 2.1vw, 25px); color: rgba(0,0,0,.55); }
+.case-resultados__quote{
+  margin-top: clamp(18px, 2.2vw, 26px);
+  background: #000;
+  color: #fff;
+  padding: clamp(20px, 2.4vw, 28px);
+}
+.case-resultados__quote p{
+  margin: 0;
+  font-size: clamp(15px, 1.25vw, 18px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.case-resultados__player{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--cor-borda);
+  background: #0a0a0a;
+  overflow: hidden;
+}
+.case-resultados__player iframe{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+.case-resultados__episodios{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 1.2vw, 14px);
+}
+.case-ep{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cor-borda);
+  background: #fff;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+.case-ep__frame{
+  position: relative;
+  display: block;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.case-ep__frame img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .68;
+  transition: opacity .2s ease;
+}
+.case-ep:hover .case-ep__frame img{ opacity: .85; }
+.case-ep.is-active .case-ep__frame img{ opacity: 1; }
+.case-ep.is-active{ border-color: var(--cor-destaque); }
+.case-ep__caption{
+  padding: 8px 10px;
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  color: var(--cor-texto-terciario);
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.case-resultados__credito{
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  padding-top: clamp(20px, 2.6vw, 28px);
+  border-top: 1px solid rgba(0,0,0,.1);
+  font-size: 13px;
+  color: rgba(0,0,0,.42);
+  text-align: center;
+}
+.case-resultados__credito strong{ color: rgba(0,0,0,.6); }
+@media (max-width: 900px){
+  .case-resultados__grid{ grid-template-columns: 1fr; }
+  .case-resultados__episodios{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===================== AGENDAMENTO (Cal.com) ===================== */
+.agenda-section{
+  background:#fff;
+  color:#000;
+  padding: clamp(96px, 12vw, 180px) 0 clamp(36px, 6vw, 80px);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+  overflow: hidden;
+}
+.agenda-section__inner{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+  display:grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(320px, 700px);
+  align-items:start;
+  gap: clamp(24px, 4vw, 72px);
+}
+.agenda-section__copy{
+  align-self:start;
+  max-width: 38ch;
+  padding-top: 0;
+}
+.agenda-section__title{
+  margin:0;
+  font-size: var(--tipo-titulo-1);
+  line-height:.92;
+  letter-spacing:-.01em;
+  text-transform:uppercase;
+}
+.agenda-section__text{
+  margin:18px 0 0 0;
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height:1.55;
+  color:rgba(0,0,0,.74);
+  max-width:34ch;
+}
+.agenda-section__widget-shell{
+  align-self:start;
+  justify-self:end;
+  width:min(100%, 700px);
+}
+.agenda-section__widget-frame{
+  position:relative;
+  width:100%;
+  min-height:700px;
+  background:#fff;
+  overflow:visible;
+}
+.agenda-section__widget-corner-image{
+  position:absolute;
+  top:0;
+  right:0;
+  width: clamp(34px, 5vw, 68px);
+  height:auto;
+  transform: translateY(calc(-100% - 10px));
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  z-index:2;
+}
+.agenda-section__widget-frame #my-cal-inline-30min{
+  width:100%;
+  min-width:320px;
+}
+@media (max-width: 960px){
+  .agenda-section__inner{ grid-template-columns:1fr; }
+  .agenda-section__copy{ max-width:none; padding-top:0; }
+  .agenda-section__text{ max-width:none; }
+  .agenda-section__widget-shell{ justify-self:stretch; width:100%; }
+}
+@media (max-width: 800px){
+  .agenda-section__inner{
+    margin-left: clamp(24px,6vw,40px);
+    margin-right: clamp(24px,6vw,40px);
+    width: calc(100% - 2 * clamp(24px,6vw,40px));
+  }
+}
+
+/* ===================== FOOTER REVELADO (curtain reveal) ===================== */
+.page-shell{
+  position: relative;
+  z-index: 1;
+  background: var(--cor-fundo-primario);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+}
+.reveal-stage{
+  position: fixed; inset: 0; z-index: 0;
+  background: #0c0c0c; pointer-events: none;
+}
+.reveal-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  background: #0c0c0c;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: clamp(28px, 4vw, 60px);
+  border-top-right-radius: clamp(28px, 4vw, 60px);
+  will-change: transform;
+}
+.reveal-footer__inner{
+  width: calc(100% - 2 * var(--site-side));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(14px, 2.5vh, 32px);
+  padding-block: clamp(24px, 4vh, 44px) clamp(14px, 2vh, 22px);
+}
+.reveal-footer__top{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+.reveal-footer__title{
+  font-size: clamp(28px, 4vw, 62px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__dot{ color: var(--cor-destaque); }
+.reveal-footer__text{
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255,255,255,.6);
+  max-width: 46ch;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+.reveal-footer__cta{
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--cor-destaque); color: #000;
+  font-weight: 700; letter-spacing: .04em;
+  padding: 16px 26px; border-radius: 100px;
+  font-size: 15px;
+  transition: transform .25s ease, background .25s ease;
+}
+.reveal-footer__cta span{ transition: transform .25s ease; }
+.reveal-footer__cta:hover{ background: #fff; }
+.reveal-footer__cta:hover span{ transform: translateX(4px); }
+.reveal-footer__alt{
+  margin: clamp(12px, 1.6vw, 18px) 0 0;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.reveal-footer__alt a{ color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.reveal-footer__alt a:hover{ color: var(--cor-destaque); }
+.reveal-footer__col{ display: flex; flex-direction: column; gap: 8px; }
+.reveal-footer__col-title{
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin: 0 0 6px;
+}
+.reveal-footer__col a{
+  font-size: 15px; color: rgba(255,255,255,.78);
+  width: fit-content; transition: color .2s ease;
+}
+.reveal-footer__col a:hover{ color: var(--cor-destaque); }
+.reveal-footer__addr{ font-size: 15px; color: rgba(255,255,255,.5); margin: 0; }
+.reveal-footer__brand{
+  font-size: clamp(44px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: rgba(255,255,255,.05);
+  user-select: none;
+}
+.reveal-footer__bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__copy{ font-size: 12px; color: rgba(255,255,255,.45); margin: 0; }
+.reveal-footer__bottom-right{ display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+.reveal-footer__bottom-right a,
+.reveal-footer__totop{
+  font: inherit; font-size: 12px; color: rgba(255,255,255,.6);
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .2s ease;
+}
+.reveal-footer__bottom-right a:hover,
+.reveal-footer__totop:hover{ color: #fff; }
+
+@media (max-width: 900px){
+  .reveal-footer{ min-height: auto; }
+  .reveal-footer__top{ grid-template-columns: 1fr 1fr; row-gap: clamp(32px, 6vw, 48px); }
+  .reveal-footer__lead{ grid-column: 1 / -1; }
+  .reveal-footer__brand{ font-size: clamp(80px, 30vw, 200px); }
+}
+@media (max-width: 520px){
+  .reveal-footer__top{ grid-template-columns: 1fr; }
+}
+
+.lenis, .lenis-smooth{ scroll-behavior: auto !important; }
+
+</style>
+
+<!-- Lenis — smooth scroll de toda a página (mesmo padrão de agencia.html / producao.html) -->
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+
+  var lenis = new Lenis({
+    duration: 1.1,
+    easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
+    smoothWheel: true
+  });
+  function raf(time){
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  /* --- Footer parallax (mesma mecânica de agencia.html / producao.html) --- */
+  var shell  = document.querySelector('.page-shell');
+  var spacer = document.getElementById('reveal-spacer');
+  var footer = document.getElementById('site-footer');
+
+  var _footerH = 0, _Z = 0, _zoneStart = 0, _p = 0;
+  var _target = 0, _current = 0, _applied = -1;
+
+  function measureFooter(){
+    if(!footer || !shell) return;
+    _footerH = footer.offsetHeight;
+    _Z = _footerH * 1.35;
+    if(spacer) spacer.style.height = _Z + 'px';
+    var scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    _zoneStart = scrollMax - _Z;
+  }
+  function computeTarget(){
+    if(!_footerH) return;
+    _p = Math.max(0, Math.min(1, (window.pageYOffset - _zoneStart) / _Z));
+    _target = _footerH * (1 - _p);
+  }
+  function footerLoop(){
+    computeTarget();
+    _current = _target;
+    if(footer && Math.abs(_current - _applied) >= 0.05){
+      _applied = _current;
+      footer.style.transform = 'translateY(' + _current + 'px)';
+    }
+    requestAnimationFrame(footerLoop);
+  }
+
+  function initFooter(){
+    measureFooter();
+    computeTarget();
+    _current = _target;
+    if(footer){ footer.style.transform = 'translateY(' + _current + 'px)'; }
+  }
+  initFooter();
+  requestAnimationFrame(footerLoop);
+  window.addEventListener('resize', measureFooter, { passive: true });
+  window.addEventListener('load',   initFooter);
+
+  /* --- CTAs que revelam o footer --- */
+  function revealFooter(){
+    lenis.scrollTo(document.documentElement.scrollHeight, { duration: 1.4 });
+  }
+  document.querySelectorAll('[data-action="contato"], [data-action="agendar"], [data-action="reveal"]').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
+  });
+
+  /* --- Voltar ao topo --- */
+  var toTop = document.querySelector('[data-action="totop"]');
+  if(toTop){
+    toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
+  }
+
+  /* --- "Contato" (nav) rola até o calendário embutido nesta página --- */
+  document.querySelectorAll('[data-action="ir-agenda"]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var alvo = document.getElementById('agenda-case');
+      if(alvo) lenis.scrollTo(alvo, { duration: 3.0 });
+    });
+  });
+
+  /* --- Nav: burger mobile --- */
+  var nav = document.getElementById('site-nav');
+  var burger = document.querySelector('.nav-burger');
+  var navLinks = document.getElementById('nav-links');
+  if(nav && burger && navLinks){
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navLinks.querySelectorAll('.nav-link').forEach(function(link){
+      link.addEventListener('click', function(){
+        nav.classList.remove('menu-open');
+        burger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* --- Construção criativa: menu interativo (mesmo padrão de .prod-servicos) --- */
+  (function setupCaseTabs(){
+    var menu = document.querySelector('.case-tabs__menu');
+    if(!menu) return;
+    var items  = menu.querySelectorAll('.case-tabs__menu-item');
+    var panels = document.querySelectorAll('.case-tabs__panel');
+    items.forEach(function(item){
+      item.addEventListener('click', function(){
+        var targetId = item.getAttribute('data-target');
+        items.forEach(function(i){
+          i.classList.toggle('is-active', i === item);
+          i.setAttribute('aria-selected', i === item ? 'true' : 'false');
+        });
+        panels.forEach(function(p){ p.hidden = (p.id !== targetId); });
+      });
+    });
+  })();
+
+  /* --- Resultados: troca de episódio no player principal --- */
+  (function setupEpisodePlayer(){
+    var epBtns = document.querySelectorAll('.case-ep');
+    var player = document.getElementById('case-player');
+    if(!epBtns.length || !player) return;
+    epBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        epBtns.forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var newSrc = btn.getAttribute('data-ep-src');
+        var newTitle = btn.getAttribute('data-ep-title');
+        player.src = '';
+        setTimeout(function(){
+          player.src = newSrc;
+          player.title = newTitle;
+        }, 80);
+      });
+    });
+  })();
+
+})();
+</script>
+
+</body>
+</html>
