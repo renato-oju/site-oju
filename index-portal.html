@@ -98,8 +98,10 @@ body::before{
 }
 .portal-brand{ display:flex; align-items:center; gap:12px; }
 .portal-brand__mark{
-  font-family: var(--font-display);
-  font-weight:800; font-size: 22px; letter-spacing:-0.02em;
+  display:block;
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
 }
 .portal-brand__tag{
   font-family: var(--font-mono);
@@ -240,7 +242,7 @@ body::before{
   display:block;
   position:relative;
   width:100%;
-  aspect-ratio:16/9;
+  aspect-ratio:1/1;
   overflow:hidden;
 }
 .editorial-player__frame img{
@@ -436,10 +438,143 @@ body::before{
   *{ animation: none !important; transition-duration:.01ms !important; }
 }
 
+.container{
+  width: calc(100% - 2 * var(--site-side));
+  margin-left: var(--site-side);
+  margin-right: var(--site-side);
+}
+
+/* ===================== FOOTER REVELADO (curtain reveal) ===================== */
+/* A shell cobre o footer; ao chegar no fim do scroll, ela "sobe" e o revela. */
+.page-shell{
+  position: relative;
+  z-index: 1;
+  background: var(--cor-fundo-primario);
+  border-bottom-left-radius: clamp(28px, 4vw, 60px);
+  border-bottom-right-radius: clamp(28px, 4vw, 60px);
+  /* margin-bottom = altura do footer, definido via JS */
+}
+/* Palco escuro fixo atrás da shell: preenche a área revelada enquanto o
+   footer sobe, para não abrir buraco claro. Fica coberto pela shell no
+   scroll normal e só aparece na zona de reveal. */
+.reveal-stage{
+  position: fixed; inset: 0; z-index: 0;
+  background: #0c0c0c; pointer-events: none;
+}
+.reveal-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  background: #0c0c0c;
+  color: #fff;
+  display: flex;
+  overflow: hidden;
+  border-top-left-radius: clamp(28px, 4vw, 60px);
+  border-top-right-radius: clamp(28px, 4vw, 60px);
+  will-change: transform;
+}
+.reveal-footer__inner{
+  width: calc(100% - 2 * var(--site-side));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(14px, 2.5vh, 32px);
+  padding-block: clamp(24px, 4vh, 44px) clamp(14px, 2vh, 22px);
+}
+.reveal-footer__top{
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+.reveal-footer__title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 62px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__dot{ color: var(--cor-destaque); }
+.reveal-footer__text{
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255,255,255,.6);
+  max-width: 46ch;
+  margin: 0 0 clamp(16px, 2vw, 24px);
+}
+.reveal-footer__cta{
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--cor-destaque); color: #000;
+  font-weight: 700; letter-spacing: .04em;
+  padding: 16px 26px; border-radius: 100px;
+  font-size: 15px;
+  transition: transform .25s ease, background .25s ease;
+}
+.reveal-footer__cta span{ transition: transform .25s ease; }
+.reveal-footer__cta:hover{ background: #fff; }
+.reveal-footer__cta:hover span{ transform: translateX(4px); }
+.reveal-footer__alt{
+  margin: clamp(12px, 1.6vw, 18px) 0 0;
+  font-size: 13px; color: rgba(255,255,255,.5);
+}
+.reveal-footer__alt a{ color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.reveal-footer__alt a:hover{ color: var(--cor-destaque); }
+.reveal-footer__col{ display: flex; flex-direction: column; gap: 8px; }
+.reveal-footer__col-title{
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin: 0 0 6px;
+}
+.reveal-footer__col a{
+  font-size: 15px; color: rgba(255,255,255,.78);
+  width: fit-content; transition: color .2s ease;
+}
+.reveal-footer__col a:hover{ color: var(--cor-destaque); }
+.reveal-footer__addr{ font-size: 15px; color: rgba(255,255,255,.5); margin: 0; }
+.reveal-footer__brand{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(44px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: rgba(255,255,255,.05);
+  user-select: none;
+}
+.reveal-footer__bottom{
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: clamp(12px, 1.6vw, 20px);
+}
+.reveal-footer__copy{ font-size: 12px; color: rgba(255,255,255,.45); margin: 0; }
+.reveal-footer__bottom-right{ display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+.reveal-footer__bottom-right a,
+.reveal-footer__totop{
+  font: inherit; font-size: 12px; color: rgba(255,255,255,.6);
+  background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .2s ease;
+}
+.reveal-footer__bottom-right a:hover,
+.reveal-footer__totop:hover{ color: #fff; }
+
+@media (max-width: 900px){
+  .reveal-footer{ min-height: auto; }
+  .reveal-footer__top{ grid-template-columns: 1fr 1fr; row-gap: clamp(32px, 6vw, 48px); }
+  .reveal-footer__lead{ grid-column: 1 / -1; }
+  .reveal-footer__brand{ font-size: clamp(80px, 30vw, 200px); }
+}
+@media (max-width: 520px){
+  .reveal-footer__top{ grid-template-columns: 1fr; }
+}
+
+.lenis, .lenis-smooth{ scroll-behavior: auto !important; }
+
 </style>
 </head>
 <body>
 
+<main class="page-shell">
 <div class="portal">
 
   <!-- ================= ESQUERDA: 4 áreas ================= -->
@@ -447,7 +582,7 @@ body::before{
 
     <div class="portal-top">
       <div class="portal-brand">
-        <span class="portal-brand__mark">OJU</span>
+        <img src="midia/LOGO_OJU_small.png" alt="OJU" class="portal-brand__mark">
         <span class="portal-brand__tag">Portal</span>
       </div>
       <div class="portal-status">
@@ -508,8 +643,8 @@ body::before{
         <div class="portal-editorial__col">
           <p class="portal-editorial__lede">Apresentamos a OJU Hub</p>
           <p class="portal-editorial__subtitle">Seu acervo de vídeo, organizado pra virar conteúdo.</p>
-          <p class="portal-editorial__text">Todo cliente que produz vídeo com a gente acumula um acervo. Brutos, cortes, versões, aprovações. Com o tempo, esse material vira um problema: ninguém sabe onde está, ninguém lembra o que já existe, e boa parte dele nunca mais é usado.</p>
-          <p class="portal-editorial__text">A Hub resolve isso. Organiza, cataloga e deixa pronto pra virar conteúdo, sem depender de pedir arquivo pra ninguém.</p>
+          <p class="portal-editorial__text">Todo cliente acumula um acervo. Brutos, cortes, versões, aprovações. Com o tempo, esse material vira um problema: ninguém sabe onde está, ninguém lembra o que já existe, e boa parte dele nunca mais é usado.</p>
+          <p class="portal-editorial__text">A Hub resolve isso. Organiza, cataloga e deixa pronto pra virar conteúdo.</p>
         </div>
 
         <a class="editorial-player" href="hub.html" aria-label="Conhecer o OJU Hub">
@@ -596,6 +731,148 @@ body::before{
   </div>
 
 </div>
+</main><!-- /.page-shell -->
+
+<!-- Espaçador que abre a zona de scroll onde o footer é revelado
+     (margin-bottom não conta na área rolável; padding pintava a shell por cima do footer) -->
+<div class="reveal-spacer" id="reveal-spacer" aria-hidden="true"></div>
+
+<!-- ===================== FOOTER REVELADO (curtain reveal) ===================== -->
+<div class="reveal-stage" aria-hidden="true"></div>
+<footer class="reveal-footer" id="site-footer" aria-label="Rodapé e contato">
+  <div class="reveal-footer__inner container">
+
+    <div class="reveal-footer__top">
+      <div class="reveal-footer__lead">
+        <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
+        <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
+        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+      </div>
+
+      <nav class="reveal-footer__col" aria-label="Áreas">
+        <p class="reveal-footer__col-title">Áreas</p>
+        <a href="producao.html">Produção</a>
+        <a href="agencia.html">Agência</a>
+        <a href="hub.html">OJU Hub</a>
+        <a href="packshot.html">OJU Packshot</a>
+      </nav>
+
+      <nav class="reveal-footer__col" aria-label="Redes sociais">
+        <p class="reveal-footer__col-title">Redes</p>
+        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <div class="reveal-footer__col">
+        <p class="reveal-footer__col-title">Contato</p>
+        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
+        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <p class="reveal-footer__addr">São Paulo · Brasil</p>
+      </div>
+    </div>
+
+    <div class="reveal-footer__brand" aria-hidden="true">OJU</div>
+
+    <div class="reveal-footer__bottom">
+      <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
+      <div class="reveal-footer__bottom-right">
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Lenis — smooth scroll de toda a página (referência awsmd.com) -->
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+
+<script>
+(function(){
+
+  /* --- Lenis: anima a posição real de scroll (sem wrapper virtual),
+     então o resto do JS abaixo (parallax do footer) continua lendo
+     window.pageYOffset/getBoundingClientRect normalmente — só a
+     transição entre posições passa a ser suave. */
+  var lenis = new Lenis({
+    duration: 1.1,
+    easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
+    smoothWheel: true
+  });
+  function raf(time){
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  /* --- Footer parallax: ENTRA topo-primeiro, sobe mais devagar que o scroll --
+     A shell (z-index:1) tem uma margin-bottom = zona de reveal (Z), maior que
+     a altura do footer — isso cria o espaço de scroll onde o parallax acontece.
+     Atrás da shell fica o palco escuro (.reveal-stage). O footer (fixo) começa
+     com o TOPO na borda inferior da tela (abaixo da dobra) e sobe até estacionar
+     em translateY(0) quando o scroll chega ao fim. Parallax direto: a posição
+     segue o scroll exatamente (1:1), sem easing. Loop rAF contínuo (não
+     depende de eventos de scroll). --- */
+  var shell  = document.querySelector('.page-shell');
+  var spacer = document.getElementById('reveal-spacer');
+  var footer = document.getElementById('site-footer');
+
+  var _footerH = 0, _Z = 0, _zoneStart = 0, _p = 0;
+  var _target = 0, _current = 0, _applied = -1;
+
+  function measureFooter(){
+    if(!footer || !shell) return;
+    _footerH = footer.offsetHeight;
+    _Z = _footerH * 1.35;                         /* zona de reveal (> footerH → parallax mais lento que o scroll) */
+    if(spacer) spacer.style.height = _Z + 'px';   /* espaço de scroll no fim */
+    var scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    _zoneStart = scrollMax - _Z;
+  }
+  function computeTarget(){
+    if(!_footerH) return;
+    _p = Math.max(0, Math.min(1, (window.pageYOffset - _zoneStart) / _Z));  /* 0→1 na zona final */
+    _target = _footerH * (1 - _p);
+  }
+  function footerLoop(){
+    computeTarget();
+    _current = _target;                            /* parallax direto, sem easing */
+    if(footer && Math.abs(_current - _applied) >= 0.05){
+      _applied = _current;
+      footer.style.transform = 'translateY(' + _current + 'px)';
+    }
+    requestAnimationFrame(footerLoop);
+  }
+
+  function initFooter(){
+    measureFooter();
+    computeTarget();
+    _current = _target;                           /* sem animar do zero no load */
+    if(footer){ footer.style.transform = 'translateY(' + _current + 'px)'; }
+  }
+  initFooter();
+  requestAnimationFrame(footerLoop);
+  window.addEventListener('resize', measureFooter, { passive: true });
+  window.addEventListener('load',   initFooter);
+
+  /* --- CTAs que revelam o footer (rolam até o fim da página) --- */
+  function revealFooter(){
+    lenis.scrollTo(document.documentElement.scrollHeight, { duration: 1.4 });
+  }
+  document.querySelectorAll('[data-action="contato"], [data-action="agendar"], [data-action="reveal"]').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); revealFooter(); });
+  });
+
+  /* --- Voltar ao topo --- */
+  var toTop = document.querySelector('[data-action="totop"]');
+  if(toTop){
+    toTop.addEventListener('click', function(){ lenis.scrollTo(0, { duration: 1.4 }); });
+  }
+
+})();
+</script>
 
 <script>
 /* ===== Cards com vídeo: dão play em loop no hover ===== */

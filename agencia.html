@@ -87,7 +87,7 @@ a{ color:inherit; text-decoration:none; }
 <header class="site-nav" id="site-nav" role="banner">
   <div class="site-nav__wrap container">
     <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
-      <span class="nav-logo__mark">OJU</span>
+      <img src="midia/LOGO_OJU_small.png" alt="OJU" class="nav-logo__mark">
     </a>
     <nav class="nav-links" id="nav-links" aria-label="Principal">
       <a class="nav-link is-current" href="agencia.html" aria-current="page">Agência</a>
@@ -109,8 +109,8 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Primeira seção">
-  <video class="hero__video" autoplay muted playsinline preload="auto">
-    <source src="midia/intro_hero.mp4" type="video/mp4">
+  <video class="hero__video" autoplay muted loop playsinline preload="auto">
+    <source src="midia/agencia/bg_hero_agencia.mp4" type="video/mp4">
   </video>
   <div class="hero__overlay" aria-hidden="true"></div>
   <div class="hero__fade-bottom" aria-hidden="true"></div>
@@ -172,13 +172,13 @@ a{ color:inherit; text-decoration:none; }
         </figure>
         <h4 class="ag-creditos__passo-titulo">Captação</h4>
         <p class="ag-creditos__passo-texto">Um dia de set reúne todo o material planejado.</p>
-        <a class="ag-creditos__passo-link" href="producao.html">Produção OJU <span aria-hidden="true">↗</span></a>
+        <a class="ag-creditos__passo-link" href="producao.html">Produção Oju <span aria-hidden="true">↗</span></a>
       </div>
       <span class="ag-creditos__seta" aria-hidden="true">→</span>
       <div class="ag-creditos__passo">
         <span class="ag-creditos__passo-numero">03</span>
         <figure class="ag-creditos__passo-imagem">
-          <img src="midia/agencia/img_hub.png" alt="Material organizado no acervo do Hub" loading="lazy">
+          <video src="midia/agencia/vid_hub.mp4" autoplay loop muted playsinline aria-label="Material organizado no acervo do Hub"></video>
         </figure>
         <h4 class="ag-creditos__passo-titulo">Hub</h4>
         <p class="ag-creditos__passo-texto">O material vira acervo organizado, pronto pra usar.</p>
@@ -188,7 +188,7 @@ a{ color:inherit; text-decoration:none; }
       <div class="ag-creditos__passo">
         <span class="ag-creditos__passo-numero">04</span>
         <figure class="ag-creditos__passo-imagem">
-          <img src="midia/agencia/img_distribuicao.png" alt="Distribuição do acervo em campanhas ao longo do calendário" loading="lazy">
+          <video src="midia/agencia/vid_distribuicao.mp4" autoplay loop muted playsinline aria-label="Distribuição do acervo em campanhas ao longo do calendário"></video>
         </figure>
         <h4 class="ag-creditos__passo-titulo">Distribuição</h4>
         <p class="ag-creditos__passo-texto">Para cada data do calendário, transformamos acervo em conteúdo.</p>
@@ -206,19 +206,19 @@ a{ color:inherit; text-decoration:none; }
     </div>
     <div class="ag-celula__roles" role="list">
       <div class="ag-celula__role" role="listitem">
-        <div class="ag-celula__role-frame"><img src="midia/agencia/celula-membro.png" alt="Integrante da célula dedicada" loading="lazy"></div>
+        <div class="ag-celula__role-frame"><img src="midia/agencia/img_atendimento.png" alt="Integrante da célula dedicada — Atendimento" loading="lazy"></div>
         <div class="ag-celula__role-caption"><strong>Atendimento</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <div class="ag-celula__role-frame"><img src="midia/agencia/celula-membro.png" alt="Integrante da célula dedicada" loading="lazy"></div>
+        <div class="ag-celula__role-frame"><img src="midia/agencia/img_direcao_criativa.png" alt="Integrante da célula dedicada — Direção criativa" loading="lazy"></div>
         <div class="ag-celula__role-caption"><strong>Direção criativa</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <div class="ag-celula__role-frame"><img src="midia/agencia/celula-membro.png" alt="Integrante da célula dedicada" loading="lazy"></div>
+        <div class="ag-celula__role-frame"><img src="midia/agencia/img_direcao_arte.png" alt="Integrante da célula dedicada — Direção de arte" loading="lazy"></div>
         <div class="ag-celula__role-caption"><strong>Direção de arte</strong></div>
       </div>
       <div class="ag-celula__role" role="listitem">
-        <div class="ag-celula__role-frame"><img src="midia/agencia/celula-membro.png" alt="Integrante da célula dedicada" loading="lazy"></div>
+        <div class="ag-celula__role-frame"><img src="midia/agencia/img_copywriter.png" alt="Integrante da célula dedicada — Copywriter" loading="lazy"></div>
         <div class="ag-celula__role-caption"><strong>Copywriter</strong></div>
       </div>
     </div>
@@ -235,22 +235,34 @@ a{ color:inherit; text-decoration:none; }
         <h2 class="ag-creditos__title">PLANEJAMENTO<br>EM CRÉDITOS</h2>
         <p class="ag-creditos__intro">Em vez de orçar cada campanha isoladamente, você opera com um saldo de créditos que cobre o seu calendário. Uma moeda única, que vira criação, produção e acervo organizado.</p>
       </div>
-      <div class="ag-creditos__header-media">
-        <img src="midia/agencia/img_modelo_creditos.png" alt="Painel ilustrativo de acompanhamento do pacote anual de créditos" loading="lazy">
-      </div>
+      <button class="ag-creditos__header-media" type="button" data-lightbox-open="midia/agencia/img_creditos.png" aria-label="Ampliar painel de acompanhamento de créditos">
+        <img src="midia/agencia/img_creditos.png" alt="Painel ilustrativo de acompanhamento do pacote anual de créditos" loading="lazy">
+        <span class="ag-creditos__header-media-zoom" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
+        </span>
+      </button>
     </div>
     <div class="ag-creditos__blocos" role="list">
       <div class="ag-creditos__bloco" role="listitem">
-        <h3 class="ag-creditos__bloco-title">UM SALDO, UM PERÍODO</h3>
-        <p class="ag-creditos__bloco-text">Definimos juntos as datas e campanhas que importam no seu ano. O planejamento vira um saldo de créditos baseado em seu orçamento.</p>
+        <div class="ag-creditos__bloco-text-wrap">
+          <h3 class="ag-creditos__bloco-title">UM SALDO, UM PERÍODO</h3>
+          <p class="ag-creditos__bloco-text">Definimos juntos as datas e campanhas que importam no seu ano. O planejamento vira um saldo de créditos baseado em seu orçamento.</p>
+        </div>
+        <img class="ag-creditos__bloco-media" src="midia/agencia/img_01.png" alt="" loading="lazy">
       </div>
       <div class="ag-creditos__bloco" role="listitem">
-        <h3 class="ag-creditos__bloco-title">CRÉDITO VIRA ENTREGA</h3>
-        <p class="ag-creditos__bloco-text">O mesmo crédito atravessa todo o ecossistema Oju: pode virar uma campanha, um conteúdo avulso ou a organização do seu acervo no Hub. Você decide onde investir, a cada momento.</p>
+        <div class="ag-creditos__bloco-text-wrap">
+          <h3 class="ag-creditos__bloco-title">CRÉDITO VIRA ENTREGA</h3>
+          <p class="ag-creditos__bloco-text">O mesmo crédito atravessa todo o ecossistema Oju: pode virar uma campanha, um conteúdo avulso ou a organização do seu acervo no Hub. Você decide onde investir, a cada momento.</p>
+        </div>
+        <img class="ag-creditos__bloco-media" src="midia/agencia/img_02.png" alt="" loading="lazy">
       </div>
       <div class="ag-creditos__bloco" role="listitem">
-        <h3 class="ag-creditos__bloco-title">PREVISIBILIDADE DOS DOIS LADOS</h3>
-        <p class="ag-creditos__bloco-text">Você sabe quanto vai investir no período e o que tem disponível. A gente já entra em cada campanha sabendo o que cabe. Menos negociação repetida, mais economia em cada peça criada.</p>
+        <div class="ag-creditos__bloco-text-wrap">
+          <h3 class="ag-creditos__bloco-title">PREVISIBILIDADE DOS DOIS LADOS</h3>
+          <p class="ag-creditos__bloco-text">Você sabe quanto vai investir no período e o que tem disponível. A gente já entra em cada campanha sabendo o que cabe. Menos negociação repetida, mais economia em cada peça criada.</p>
+        </div>
+        <img class="ag-creditos__bloco-media" src="midia/agencia/img_03.png" alt="" loading="lazy">
       </div>
     </div>
     <div class="ag-creditos__cta">
@@ -276,6 +288,12 @@ a{ color:inherit; text-decoration:none; }
     <div class="ag-pin__wall" id="ag-wall" aria-hidden="true"><!-- células injetadas via JS --></div>
     <a class="ag-pin__hand" id="ag-hand" href="case-gente-com-historia.html" aria-label="Ver case Gente com História">
       <img class="ag-pin__hand-img" src="midia/agencia/hand.webp" alt="Case Gente com História" draggable="false">
+      <div class="ag-pin__hand-screen">
+        <iframe class="ag-pin__hand-video" src="https://player.vimeo.com/video/1125305050?h=894b6a7203&background=1&autoplay=1&loop=1&muted=1&byline=0&title=0&portrait=0" title="Case Gente com História" frameborder="0" allow="autoplay; fullscreen" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+        <div class="ag-pin__hand-caption" aria-hidden="true">
+          <span>Clique para ver o case<br>"Gente com História"</span>
+        </div>
+      </div>
       <span class="ag-pin__hand-hit" aria-hidden="true"></span>
     </a>
   </div>
@@ -370,6 +388,15 @@ a{ color:inherit; text-decoration:none; }
   </div>
 </footer>
 
+<!-- ===================== LIGHTBOX (imagem em tamanho real) ===================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox__backdrop" data-lightbox-close></div>
+  <button class="lightbox__close" type="button" aria-label="Fechar" data-lightbox-close>&times;</button>
+  <figure class="lightbox__frame">
+    <img class="lightbox__img" id="lightbox-img" src="" alt="">
+  </figure>
+</div>
+
 <style>
 
 /* ===================== NAV — sempre sólido, nunca invadido pelo vídeo ===================== */
@@ -388,16 +415,10 @@ a{ color:inherit; text-decoration:none; }
 }
 .nav-logo{ flex-shrink:0; margin-right: auto; }
 .nav-logo__mark{
-  display: inline-block;
-  background: var(--cor-destaque);
-  color: #000;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 14px;
-  padding: 7px 11px 6px;
-  border-radius: 5px;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  display: block;
+  height: 27px;
+  width: 27px;
+  object-fit: cover;
   transition: opacity .2s ease;
 }
 .nav-logo:hover .nav-logo__mark{ opacity: .85; }
@@ -809,16 +830,37 @@ a{ color:inherit; text-decoration:none; }
 .ag-creditos__header-media{
   position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 2781/1459;
   overflow: hidden;
   border: 1px solid var(--cor-borda);
-  background: var(--cor-fundo-secundario);
+  background: var(--cor-fundo-primario);
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 .ag-creditos__header-media img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+}
+.ag-creditos__header-media-zoom{
+  position: absolute;
+  right: 14px; bottom: 14px;
+  z-index: 2;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s ease, color .2s ease;
+}
+.ag-creditos__header-media-zoom svg{ width: 16px; height: 16px; }
+.ag-creditos__header-media:hover .ag-creditos__header-media-zoom{
+  background: var(--cor-destaque);
+  color: #000;
 }
 @media (max-width: 900px){
   .ag-creditos__header{ grid-template-columns: 1fr; }
@@ -826,18 +868,34 @@ a{ color:inherit; text-decoration:none; }
 .ag-creditos__blocos{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: rgba(0,0,0,.1);
+  gap: clamp(12px, 1.6vw, 20px);
   margin-bottom: clamp(28px, 3.5vw, 44px);
 }
 .ag-creditos__bloco{
   position: relative;
   overflow: hidden;
-  background: var(--cor-fundo-secundario);
+  background: var(--cor-fundo-primario);
+  border: 1px solid var(--cor-borda);
   padding: clamp(24px, 3vw, 40px) clamp(18px, 2vw, 28px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+.ag-creditos__bloco-text-wrap{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
+}
+.ag-creditos__bloco-media{
+  flex-shrink: 0;
+  width: clamp(56px, 6vw, 84px);
+  height: clamp(56px, 6vw, 84px);
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
 }
 .ag-creditos__bloco-title,
 .ag-creditos__bloco-text{
@@ -1001,7 +1059,7 @@ a{ color:inherit; text-decoration:none; }
 /* ===================== ÁREA AGÊNCIA (visual, não é mais página-alvo) ===================== */
 .pilar-sec{
   border-top: 1px solid rgba(0,0,0,.08);
-  background: var(--cor-fundo-primario);
+  background: var(--cor-fundo-secundario);
 }
 
 /* ===================== AGÊNCIA — SCROLL COM PIN =====================
@@ -1020,7 +1078,7 @@ a{ color:inherit; text-decoration:none; }
   min-height: 0;
   display: block;
   padding: 0;
-  background: var(--cor-fundo-primario);
+  background: var(--cor-fundo-secundario);
 }
 .ag-pin__header{
   padding-top: clamp(40px, 5vw, 64px);
@@ -1125,6 +1183,49 @@ a{ color:inherit; text-decoration:none; }
   cursor: pointer;
 }
 .ag-pin__hand:hover .ag-pin__hand-img{ filter: brightness(1.06) drop-shadow(0 0 24px rgba(254,194,0,.35)); }
+
+/* Tela do celular = recorte transparente em hand.webp (retângulo em
+   40.625%/1.8% a 59.375%/64.9% da imagem) — o vídeo entra exatamente
+   por trás desse recorte, como se estivesse tocando na tela. */
+.ag-pin__hand-screen{
+  position: absolute;
+  left: 40.625%; top: 1.8%;
+  width: 18.75%; height: 63.1%;
+  border-radius: 12% / 5.5%;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+.ag-pin__hand-video{
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+.ag-pin__hand-caption{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+  background: rgba(0,0,0,.6);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+  text-align: center;
+}
+.ag-pin__hand-caption span{
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(10px, 1vw, 13px);
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: .01em;
+}
+.ag-pin__hand:hover .ag-pin__hand-caption{ opacity: 1; }
 
 /* Fallback estático: mobile e quem prefere menos movimento */
 .ag-pin.ag-pin--static{ height: auto; }
@@ -1359,6 +1460,55 @@ a{ color:inherit; text-decoration:none; }
 }
 
 .lenis, .lenis-smooth{ scroll-behavior: auto !important; }
+
+/* ===================== LIGHTBOX (imagem em tamanho real) ===================== */
+.lightbox{
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(20px, 4vw, 56px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+.lightbox.is-open{
+  opacity: 1; visibility: visible;
+  transition: opacity .25s ease, visibility 0s linear 0s;
+}
+.lightbox__backdrop{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.85);
+}
+.lightbox__frame{
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+  line-height: 0;
+}
+.lightbox__img{
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - clamp(40px, 8vw, 112px));
+  width: auto; height: auto;
+  border: 1px solid rgba(255,255,255,.2);
+  background: #fff;
+}
+.lightbox__close{
+  position: fixed;
+  top: clamp(14px, 2.5vw, 28px);
+  right: clamp(14px, 2.5vw, 28px);
+  z-index: 2;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.lightbox__close:hover{ background: var(--cor-destaque); color:#000; }
 
 </style>
 
@@ -1621,6 +1771,40 @@ a{ color:inherit; text-decoration:none; }
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+  })();
+
+  /* --- Lightbox: abre imagens em tamanho real --- */
+  (function setupLightbox(){
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightbox-img');
+    if(!lightbox || !lightboxImg) return;
+
+    function openLightbox(src, alt){
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    document.querySelectorAll('[data-lightbox-open]').forEach(function(trigger){
+      trigger.addEventListener('click', function(){
+        var img = trigger.querySelector('img');
+        openLightbox(trigger.getAttribute('data-lightbox-open'), img ? img.alt : '');
+      });
+    });
+    lightbox.querySelectorAll('[data-lightbox-close]').forEach(function(btn){
+      btn.addEventListener('click', closeLightbox);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
   })();
 
 })();

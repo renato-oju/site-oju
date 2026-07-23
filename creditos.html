@@ -352,22 +352,51 @@ button{ font: inherit; }
 table.demandas{
   width: 100%;
   border-collapse: collapse;
-  min-width: 760px;
+  table-layout: fixed;
+  min-width: 880px;
 }
 .demandas th{
+  position: relative;
   text-align: left;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--cor-texto-terciario);
-  padding: 14px 10px 8px 0;
+  padding: 14px 10px 8px 8px;
   border-bottom: 1px solid var(--cor-borda);
 }
 .demandas td{
-  padding: 4px 10px 4px 0;
+  padding: 4px 10px 4px 8px;
   border-bottom: 1px solid var(--borda-suave);
   vertical-align: middle;
+}
+.demandas th:first-child, .demandas td:first-child{ padding-left: 0; }
+.demandas th:not(:last-child), .demandas tbody td:not(:last-child){
+  border-right: 1px solid var(--borda-suave);
+}
+.col-resize{
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  right: -5px;
+  width: 11px;
+  cursor: col-resize;
+  z-index: 2;
+}
+.col-resize::after{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  width: 1px;
+  background: transparent;
+}
+.col-resize:hover::after, .col-resize.arrastando::after{
+  background: var(--cor-destaque);
+  width: 3px;
+  left: 4px;
 }
 .demandas input[type="text"], .demandas input[type="number"], .demandas select{
   width: 100%;
@@ -385,6 +414,46 @@ table.demandas{
 .demandas .col-cat{ width: 220px; }
 .demandas .col-obs{ width: 24%; }
 .demandas .col-x{ width: 34px; }
+.demandas .col-vid{ width: 168px; }
+.thumbs{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2px 0;
+  scrollbar-width: thin;
+}
+a.thumb{
+  flex: 0 0 auto;
+  position: relative;
+  display: block;
+  width: 46px;
+  height: 26px;
+  background: #000;
+  border: 1px solid var(--cor-borda);
+  border-radius: 3px;
+  overflow: hidden;
+}
+a.thumb::before{
+  content: '\25B6';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #fff;
+  opacity: .85;
+}
+a.thumb img{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+a.thumb:hover{ border-color: var(--cor-destaque); box-shadow: 0 0 0 1px var(--cor-destaque); }
 .demandas select{ cursor: pointer; color: var(--cor-texto-secundario); }
 .demandas tfoot td{
   border-bottom: none;
@@ -766,6 +835,207 @@ function clienteExemplo(){
     d('[138] Vídeos barter — Fato ou Fake', CS, 1, 30)
   ];
   return c;
+}
+
+/* ============================================================
+   VÍDEOS POR DEMANDA (Vimeo)
+   Links extraídos das notas da planilha de controle original,
+   chaveados pelo título exato da demanda. Links colados no campo
+   Observações também viram thumbs automaticamente.
+   ============================================================ */
+var VIDEO_LINKS = {
+  /* Janeiro */
+  '[079] POV no meio da lavoura 2811': ['https://vimeo.com/1154773199/1665cb859c'],
+  '[076] Reels Trator': ['https://vimeo.com/1154779275/8594bc55b5'],
+  '[078] Pós Feira Dinetec': ['https://vimeo.com/1155062668/7fb01202c9'],
+  '[074] Fato ou Fake B2507': ['https://vimeo.com/1156919432/8940adb992'],
+  '[080] Depoimento rep TSI': ['https://vimeo.com/1156939990/48d41e5f0b'],
+  '[077] Depoimento rep 2702': ['https://vimeo.com/1156472984/e053ded647'],
+  '[081] Vídeo Trend/Lifestyle': ['https://vimeo.com/1160272920/a9250fab19'],
+  /* Fevereiro */
+  '[082] Aniversário 8 anos': ['https://vimeo.com/1161825098/d740bc300f', 'https://vimeo.com/1161836912/c53fff9c8e'],
+  '[084] Vídeos feira — resultados': ['https://vimeo.com/1162174971/4b19f726db', 'https://vimeo.com/1166418672/7c4177fc97'],
+  '[083] Vídeo Carnaval': ['https://vimeo.com/1162202539/eadc502c51'],
+  '[067] Reels TSI': ['https://vimeo.com/1162549547/b6dd6c7d88', 'https://vimeo.com/1167468014/1aae8ed35a'],
+  '[085] Edição de versão — TSI': ['https://vimeo.com/1163399841/4937c0ae33'],
+  '[084] Vídeos feira — social': ['https://vimeo.com/1163675310/ab52d5db59', 'https://vimeo.com/1163670803/9dac918353', 'https://vimeo.com/1163762486/4fcc0acc0b', 'https://vimeo.com/1164018191/2e02441d4d', 'https://vimeo.com/1164026835/1a654adf61', 'https://vimeo.com/1164026877/a1091324cf', 'https://vimeo.com/1164470546/fb94997eb9'],
+  '[086] Vídeo creator TSI': ['https://vimeo.com/1164494390/73959dd12a'],
+  '[087] Plantabilidade': ['https://vimeo.com/1166670234/ccc9095730'],
+  '[091] Componentes de produtividade': ['https://vimeo.com/1168474648/bc1ff72fad'],
+  '[089] Vídeo resultados evento': ['https://vimeo.com/1168479808/465ae1405e'],
+  '[088] Cadastro programa de pontos': ['https://vimeo.com/1168842759/cf5baed4ff'],
+  /* Março */
+  '[092] Vídeo depoimento 2811': ['https://vimeo.com/1169655146/54b8854890'],
+  '[093] Vídeo resultados — feira 2': ['https://vimeo.com/1170296112/78c7e02797'],
+  '[090] Vídeo produto': ['https://vimeo.com/1170305541/60b632972a'],
+  '[095] Vídeo janela de plantio': ['https://vimeo.com/1171110725/4a510bc5da'],
+  '[093] Conteúdo de feira 2': ['https://vimeo.com/1172248237/c1ac2f27d3', 'https://vimeo.com/1172252113/42903e38db', 'https://vimeo.com/1172281610/71bcfad636', 'https://vimeo.com/1172685698/3fbd77f80f', 'https://vimeo.com/1172691860/fe96258b4b', 'https://vimeo.com/1172997627/15be9ce326', 'https://vimeo.com/1172707670/5759f410fd', 'https://vimeo.com/1173303613/563e5d375d'],
+  '[096] Vídeos herbicidas (2 peças)': ['https://vimeo.com/1172261580/ea9707a561'],
+  '[097] Diferença de doenças foliares': ['https://vimeo.com/1174430236/11080f479a'],
+  '[094] Vídeos feira 3': ['https://vimeo.com/1174519251/74ee0b8cb0', 'https://vimeo.com/1175497939/f7ad1a4387', 'https://vimeo.com/1175624547/b79d0e9cb1', 'https://vimeo.com/1176303644/9d1cdb752f', 'https://vimeo.com/1176326121/2edbd6eae2', 'https://vimeo.com/1176707665/02b357f1dd', 'https://vimeo.com/1176899521/bf0bc590f1', 'https://vimeo.com/1177050826/6f8a48288b', 'https://vimeo.com/1177090767/376fc38e6d', 'https://vimeo.com/1176994055/c1dd116270', 'https://vimeo.com/1176721855/7980d3e078', 'https://vimeo.com/1177444779/71a2805c21', 'https://vimeo.com/1177848478/38272891d8'],
+  '[099] Reels campanha nematoide': ['https://vimeo.com/1174913011/830cee0511'],
+  '[098] Reels especialista': ['https://vimeo.com/1178570878/95a0435b74'],
+  /* Abril */
+  '[101] Vídeos feira 4': ['https://vimeo.com/1178884160/766fbcf1f3', 'https://vimeo.com/1179332679/d1802656bf', 'https://vimeo.com/1180483896/dc635ec656', 'https://vimeo.com/1180559302/2683ca4297', 'https://vimeo.com/1180606482/76cccb5087', 'https://vimeo.com/1180907789/76382731f8', 'https://vimeo.com/1180982241/97836a0760', 'https://vimeo.com/1181248791/b942d53ebc', 'https://vimeo.com/1181300086/0728fcb270', 'https://vimeo.com/1181302062/121be2f62a', 'https://vimeo.com/1181262791/c4144f5548', 'https://vimeo.com/1181546578/2ea264cba7', 'https://vimeo.com/1181623271/636aadcfff', 'https://vimeo.com/1181648096/14e0b3d9de', 'https://vimeo.com/1181700363/b1aeb6d573', 'https://vimeo.com/1181703652/38114194cb', 'https://vimeo.com/1181715077/e329816ad2', 'https://vimeo.com/1182079415/b073eb0064'],
+  '[105] Depoimento programa de pontos': ['https://vimeo.com/1179660934/9f02c4fadc'],
+  '[107] Produto + nematoides': ['https://vimeo.com/1180841806/780d64155c', 'https://vimeo.com/1180841861/3ef2ffe26c', 'https://vimeo.com/1180841911/b4dcbbc878'],
+  '[111] Conteúdo UGC safrinha': ['https://vimeo.com/1181680034/ede60f6266'],
+  '[108] Entrevista produtor + convidado': ['https://vimeo.com/1180863112/5bd5745e12', 'https://vimeo.com/1183840129/ad08e6a6f1', 'https://vimeo.com/1183840174/8cd1514977', 'https://vimeo.com/1183840223/b0e76024d7'],
+  '[110] Vídeos creators — rep (3 peças)': ['https://vimeo.com/1182663110/c8a20a7966', 'https://vimeo.com/1184844909/5e7ab2da18', 'https://vimeo.com/1185551072/df73ad196f'],
+  '[103] Reels institucional dark': ['https://vimeo.com/1186941785/9b9a64826a'],
+  '[102] Vídeo lançamentos regionais': ['https://vimeo.com/1187766964/4146dfcec0'],
+  /* Maio */
+  '[114] Vídeo creator': ['https://vimeo.com/1189455510/78d4608040'],
+  '[100] Qualidade de sementes (palestra)': ['https://vimeo.com/1178563940/622d0224e4'],
+  '[106] Dia das Mães': ['https://vimeo.com/1190610212/1fffcf8f0d'],
+  '[115] Fato ou Fake — creator': ['https://vimeo.com/1191263055/1da3978f59'],
+  '[118] Vídeos feira 5': ['https://vimeo.com/1191570116/21acb51e1c', 'https://vimeo.com/1193364206/c79de287b5', 'https://vimeo.com/1193391303/6162353db5', 'https://vimeo.com/1193703968/60590db9fb', 'https://vimeo.com/1193391302/4ca55bfbd7', 'https://vimeo.com/1194135774/d2f2128d80', 'https://vimeo.com/1194194064/5a6fdd24c6', 'https://vimeo.com/1194355132/aa0c41b0ea', 'https://vimeo.com/1194470276/b04aa4a75d', 'https://vimeo.com/1194718954/f49ebc311f'],
+  '[117] Creators produto combinado': ['https://vimeo.com/1192577863/fe7c5b90f0'],
+  '[120] Manejo de nematoides': ['https://vimeo.com/1193616748/0bec639bbe'],
+  '[122] Vídeo motion adaptado': ['https://vimeo.com/1194712635/0662d12b14'],
+  '[121] Reels WhatsApp': ['https://vimeo.com/1195382516/913c871711'],
+  '[119] Vídeo depoimento produtor': ['https://vimeo.com/1195384444/9db356b31b'],
+  '[116] Atitudes da marca': ['https://vimeo.com/1196080775/c8b53f85ac'],
+  '[126] Creator + palestrante — manejo': ['https://vimeo.com/1196416154/a4a434b922'],
+  '[109] Fato ou Fake silagem': ['https://vimeo.com/1196758783/eaa61fbe99'],
+  /* Junho */
+  '[131] Peças de mídia': ['https://vimeo.com/1197384605/19a96f107d', 'https://vimeo.com/1197384607/fb311fe238', 'https://vimeo.com/1197384606/95ef130a5c'],
+  '[123] Campanha creator — produto': ['https://vimeo.com/1197759413/85d7d4101f'],
+  '[124] Depoimento pulgão': ['https://vimeo.com/1198131663/a09431e346'],
+  '[127] Creators — depoimento': ['https://vimeo.com/1199513306/b3d819987c'],
+  '[134] Resultados regionais': ['https://vimeo.com/1199557537/fe464d1611', 'https://vimeo.com/1200221214/341eb98f62'],
+  '[128] Creators (2 produtos)': ['https://vimeo.com/1199785680/b69358342a', 'https://vimeo.com/1199785679/3ede0dcace'],
+  '[129] Vídeo Pré-Copa': ['https://vimeo.com/1200196723/90669cf0b6'],
+  '[125] Creator — silagem': ['https://vimeo.com/1200815685/3ef9857411'],
+  '[130] Creator — nematoides': ['https://vimeo.com/1201507531/5357bb2419'],
+  '[132] Creators rep — produto': ['https://vimeo.com/1201774684/4246dda18e'],
+  '[133] Creators — produto combinado': ['https://vimeo.com/1203583517/862472806e'],
+  /* Julho */
+  '[136] Dia do Cooperativismo': ['https://vimeo.com/1205817115/4d8c7675e5'],
+  '[103] Reels dark — versão': ['https://vimeo.com/share/4ad20cd6-4547-4aa3-9c90-8953ee99237b'],
+  '[138] Vídeos barter — 5 motivos': ['https://vimeo.com/share/253c50bd-bf06-4b21-a2a7-1040a02e9698'],
+  '[139] 3 motivos para plantar': ['https://vimeo.com/share/92028167-c62d-49ad-9ec6-bf10ba8b2305'],
+  '[141] Reels — o inimigo invisível': ['https://vimeo.com/share/e7f3f8dd-a219-450b-bcbf-9e5ed8f64af5'],
+  '[137] Nematoides — produtor': ['https://vimeo.com/1207832980/aa449978e1'],
+  '[138] Vídeos barter — Fato ou Fake': ['https://vimeo.com/1211709982/75be542736']
+};
+
+function linksDaDemanda(d){
+  var links = (VIDEO_LINKS[String(d.titulo || '').trim()] || []).slice();
+  String(d.obs || '').replace(/https?:\/\/[^\s"'<>]+/g, function(u){ links.push(u); return u; });
+  var vistos = {}, unicos = [];
+  links.forEach(function(u){ if (!vistos[u]){ vistos[u] = 1; unicos.push(u); } });
+  return unicos;
+}
+
+/* Miniaturas via oEmbed do Vimeo, com cache no navegador.
+   'x' no cache = vídeo sem thumbnail disponível (fica o tile ▶). */
+var THUMB_KEY = 'oju-thumbs-vimeo-v1';
+var thumbCache = {};
+try{ thumbCache = JSON.parse(localStorage.getItem(THUMB_KEY)) || {}; }catch(e){ thumbCache = {}; }
+var thumbFila = [], thumbAtivos = 0;
+
+function renderThumbsCell(cont, d){
+  cont.innerHTML = '';
+  linksDaDemanda(d).forEach(function(url){
+    var a = document.createElement('a');
+    a.className = 'thumb';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.title = 'Abrir vídeo';
+    a.setAttribute('data-url', url);
+    cont.appendChild(a);
+  });
+}
+
+function resolverThumbs(raiz){
+  raiz.querySelectorAll('a.thumb[data-url]').forEach(function(a){
+    var url = a.getAttribute('data-url');
+    a.removeAttribute('data-url');
+    var cached = thumbCache[url];
+    if (cached === 'x') return;
+    if (cached){ thumbImg(a, cached); return; }
+    thumbFila.push({ a: a, url: url });
+  });
+  thumbProxima();
+}
+
+function thumbProxima(){
+  while (thumbAtivos < 5 && thumbFila.length){
+    (function(job){
+      thumbAtivos++;
+      fetch('https://vimeo.com/api/oembed.json?url=' + encodeURIComponent(job.url))
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(j){
+          var t = (j && j.thumbnail_url) ? j.thumbnail_url : 'x';
+          thumbCache[job.url] = t;
+          try{ localStorage.setItem(THUMB_KEY, JSON.stringify(thumbCache)); }catch(e){}
+          if (t !== 'x') thumbImg(job.a, t);
+        })
+        .catch(function(){})
+        .then(function(){ thumbAtivos--; thumbProxima(); });
+    })(thumbFila.shift());
+  }
+}
+
+function thumbImg(a, src){
+  var img = document.createElement('img');
+  img.src = src;
+  img.alt = '';
+  img.loading = 'lazy';
+  a.appendChild(img);
+}
+
+/* ============================================================
+   LARGURA DAS COLUNAS — separadores verticais arrastáveis
+   Ordem: Demanda · Vídeos · Categoria · Entregas · Créditos ·
+   Observações (flexível) · ×
+   ============================================================ */
+var COLW_KEY = 'oju-col-larguras-v1';
+var COL_LARG_PADRAO = [210, 168, 190, 76, 76, null, 34];
+var colLarguras = null;
+try{ colLarguras = JSON.parse(localStorage.getItem(COLW_KEY)) || null; }catch(e){ colLarguras = null; }
+
+function aplicarLargurasTabela(tabela){
+  var larg = colLarguras || COL_LARG_PADRAO;
+  tabela.querySelectorAll('thead th').forEach(function(th, i){
+    if (larg[i]) th.style.width = larg[i] + 'px';
+  });
+}
+
+function ativarRedimensionamento(tabela){
+  var ths = tabela.querySelectorAll('thead th');
+  ths.forEach(function(th, i){
+    if (i >= ths.length - 1) return;
+    var alca = document.createElement('span');
+    alca.className = 'col-resize';
+    alca.title = 'Arraste para ajustar a largura';
+    th.appendChild(alca);
+    alca.addEventListener('mousedown', function(ev){
+      ev.preventDefault();
+      var x0 = ev.clientX;
+      var w0 = th.getBoundingClientRect().width;
+      alca.classList.add('arrastando');
+      var mover = function(e){
+        var w = Math.max(44, Math.round(w0 + e.clientX - x0));
+        if (!colLarguras) colLarguras = COL_LARG_PADRAO.slice();
+        colLarguras[i] = w;
+        document.querySelectorAll('table.demandas').forEach(function(t){
+          var h = t.querySelectorAll('thead th')[i];
+          if (h) h.style.width = w + 'px';
+        });
+      };
+      var soltar = function(){
+        document.removeEventListener('mousemove', mover);
+        document.removeEventListener('mouseup', soltar);
+        alca.classList.remove('arrastando');
+        try{ localStorage.setItem(COLW_KEY, JSON.stringify(colLarguras)); }catch(e){}
+      };
+      document.addEventListener('mousemove', mover);
+      document.addEventListener('mouseup', soltar);
+    });
+  });
 }
 
 var db = null;
@@ -1200,12 +1470,12 @@ function renderMeses(c){
       '<div class="mes__corpo">' +
         '<table class="demandas">' +
           '<thead><tr>' +
-            '<th>Demanda</th><th class="col-cat">Categoria</th>' +
+            '<th>Demanda</th><th class="col-vid">Vídeos</th><th class="col-cat">Categoria</th>' +
             '<th class="col-num">Entregas</th><th class="col-num">Créditos</th>' +
             '<th class="col-obs">Observações</th><th class="col-x"></th>' +
           '</tr></thead>' +
           '<tbody></tbody>' +
-          '<tfoot><tr><td>TOTAL</td><td></td>' +
+          '<tfoot><tr><td>TOTAL</td><td></td><td></td>' +
             '<td class="col-num">' + fmt(t.entregas) + '</td>' +
             '<td class="col-num">' + fmt(t.creditos) + '</td><td></td><td></td></tr></tfoot>' +
         '</table>' +
@@ -1225,6 +1495,13 @@ function renderMeses(c){
       var inp = tbody.lastElementChild.querySelector('input[type="text"]');
       if (inp) inp.focus();
     });
+
+    det.addEventListener('toggle', function(){ if (det.open) resolverThumbs(det); });
+    if (det.open) resolverThumbs(det);
+
+    var tabela = det.querySelector('table.demandas');
+    aplicarLargurasTabela(tabela);
+    ativarRedimensionamento(tabela);
 
     host.appendChild(det);
   });
@@ -1248,11 +1525,13 @@ function linhaDemanda(c, mi, d){
   var tr = document.createElement('tr');
   tr.innerHTML =
     '<td><input type="text" data-campo="titulo" value="' + esc(d.titulo) + '" placeholder="Nome da demanda"></td>' +
+    '<td class="col-vid"><div class="thumbs"></div></td>' +
     '<td class="col-cat"><select data-campo="categoria">' + opcoesCategorias(c, d.categoria) + '</select></td>' +
     '<td class="col-num"><input type="number" data-campo="entregas" min="0" step="1" value="' + esc(d.entregas) + '"></td>' +
     '<td class="col-num"><input type="number" data-campo="creditos" min="0" step="1" value="' + esc(d.creditos) + '"></td>' +
     '<td class="col-obs"><input type="text" data-campo="obs" value="' + esc(d.obs) + '" placeholder="—"></td>' +
     '<td class="col-x"><button class="btn-x" type="button" aria-label="Remover demanda">×</button></td>';
+  renderThumbsCell(tr.querySelector('.thumbs'), d);
 
   tr.addEventListener('input', function(ev){
     var campo = ev.target.getAttribute('data-campo');
@@ -1269,6 +1548,13 @@ function linhaDemanda(c, mi, d){
     salvar();
     atualizarDerivados();
     atualizarTotaisMes(tr, c, mi);
+  });
+  tr.addEventListener('change', function(ev){
+    var campo = ev.target.getAttribute('data-campo');
+    if (campo === 'obs' || campo === 'titulo'){
+      renderThumbsCell(tr.querySelector('.thumbs'), d);
+      resolverThumbs(tr);
+    }
   });
   tr.querySelector('.btn-x').addEventListener('click', function(){
     var m = c.meses[mi];
