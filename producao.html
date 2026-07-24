@@ -87,7 +87,7 @@ a{ color:inherit; text-decoration:none; }
 <header class="site-nav" id="site-nav" role="banner">
   <div class="site-nav__wrap container">
     <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
-      <img src="midia/LOGO_OJU_small.png" alt="OJU" class="nav-logo__mark">
+      <img src="midia/geral/LOGO_OJU_small.png" alt="OJU" class="nav-logo__mark">
     </a>
     <nav class="nav-links" id="nav-links" aria-label="Principal">
       <a class="nav-link" href="agencia.html">Agência</a>
@@ -109,6 +109,11 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Primeira seção">
+  <video class="hero__video" autoplay muted loop playsinline preload="auto">
+    <source src="midia/producao/vid_bg_producao.mp4" type="video/mp4">
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__fade-bottom" aria-hidden="true"></div>
 
   <div class="container hero__content">
     <div class="hero__split">
@@ -121,13 +126,14 @@ a{ color:inherit; text-decoration:none; }
 
       <div class="hero__divider" aria-hidden="true"></div>
 
-      <!-- ===== Placeholder de vídeo: substitui o carrossel ===== -->
-      <div class="hero__reel" aria-label="Video Reel">
-        <div class="hero__reel-frame" aria-hidden="true">
+      <!-- ===== Video Reel: botão que abre o vídeo em popup ===== -->
+      <button class="hero__reel" type="button" aria-label="Assistir Video Reel 2026" data-video-open="MHaNcr6ntEU">
+        <div class="hero__reel-frame">
+          <img class="hero__reel-thumb" src="https://img.youtube.com/vi/MHaNcr6ntEU/maxresdefault.jpg" alt="" loading="lazy">
           <span class="hero__reel-play"></span>
         </div>
         <p class="hero__reel-title">VIDEO REEL 2026</p>
-      </div>
+      </button>
     </div>
   </div>
 </section>
@@ -219,7 +225,7 @@ a{ color:inherit; text-decoration:none; }
       </div>
       <div class="prod-metodo__passo prod-metodo__passo--cta" role="listitem">
         <figure class="prod-metodo__passo-imagem">
-          <img src="midia/pilar-packshot.png" alt="Ilustração do OJU Packshot" loading="lazy">
+          <img src="midia/producao/pilar-packshot.png" alt="Ilustração do OJU Packshot" loading="lazy">
         </figure>
         <div class="prod-metodo__passo-info">
           <h3 class="prod-metodo__passo-titulo">Packshot</h3>
@@ -517,6 +523,15 @@ a{ color:inherit; text-decoration:none; }
   </div>
 </footer>
 
+<!-- ===================== LIGHTBOX (vídeo em popup) ===================== -->
+<div class="video-lightbox" id="video-lightbox" aria-hidden="true">
+  <div class="video-lightbox__backdrop" data-video-close></div>
+  <button class="video-lightbox__close" type="button" aria-label="Fechar" data-video-close>&times;</button>
+  <div class="video-lightbox__frame">
+    <iframe class="video-lightbox__iframe" id="video-lightbox-iframe" src="" title="Video Reel OJU Produção" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+</div>
+
 <style>
 
 /* ===================== NAV — sempre sólido, nunca invadido pelo vídeo ===================== */
@@ -635,7 +650,30 @@ a{ color:inherit; text-decoration:none; }
   overflow: hidden;
   display: flex;
   align-items: center;
-  background: var(--cor-fundo-primario);
+  background: #f0ede8;
+}
+.hero__video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__overlay{
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(160deg,
+    rgba(240,237,232,.90) 0%,
+    rgba(240,237,232,.75) 50%,
+    rgba(240,237,232,.35) 100%
+  );
+  pointer-events: none;
+}
+.hero__fade-bottom{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
+  pointer-events: none;
 }
 .hero__content{
   position: relative; z-index: 3;
@@ -685,38 +723,62 @@ a{ color:inherit; text-decoration:none; }
   .hero__divider{ width: 100%; height: 1px; }
   .hero__main{ align-items: flex-start; text-align: left; }
   .hero__title{ align-items: flex-start; }
+  .hero__reel{ max-width: none; }
 }
 
-/* ===================== HERO — PLACEHOLDER DE VÍDEO ===================== */
+/* ===================== HERO — VIDEO REEL (botão que abre popup) ===================== */
 .hero__reel{
   align-self: center;
   width: 100%;
+  max-width: 340px;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 .hero__reel-frame{
+  position: relative;
   width: 100%;
   aspect-ratio: 16/9;
   border: 1px solid var(--cor-borda);
-  background: var(--cor-fundo-secundario);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #000;
+  overflow: hidden;
 }
+.hero__reel-thumb{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease, opacity .2s ease;
+}
+.hero__reel:hover .hero__reel-thumb{ transform: scale(1.05); opacity: .75; }
 .hero__reel-play{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   width: clamp(48px, 5vw, 64px);
   height: clamp(48px, 5vw, 64px);
   border-radius: 50%;
-  border: 1px solid var(--cor-borda);
+  border: 1px solid #fff;
+  background: rgba(0,0,0,.35);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background .2s ease, transform .2s ease;
 }
 .hero__reel-play::after{
   content: '';
   border-style: solid;
   border-width: 8px 0 8px 13px;
-  border-color: transparent transparent transparent #000;
+  border-color: transparent transparent transparent #fff;
   margin-left: 3px;
 }
+.hero__reel:hover .hero__reel-play{ background: var(--cor-destaque); border-color: var(--cor-destaque); }
+.hero__reel:hover .hero__reel-play::after{ border-color: transparent transparent transparent #000; }
 .hero__reel-title{
   margin: clamp(14px, 2vw, 20px) 0 0;
   font-family: var(--font-display);
@@ -1406,6 +1468,52 @@ a{ color:inherit; text-decoration:none; }
 
 .lenis, .lenis-smooth{ scroll-behavior: auto !important; }
 
+/* ===================== LIGHTBOX (vídeo em popup) ===================== */
+.video-lightbox{
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(20px, 4vw, 56px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+.video-lightbox.is-open{
+  opacity: 1; visibility: visible;
+  transition: opacity .25s ease, visibility 0s linear 0s;
+}
+.video-lightbox__backdrop{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.9);
+}
+.video-lightbox__frame{
+  position: relative;
+  z-index: 1;
+  width: min(100%, 960px);
+  aspect-ratio: 16/9;
+}
+.video-lightbox__iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-lightbox__close{
+  position: fixed;
+  top: clamp(14px, 2.5vw, 28px);
+  right: clamp(14px, 2.5vw, 28px);
+  z-index: 2;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.video-lightbox__close:hover{ background: var(--cor-destaque); color:#000; }
+
 </style>
 
 <!-- Lenis — smooth scroll de toda a página (referência awsmd.com) -->
@@ -1545,6 +1653,39 @@ a{ color:inherit; text-decoration:none; }
         measureFooter();
         computeTarget();
       });
+    });
+  })();
+
+  /* --- Lightbox: abre o Video Reel em popup, com o mínimo de HUD do
+     player (rel=0, modestbranding, sem anotações) --- */
+  (function setupVideoLightbox(){
+    var lightbox = document.getElementById('video-lightbox');
+    var iframe = document.getElementById('video-lightbox-iframe');
+    if(!lightbox || !iframe) return;
+
+    function openVideo(id){
+      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1';
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideo(){
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      iframe.src = '';
+    }
+
+    document.querySelectorAll('[data-video-open]').forEach(function(trigger){
+      trigger.addEventListener('click', function(){
+        openVideo(trigger.getAttribute('data-video-open'));
+      });
+    });
+    lightbox.querySelectorAll('[data-video-close]').forEach(function(btn){
+      btn.addEventListener('click', closeVideo);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && lightbox.classList.contains('is-open')) closeVideo();
     });
   })();
 

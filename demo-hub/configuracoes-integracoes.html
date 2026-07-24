@@ -1,0 +1,548 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OJU Hub — Configurações e Integrações (Demonstração)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="portal-base.css" />
+  <script src="demo-data.js"></script>
+  <script src="demo-auth.js"></script>
+  <script src="demo-ui.js"></script>
+  <script src="portal-theme.js"></script>
+  <style>
+    /* Estilos compartilhados em portal-base.css */
+  </style>
+</head>
+<body class="bg-surface text-gray-800 min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="fixed top-0 left-0 h-screen w-60 bg-sidebar flex flex-col z-30 select-none">
+    <div class="h-16 flex items-center px-5 border-b border-white/5 shrink-0">
+      <a href="../demo-hub.html" class="text-white font-bold text-sm tracking-wide leading-tight hover:opacity-80 transition-opacity">OJU Hub<br /><span class="text-muted font-normal text-xs">Demonstração</span></a>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-0.5">
+      <a href="../demo-hub.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">video_library</span>Acervo
+      </a>
+      <a href="gestao-acervo.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">manage_search</span>Gestão do Acervo
+      </a>
+      <div class="my-2 border-t border-white/5"></div>
+      <a href="usuarios-permissoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">manage_accounts</span>Usuários e Permissões
+      </a>
+      <a href="configuracoes-integracoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sidebar-active text-white text-sm font-medium">
+        <span class="material-symbols-outlined text-[18px]">settings</span>Configurações e Integrações
+      </a>
+    </nav>
+    <!-- Rodapé da sidebar -->
+    <div class="shrink-0 border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-2">
+        <img src="../midia/geral/LOGO_OJU_small.png" alt="Logo Oju" class="w-6 h-6 object-contain opacity-70" />
+        <div class="flex flex-col leading-tight">
+          <span class="text-[10px] text-muted/60 uppercase tracking-widest">Desenvolvido por</span>
+          <span class="text-[11px] text-muted font-semibold tracking-wide">Oju &nbsp;·&nbsp; © 2026</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="ml-60 flex-1 flex flex-col min-h-screen">
+
+    <!-- TOPBAR -->
+    <header class="h-16 bg-white border-b border-border flex items-center justify-end px-6 shrink-0 sticky top-0 z-20">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 pl-4">
+          <div class="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <span class="text-sm text-gray-600 font-medium" data-perfil-label>Acesso interno</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ÁREA CENTRAL -->
+    <main class="portal-main">
+
+      <!-- CABEÇALHO DA PÁGINA -->
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 tracking-tight">Configurações e Integrações</h2>
+          <p class="text-sm text-muted mt-0.5">Parâmetros gerais e conexões externas do portal</p>
+        </div>
+        <button type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors ui-disabled-action" disabled aria-disabled="true">
+          <span class="material-symbols-outlined text-[18px]">save</span>
+          Salvar alterações
+        </button>
+      </div>
+
+      <!-- GRID PRINCIPAL -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+
+        <!-- COLUNA ESQUERDA: Integrações + Parâmetros -->
+        <div class="xl:col-span-5 flex flex-col gap-5">
+
+          <!-- A. INTEGRAÇÕES PRINCIPAIS -->
+          <div class="bg-white border border-border rounded-xl p-5">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Integrações principais</h3>
+            <div class="flex flex-col gap-3" id="integrations-list">
+
+              <!-- Integração A -->
+              <div class="flex items-start justify-between gap-3 p-4 rounded-lg border border-border bg-surface">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-border flex items-center justify-center shrink-0 shadow-sm">
+                    <span class="material-symbols-outlined text-[20px] text-blue-500">cloud</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-gray-700">Integração A</p>
+                    <p class="text-xs text-muted mt-0.5">Integração principal</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 text-green-700 shrink-0 mt-1">Conectado</span>
+              </div>
+
+              <!-- Integração B -->
+              <div class="flex items-start justify-between gap-3 p-4 rounded-lg border border-border bg-surface">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-border flex items-center justify-center shrink-0 shadow-sm">
+                    <span class="material-symbols-outlined text-[20px] text-green-600">table_chart</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-gray-700">Integração B</p>
+                    <p class="text-xs text-muted mt-0.5">Conexão de dados</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-xs font-medium bg-green-50 text-green-700 shrink-0 mt-1">Conectado</span>
+              </div>
+
+              <!-- Integração C -->
+              <div class="flex items-start justify-between gap-3 p-4 rounded-lg border border-border bg-surface">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-white border border-border flex items-center justify-center shrink-0 shadow-sm">
+                    <span class="material-symbols-outlined text-[20px] text-gray-500">storage</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-semibold text-gray-700">Integração C</p>
+                    <p class="text-xs text-muted mt-0.5">Conexão complementar</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 shrink-0 mt-1">Pendente</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- E. PARÂMETROS DO SISTEMA -->
+          <div class="bg-white border border-border rounded-xl p-5">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Parâmetros do sistema</h3>
+            <div class="flex flex-col gap-3.5">
+
+              <div>
+                <label class="text-xs text-muted font-medium block mb-1.5">Idioma</label>
+                <select class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent">
+                  <option selected>Português</option>
+                  <option>English</option>
+                  <option>Español</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs text-muted font-medium block mb-1.5">Formato de data</label>
+                <select class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent">
+                  <option selected>dd/mm/aaaa</option>
+                  <option>mm/dd/aaaa</option>
+                  <option>aaaa-mm-dd</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs text-muted font-medium block mb-1.5">Visualização inicial do acervo</label>
+                <select class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent">
+                  <option selected>Thumbs grandes</option>
+                  <option>Thumbs mídias</option>
+                  <option>Lista detalhada</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- D. REGRAS OPERACIONAIS -->
+          <div class="bg-white border border-border rounded-xl p-5">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Regras operacionais</h3>
+            <ul class="flex flex-col gap-2.5">
+              <li class="flex items-center justify-between py-2.5 border-b border-border">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-muted">sync</span>
+                  <p class="text-sm text-gray-600">Sincronização com Drive</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer" />
+                  <div class="w-9 h-5 bg-gray-200 peer-checked:bg-accent rounded-full transition-colors"></div>
+                  <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                </label>
+              </li>
+              <li class="flex items-center justify-between py-2.5 border-b border-border">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-muted">upload_file</span>
+                  <p class="text-sm text-gray-600">Importação por planilha</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer" />
+                  <div class="w-9 h-5 bg-gray-200 peer-checked:bg-accent rounded-full transition-colors"></div>
+                  <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                </label>
+              </li>
+              <li class="flex items-center justify-between py-2.5 border-b border-border">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-muted">refresh</span>
+                  <p class="text-sm text-gray-600">Atualização de metadados</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" class="sr-only peer" />
+                  <div class="w-9 h-5 bg-gray-200 peer-checked:bg-accent rounded-full transition-colors"></div>
+                  <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                </label>
+              </li>
+              <li class="flex items-center justify-between py-2.5">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px] text-muted">admin_panel_settings</span>
+                  <p class="text-sm text-gray-600">Controle por perfil de acesso</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer" />
+                  <div class="w-9 h-5 bg-gray-200 peer-checked:bg-accent rounded-full transition-colors"></div>
+                  <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- COLUNA DIREITA: Taxonomias + Campos da ficha -->
+        <div class="xl:col-span-7 flex flex-col gap-5">
+
+          <!-- B. TAXONOMIAS -->
+          <div class="bg-white border border-border rounded-xl p-5">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Taxonomias do sistema</h3>
+            <div class="grid grid-cols-3 gap-4">
+
+              <!-- Tags -->
+              <div>
+                <p class="text-xs font-semibold text-gray-600 mb-2 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[15px] text-muted">label</span>Tags
+                </p>
+                <div class="flex flex-col gap-1.5" id="taxonomy-tags-list">
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">evento</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">bastidores</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">still</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">produto</span>
+                  </div>
+                  <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+                </div>
+              </div>
+
+              <!-- Categorias -->
+              <div>
+                <p class="text-xs font-semibold text-gray-600 mb-2 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[15px] text-muted">category</span>Categorias
+                </p>
+                <div class="flex flex-col gap-1.5" id="taxonomy-categories-list">
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Institucional</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Publicitário</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Documentário</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Outros</span>
+                  </div>
+                  <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+                </div>
+              </div>
+
+              <!-- Tipos de mídia -->
+              <div>
+                <p class="text-xs font-semibold text-gray-600 mb-2 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[15px] text-muted">perm_media</span>Tipos de mídia
+                </p>
+                <div class="flex flex-col gap-1.5" id="taxonomy-media-list">
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Vídeo</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Imagem</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Áudio</span>
+                  </div>
+                  <div class="bg-surface border border-border rounded-lg px-3 py-2">
+                    <span class="text-xs text-gray-600">Documento</span>
+                  </div>
+                  <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- C. CAMPOS DA FICHA TÉCNICA -->
+          <div class="bg-white border border-border rounded-xl p-5">
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Campos da ficha técnica</h3>
+            <div class="grid grid-cols-2 gap-2.5">
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Nome do arquivo</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Produtora</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Categoria</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Tipo de mídia</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Data</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Projeto</span>
+              </div>
+              <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-border rounded-lg col-span-2">
+                <span class="material-symbols-outlined text-[16px] text-green-500">check_circle</span>
+                <span class="text-sm text-gray-600">Observações</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function normalizeText(value, fallback = '-') {
+      const normalized = value === null || value === undefined ? '' : String(value).trim();
+      return normalized || fallback;
+    }
+
+    function redirectToLogin() {
+      location.replace(`login.html?next=${encodeURIComponent('configuracoes-integracoes.html')}`);
+    }
+
+    function redirectToIndex() {
+      location.replace('index.html');
+    }
+
+    function mapIntegrationStatus(status) {
+      const raw = String(status || '').toUpperCase();
+      if (raw === 'CONNECTED') {
+        return { label: 'Conectado', className: 'bg-green-50 text-green-700' };
+      }
+      if (raw === 'PENDING') {
+        return { label: 'Pendente', className: 'bg-amber-50 text-amber-700' };
+      }
+      if (raw === 'ERROR') {
+        return { label: 'Erro', className: 'bg-red-50 text-red-700' };
+      }
+      return { label: 'Indefinido', className: 'bg-gray-100 text-gray-700' };
+    }
+
+    function mapIntegrationVisual(type) {
+      const raw = String(type || '').toUpperCase();
+      if (raw === 'STORAGE') {
+        return { icon: 'cloud', colorClass: 'text-blue-500' };
+      }
+      if (raw === 'CRM') {
+        return { icon: 'hub', colorClass: 'text-purple-500' };
+      }
+      if (raw === 'FINANCIAL') {
+        return { icon: 'payments', colorClass: 'text-green-600' };
+      }
+      return { icon: 'settings', colorClass: 'text-gray-500' };
+    }
+
+    function renderIntegrations(integrations, container) {
+      if (!integrations.length) {
+        container.innerHTML = `
+          <div class="p-4 rounded-lg border border-border bg-surface">
+            <p class="text-xs text-muted">Nenhuma integração encontrada.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = integrations.map((item) => {
+        const visual = mapIntegrationVisual(item.type);
+        const status = mapIntegrationStatus(item.status);
+        return `
+          <div class="flex items-start justify-between gap-3 p-4 rounded-lg border border-border bg-surface">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-white border border-border flex items-center justify-center shrink-0 shadow-sm">
+                <span class="material-symbols-outlined text-[20px] ${visual.colorClass}">${visual.icon}</span>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-700">${normalizeText(item.name, 'Integração')}</p>
+                <p class="text-xs text-muted mt-0.5">${normalizeText(item.note, 'Integração principal')}</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded text-xs font-medium ${status.className} shrink-0 mt-1">${status.label}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTaxonomy(container, values, emptyText) {
+      if (!values.length) {
+        container.innerHTML = `
+          <div class="bg-surface border border-border rounded-lg px-3 py-2">
+            <span class="text-xs text-gray-600">${emptyText}</span>
+          </div>
+          <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+        `;
+        return;
+      }
+
+      container.innerHTML = values.map((value) => `
+        <div class="bg-surface border border-border rounded-lg px-3 py-2">
+          <span class="text-xs text-gray-600">${normalizeText(value)}</span>
+        </div>
+      `).join('') + '<p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>';
+    }
+
+    function renderError(integrationsList, tagsList, categoriesList) {
+      integrationsList.innerHTML = `
+        <div class="p-4 rounded-lg border border-border bg-surface">
+          <p class="text-xs text-muted">Não foi possível carregar as integrações.</p>
+        </div>
+      `;
+      tagsList.innerHTML = `
+        <div class="bg-surface border border-border rounded-lg px-3 py-2">
+          <span class="text-xs text-gray-600">Nao foi possível carregar as tags.</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+      `;
+      categoriesList.innerHTML = `
+        <div class="bg-surface border border-border rounded-lg px-3 py-2">
+          <span class="text-xs text-gray-600">Nao foi possível carregar as categorias.</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const auth = window.portalAuth || null;
+      const integrationsList = document.getElementById('integrations-list');
+      const tagsList = document.getElementById('taxonomy-tags-list');
+      const categoriesList = document.getElementById('taxonomy-categories-list');
+      if (!integrationsList || !tagsList || !categoriesList) return;
+
+      if (!auth || typeof auth.bootstrapAuth !== 'function') {
+        redirectToLogin();
+        return;
+      }
+
+      const currentUser = await auth.bootstrapAuth({
+        next: 'configuracoes-integracoes.html',
+        requiredRoles: ['master'],
+        forbiddenPath: 'index.html',
+      });
+      if (!currentUser) {
+        return;
+      }
+
+      integrationsList.innerHTML = `
+        <div class="p-4 rounded-lg border border-border bg-surface">
+          <p class="text-xs text-muted">Carregando integrações...</p>
+        </div>
+      `;
+      tagsList.innerHTML = `
+        <div class="bg-surface border border-border rounded-lg px-3 py-2">
+          <span class="text-xs text-gray-600">Carregando tags...</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+      `;
+      categoriesList.innerHTML = `
+        <div class="bg-surface border border-border rounded-lg px-3 py-2">
+          <span class="text-xs text-gray-600">Carregando categorias...</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Edição indisponível nesta etapa.</p>
+      `;
+
+      try {
+        const [integrationsResponse, categoriesResponse, tagsResponse] = await Promise.all([
+          auth.apiFetch('/api/integrations'),
+          auth.apiFetch('/api/categories'),
+          auth.apiFetch('/api/tags')
+        ]);
+
+        if (integrationsResponse.status === 401 || categoriesResponse.status === 401 || tagsResponse.status === 401) {
+          redirectToLogin();
+          return;
+        }
+        if (integrationsResponse.status === 403 || categoriesResponse.status === 403 || tagsResponse.status === 403) {
+          redirectToIndex();
+          return;
+        }
+
+        if (!integrationsResponse.ok) {
+          throw new Error(`Falha integrations HTTP ${integrationsResponse.status}`);
+        }
+        if (!categoriesResponse.ok) {
+          throw new Error(`Falha categories HTTP ${categoriesResponse.status}`);
+        }
+        if (!tagsResponse.ok) {
+          throw new Error(`Falha tags HTTP ${tagsResponse.status}`);
+        }
+
+        const integrationsData = await integrationsResponse.json();
+        const categoriesData = await categoriesResponse.json();
+        const tagsData = await tagsResponse.json();
+
+        const integrations = Array.isArray(integrationsData) ? integrationsData : [];
+        const categories = Array.isArray(categoriesData) ? categoriesData.map((item) => item.name).filter(Boolean) : [];
+        const tags = Array.isArray(tagsData) ? tagsData.map((item) => item.name).filter(Boolean) : [];
+
+        renderIntegrations(integrations, integrationsList);
+        renderTaxonomy(tagsList, tags, 'Nenhuma tag encontrada.');
+        renderTaxonomy(categoriesList, categories, 'Nenhuma categoria encontrada.');
+      } catch (error) {
+        console.error('Erro ao carregar configurações e integrações:', error);
+        renderError(integrationsList, tagsList, categoriesList);
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

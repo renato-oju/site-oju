@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OJU Hub — Usuários e Permissões (Demonstração)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="portal-base.css" />
+  <script src="demo-data.js"></script>
+  <script src="demo-auth.js"></script>
+  <script src="demo-ui.js"></script>
+  <script src="portal-theme.js"></script>
+</head>
+<body class="bg-surface text-gray-800 min-h-screen flex">
+  <aside class="fixed top-0 left-0 h-screen w-60 bg-sidebar flex flex-col z-30 select-none">
+    <div class="h-16 flex items-center px-5 border-b border-white/5 shrink-0">
+      <a href="../demo-hub.html" class="text-white font-bold text-sm tracking-wide leading-tight hover:opacity-80 transition-opacity">OJU Hub<br /><span class="text-muted font-normal text-xs">Demonstração</span></a>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-0.5">
+      <a href="../demo-hub.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm"><span class="material-symbols-outlined text-[18px]">video_library</span>Acervo</a>
+      <a href="gestao-acervo.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm"><span class="material-symbols-outlined text-[18px]">manage_search</span>Gest&atilde;o do Acervo</a>
+      <div class="my-2 border-t border-white/5"></div>
+      <a href="usuarios-permissoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sidebar-active text-white text-sm font-medium"><span class="material-symbols-outlined text-[18px]">manage_accounts</span>Usu&aacute;rios e Permiss&otilde;es</a>
+      <a href="configuracoes-integracoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm"><span class="material-symbols-outlined text-[18px]">settings</span>Configura&ccedil;&otilde;es e Integra&ccedil;&otilde;es</a>
+    </nav>
+    <!-- Rodapé da sidebar -->
+    <div class="shrink-0 border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-2">
+        <img src="../midia/geral/LOGO_OJU_small.png" alt="Logo Oju" class="w-6 h-6 object-contain opacity-70" />
+        <div class="flex flex-col leading-tight">
+          <span class="text-[10px] text-muted/60 uppercase tracking-widest">Desenvolvido por</span>
+          <span class="text-[11px] text-muted font-semibold tracking-wide">Oju &nbsp;·&nbsp; © 2026</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="ml-60 flex-1 flex flex-col min-h-screen">
+    <header class="h-16 bg-white border-b border-border flex items-center justify-end px-6 shrink-0 sticky top-0 z-20">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 pl-4">
+          <div class="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">person</span></div>
+          <span class="text-sm text-gray-600 font-medium" data-perfil-label>Acesso interno</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="portal-main">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 tracking-tight">Usuarios e Permissoes</h2>
+          <p class="text-sm text-muted mt-0.5">Cadastro e gestao de acessos do portal</p>
+        </div>
+        <button id="open-create-user-btn" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors"><span class="material-symbols-outlined text-[18px]">person_add</span>Novo usuario</button>
+      </div>
+
+      <p id="page-feedback" class="hidden text-xs rounded-lg px-3 py-2"></p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="bg-white border border-border rounded-xl px-5 py-3.5"><p class="text-xs text-muted">Total de usuarios</p><p class="text-sm font-semibold text-gray-700" id="users-count-total">0 usuarios</p></div>
+        <div class="bg-white border border-border rounded-xl px-5 py-3.5"><p class="text-xs text-muted">Ativos</p><p class="text-sm font-semibold text-gray-700" id="users-count-active">0 usuarios</p></div>
+        <div class="bg-white border border-border rounded-xl px-5 py-3.5"><p class="text-xs text-muted">Bloqueados</p><p class="text-sm font-semibold text-gray-700" id="users-count-blocked">0 usuarios</p></div>
+      </div>
+
+      <div class="bg-white border border-border rounded-xl p-4 flex flex-wrap gap-3 items-center">
+        <div class="relative flex-1 min-w-[220px]">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-muted pointer-events-none">search</span>
+          <input id="filter-search" type="text" placeholder="Buscar usuario por nome ou email..." class="w-full pl-8 pr-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+        </div>
+        <select id="filter-profile" class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 min-w-[200px]"><option value="">Perfil de acesso</option></select>
+        <select id="filter-status" class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 min-w-[140px]"><option value="">Status</option><option value="ACTIVE">Ativo</option><option value="BLOCKED">Bloqueado</option></select>
+        <button id="clear-filters-btn" class="px-3 py-2 text-sm text-muted hover:text-gray-700 border border-border rounded-lg bg-surface hover:bg-gray-50 transition-colors">Limpar</button>
+      </div>
+
+      <div class="bg-white border border-border rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-border flex items-center justify-between"><h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Usuarios cadastrados</h3><span id="users-list-count" class="text-xs text-muted">0 resultados</span></div>
+        <table class="w-full text-sm">
+          <thead><tr class="border-b border-border bg-surface text-xs text-muted uppercase tracking-wide"><th class="px-5 py-3 text-left font-semibold">Nome</th><th class="px-5 py-3 text-left font-semibold">E-mail</th><th class="px-5 py-3 text-left font-semibold">Perfil</th><th class="px-5 py-3 text-left font-semibold">Status</th><th class="px-5 py-3 text-left font-semibold">Ultimo acesso</th><th class="px-5 py-3 text-left font-semibold">Acoes</th></tr></thead>
+          <tbody class="divide-y divide-border" id="users-table-body"><tr><td colspan="6" class="px-5 py-4 text-sm text-muted">Carregando usuarios...</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="bg-white border border-border rounded-xl p-5">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Perfis de acesso</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="profiles-list"></div>
+      </div>
+    </main>
+  </div>
+
+  <div id="user-modal" class="hidden fixed inset-0 z-40 bg-black/45 items-center justify-center p-4">
+    <div class="w-full max-w-xl bg-white border border-border rounded-xl shadow-lg">
+      <div class="px-5 py-4 border-b border-border flex items-center justify-between"><h3 id="user-form-title" class="text-sm font-semibold text-gray-700">Novo usuario</h3><button id="close-user-modal-btn" type="button" class="text-muted hover:text-gray-700 transition-colors"><span class="material-symbols-outlined text-[18px]">close</span></button></div>
+      <form id="user-form" class="p-5 flex flex-col gap-3.5">
+        <div><label class="text-xs text-muted font-medium block mb-1.5">Nome *</label><input id="user-name" type="text" class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent" /></div>
+        <div><label class="text-xs text-muted font-medium block mb-1.5">E-mail *</label><input id="user-email" type="email" class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent" /></div>
+        <div><label class="text-xs text-muted font-medium block mb-1.5">Senha *</label><input id="user-password" type="password" class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent" /><p id="user-password-hint" class="text-[11px] text-muted mt-1">Minimo de 6 caracteres.</p></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div><label class="text-xs text-muted font-medium block mb-1.5">Perfil de acesso *</label><select id="user-profile" class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30"><option value="">Selecione...</option></select></div>
+          <div><label class="text-xs text-muted font-medium block mb-1.5">Status</label><select id="user-status" class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30"><option value="ACTIVE">Ativo</option><option value="BLOCKED">Bloqueado</option></select></div>
+        </div>
+        <p id="user-form-feedback" class="hidden text-xs rounded-lg px-3 py-2"></p>
+        <div class="flex items-center justify-end gap-2 pt-1"><button id="cancel-user-btn" type="button" class="px-3 py-2 text-sm rounded-lg border border-border bg-surface text-muted hover:text-gray-700 hover:bg-gray-50 transition-colors">Cancelar</button><button id="save-user-btn" type="submit" class="px-4 py-2 text-sm rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors">Salvar</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const PROFILE_ORDER = ["acervo", "administrativo", "master"];
+    const PROFILE_META = {
+      acervo: { label: "Usuario de acervo", description: "Acesso somente a pagina Acervo.", badgeClass: "bg-green-50 text-green-700", dotClass: "bg-green-500" },
+      administrativo: { label: "Usuario administrativo", description: "Acesso as paginas Acervo e Produtoras.", badgeClass: "bg-blue-50 text-blue-700", dotClass: "bg-blue-500" },
+      master: { label: "Administrador master", description: "Acesso completo a todas as paginas do sistema.", badgeClass: "bg-purple-50 text-purple-700", dotClass: "bg-purple-500" },
+    };
+
+    let allUsers = [];
+    let filteredUsers = [];
+    let loadedProfiles = [];
+    let currentUserId = "";
+    let editingUserId = "";
+    let auth = null;
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    function normalizeText(value, fallback = "-") {
+      const text = value === null || value === undefined ? "" : String(value).trim();
+      return text || fallback;
+    }
+
+    function redirectToLogin() { location.replace(`login.html?next=${encodeURIComponent("usuarios-permissoes.html")}`); }
+    function redirectToIndex() { location.replace("index.html"); }
+    function toProfileName(value) { return String(value || "").trim().toLowerCase(); }
+    function validateEmail(value) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim()); }
+
+    function toProfileMeta(name) {
+      const key = toProfileName(name);
+      return PROFILE_META[key] || { label: key || "Perfil nao definido", description: "Perfil sem descricao.", badgeClass: "bg-gray-100 text-gray-700", dotClass: "bg-gray-400" };
+    }
+
+    function toStatusMeta(status) {
+      const value = String(status || "").trim().toUpperCase();
+      if (value === "ACTIVE") return { label: "Ativo", className: "bg-green-50 text-green-700", muted: false };
+      if (value === "BLOCKED") return { label: "Bloqueado", className: "bg-red-50 text-red-600", muted: true };
+      return { label: "Sem status", className: "bg-gray-100 text-gray-700", muted: false };
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "-";
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) return "-";
+      return parsed.toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+    }
+
+    function setTone(el, message, isError) {
+      if (!el) return;
+      if (!message) {
+        el.classList.add("hidden");
+        el.textContent = "";
+        el.classList.remove("bg-red-50", "text-red-700", "bg-green-50", "text-green-700");
+        return;
+      }
+      el.textContent = message;
+      el.classList.remove("hidden", "bg-red-50", "text-red-700", "bg-green-50", "text-green-700");
+      el.classList.add(isError ? "bg-red-50" : "bg-green-50", isError ? "text-red-700" : "text-green-700");
+    }
+
+    function setPageFeedback(message, isError = false) { setTone(document.getElementById("page-feedback"), message, isError); }
+    function setFormFeedback(message, isError = false) { setTone(document.getElementById("user-form-feedback"), message, isError); }
+
+    function normalizeProfiles(profiles) {
+      const map = new Map();
+      for (const profile of Array.isArray(profiles) ? profiles : []) {
+        const name = toProfileName(profile?.name);
+        if (!PROFILE_ORDER.includes(name)) continue;
+        map.set(name, { name, description: normalizeText(profile?.description, toProfileMeta(name).description) });
+      }
+      return PROFILE_ORDER.map((name) => map.get(name) || { name, description: toProfileMeta(name).description });
+    }
+
+    function renderProfileCards() {
+      const container = document.getElementById("profiles-list");
+      if (!container) return;
+      container.innerHTML = loadedProfiles.map((profile) => {
+        const meta = toProfileMeta(profile.name);
+        return `<div class="p-4 rounded-lg border border-border bg-surface"><div class="flex items-center gap-2 mb-1.5"><span class="w-2 h-2 rounded-full ${meta.dotClass} shrink-0"></span><p class="text-sm font-semibold text-gray-700">${escapeHtml(meta.label)}</p></div><p class="text-xs text-muted leading-relaxed">${escapeHtml(profile.description)}</p></div>`;
+      }).join("");
+    }
+
+    function renderProfileSelects() {
+      const filterEl = document.getElementById("filter-profile");
+      const profileEl = document.getElementById("user-profile");
+      if (!filterEl || !profileEl) return;
+      const options = loadedProfiles.map((profile) => `<option value="${escapeHtml(profile.name)}">${escapeHtml(toProfileMeta(profile.name).label)}</option>`).join("");
+      const prevFilter = filterEl.value;
+      const prevProfile = profileEl.value;
+      filterEl.innerHTML = `<option value="">Perfil de acesso</option>${options}`;
+      profileEl.innerHTML = `<option value="">Selecione...</option>${options}`;
+      filterEl.value = PROFILE_ORDER.includes(prevFilter) ? prevFilter : "";
+      profileEl.value = PROFILE_ORDER.includes(prevProfile) ? prevProfile : "";
+    }
+
+    function renderSummary(users) {
+      const active = users.filter((u) => String(u.status || "").toUpperCase() === "ACTIVE").length;
+      const blocked = users.filter((u) => String(u.status || "").toUpperCase() === "BLOCKED").length;
+      document.getElementById("users-count-total").textContent = `${users.length} usuario${users.length === 1 ? "" : "s"}`;
+      document.getElementById("users-count-active").textContent = `${active} usuario${active === 1 ? "" : "s"}`;
+      document.getElementById("users-count-blocked").textContent = `${blocked} usuario${blocked === 1 ? "" : "s"}`;
+    }
+
+    function renderUsersTable(users) {
+      const tbody = document.getElementById("users-table-body");
+      const countEl = document.getElementById("users-list-count");
+      if (!tbody || !countEl) return;
+      countEl.textContent = `${users.length} resultado${users.length === 1 ? "" : "s"}`;
+      if (!users.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-5 py-4 text-sm text-muted">Nenhum usuario encontrado.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = users.map((user) => {
+        const name = normalizeText(user.name, "Sem nome");
+        const email = normalizeText(user.email, "-");
+        const profileMeta = toProfileMeta(user?.profile?.name);
+        const statusMeta = toStatusMeta(user.status);
+        const initial = name.charAt(0).toUpperCase() || "?";
+        const isCurrent = String(user.id || "") === currentUserId;
+        return `<tr class="hover:bg-surface/70 transition-colors"><td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-full ${statusMeta.muted ? "bg-gray-100 text-gray-400" : "bg-accent/10 text-accent"} flex items-center justify-center shrink-0 text-xs font-bold">${escapeHtml(initial)}</div><div class="min-w-0"><p class="font-medium ${statusMeta.muted ? "text-gray-400" : "text-gray-700"} truncate">${escapeHtml(name)}</p>${isCurrent ? '<p class="text-[11px] text-accent">Voce</p>' : ""}</div></div></td><td class="px-5 py-3.5 ${statusMeta.muted ? "text-gray-400" : "text-gray-500"}">${escapeHtml(email)}</td><td class="px-5 py-3.5"><span class="px-2 py-0.5 rounded text-xs font-medium ${profileMeta.badgeClass}">${escapeHtml(profileMeta.label)}</span></td><td class="px-5 py-3.5"><span class="px-2 py-0.5 rounded text-xs font-medium ${statusMeta.className}">${escapeHtml(statusMeta.label)}</span></td><td class="px-5 py-3.5 text-gray-400">${escapeHtml(formatDateTime(user.lastAccessAt))}</td><td class="px-5 py-3.5"><div class="flex items-center gap-2"><button type="button" onclick="openEditUser('${encodeURIComponent(String(user.id || ""))}')" class="text-xs text-accent hover:underline font-medium">Editar</button><button type="button" onclick="deleteUserById('${encodeURIComponent(String(user.id || ""))}')" class="text-xs text-red-600 hover:underline font-medium">Excluir</button></div></td></tr>`;
+      }).join("");
+    }
+
+    function applyFilters() {
+      const search = String(document.getElementById("filter-search")?.value || "").toLowerCase().trim();
+      const profile = String(document.getElementById("filter-profile")?.value || "").toLowerCase().trim();
+      const status = String(document.getElementById("filter-status")?.value || "").toUpperCase().trim();
+      filteredUsers = allUsers.filter((user) => {
+        const name = String(user.name || "").toLowerCase();
+        const email = String(user.email || "").toLowerCase();
+        const profileName = String(user?.profile?.name || "").toLowerCase();
+        const userStatus = String(user.status || "").toUpperCase();
+        if (search && !`${name} ${email}`.includes(search)) return false;
+        if (profile && profileName !== profile) return false;
+        if (status && userStatus !== status) return false;
+        return true;
+      });
+      renderUsersTable(filteredUsers);
+    }
+
+    function clearFilters() {
+      document.getElementById("filter-search").value = "";
+      document.getElementById("filter-profile").value = "";
+      document.getElementById("filter-status").value = "";
+      applyFilters();
+    }
+    function openModal() {
+      const modal = document.getElementById("user-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("user-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      setFormFeedback("");
+    }
+
+    function fillForm(user) {
+      document.getElementById("user-name").value = user ? normalizeText(user.name, "") : "";
+      document.getElementById("user-email").value = user ? normalizeText(user.email, "") : "";
+      document.getElementById("user-password").value = "";
+      document.getElementById("user-profile").value = user ? toProfileName(user?.profile?.name) : "";
+      document.getElementById("user-status").value = user ? String(user.status || "ACTIVE").toUpperCase() : "ACTIVE";
+    }
+
+    function openCreateUser() {
+      editingUserId = "";
+      document.getElementById("user-form-title").textContent = "Novo usuario";
+      document.getElementById("save-user-btn").textContent = "Criar usuario";
+      document.getElementById("user-password-hint").textContent = "Minimo de 6 caracteres.";
+      fillForm(null);
+      openModal();
+    }
+
+    function openEditUser(encodedId) {
+      const id = decodeURIComponent(String(encodedId || ""));
+      const user = allUsers.find((item) => String(item.id || "") === id);
+      if (!user) return;
+      editingUserId = id;
+      document.getElementById("user-form-title").textContent = "Editar usuario";
+      document.getElementById("save-user-btn").textContent = "Salvar alteracoes";
+      document.getElementById("user-password-hint").textContent = "Deixe em branco para manter a senha atual.";
+      fillForm(user);
+      openModal();
+    }
+
+    async function parseApiError(response, fallbackMessage) {
+      let message = fallbackMessage;
+      try {
+        const payload = await response.json();
+        if (payload && typeof payload.error === "string" && payload.error.trim()) message = payload.error.trim();
+      } catch (error) {
+        // noop
+      }
+      return message;
+    }
+
+    async function loadData() {
+      document.getElementById("users-table-body").innerHTML = `<tr><td colspan="6" class="px-5 py-4 text-sm text-muted">Carregando usuarios...</td></tr>`;
+      const [usersRes, profilesRes] = await Promise.all([auth.apiFetch("/api/users"), auth.apiFetch("/api/profiles")]);
+      if (usersRes.status === 401 || profilesRes.status === 401) return redirectToLogin();
+      if (usersRes.status === 403 || profilesRes.status === 403) return redirectToIndex();
+      if (!usersRes.ok) throw new Error(await parseApiError(usersRes, `Falha HTTP ${usersRes.status}`));
+      if (!profilesRes.ok) throw new Error(await parseApiError(profilesRes, `Falha HTTP ${profilesRes.status}`));
+      const usersPayload = await usersRes.json().catch(() => []);
+      const profilesPayload = await profilesRes.json().catch(() => []);
+      allUsers = Array.isArray(usersPayload) ? usersPayload : [];
+      loadedProfiles = normalizeProfiles(profilesPayload);
+      renderProfileCards();
+      renderProfileSelects();
+      renderSummary(allUsers);
+      applyFilters();
+    }
+
+    async function submitUserForm(event) {
+      event.preventDefault();
+      const name = String(document.getElementById("user-name").value || "").trim();
+      const email = String(document.getElementById("user-email").value || "").trim().toLowerCase();
+      const password = String(document.getElementById("user-password").value || "");
+      const profileName = String(document.getElementById("user-profile").value || "").trim().toLowerCase();
+      const status = String(document.getElementById("user-status").value || "").trim().toUpperCase();
+
+      if (!name) return setFormFeedback("Informe o nome do usuario.", true);
+      if (!validateEmail(email)) return setFormFeedback("Informe um e-mail valido.", true);
+      if (!profileName) return setFormFeedback("Selecione o perfil de acesso.", true);
+
+      const isCreate = !editingUserId;
+      if (isCreate && password.length < 6) return setFormFeedback("A senha deve ter pelo menos 6 caracteres.", true);
+      if (!isCreate && password.length > 0 && password.length < 6) return setFormFeedback("A nova senha deve ter pelo menos 6 caracteres.", true);
+
+      const payload = { name, email, profileName, status };
+      if (isCreate || password.length > 0) payload.password = password;
+
+      const url = isCreate ? "/api/users" : `/api/users/${encodeURIComponent(editingUserId)}`;
+      const method = isCreate ? "POST" : "PATCH";
+
+      setFormFeedback(isCreate ? "Criando usuario..." : "Salvando alteracoes...");
+      const response = await auth.apiFetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (response.status === 401) return redirectToLogin();
+      if (response.status === 403) return redirectToIndex();
+      if (!response.ok) return setFormFeedback(await parseApiError(response, "Nao foi possivel salvar o usuario."), true);
+
+      closeModal();
+      setPageFeedback(isCreate ? "Usuario criado com sucesso." : "Usuario atualizado com sucesso.");
+      await loadData();
+    }
+
+    async function deleteUserById(encodedId) {
+      const id = decodeURIComponent(String(encodedId || ""));
+      const user = allUsers.find((item) => String(item.id || "") === id);
+      if (!user) return;
+      if (!window.confirm(`Deseja realmente excluir ${normalizeText(user.name, "este usuario")}?`)) return;
+      setPageFeedback("Excluindo usuario...");
+      const response = await auth.apiFetch(`/api/users/${encodeURIComponent(id)}`, { method: "DELETE" });
+      if (response.status === 401) return redirectToLogin();
+      if (response.status === 403) return redirectToIndex();
+      if (!response.ok) return setPageFeedback(await parseApiError(response, "Nao foi possivel excluir o usuario."), true);
+      setPageFeedback("Usuario excluido com sucesso.");
+      await loadData();
+    }
+
+    window.openEditUser = openEditUser;
+    window.deleteUserById = deleteUserById;
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      auth = window.portalAuth || null;
+      if (!auth || typeof auth.bootstrapAuth !== "function") return redirectToLogin();
+      const currentUser = await auth.bootstrapAuth({ next: "usuarios-permissoes.html", requiredRoles: ["master"], forbiddenPath: "acervo.html" });
+      if (!currentUser) return;
+      currentUserId = String(currentUser.id || "");
+
+      document.getElementById("open-create-user-btn")?.addEventListener("click", openCreateUser);
+      document.getElementById("close-user-modal-btn")?.addEventListener("click", closeModal);
+      document.getElementById("cancel-user-btn")?.addEventListener("click", closeModal);
+      document.getElementById("user-form")?.addEventListener("submit", submitUserForm);
+      document.getElementById("filter-search")?.addEventListener("input", applyFilters);
+      document.getElementById("filter-profile")?.addEventListener("change", applyFilters);
+      document.getElementById("filter-status")?.addEventListener("change", applyFilters);
+      document.getElementById("clear-filters-btn")?.addEventListener("click", clearFilters);
+      document.getElementById("user-modal")?.addEventListener("click", (event) => {
+        if (event.target?.id === "user-modal") closeModal();
+      });
+
+      try {
+        await loadData();
+      } catch (error) {
+        console.error("Erro ao carregar usuarios/perfis:", error);
+        setPageFeedback(error?.message || "Nao foi possivel carregar os dados.", true);
+      }
+    });
+  </script>
+</body>
+</html>

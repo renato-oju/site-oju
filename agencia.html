@@ -87,7 +87,7 @@ a{ color:inherit; text-decoration:none; }
 <header class="site-nav" id="site-nav" role="banner">
   <div class="site-nav__wrap container">
     <a href="index-portal.html" class="nav-logo" aria-label="OJU — página inicial">
-      <img src="midia/LOGO_OJU_small.png" alt="OJU" class="nav-logo__mark">
+      <img src="midia/geral/LOGO_OJU_small.png" alt="OJU" class="nav-logo__mark">
     </a>
     <nav class="nav-links" id="nav-links" aria-label="Principal">
       <a class="nav-link is-current" href="agencia.html" aria-current="page">Agência</a>
@@ -168,7 +168,7 @@ a{ color:inherit; text-decoration:none; }
       <div class="ag-creditos__passo">
         <span class="ag-creditos__passo-numero">02</span>
         <figure class="ag-creditos__passo-imagem">
-          <video src="midia/agencia/vid_produçao.mp4" autoplay loop muted playsinline aria-label="Captação em um dia de set"></video>
+          <video src="midia/agencia/vid_producao.mp4" autoplay loop muted playsinline aria-label="Captação em um dia de set"></video>
         </figure>
         <h4 class="ag-creditos__passo-titulo">Captação</h4>
         <p class="ag-creditos__passo-texto">Um dia de set reúne todo o material planejado.</p>
@@ -1171,14 +1171,15 @@ a{ color:inherit; text-decoration:none; }
   height: auto;
   transition: filter .25s ease;
 }
-/* Área real de clique/hover: só a mão+celular, não a moldura inteira da imagem
+/* Área real de clique/hover: só a TELA do celular (mesmo retângulo de
+   .ag-pin__hand-screen), não a mão nem a moldura inteira da imagem
    (que tem bastante espaço transparente/vazio ao redor e, sem isso, tapava
-   o hover das células do mosaico atrás dela). Retângulo aproximado sobre o
-   celular+mão na imagem hand.webp. */
+   o hover das células do mosaico atrás dela). */
 .ag-pin__hand-hit{
   position: absolute;
-  left: 33%; top: 0;
-  width: 35%; height: 78%;
+  left: 40.625%; top: 1.8%;
+  width: 18.75%; height: 63.1%;
+  border-radius: 12% / 5.5%;
   pointer-events: auto;
   cursor: pointer;
 }

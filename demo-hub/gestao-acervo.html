@@ -1,0 +1,3618 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OJU Hub — Gestão do Acervo (Demonstração)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="portal-base.css" />
+  <script src="demo-data.js"></script>
+  <script src="demo-auth.js"></script>
+  <script src="demo-ui.js"></script>
+  <script src="portal-theme.js"></script>
+  <script src="portal-pagination.js"></script>
+  <style>
+    /* Estilos compartilhados em portal-base.css */
+    .file-checkbox {
+      accent-color: #3b5bdb;
+    }
+
+    #bulk-bar {
+      display: flex;
+    }
+
+    #edit-panel.inactive {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    #edit-panel.inactive #open-categories-btn {
+      pointer-events: auto;
+    }
+
+    tr.selected {
+      background-color: #f0f4ff;
+    }
+
+    #quick-filter-uncategorized-btn.active {
+      border-color: rgba(220, 38, 38, 0.28);
+      background-color: rgba(254, 242, 242, 0.85);
+    }
+
+    /* Modal de player de arquivo */
+    #ga-file-modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.60); display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(3px); }
+    #ga-file-modal-overlay[hidden] { display:none !important; }
+    #ga-file-modal { background:#fff; border-radius:1rem; box-shadow:0 24px 64px rgba(0,0,0,0.28); width:100%; max-width:780px; max-height:92vh; overflow-y:auto; display:flex; flex-direction:column; }
+    #ga-file-modal-media { position:relative; width:100%; aspect-ratio:16/9; background:#141720; border-radius:1rem 1rem 0 0; overflow:hidden; }
+    #ga-file-modal-media::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,#1e2333 0%,#252c40 50%,#1e2333 100%); background-size:200% 200%; animation:ga-shimmer 2s ease infinite; }
+    @keyframes ga-shimmer { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    #ga-file-modal-icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:1; }
+    #ga-file-modal-icon .material-symbols-outlined { font-size:56px; color:rgba(255,255,255,0.18); }
+    #ga-file-modal-media video { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000; opacity:0; transition:opacity 0.35s ease; z-index:2; }
+    #ga-file-modal-media video.is-ready { opacity:1; }
+    #ga-file-modal-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:2; }
+  </style>
+</head>
+
+<body class="bg-surface text-gray-800 min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="fixed top-0 left-0 h-screen w-60 bg-sidebar flex flex-col z-30 select-none">
+    <div class="h-16 flex items-center px-5 border-b border-white/5 shrink-0">
+      <a href="../demo-hub.html"
+        class="text-white font-bold text-sm tracking-wide leading-tight hover:opacity-80 transition-opacity">OJU
+        Hub<br /><span class="text-muted font-normal text-xs">Demonstração</span></a>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-0.5">
+      <a href="../demo-hub.html"
+        class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">video_library</span>Acervo
+      </a>
+      <a href="gestao-acervo.html"
+        class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sidebar-active text-white text-sm font-medium">
+        <span class="material-symbols-outlined text-[18px]">manage_search</span>Gestão do Acervo
+      </a>
+      <div class="my-2 border-t border-white/5"></div>
+      <a href="usuarios-permissoes.html"
+        class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">manage_accounts</span>Usuários e Permissões
+      </a>
+      <a href="configuracoes-integracoes.html"
+        class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">settings</span>Configurações e Integrações
+      </a>
+    </nav>
+
+    <!-- Rodapé da sidebar -->
+    <div class="shrink-0 border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-2">
+        <img src="../midia/geral/LOGO_OJU_small.png" alt="Logo Oju" class="w-6 h-6 object-contain opacity-70" />
+        <div class="flex flex-col leading-tight">
+          <span class="text-[10px] text-muted/60 uppercase tracking-widest">Desenvolvido por</span>
+          <span class="text-[11px] text-muted font-semibold tracking-wide">Oju &nbsp;·&nbsp; © 2026</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="ml-60 flex-1 flex flex-col min-h-screen">
+
+    <!-- TOPBAR -->
+    <header class="h-16 bg-white border-b border-border flex items-center justify-end px-6 shrink-0 sticky top-0 z-20">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 pl-4">
+          <div class="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <span class="text-sm text-gray-600 font-medium" data-perfil-label>Acesso interno</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ÁREA CENTRAL -->
+    <main class="portal-main">
+
+      <!-- CABEÇALHO DA PÁGINA -->
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 tracking-tight">Gestão do Acervo</h2>
+          <p class="text-sm text-muted mt-0.5">Classificação, edição e controle dos arquivos cadastrados</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="manage-categories-btn"
+            class="hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-white text-gray-700 text-sm font-medium hover:bg-surface transition-colors">
+            <span class="material-symbols-outlined text-[18px]">category</span>
+            Categorias
+          </button>
+          <button id="manage-tags-btn"
+            class="hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-white text-gray-700 text-sm font-medium hover:bg-surface transition-colors">
+            <span class="material-symbols-outlined text-[18px]">label</span>
+            Tags
+          </button>
+          <button id="sync-drive-btn"
+            class="hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">sync</span>
+            Sincronizar Google Drive
+          </button>
+          <button id="reset-acervo-btn"
+            class="hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">warning</span>
+            Resetar sistema
+          </button>
+        </div>
+      </div>
+
+      <p id="drive-sync-feedback" class="hidden text-xs rounded-lg px-3 py-2"></p>
+      <div id="drive-sync-summary" class="hidden bg-white border border-border rounded-xl px-4 py-3">
+        <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Resumo da sincronização</p>
+        <div id="drive-sync-summary-body" class="text-xs text-gray-600"></div>
+      </div>
+
+      <div id="reset-acervo-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center">
+          <div class="w-full max-w-lg bg-white border border-border rounded-xl shadow-xl p-5 flex flex-col gap-4">
+            <div>
+              <h3 class="text-base font-semibold text-gray-800">Confirmar reset do sistema</h3>
+              <p class="text-sm text-muted mt-1">
+                Esta ação é irreversível no portal e vai limpar a estrutura operacional do acervo sincronizado.
+              </p>
+            </div>
+            <div class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+              Isso não apaga nenhum arquivo do Google Drive.
+            </div>
+            <div class="text-xs text-muted">
+              Digite exatamente <span class="font-semibold text-gray-700">RESETAR SISTEMA</span> para habilitar a
+              confirmação.
+            </div>
+            <input id="reset-acervo-confirm-input" type="text" placeholder="RESETAR SISTEMA"
+              class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-red-300 focus:border-red-400 placeholder-muted" />
+            <p id="reset-acervo-modal-feedback" class="hidden text-xs rounded-lg px-2.5 py-2"></p>
+            <div class="flex justify-end gap-2">
+              <button id="reset-acervo-cancel-btn"
+                class="px-3 py-2 text-sm border border-border rounded-lg bg-white hover:bg-surface text-gray-700 transition-colors">Cancelar</button>
+              <button id="reset-acervo-confirm-btn" disabled
+                class="px-3 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors">Confirmar
+                reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DE ADMINISTRACAO DE CATEGORIAS -->
+      <div id="categories-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center py-10">
+          <div
+            class="w-full max-w-4xl bg-white border border-border rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-5 border-b border-border flex items-center justify-between shrink-0 bg-surface">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Administração de categorias</h3>
+                <p class="text-xs text-muted mt-0.5">Base oficial para classificação dos arquivos do acervo.</p>
+              </div>
+              <button id="close-categories-modal-btn" class="text-muted hover:text-gray-700 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <div class="p-5 overflow-y-auto flex flex-col gap-5 bg-white">
+              <div
+                class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end bg-surface border border-border rounded-lg p-4">
+                <div class="md:col-span-9">
+                  <label class="text-xs text-muted font-medium block mb-1.5">Nome da categoria</label>
+                  <input id="category-name-input" type="text" placeholder="Ex: Institucional"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+                </div>
+                <div class="md:col-span-3">
+                  <button id="category-create-btn"
+                    class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">add</span>
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+
+              <p id="category-feedback" class="hidden text-xs rounded-lg px-2.5 py-2"></p>
+
+              <div class="border border-border rounded-lg overflow-hidden">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-border bg-surface text-xs text-muted uppercase tracking-wide">
+                      <th class="px-4 py-3 text-left font-semibold">Categoria</th>
+                      <th class="px-4 py-3 text-left font-semibold w-24">Uso</th>
+                      <th class="px-4 py-3 text-right font-semibold w-32">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categories-admin-list" class="divide-y divide-border">
+                    <tr>
+                      <td colspan="3" class="px-4 py-6 text-center text-xs text-muted">Carregando categorias...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DE ADMINISTRACAO DE TAGS -->
+      <div id="tags-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center py-10">
+          <div
+            class="w-full max-w-4xl bg-white border border-border rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-5 border-b border-border flex items-center justify-between shrink-0 bg-surface">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Administração de tags</h3>
+                <p class="text-xs text-muted mt-0.5">Tags disponíveis para associação aos arquivos do acervo.</p>
+              </div>
+              <button id="close-tags-modal-btn" class="text-muted hover:text-gray-700 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <div class="p-5 overflow-y-auto flex flex-col gap-5 bg-white">
+              <div
+                class="grid grid-cols-1 md:grid-cols-10 gap-3 items-end bg-surface border border-border rounded-lg p-4">
+                <div class="md:col-span-8">
+                  <label class="text-xs text-muted font-medium block mb-1.5">Nome da tag</label>
+                  <input id="tag-name-input" type="text" placeholder="Ex: evento, bastidores, still"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+                </div>
+                <div class="md:col-span-2">
+                  <button id="tag-create-btn"
+                    class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+                    <span class="material-symbols-outlined text-[16px]">add</span>
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+
+              <p id="tag-feedback" class="hidden text-xs rounded-lg px-2.5 py-2"></p>
+
+              <div class="border border-border rounded-lg overflow-hidden">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-border bg-surface text-xs text-muted uppercase tracking-wide">
+                      <th class="px-4 py-3 text-left font-semibold">Tag</th>
+                      <th class="px-4 py-3 text-left font-semibold">Descrição</th>
+                      <th class="px-4 py-3 text-left font-semibold w-24">Uso</th>
+                      <th class="px-4 py-3 text-right font-semibold w-32">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tags-admin-list" class="divide-y divide-border">
+                    <tr>
+                      <td colspan="4" class="px-4 py-6 text-center text-xs text-muted">Carregando tags...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DE SELECAO DE TAGS (TAG PICKER) -->
+      <div id="tag-picker-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center py-10">
+          <div class="w-full max-w-md bg-white border border-border rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[80vh]">
+            <div class="p-5 border-b border-border flex items-center justify-between shrink-0 bg-surface">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Selecionar tags</h3>
+                <p class="text-xs text-muted mt-0.5">Marque as tags para os arquivos selecionados ou crie uma nova.</p>
+              </div>
+              <button id="close-tag-picker-btn" class="text-muted hover:text-gray-700 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <!-- Adicionar nova tag (fixo no topo) -->
+            <div class="px-5 pt-4 pb-3 border-b border-border shrink-0 bg-white">
+              <label class="text-xs text-muted font-medium block mb-1.5">Adicionar nova tag</label>
+              <div class="flex items-center gap-2">
+                <input id="tag-picker-new-input" type="text" placeholder="Ex: evento, bastidores, still"
+                  class="flex-1 px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+                <button id="tag-picker-add-btn" type="button"
+                  class="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                  Adicionar
+                </button>
+              </div>
+              <p id="tag-picker-feedback" class="hidden text-xs rounded-lg px-2.5 py-2 mt-2"></p>
+            </div>
+
+            <!-- Lista de tags (rolagem) -->
+            <div class="px-5 py-3 overflow-y-auto flex flex-col gap-2 bg-white flex-1 min-h-[160px]" id="tag-picker-list">
+              <p class="text-xs text-muted">Nenhuma tag disponivel.</p>
+            </div>
+
+            <div class="p-4 border-t border-border flex justify-end gap-2 shrink-0 bg-surface">
+              <button id="cancel-tag-picker-btn"
+                class="px-4 py-2 text-sm border border-border rounded-lg bg-white hover:bg-gray-50 text-gray-700 transition-colors">Cancelar</button>
+              <button id="confirm-tag-picker-btn"
+                class="px-4 py-2 text-sm rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors">Aplicar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL DE SELECAO DE PRODUTORA (PRODUCER PICKER) -->
+      <div id="producer-picker-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center py-10">
+          <div class="w-full max-w-md bg-white border border-border rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[80vh]">
+            <div class="p-5 border-b border-border flex items-center justify-between shrink-0 bg-surface">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Selecionar produtora</h3>
+                <p class="text-xs text-muted mt-0.5">Escolha a produtora dos arquivos selecionados ou crie uma nova.</p>
+              </div>
+              <button id="close-producer-picker-btn" class="text-muted hover:text-gray-700 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <!-- Adicionar nova produtora (fixo no topo) -->
+            <div class="px-5 pt-4 pb-3 border-b border-border shrink-0 bg-white">
+              <label class="text-xs text-muted font-medium block mb-1.5">Adicionar nova produtora</label>
+              <div class="flex items-center gap-2">
+                <input id="producer-picker-new-input" type="text" placeholder="Nome da produtora"
+                  class="flex-1 px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+                <button id="producer-picker-add-btn" type="button"
+                  class="inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors shrink-0">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                  Adicionar
+                </button>
+              </div>
+              <p id="producer-picker-feedback" class="hidden text-xs rounded-lg px-2.5 py-2 mt-2"></p>
+            </div>
+
+            <!-- Lista de produtoras (rolagem, selecao unica) -->
+            <div class="px-5 py-3 overflow-y-auto flex flex-col gap-2 bg-white flex-1 min-h-[160px]" id="producer-picker-list">
+              <p class="text-xs text-muted">Nenhuma produtora disponivel.</p>
+            </div>
+
+            <div class="p-4 border-t border-border flex justify-end gap-2 shrink-0 bg-surface">
+              <button id="cancel-producer-picker-btn"
+                class="px-4 py-2 text-sm border border-border rounded-lg bg-white hover:bg-gray-50 text-gray-700 transition-colors">Cancelar</button>
+              <button id="confirm-producer-picker-btn"
+                class="px-4 py-2 text-sm rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors">Aplicar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POP-UP DE EDIÇÃO RÁPIDA -->
+      <div id="edit-panel-modal" class="hidden fixed inset-0 z-50 bg-black/50 px-4">
+        <div class="min-h-full w-full flex items-center justify-center py-10">
+          <div class="w-full max-w-md bg-white border border-border rounded-xl shadow-xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div class="p-5 flex flex-col gap-4 overflow-y-auto">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Edição rápida</h3>
+                <button onclick="closeEditPanel()" title="Fechar e limpar seleção"
+                  class="text-muted hover:text-gray-700 transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+              </div>
+              <p class="text-xs text-muted -mt-2" id="edit-panel-label">Selecione um arquivo para editar</p>
+
+              <div class="h-px bg-border"></div>
+
+              <div class="flex flex-col gap-3.5">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <label class="text-xs text-muted font-medium">Categoria</label>
+                    <button id="open-categories-btn" type="button" title="Adicionar / gerenciar categorias"
+                      class="inline-flex items-center justify-center w-5 h-5 rounded text-accent hover:bg-accent/10 transition-colors">
+                      <span class="material-symbols-outlined text-[16px]">add</span>
+                    </button>
+                  </div>
+                  <select id="edit-category"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30">
+                    <option value="">Manter atual</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs text-muted font-medium block mb-1.5">Tags</label>
+                  <button id="tag-picker-btn" type="button"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-white text-gray-700 font-medium text-center hover:bg-surface transition-colors focus:outline-none focus:ring-2 focus:ring-accent/30">
+                    Selecionar tags
+                  </button>
+                  <p id="tag-picker-summary" class="text-[11px] text-muted mt-1 hidden"></p>
+                </div>
+                <div>
+                  <label class="text-xs text-muted font-medium block mb-1.5">Produtora</label>
+                  <button id="producer-picker-btn" type="button"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-white text-gray-700 font-medium text-center hover:bg-surface transition-colors focus:outline-none focus:ring-2 focus:ring-accent/30">
+                    Selecionar produtora
+                  </button>
+                  <p id="producer-picker-summary" class="text-[11px] text-muted mt-1 hidden"></p>
+                </div>
+                <div>
+                  <label class="text-xs text-muted font-medium block mb-1.5">Data</label>
+                  <input id="edit-date" type="date"
+                    class="w-full px-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent" />
+                </div>
+              </div>
+              <p id="edit-feedback" class="hidden text-xs rounded-lg px-2.5 py-2"></p>
+              <button id="save-edits-btn"
+                class="w-full py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+                Salvar alteracoes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRID PRINCIPAL: Painel de pastas (redimensionável) + Tabela -->
+      <div id="gestao-acervo-grid" class="flex gap-0 items-start">
+
+        <!-- COLUNA LATERAL: ÁRVORE DE PASTAS (vertical, tela toda, redimensionável) -->
+        <aside id="drive-folder-sidebar" class="shrink-0" style="width: 288px;">
+          <div class="sticky top-24 bg-white border border-border rounded-xl p-4 flex flex-col gap-3"
+            style="height: calc(100vh - 7rem);">
+            <div class="flex items-center justify-between gap-2 shrink-0">
+              <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Pastas do Drive</h3>
+              <button id="refresh-folders-btn" type="button"
+                title="Atualizar a lista de pastas do Drive (não baixa arquivos)"
+                class="inline-flex items-center justify-center w-6 h-6 rounded text-muted hover:text-accent hover:bg-accent/10 transition-colors">
+                <span class="material-symbols-outlined text-[16px]">refresh</span>
+              </button>
+            </div>
+            <p id="folder-sync-feedback" class="text-[11px] hidden rounded px-2 py-1 shrink-0"></p>
+            <div id="drive-folder-tree" class="text-xs text-gray-600 flex-1 min-h-0 overflow-auto -mx-1 px-1">
+              <p class="text-xs text-muted">Carregando estrutura de pastas...</p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- BARRA DE REDIMENSIONAMENTO -->
+        <div id="drive-folder-resize-handle" title="Arraste para redimensionar o painel de pastas"
+          class="shrink-0 w-4 self-stretch cursor-col-resize flex items-center justify-center group bg-surface hover:bg-accent/10 border-x border-border transition-colors">
+          <span class="material-symbols-outlined text-[16px] text-muted group-hover:text-accent transition-colors">drag_indicator</span>
+        </div>
+
+        <!-- COLUNA PRINCIPAL -->
+        <div class="flex-1 flex flex-col gap-3 min-w-0 pl-2.5">
+
+          <!-- C. BARRA DE AÇÕES EM LOTE -->
+          <div id="bulk-bar"
+            class="flex flex-wrap items-center gap-3 bg-white border border-border rounded-xl px-4 py-3">
+            <div class="min-w-[220px] bg-surface border border-border rounded-lg px-4 py-2.5 flex items-center gap-3">
+              <span class="material-symbols-outlined text-[20px] text-muted">check_box</span>
+              <div>
+                <p class="text-xs text-muted">Selecionados</p>
+                <p class="text-sm font-semibold text-gray-700" id="count-selected">0 arquivos</p>
+              </div>
+            </div>
+            <button id="quick-edit-btn" type="button" disabled title="Selecione ao menos um arquivo para editar"
+              class="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border border-border rounded-lg bg-surface text-gray-500 hover:bg-accent/10 hover:text-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-gray-500 transition-colors">
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+              Edição rápida
+            </button>
+            <button id="auto-caption-btn" type="button" disabled title="Selecione até 12 arquivos para gerar legendas com IA"
+              class="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border border-border rounded-lg bg-surface text-gray-500 hover:bg-accent/10 hover:text-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface disabled:hover:text-gray-500 transition-colors">
+              <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+              Gerar legenda com IA
+            </button>
+            <div class="flex-1 min-w-[420px] flex flex-wrap items-center justify-end gap-2">
+              <div class="relative min-w-[200px] flex-1 max-w-[320px]">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-muted pointer-events-none">search</span>
+                <input id="filter-search-input" type="text" placeholder="Buscar arquivo..."
+                  class="w-full pl-8 pr-3 py-2 text-sm border border-border rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted" />
+              </div>
+              <select id="filter-producer-select"
+                class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 min-w-[130px]">
+                <option value="">Produtora</option>
+              </select>
+              <select id="filter-category-select"
+                class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 min-w-[120px]">
+                <option value="">Categoria</option>
+              </select>
+              <select id="filter-media-type-select"
+                class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 min-w-[130px]">
+                <option value="">Tipo de mídia</option>
+                <option value="Video">Vídeo</option>
+                <option value="Imagem">Imagem</option>
+                <option value="Audio">Áudio</option>
+                <option value="Documento">Documento</option>
+              </select>
+              <button id="clear-filters-btn"
+                class="px-3 py-2 text-sm text-muted hover:text-gray-700 border border-border rounded-lg bg-surface hover:bg-gray-50 transition-colors">Limpar</button>
+              <select id="filter-drive-folder-select" class="hidden">
+                <option value="">Pasta Drive</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- B. TABELA PRINCIPAL -->
+          <div id="gestao-acervo-results-top"
+            class="portal-pagination-anchor bg-white border border-border rounded-xl overflow-hidden">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border bg-surface text-xs text-muted uppercase tracking-wide">
+                  <th class="px-4 py-3 w-8"><input type="checkbox" class="file-checkbox w-4 h-4 rounded"
+                      id="select-all" /></th>
+                  <th class="px-4 py-3 text-left font-semibold">Thumb</th>
+                  <th class="px-4 py-3 text-left font-semibold">Nome do arquivo</th>
+                  <th class="px-4 py-3 text-left font-semibold">Tipo</th>
+                  <th class="px-4 py-3 text-left font-semibold">Produtora</th>
+                  <th class="px-4 py-3 text-left font-semibold">Categoria</th>
+                  <th class="px-4 py-3 text-left font-semibold">Tags</th>
+                  <th class="px-4 py-3 text-left font-semibold">Data</th>
+                  <th class="px-4 py-3 w-8"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border" id="table-body">
+                <tr>
+                  <td colspan="9" class="px-4 py-6 text-center text-sm text-muted">Carregando arquivos...</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div id="gestao-acervo-pagination" class="portal-pagination border-0 border-t border-border rounded-none"
+              hidden>
+              <p id="gestao-acervo-pagination-summary" class="portal-pagination__summary" aria-live="polite"></p>
+              <nav class="portal-pagination__nav" aria-label="Paginacao da gestao do acervo">
+                <button id="gestao-acervo-pagination-prev" type="button"
+                  class="portal-pagination__button portal-pagination__button--control" data-page-action="prev"
+                  aria-label="Pagina anterior">
+                  Anterior
+                </button>
+                <div id="gestao-acervo-pagination-pages" class="portal-pagination__pages"></div>
+                <p id="gestao-acervo-pagination-mobile-label" class="portal-pagination__mobile-label"
+                  aria-live="polite"></p>
+                <button id="gestao-acervo-pagination-next" type="button"
+                  class="portal-pagination__button portal-pagination__button--control" data-page-action="next"
+                  aria-label="Proxima pagina">
+                  Proxima
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function removeAccents(str) {
+      return String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const str = String(value);
+      // Datas no formato YYYY-MM-DD são interpretadas como UTC pelo JS.
+      // Adicionar T12:00:00 força leitura em horário local, evitando recuar um dia em fusos UTC-.
+      const normalized = /^\d{4}-\d{2}-\d{2}$/.test(str) ? str + 'T12:00:00' : str;
+      const parsed = new Date(normalized);
+      if (Number.isNaN(parsed.getTime())) return str;
+      return parsed.toLocaleDateString('pt-BR');
+    }
+
+    function formatDateTime(value) {
+      if (!value) return '-';
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) return '-';
+      return parsed.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function mediaLabel(mediaType) {
+      const normalized = String(mediaType || '').toUpperCase();
+      if (normalized === 'VIDEO') return 'Video';
+      if (normalized === 'IMAGE') return 'Imagem';
+      if (normalized === 'AUDIO') return 'Audio';
+      if (normalized === 'DOCUMENT') return 'Documento';
+      return normalized || '-';
+    }
+
+    function mediaBadgeClass(mediaType) {
+      const normalized = String(mediaType || '').toUpperCase();
+      if (normalized === 'VIDEO') return 'bg-blue-50 text-blue-700';
+      if (normalized === 'IMAGE') return 'bg-green-50 text-green-700';
+      if (normalized === 'AUDIO') return 'bg-purple-50 text-purple-700';
+      return 'bg-gray-100 text-gray-600';
+    }
+
+    function mediaIcon(mediaType) {
+      const normalized = String(mediaType || '').toUpperCase();
+      if (normalized === 'VIDEO') return 'play_circle';
+      if (normalized === 'IMAGE') return 'image';
+      if (normalized === 'AUDIO') return 'audio_file';
+      if (normalized === 'DOCUMENT') return 'description';
+      return 'insert_drive_file';
+    }
+
+    function buildPortalThumbPath(file) {
+      const explicit = String(file?.portalThumbnailUrl || '').trim();
+      if (explicit) return explicit;
+      const fileId = String(file?.id || '').trim();
+      if (!fileId) return '';
+      return `/api/files/${encodeURIComponent(fileId)}/thumbnail?size=400`;
+    }
+
+    function renderRowThumb(file) {
+      if (file.thumbUrl) {
+        return `<img src="${escapeHtml(file.thumbUrl)}" alt="" loading="lazy" class="h-12 w-16 rounded-lg object-cover bg-surface border border-border" />`;
+      }
+
+      if (file.id) {
+        return `
+          <img data-thumb-file-id="${escapeHtml(file.id)}" alt="" loading="lazy" class="h-12 w-16 rounded-lg object-cover bg-surface border border-border hidden" />
+          <div data-thumb-fallback class="h-12 w-16 rounded-lg bg-surface border border-border flex items-center justify-center text-muted">
+            <span class="material-symbols-outlined text-[20px]">${escapeHtml(file.mediaIcon)}</span>
+          </div>
+        `;
+      }
+
+      return `<div class="h-12 w-16 rounded-lg bg-surface border border-border flex items-center justify-center text-muted">
+        <span class="material-symbols-outlined text-[20px]">${escapeHtml(file.mediaIcon)}</span>
+      </div>`;
+    }
+
+    function deriveStatus(file) {
+      const apiStatus = String(file.status || '').toUpperCase();
+      if (apiStatus === 'COMPLETE' || apiStatus === 'COMPLETO') return 'Completo';
+      if (apiStatus === 'PENDING' || apiStatus === 'PENDENTE') return 'Pendente';
+      return file.category?.name && file.producer?.name ? 'Completo' : 'Pendente';
+    }
+
+    function redirectToLogin() {
+      location.replace(`login.html?next=${encodeURIComponent('gestao-acervo.html')}`);
+    }
+
+    function statusBadgeClass(status) {
+      return status === 'Completo' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700';
+    }
+
+    function driveSyncLabel(syncStatus, isDriveManaged) {
+      if (!isDriveManaged) return 'Sem origem Drive';
+      return syncStatus === 'MISSING' ? 'Ausente no Drive' : 'Sincronizado';
+    }
+
+    function driveSyncBadgeClass(syncStatus, isDriveManaged) {
+      if (!isDriveManaged) return 'bg-gray-100 text-gray-600';
+      return syncStatus === 'MISSING' ? 'bg-red-50 text-red-700' : 'bg-blue-50 text-blue-700';
+    }
+
+    function buildDriveFolderFilterKey(folderId, folderName) {
+      const normalizedId = String(folderId || '').trim();
+      const normalizedName = String(folderName || '').trim();
+      if (normalizedId) return `id:${normalizedId}`;
+      if (normalizedName) return `name:${normalizedName.toLowerCase()}`;
+      return '';
+    }
+
+    function isEditor(user) {
+      const profile = String(user?.profile?.name || '').toLowerCase();
+      return profile === 'administrativo' || profile === 'master';
+    }
+
+    function removeFileExtension(fileName) {
+      const normalized = String(fileName || '').trim();
+      const lastDotIndex = normalized.lastIndexOf('.');
+      if (lastDotIndex <= 0 || lastDotIndex === normalized.length - 1) {
+        return normalized;
+      }
+      return normalized.slice(0, lastDotIndex);
+    }
+
+    function normalizeFile(file) {
+      const tags = Array.isArray(file.tags) ? file.tags.map((tag) => tag?.name).filter(Boolean) : [];
+      const status = deriveStatus(file);
+      const parsedDate = file.date ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(String(file.date)) ? String(file.date) + 'T12:00:00' : file.date) : null;
+      const hasValidDate = parsedDate && !Number.isNaN(parsedDate.getTime());
+      const driveReviewRequired = Boolean(file.driveReviewRequired);
+      const rawFileName = file.fileName || 'Arquivo sem nome';
+      const displayName = file.displayName || removeFileExtension(rawFileName);
+
+      return {
+        id: file.id || '',
+        nomeArquivo: rawFileName,
+        displayName,
+        nomeArquivoSemExtensao: removeFileExtension(rawFileName),
+        tipo: mediaLabel(file.mediaType),
+        tipoRaw: file.mediaType || '',
+        produtora: file.producer?.name || 'Produtora nao informada',
+        produtoraId: file.producer?.id || '',
+        categoria: file.category?.name || 'Sem categoria',
+        categoriaId: file.category?.id || '',
+        needsCategorization: !file.category?.id,
+        driveFolderId: String(file.driveFolderId || '').trim(),
+        driveFolderName: String(file.driveFolderName || '').trim(),
+        driveFolderPath: String(file.driveFolderPath || '').trim(),
+        driveParentFolderId: String(file.driveParentFolderId || file.parentFolderId || '').trim(),
+        driveFolderFilterKey: buildDriveFolderFilterKey(file.driveFolderId, file.driveFolderName),
+        driveSyncStatus: String(file.driveSyncStatus || 'PRESENT').toUpperCase() === 'MISSING' ? 'MISSING' : 'PRESENT',
+        driveLastSyncedAt: String(file.driveLastSyncedAt || '').trim(),
+        driveReviewRequired,
+        driveStructureChangedAt: String(file.driveStructureChangedAt || '').trim(),
+        driveStructureChangedAtLabel: formatDateTime(file.driveStructureChangedAt),
+        tagsText: tags.length ? tags.join(', ') : '-',
+        data: formatDate(file.date),
+        dateInput: hasValidDate ? parsedDate.toISOString().slice(0, 10) : '',
+        status,
+        thumbUrl: '',
+        portalThumbPath: buildPortalThumbPath(file),
+        mediaIcon: mediaIcon(file.mediaType),
+        isDriveManaged: Boolean(String(file.driveFolderId || '').trim() || String(file.driveFolderName || '').trim()),
+        driveLastSyncedAtLabel: formatDateTime(file.driveLastSyncedAt),
+        driveLastSyncedAtValue: (() => {
+          const parsedSync = file.driveLastSyncedAt ? new Date(file.driveLastSyncedAt) : null;
+          return parsedSync && !Number.isNaN(parsedSync.getTime()) ? parsedSync.getTime() : 0;
+        })()
+      };
+    }
+
+    function renderTableMessage(tableBody, message) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="9" class="px-4 py-6 text-center text-sm text-muted">${escapeHtml(message)}</td>
+        </tr>
+      `;
+    }
+
+    function renderSelectOptions(selectEl, items, placeholder) {
+      if (!selectEl) return;
+      const base = `<option value="">${escapeHtml(placeholder)}</option>`;
+      const options = items.map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`).join('');
+      selectEl.innerHTML = `${base}${options}`;
+    }
+
+    function renderDriveFolderFilterOptions(selectEl, files) {
+      if (!selectEl) return new Map();
+      const source = Array.isArray(files) ? files : [];
+      const byKey = new Map();
+      source.forEach((file) => {
+        const key = String(file.driveFolderFilterKey || '');
+        if (!key || byKey.has(key)) return;
+        const folderName = String(file.driveFolderName || '').trim();
+        const folderId = String(file.driveFolderId || '').trim();
+        const shortId = folderId ? folderId.slice(0, 8) : '';
+        const label = folderName
+          ? (shortId ? `${folderName} (${shortId})` : folderName)
+          : (folderId ? `ID: ${folderId}` : '-');
+        byKey.set(key, label);
+      });
+
+      const sorted = Array.from(byKey.entries()).sort((a, b) => a[1].localeCompare(b[1], 'pt-BR'));
+      const currentValue = String(selectEl.value || '');
+      const options = sorted
+        .map(([key, label]) => `<option value="${escapeHtml(key)}">${escapeHtml(label)}</option>`)
+        .join('');
+      selectEl.innerHTML = `<option value="">Pasta Drive</option>${options}`;
+      if (currentValue && byKey.has(currentValue)) {
+        selectEl.value = currentValue;
+      } else {
+        selectEl.value = '';
+      }
+      return byKey;
+    }
+
+    function sortFilesForTriage(files) {
+      const source = Array.isArray(files) ? files : [];
+      return [...source].sort((a, b) => {
+        const aPendingPriority = a.status === 'Pendente' ? 0 : 1;
+        const bPendingPriority = b.status === 'Pendente' ? 0 : 1;
+        if (aPendingPriority !== bPendingPriority) return aPendingPriority - bPendingPriority;
+
+        const aDrivePriority = a.isDriveManaged ? 0 : 1;
+        const bDrivePriority = b.isDriveManaged ? 0 : 1;
+        if (aDrivePriority !== bDrivePriority) return aDrivePriority - bDrivePriority;
+
+        return b.driveLastSyncedAtValue - a.driveLastSyncedAtValue;
+      });
+    }
+
+    async function readApiErrorMessage(response, fallbackMessage) {
+      try {
+        const payload = await response.json();
+        if (payload && typeof payload.error === 'string' && payload.error.trim()) {
+          return payload.error.trim();
+        }
+      } catch (error) {
+        // noop
+      }
+      return fallbackMessage;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const RESET_CONFIRMATION_TEXT = 'RESETAR SISTEMA';
+      const auth = window.portalAuth || null;
+      const pagination = window.portalPagination || null;
+      const ITEMS_PER_PAGE = Number(pagination?.DEFAULT_ITEMS_PER_PAGE || 24);
+      const tableBody = document.getElementById('table-body');
+      const countPending = document.getElementById('count-pending');
+      const countComplete = document.getElementById('count-complete');
+      const countUncategorized = document.getElementById('count-uncategorized');
+      const quickFilterUncategorizedBtn = document.getElementById('quick-filter-uncategorized-btn');
+      const selectAll = document.getElementById('select-all');
+      const resultsTop = document.getElementById('gestao-acervo-results-top');
+      const paginationContainer = document.getElementById('gestao-acervo-pagination');
+      const paginationSummary = document.getElementById('gestao-acervo-pagination-summary');
+      const paginationPages = document.getElementById('gestao-acervo-pagination-pages');
+      const paginationMobileLabel = document.getElementById('gestao-acervo-pagination-mobile-label');
+      const paginationPrevBtn = document.getElementById('gestao-acervo-pagination-prev');
+      const paginationNextBtn = document.getElementById('gestao-acervo-pagination-next');
+      const bulkBar = document.getElementById('bulk-bar');
+      const countSelected = document.getElementById('count-selected');
+      const autoCaptionBtn = document.getElementById('auto-caption-btn');
+      const quickEditBtn = document.getElementById('quick-edit-btn');
+      const editPanelModal = document.getElementById('edit-panel-modal');
+      const editPanelLabel = document.getElementById('edit-panel-label');
+      const saveEditsBtn = document.getElementById('save-edits-btn');
+      const editFeedback = document.getElementById('edit-feedback');
+      const tagPickerBtn = document.getElementById('tag-picker-btn');
+      const tagPickerSummary = document.getElementById('tag-picker-summary');
+      const tagPickerModal = document.getElementById('tag-picker-modal');
+      const tagPickerList = document.getElementById('tag-picker-list');
+      const closeTagPickerBtn = document.getElementById('close-tag-picker-btn');
+      const cancelTagPickerBtn = document.getElementById('cancel-tag-picker-btn');
+      const confirmTagPickerBtn = document.getElementById('confirm-tag-picker-btn');
+      const tagPickerNewInput = document.getElementById('tag-picker-new-input');
+      const tagPickerAddBtn = document.getElementById('tag-picker-add-btn');
+      const tagPickerFeedback = document.getElementById('tag-picker-feedback');
+      const editCategorySelect = document.getElementById('edit-category');
+      const producerPickerBtn = document.getElementById('producer-picker-btn');
+      const producerPickerSummary = document.getElementById('producer-picker-summary');
+      const producerPickerModal = document.getElementById('producer-picker-modal');
+      const producerPickerList = document.getElementById('producer-picker-list');
+      const closeProducerPickerBtn = document.getElementById('close-producer-picker-btn');
+      const cancelProducerPickerBtn = document.getElementById('cancel-producer-picker-btn');
+      const confirmProducerPickerBtn = document.getElementById('confirm-producer-picker-btn');
+      const producerPickerNewInput = document.getElementById('producer-picker-new-input');
+      const producerPickerAddBtn = document.getElementById('producer-picker-add-btn');
+      const producerPickerFeedback = document.getElementById('producer-picker-feedback');
+      const editDateInput = document.getElementById('edit-date');
+      const filterSearchInput = document.getElementById('filter-search-input');
+      const filterProducerSelect = document.getElementById('filter-producer-select');
+      const filterCategorySelect = document.getElementById('filter-category-select');
+      const filterDriveFolderSelect = document.getElementById('filter-drive-folder-select');
+      const filterMediaTypeSelect = document.getElementById('filter-media-type-select');
+      const clearFiltersBtn = document.getElementById('clear-filters-btn');
+      const driveFolderTree = document.getElementById('drive-folder-tree');
+      const driveFolderSidebar = document.getElementById('drive-folder-sidebar');
+      const driveFolderResizeHandle = document.getElementById('drive-folder-resize-handle');
+      let driveFolderNodesById = new Map();
+      let driveFolderTreeRoots = [];
+      let driveFolderNavPath = []; // ids das pastas abertas, uma por coluna (raiz = [])
+      let driveFolderColumnWidths = []; // largura em px de cada coluna, por profundidade
+      const refreshFoldersBtn = document.getElementById('refresh-folders-btn');
+      const folderSyncFeedback = document.getElementById('folder-sync-feedback');
+      const syncDriveBtn = document.getElementById('sync-drive-btn');
+      const resetAcervoBtn = document.getElementById('reset-acervo-btn');
+      const driveSyncFeedback = document.getElementById('drive-sync-feedback');
+      const driveSyncSummary = document.getElementById('drive-sync-summary');
+      const driveSyncSummaryBody = document.getElementById('drive-sync-summary-body');
+      const resetAcervoModal = document.getElementById('reset-acervo-modal');
+      const resetAcervoConfirmInput = document.getElementById('reset-acervo-confirm-input');
+      const resetAcervoConfirmBtn = document.getElementById('reset-acervo-confirm-btn');
+      const resetAcervoCancelBtn = document.getElementById('reset-acervo-cancel-btn');
+      const resetAcervoModalFeedback = document.getElementById('reset-acervo-modal-feedback');
+      const categoryNameInput = document.getElementById('category-name-input');
+      const categoryCreateBtn = document.getElementById('category-create-btn');
+      const categoryFeedback = document.getElementById('category-feedback');
+      const categoriesAdminList = document.getElementById('categories-admin-list');
+      const manageCategoriesBtn = document.getElementById('manage-categories-btn');
+      const categoriesModal = document.getElementById('categories-modal');
+      const closeCategoriesModalBtn = document.getElementById('close-categories-modal-btn');
+      const openCategoriesBtn = document.getElementById('open-categories-btn');
+      const manageTagsBtn = document.getElementById('manage-tags-btn');
+      const tagsModal = document.getElementById('tags-modal');
+      const closeTagsModalBtn = document.getElementById('close-tags-modal-btn');
+      const tagNameInput = document.getElementById('tag-name-input');
+      const tagCreateBtn = document.getElementById('tag-create-btn');
+      const tagFeedback = document.getElementById('tag-feedback');
+      const tagsAdminList = document.getElementById('tags-admin-list');
+
+      if (!auth || typeof auth.bootstrapAuth !== 'function') {
+        redirectToLogin();
+        return;
+      }
+
+      const currentUser = await auth.bootstrapAuth({
+        next: 'gestao-acervo.html',
+        requiredRoles: ['administrativo', 'master'],
+        forbiddenPath: 'index.html',
+      });
+      if (!currentUser) {
+        return;
+      }
+
+      const canEdit = isEditor(currentUser);
+      const selectedIds = new Set();
+      let tagsCatalog = [];
+      let categoriesCatalog = [];
+      let producersCatalog = [];
+      let selectedProducerId = '';
+      let driveFoldersCatalog = [];
+      let allFiles = [];
+      let currentPage = pagination?.getPageFromUrl?.() || 1;
+      const filesById = new Map();
+      let driveFolderLabelsByKey = new Map();
+      let onlyUncategorized = false;
+      const thumbnailUrlCache = new Map();
+      const thumbnailQueue = [];
+      const queuedThumbnailNodes = new Set();
+      const THUMBNAIL_MAX_CONCURRENCY = 4;
+      const THUMBNAIL_PRELOAD_MARGIN = '280px 0px';
+      let thumbnailObserver = null;
+      let thumbnailActiveRequests = 0;
+      const profileName = String(currentUser?.profile?.name || '').toLowerCase();
+      const canSyncDrive = profileName === 'master';
+      const canResetAcervo = profileName === 'master';
+
+      const revokeThumbnailUrls = () => {
+        if (thumbnailObserver) {
+          thumbnailObserver.disconnect();
+          thumbnailObserver = null;
+        }
+        thumbnailQueue.length = 0;
+        queuedThumbnailNodes.clear();
+        thumbnailActiveRequests = 0;
+        thumbnailUrlCache.forEach((objectUrl) => {
+          try {
+            URL.revokeObjectURL(objectUrl);
+          } catch (error) {
+            // noop
+          }
+        });
+        thumbnailUrlCache.clear();
+      };
+
+      window.addEventListener('beforeunload', revokeThumbnailUrls);
+
+      function applyVideoPosterFit(imageEl, mediaType) {
+        if (!imageEl) return;
+        const normalizedMediaType = String(mediaType || '').toUpperCase();
+
+        if (normalizedMediaType !== 'VIDEO') {
+          imageEl.style.objectFit = 'cover';
+          imageEl.style.background = '#0b0f1a';
+          return;
+        }
+
+        const width = Number(imageEl.naturalWidth) || 0;
+        const height = Number(imageEl.naturalHeight) || 0;
+        if ((!width || !height) && !imageEl.complete) {
+          imageEl.addEventListener('load', () => applyVideoPosterFit(imageEl, mediaType), { once: true });
+          return;
+        }
+        if (height > width && width > 0) {
+          imageEl.style.objectFit = 'contain';
+          imageEl.style.background = '#05070d';
+        } else {
+          imageEl.style.objectFit = 'cover';
+          imageEl.style.background = '#0b0f1a';
+        }
+      }
+
+      async function ensureThumbnailForImage(imageEl) {
+        if (!imageEl || !auth || typeof auth.apiFetch !== 'function') return;
+        const fileId = String(imageEl.getAttribute('data-thumb-file-id') || '').trim();
+        if (!fileId) return;
+
+        const sourceFile = filesById.get(fileId) || allFiles.find((item) => String(item.id || '') === fileId);
+        const mediaType = String(sourceFile?.tipoRaw || '').toUpperCase();
+
+        const cached = thumbnailUrlCache.get(fileId);
+        if (cached) {
+          imageEl.src = cached;
+          imageEl.classList.remove('hidden');
+          imageEl.dataset.thumbLoaded = '1';
+          applyVideoPosterFit(imageEl, mediaType);
+          const fallback = imageEl.parentElement?.querySelector('[data-thumb-fallback]');
+          if (fallback) fallback.classList.add('hidden');
+          return;
+        }
+
+        const portalThumbPath = String(sourceFile?.portalThumbPath || '').trim();
+        if (!portalThumbPath) return;
+
+        try {
+          const response = await auth.apiFetch(portalThumbPath);
+          if (!response.ok) return;
+          const blob = await response.blob();
+          const blobType = String(blob?.type || '').toLowerCase();
+          if (!blob || blob.size === 0) return;
+          if (blobType && !blobType.startsWith('image/')) return;
+
+          const objectUrl = URL.createObjectURL(blob);
+          thumbnailUrlCache.set(fileId, objectUrl);
+          imageEl.src = objectUrl;
+          imageEl.classList.remove('hidden');
+          imageEl.dataset.thumbLoaded = '1';
+          applyVideoPosterFit(imageEl, mediaType);
+          const fallback = imageEl.parentElement?.querySelector('[data-thumb-fallback]');
+          if (fallback) fallback.classList.add('hidden');
+        } catch (error) {
+          // noop
+        }
+      }
+
+      function scheduleThumbnailRequest(imageEl) {
+        if (!imageEl || imageEl.dataset.thumbLoaded === '1') return;
+        if (queuedThumbnailNodes.has(imageEl)) return;
+        queuedThumbnailNodes.add(imageEl);
+        thumbnailQueue.push(imageEl);
+        processThumbnailQueue();
+      }
+
+      function processThumbnailQueue() {
+        while (thumbnailActiveRequests < THUMBNAIL_MAX_CONCURRENCY && thumbnailQueue.length > 0) {
+          const nextImage = thumbnailQueue.shift();
+          queuedThumbnailNodes.delete(nextImage);
+          if (!nextImage || !nextImage.isConnected || nextImage.dataset.thumbLoaded === '1') {
+            continue;
+          }
+
+          thumbnailActiveRequests += 1;
+          nextImage.dataset.thumbLoading = '1';
+
+          Promise.resolve(ensureThumbnailForImage(nextImage))
+            .catch(() => {
+              // noop
+            })
+            .finally(() => {
+              delete nextImage.dataset.thumbLoading;
+              thumbnailActiveRequests = Math.max(0, thumbnailActiveRequests - 1);
+              processThumbnailQueue();
+            });
+        }
+      }
+
+      function ensureThumbnailObserver() {
+        if (thumbnailObserver || typeof IntersectionObserver !== 'function') return;
+        thumbnailObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            thumbnailObserver.unobserve(entry.target);
+            scheduleThumbnailRequest(entry.target);
+          });
+        }, {
+          root: null,
+          rootMargin: THUMBNAIL_PRELOAD_MARGIN,
+          threshold: 0.01
+        });
+      }
+
+      function hydrateTableThumbnails() {
+        const imageNodes = tableBody.querySelectorAll('img[data-thumb-file-id]');
+        imageNodes.forEach((img) => {
+          if (img.dataset.thumbLoaded === '1') return;
+          scheduleThumbnailRequest(img);
+        });
+      }
+
+
+      function setFeedback(message, type) {
+        if (!editFeedback) return;
+        const tone = type || 'info';
+        editFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          editFeedback.textContent = '';
+          editFeedback.classList.add('hidden');
+          return;
+        }
+        if (tone === 'error') {
+          editFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          editFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          editFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        editFeedback.textContent = message;
+      }
+
+      function setTagFeedback(message, type) {
+        if (!tagFeedback) return;
+        const tone = type || 'info';
+        tagFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          tagFeedback.textContent = '';
+          tagFeedback.classList.add('hidden');
+          return;
+        }
+        if (tone === 'error') {
+          tagFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          tagFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          tagFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        tagFeedback.textContent = message;
+      }
+
+      function setCategoryFeedback(message, type) {
+        if (!categoryFeedback) return;
+        const tone = type || 'info';
+        categoryFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          categoryFeedback.textContent = '';
+          categoryFeedback.classList.add('hidden');
+          return;
+        }
+        if (tone === 'error') {
+          categoryFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          categoryFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          categoryFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        categoryFeedback.textContent = message;
+      }
+
+      function setDriveSyncFeedback(message, type) {
+        if (!driveSyncFeedback) return;
+        driveSyncFeedback.classList.remove(
+          'hidden',
+          'border',
+          'border-red-200',
+          'bg-red-50',
+          'text-red-700',
+          'border-green-200',
+          'bg-green-50',
+          'text-green-700',
+          'border-accent/20',
+          'bg-accent/5',
+          'text-accent'
+        );
+
+        if (!message) {
+          driveSyncFeedback.textContent = '';
+          driveSyncFeedback.classList.add('hidden');
+          return;
+        }
+
+        const tone = type || 'info';
+        if (tone === 'error') {
+          driveSyncFeedback.classList.add('border', 'border-red-200', 'bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          driveSyncFeedback.classList.add('border', 'border-green-200', 'bg-green-50', 'text-green-700');
+        } else {
+          driveSyncFeedback.classList.add('border', 'border-accent/20', 'bg-accent/5', 'text-accent');
+        }
+
+        driveSyncFeedback.textContent = message;
+      }
+
+      function setResetModalFeedback(message, type) {
+        if (!resetAcervoModalFeedback) return;
+        resetAcervoModalFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          resetAcervoModalFeedback.textContent = '';
+          resetAcervoModalFeedback.classList.add('hidden');
+          return;
+        }
+        if (type === 'error') {
+          resetAcervoModalFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (type === 'success') {
+          resetAcervoModalFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          resetAcervoModalFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        resetAcervoModalFeedback.textContent = message;
+      }
+
+      function renderDriveSyncSummary(result) {
+        if (!driveSyncSummary || !driveSyncSummaryBody) return;
+        if (!result || typeof result !== 'object') {
+          driveSyncSummary.classList.add('hidden');
+          driveSyncSummaryBody.innerHTML = '';
+          return;
+        }
+
+        const folderLabel = result.folderName
+          ? `${result.folderName} (${result.folderId || '-'})`
+          : (result.folderId || '-');
+        const summaryHtml = `
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            <div><span class="text-muted">Pasta:</span> <span class="font-medium text-gray-700">${escapeHtml(folderLabel)}</span></div>
+            <div><span class="text-muted">Escaneados:</span> <span class="font-medium text-gray-700">${escapeHtml(result.scanned ?? 0)}</span></div>
+            <div><span class="text-muted">Criados:</span> <span class="font-medium text-gray-700">${escapeHtml(result.created ?? result.wouldCreate ?? 0)}</span></div>
+            <div><span class="text-muted">Atualizados:</span> <span class="font-medium text-gray-700">${escapeHtml(result.updated ?? result.wouldUpdate ?? 0)}</span></div>
+            <div><span class="text-muted">Ausentes:</span> <span class="font-medium text-gray-700">${escapeHtml(result.markedMissing ?? result.wouldMarkMissing ?? 0)}</span></div>
+            <div><span class="text-muted">Em revisao:</span> <span class="font-medium text-gray-700">${escapeHtml(result.reviewFlagged ?? result.wouldRequireReview ?? 0)}</span></div>
+            <div><span class="text-muted">Sem mudança:</span> <span class="font-medium text-gray-700">${escapeHtml(result.unchanged ?? 0)}</span></div>
+            <div><span class="text-muted">Erros:</span> <span class="font-medium text-gray-700">${escapeHtml(result.errors ?? 0)}</span></div>
+            <div><span class="text-muted">Finalizado em:</span> <span class="font-medium text-gray-700">${escapeHtml(formatDateTime(result.finishedAt))}</span></div>
+          </div>
+        `;
+        driveSyncSummaryBody.innerHTML = summaryHtml;
+        driveSyncSummary.classList.remove('hidden');
+      }
+
+      function renderCategoriesAdmin(categories) {
+        if (!categoriesAdminList) return;
+        if (!Array.isArray(categories) || categories.length === 0) {
+          categoriesAdminList.innerHTML = `
+            <tr>
+              <td colspan="3" class="px-3 py-4 text-center text-xs text-muted">Nenhuma categoria cadastrada.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        categoriesAdminList.innerHTML = categories.map((category) => {
+          const usageCount = Number(category.usageCount || 0);
+          const usageTone = usageCount > 0 ? 'text-amber-700 bg-amber-50' : 'text-green-700 bg-green-50';
+          return `
+            <tr data-category-row-id="${escapeHtml(category.id)}">
+              <td class="px-3 py-2.5 text-sm text-gray-700 font-medium">${escapeHtml(category.name)}</td>
+              <td class="px-3 py-2.5">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${usageTone}">
+                  ${usageCount} arquivo${usageCount !== 1 ? 's' : ''}
+                </span>
+              </td>
+              <td class="px-3 py-2.5">
+                <div class="flex items-center justify-end gap-2">
+                  <button data-category-action="edit" data-category-id="${escapeHtml(category.id)}" class="px-2 py-1 text-xs border border-border rounded bg-white hover:bg-surface text-gray-700 transition-colors">Editar</button>
+                  <button data-category-action="delete" data-category-id="${escapeHtml(category.id)}" class="px-2 py-1 text-xs border border-red-200 rounded bg-red-50 hover:bg-red-100 text-red-700 transition-colors">Remover</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      function renderTagsAdmin(tags) {
+        if (!tagsAdminList) return;
+        if (!Array.isArray(tags) || tags.length === 0) {
+          tagsAdminList.innerHTML = `
+            <tr>
+              <td colspan="4" class="px-3 py-4 text-center text-xs text-muted">Nenhuma tag cadastrada.</td>
+            </tr>
+          `;
+          return;
+        }
+
+        tagsAdminList.innerHTML = tags.map((tag) => {
+          const usageCount = Number(tag.usageCount || 0);
+          const usageTone = usageCount > 0 ? 'text-amber-700 bg-amber-50' : 'text-green-700 bg-green-50';
+          return `
+            <tr data-tag-row-id="${escapeHtml(tag.id)}">
+              <td class="px-3 py-2.5 text-sm text-gray-700 font-medium">${escapeHtml(tag.name)}</td>
+              <td class="px-3 py-2.5 text-xs text-muted">${escapeHtml(tag.description || '-')}</td>
+              <td class="px-3 py-2.5">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${usageTone}">
+                  ${usageCount} arquivo${usageCount !== 1 ? 's' : ''}
+                </span>
+              </td>
+              <td class="px-3 py-2.5">
+                <div class="flex items-center justify-end gap-2">
+                  <button data-tag-action="edit" data-tag-id="${escapeHtml(tag.id)}" class="px-2 py-1 text-xs border border-border rounded bg-white hover:bg-surface text-gray-700 transition-colors">Editar</button>
+                  <button data-tag-action="delete" data-tag-id="${escapeHtml(tag.id)}" class="px-2 py-1 text-xs border border-red-200 rounded bg-red-50 hover:bg-red-100 text-red-700 transition-colors">Remover</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      const selectedTagIds = new Set();
+
+      function updateTagPickerSummary() {
+        if (!tagPickerSummary || !tagPickerBtn) return;
+        if (selectedTagIds.size === 0) {
+          tagPickerBtn.textContent = 'Selecionar tags';
+          tagPickerSummary.classList.add('hidden');
+        } else {
+          const names = tagsCatalog
+            .filter((tag) => selectedTagIds.has(tag.id))
+            .map((tag) => tag.name);
+          tagPickerBtn.textContent = `Tags selecionadas (${selectedTagIds.size})`;
+          tagPickerSummary.textContent = names.join(', ');
+          tagPickerSummary.classList.remove('hidden');
+        }
+      }
+
+      function renderTagPickerList() {
+        if (!tagPickerList) return;
+        if (!tagsCatalog.length) {
+          tagPickerList.innerHTML = '<p class="text-xs text-muted">Nenhuma tag criada ainda. Use o campo acima para adicionar a primeira.</p>';
+          return;
+        }
+        tagPickerList.innerHTML = tagsCatalog.map((tag) => {
+          const checked = selectedTagIds.has(tag.id) ? 'checked' : '';
+          return `
+            <label class="flex items-center gap-3 px-3 py-2 rounded-lg border border-border hover:bg-surface transition-colors cursor-pointer">
+              <input type="checkbox" class="file-checkbox w-4 h-4 rounded tag-picker-checkbox" value="${escapeHtml(tag.id)}" ${checked} />
+              <span class="flex-1 text-sm text-gray-700">${escapeHtml(tag.name)}</span>
+              <button type="button" data-tag-delete="${escapeHtml(tag.id)}" title="Excluir tag" class="text-muted hover:text-red-600 transition-colors shrink-0">
+                <span class="material-symbols-outlined text-[16px]">delete</span>
+              </button>
+            </label>
+          `;
+        }).join('');
+      }
+
+      function openTagPicker() {
+        if (!tagPickerModal || !tagPickerList) return;
+        setPickerTagFeedback('');
+        if (tagPickerNewInput) tagPickerNewInput.value = '';
+        renderTagPickerList();
+        tagPickerModal.classList.remove('hidden');
+      }
+
+      function closeTagPicker(saveChanges) {
+        if (!tagPickerModal) return;
+        if (saveChanges) {
+          selectedTagIds.clear();
+          tagPickerList.querySelectorAll('.tag-picker-checkbox:checked').forEach((checkbox) => {
+            selectedTagIds.add(checkbox.value);
+          });
+          updateTagPickerSummary();
+        }
+        tagPickerModal.classList.add('hidden');
+      }
+
+      function setEditingEnabled(enabled) {
+        [
+          tagPickerBtn,
+          editCategorySelect,
+          producerPickerBtn,
+          editDateInput,
+          saveEditsBtn
+        ].forEach((field) => {
+          if (field) field.disabled = !enabled;
+        });
+      }
+
+      function clearEditForm() {
+        selectedTagIds.clear();
+        updateTagPickerSummary();
+        editCategorySelect.value = '';
+        selectedProducerId = '';
+        updateProducerPickerSummary();
+        editDateInput.value = '';
+      }
+
+      function updateSelectionUi() {
+        const total = selectedIds.size;
+        if (countSelected) {
+          countSelected.textContent = `${total} arquivo${total !== 1 ? 's' : ''}`;
+        }
+
+        if (canEdit && total > 0) {
+          editPanelLabel.textContent = `${total}${total !== 1 ? ' itens selecionados' : ' item selecionado'}`;
+        } else {
+          editPanelLabel.textContent = canEdit ? 'Selecione um arquivo para editar' : 'Sem permissão para editar';
+          closeEditPanelModal();
+        }
+
+        if (quickEditBtn) {
+          quickEditBtn.disabled = !canEdit || total === 0;
+          quickEditBtn.title = !canEdit ? 'Sem permissão para editar' : 'Selecione ao menos um arquivo para editar';
+        }
+
+        tableBody.querySelectorAll('.row-check').forEach((checkbox) => {
+          const row = checkbox.closest('tr');
+          const rowId = checkbox.getAttribute('data-id');
+          if (row) {
+            row.classList.toggle('selected', selectedIds.has(rowId));
+          }
+        });
+
+        if (autoCaptionBtn) {
+          const withinLimit = total > 0 && total <= 12;
+          autoCaptionBtn.disabled = !canEdit || !withinLimit;
+          autoCaptionBtn.title = !canEdit
+            ? 'Sem permissão para editar'
+            : total > 12
+              ? 'Selecione no máximo 12 arquivos para gerar legendas com IA'
+              : 'Selecione até 12 arquivos para gerar legendas com IA';
+        }
+      }
+
+      function attachSelectionEvents() {
+        const rowChecks = [...tableBody.querySelectorAll('.row-check')];
+
+        if (!canEdit) {
+          selectAll.checked = false;
+          selectAll.disabled = true;
+          rowChecks.forEach((checkbox) => {
+            checkbox.checked = false;
+            checkbox.disabled = true;
+          });
+          updateSelectionUi();
+        } else {
+          selectAll.disabled = false;
+          selectAll.onchange = () => {
+            selectedIds.clear();
+            rowChecks.forEach((checkbox) => {
+              checkbox.checked = selectAll.checked;
+              if (selectAll.checked) {
+                const rowId = checkbox.getAttribute('data-id');
+                if (rowId) selectedIds.add(rowId);
+              }
+            });
+            updateSelectionUi();
+          };
+
+          rowChecks.forEach((checkbox) => {
+            checkbox.disabled = false;
+            checkbox.onchange = () => {
+              const rowId = checkbox.getAttribute('data-id');
+              if (!rowId) return;
+              if (checkbox.checked) {
+                selectedIds.add(rowId);
+              } else {
+                selectedIds.delete(rowId);
+              }
+              selectAll.checked = rowChecks.length > 0 && rowChecks.every((item) => item.checked);
+              updateSelectionUi();
+            };
+          });
+        }
+
+        tableBody.querySelectorAll('[data-row]').forEach((row) => {
+          row.onclick = (event) => {
+            if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'checkbox') return;
+            if (event.target.closest('[data-file-delete]')) return;
+            if (event.target.closest('[data-file-play]')) return;
+            const id = row.getAttribute('data-id');
+            if (!id) return;
+
+            if (canEdit) {
+              const checkbox = row.querySelector('.row-check');
+              if (checkbox && !checkbox.disabled) {
+                checkbox.checked = !checkbox.checked;
+                if (typeof checkbox.onchange === 'function') {
+                  checkbox.onchange();
+                } else {
+                  checkbox.dispatchEvent(new Event('change'));
+                }
+              }
+            } else {
+              location.href = `detalhe-arquivo.html?id=${encodeURIComponent(id)}`;
+            }
+          };
+        });
+      }
+
+      function updateUncategorizedQuickFilterUi() {
+        const uncategorizedCount = allFiles.filter((file) => file.needsCategorization).length;
+        if (countUncategorized) {
+          countUncategorized.textContent = `${uncategorizedCount} itens`;
+        }
+        if (quickFilterUncategorizedBtn) {
+          quickFilterUncategorizedBtn.classList.toggle('active', onlyUncategorized);
+        }
+      }
+
+      function scrollResultsToTop() {
+        if (!resultsTop || typeof resultsTop.scrollIntoView !== 'function') return;
+        resultsTop.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function hidePagination() {
+        if (paginationContainer) paginationContainer.hidden = true;
+        if (paginationSummary) paginationSummary.textContent = '';
+        if (paginationPages) paginationPages.innerHTML = '';
+        if (paginationMobileLabel) paginationMobileLabel.textContent = '';
+        if (paginationPrevBtn) {
+          paginationPrevBtn.disabled = true;
+          paginationPrevBtn.setAttribute('aria-disabled', 'true');
+        }
+        if (paginationNextBtn) {
+          paginationNextBtn.disabled = true;
+          paginationNextBtn.setAttribute('aria-disabled', 'true');
+        }
+      }
+
+      function renderPagination(paginationState) {
+        if (!pagination || !paginationContainer) return;
+
+        const totalItems = Number(paginationState?.totalItems || 0);
+        const perPage = Number(paginationState?.perPage || ITEMS_PER_PAGE);
+        if (totalItems <= perPage) {
+          hidePagination();
+          return;
+        }
+
+        paginationContainer.hidden = false;
+
+        if (paginationSummary) {
+          paginationSummary.textContent = pagination.formatRangeSummary(paginationState, {
+            singularLabel: 'arquivo',
+            pluralLabel: 'arquivos',
+          });
+        }
+
+        if (paginationMobileLabel) {
+          paginationMobileLabel.textContent = `Pagina ${paginationState.currentPage} de ${paginationState.totalPages}`;
+        }
+
+        if (paginationPrevBtn) {
+          const disabled = !paginationState?.hasPrevious;
+          paginationPrevBtn.disabled = disabled;
+          paginationPrevBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+        }
+
+        if (paginationNextBtn) {
+          const disabled = !paginationState?.hasNext;
+          paginationNextBtn.disabled = disabled;
+          paginationNextBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+        }
+
+        if (!paginationPages) return;
+
+        const pageModel = pagination.buildPageModel(
+          Number(paginationState?.currentPage || 1),
+          Number(paginationState?.totalPages || 1)
+        );
+
+        paginationPages.innerHTML = pageModel.map((item) => {
+          if (item.type === 'ellipsis') {
+            return '<span class="portal-pagination__ellipsis" aria-hidden="true">...</span>';
+          }
+
+          const activeClass = item.active ? ' is-active' : '';
+          const ariaCurrent = item.active ? ' aria-current="page"' : '';
+          const ariaLabel = item.active
+            ? `Pagina ${item.page}, atual`
+            : `Ir para a pagina ${item.page}`;
+
+          return `
+            <button
+              type="button"
+              class="portal-pagination__button${activeClass}"
+              data-page-target="${item.page}"
+              aria-label="${ariaLabel}"${ariaCurrent}
+            >
+              ${item.page}
+            </button>
+          `;
+        }).join('');
+      }
+
+      function applyActiveFilters(options = {}) {
+        const opts = options && typeof options === 'object' ? options : {};
+        if (opts.resetPage) {
+          currentPage = 1;
+        }
+
+        const query = String(filterSearchInput?.value || '').trim().toLowerCase();
+        const selectedProducerId = String(filterProducerSelect?.value || '').trim();
+        const selectedCategoryId = String(filterCategorySelect?.value || '').trim();
+        const selectedFolderKey = String(filterDriveFolderSelect?.value || '').trim();
+        const selectedMediaType = String(filterMediaTypeSelect?.value || '').trim();
+
+        updateUncategorizedQuickFilterUi();
+
+        const filteredFiles = allFiles.filter((file) => {
+          if (query) {
+            const searchable = removeAccents(`${file.nomeArquivo} ${file.project} ${file.driveFolderName} ${file.categoria} ${file.produtora} ${file.tagsText}`).toLowerCase();
+            if (!searchable.includes(query)) return false;
+          }
+          if (onlyUncategorized && !file.needsCategorization) return false;
+          if (selectedProducerId && file.produtoraId !== selectedProducerId) return false;
+          if (selectedCategoryId && file.categoriaId !== selectedCategoryId) return false;
+          if (selectedFolderKey && file.driveFolderFilterKey !== selectedFolderKey) return false;
+          if (selectedMediaType && file.tipo !== selectedMediaType) return false;
+          return true;
+        });
+
+        const paginationState = pagination
+          ? pagination.paginateItems(filteredFiles, currentPage, ITEMS_PER_PAGE)
+          : {
+            items: filteredFiles,
+            totalItems: filteredFiles.length,
+            totalPages: 1,
+            perPage: ITEMS_PER_PAGE,
+            currentPage: 1,
+            hasPrevious: false,
+            hasNext: false,
+            wasClamped: false,
+          };
+
+        currentPage = Number(paginationState?.currentPage || 1);
+
+        if (pagination && opts.syncUrl !== false) {
+          const historyMode = opts.historyMode || (paginationState?.wasClamped ? 'replace' : '');
+          if (historyMode === 'push') {
+            pagination.syncPageInUrl(currentPage, { replace: false });
+          } else if (historyMode === 'replace') {
+            pagination.syncPageInUrl(currentPage, { replace: true });
+          }
+        }
+
+        render(filteredFiles, paginationState);
+        renderDriveFolderTreePanel(allFiles);
+
+        if (opts.scrollToTop) {
+          requestAnimationFrame(scrollResultsToTop);
+        }
+      }
+
+      function renderDriveFolderTreePanel(files) {
+        if (!driveFolderTree) return;
+        const source = Array.isArray(files) ? files : [];
+        const folderNodes = new Map();
+
+        source.forEach((file) => {
+          if (!file.isDriveManaged || !file.driveFolderFilterKey) {
+            return;
+          }
+
+          const nodeId = file.driveFolderId || file.driveFolderFilterKey;
+          if (!folderNodes.has(nodeId)) {
+            folderNodes.set(nodeId, {
+              id: file.driveFolderId || '',
+              key: file.driveFolderFilterKey,
+              name: file.driveFolderName || (file.driveFolderId ? `Pasta ${file.driveFolderId.slice(0, 8)}` : 'Pasta sem nome'),
+              parentId: file.driveParentFolderId || '',
+              fileCount: 0,
+              pendingCount: 0,
+              children: [],
+            });
+          }
+
+          const node = folderNodes.get(nodeId);
+          node.fileCount += 1;
+          if (file.status === 'Pendente') {
+            node.pendingCount += 1;
+          }
+        });
+
+        // Mescla as pastas descobertas no Drive (mesmo as ainda sem arquivos sincronizados).
+        (driveFoldersCatalog || []).forEach((folder) => {
+          const id = String(folder?.id || '').trim();
+          if (!id || folderNodes.has(id)) return;
+          folderNodes.set(id, {
+            id,
+            key: buildDriveFolderFilterKey(id, folder.name),
+            name: String(folder.name || `Pasta ${id.slice(0, 8)}`),
+            parentId: String(folder.parentFolderId || '').trim(),
+            fileCount: 0,
+            pendingCount: 0,
+            children: [],
+          });
+        });
+
+        if (folderNodes.size === 0) {
+          driveFolderTree.innerHTML = '<p class="text-xs text-muted">Nenhuma pasta identificada. Use o botão atualizar acima.</p>';
+          return;
+        }
+
+        folderNodes.forEach((node) => {
+          node.children = [];
+        });
+
+        const roots = [];
+        folderNodes.forEach((node) => {
+          const parentId = String(node.parentId || '').trim();
+          const parentNode = parentId ? folderNodes.get(parentId) : null;
+          if (parentNode && parentNode.id !== node.id) {
+            parentNode.children.push(node);
+          } else {
+            roots.push(node);
+          }
+        });
+
+        const byName = (left, right) => String(left.name || '').localeCompare(String(right.name || ''), 'pt-BR');
+        const sortTree = (nodes) => {
+          nodes.sort(byName);
+          nodes.forEach((node) => sortTree(node.children));
+        };
+        sortTree(roots);
+
+        driveFolderNodesById = folderNodes;
+        driveFolderTreeRoots = roots;
+
+        // Se a pasta atualmente navegada sumiu (ex.: apos atualizar a lista), volta para a raiz.
+        driveFolderNavPath = driveFolderNavPath.filter((id) => folderNodes.has(id));
+
+        renderDriveFolderLevel();
+      }
+
+      function renderDriveFolderLevel() {
+        if (!driveFolderTree) return;
+
+        const selectedFolderKey = String(filterDriveFolderSelect?.value || '').trim();
+
+        const renderRow = (node, isOpenAncestor, depth) => {
+          const isSelected = selectedFolderKey && selectedFolderKey === node.key;
+          const isInPath = isOpenAncestor || isSelected;
+          const hasChildren = node.children.length > 0;
+          const tone = isInPath
+            ? 'border-accent/40 bg-accent/10 text-accent font-medium'
+            : 'border-border bg-surface text-gray-700 hover:bg-accent/5';
+          const syncBtn = node.id
+            ? `<button type="button" data-folder-sync="${escapeHtml(node.id)}" data-folder-name="${escapeHtml(node.name)}" title="Sincronizar os arquivos desta pasta" class="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded border border-border bg-white text-muted hover:text-accent hover:bg-accent/10 transition-colors"><span class="material-symbols-outlined text-[15px]">sync</span></button>`
+            : '';
+          const chevron = hasChildren
+            ? `<span class="material-symbols-outlined text-[16px] text-muted shrink-0">chevron_right</span>`
+            : '';
+          return `
+            <div class="flex items-center gap-1">
+              <button type="button" data-folder-key="${escapeHtml(node.key)}" data-folder-nav-enter="${escapeHtml(node.id)}" data-folder-nav-depth="${depth}" title="${escapeHtml(node.name)}" class="flex-1 min-w-0 text-left px-2 py-1.5 rounded border ${tone} transition-colors">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="material-symbols-outlined text-[15px] text-muted shrink-0">folder</span>
+                  <div class="font-medium leading-snug truncate flex-1 min-w-0">${escapeHtml(node.name)}</div>
+                  ${chevron}
+                </div>
+              </button>
+              ${syncBtn}
+            </div>
+          `;
+        };
+
+        // Monta uma coluna por nivel do caminho de navegacao (estilo Finder/Explorer):
+        // coluna 0 = raizes, coluna N = filhas da pasta aberta na coluna N-1.
+        const columns = [];
+        let levelNodes = driveFolderTreeRoots || [];
+        for (let depth = 0; depth <= driveFolderNavPath.length; depth += 1) {
+          const openId = driveFolderNavPath[depth] || null;
+          columns.push({ nodes: levelNodes, openId });
+          if (!openId) break;
+          const openNode = driveFolderNodesById.get(openId);
+          if (!openNode || openNode.children.length === 0) break;
+          levelNodes = openNode.children;
+        }
+
+        if (columns.length === 0 || columns[0].nodes.length === 0) {
+          driveFolderTree.innerHTML = '<p class="text-xs text-muted">Nenhuma pasta identificada.</p>';
+          return;
+        }
+
+        const DEFAULT_COLUMN_WIDTH = 176;
+        const columnsHtml = columns.map((column, depth) => {
+          const width = driveFolderColumnWidths[depth] || DEFAULT_COLUMN_WIDTH;
+          const isLast = depth === columns.length - 1;
+          const columnContent = `
+            <div data-folder-column="${depth}" class="shrink-0 flex flex-col gap-1.5 overflow-y-auto h-full" style="width:${width}px">
+              ${column.nodes.length > 0
+                ? column.nodes.map((node) => renderRow(node, node.id === column.openId, depth)).join('')
+                : '<p class="text-xs text-muted px-1">Nenhuma subpasta aqui.</p>'}
+            </div>
+          `;
+          const resizeHandle = !isLast
+            ? `<div data-folder-column-resize="${depth}" title="Arraste para redimensionar" class="shrink-0 w-2 self-stretch cursor-col-resize flex items-center justify-center group"><div class="w-px h-full bg-border group-hover:bg-accent transition-colors"></div></div>`
+            : '';
+          return columnContent + resizeHandle;
+        }).join('');
+
+        driveFolderTree.innerHTML = `<div class="flex h-full gap-0 overflow-x-auto pb-1">${columnsHtml}</div>`;
+      }
+
+      function setFolderSyncFeedback(message, type) {
+        if (!folderSyncFeedback) return;
+        folderSyncFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-accent/5', 'text-accent');
+        if (!message) {
+          folderSyncFeedback.textContent = '';
+          folderSyncFeedback.classList.add('hidden');
+          return;
+        }
+        if (type === 'error') {
+          folderSyncFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (type === 'success') {
+          folderSyncFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          folderSyncFeedback.classList.add('bg-accent/5', 'text-accent');
+        }
+        folderSyncFeedback.textContent = message;
+      }
+
+      async function refreshDriveFolders() {
+        if (!canSyncDrive) {
+          setFolderSyncFeedback('Sem permissao para atualizar pastas.', 'error');
+          return;
+        }
+        setFolderSyncFeedback('Atualizando lista de pastas...', 'info');
+        if (refreshFoldersBtn) refreshFoldersBtn.disabled = true;
+        try {
+          const response = await auth.apiFetch('/api/integrations/google-drive/folders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({}),
+          });
+          if (response.status === 401) { redirectToLogin(); return; }
+          if (response.status === 403) { setFolderSyncFeedback('Permissao negada.', 'error'); return; }
+          let payload = null;
+          try { payload = await response.json(); } catch (error) { payload = null; }
+          if (!response.ok) {
+            setFolderSyncFeedback(payload?.error || `Falha ao atualizar pastas (HTTP ${response.status}).`, 'error');
+            return;
+          }
+          driveFoldersCatalog = Array.isArray(payload?.folders) ? payload.folders : [];
+          renderDriveFolderTreePanel(allFiles);
+          setFolderSyncFeedback(`Pastas atualizadas: ${driveFoldersCatalog.length} encontrada(s).`, 'success');
+        } catch (error) {
+          console.error('Erro ao atualizar pastas:', error);
+          setFolderSyncFeedback('Falha ao atualizar a lista de pastas.', 'error');
+        } finally {
+          if (refreshFoldersBtn) refreshFoldersBtn.disabled = false;
+        }
+      }
+
+      async function syncSingleFolder(folderId, folderName) {
+        const id = String(folderId || '').trim();
+        if (!id) return;
+        if (!canSyncDrive) {
+          setFolderSyncFeedback('Sem permissao para sincronizar.', 'error');
+          return;
+        }
+        const label = String(folderName || '').trim() || 'esta pasta';
+        const confirmed = window.confirm(`Sincronizar os arquivos da pasta "${label}" agora?\n\nIsso atualiza apenas esta pasta (e subpastas), sem afetar as demais.`);
+        if (!confirmed) return;
+        setFolderSyncFeedback(`Sincronizando "${label}"...`, 'info');
+        driveFolderTree.querySelectorAll('[data-folder-sync]').forEach((btn) => { btn.disabled = true; });
+        try {
+          const response = await auth.apiFetch('/api/integrations/google-drive/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dryRun: false, scoped: true, folderId: id }),
+          });
+          if (response.status === 401) { redirectToLogin(); return; }
+          if (response.status === 403) { setFolderSyncFeedback('Permissao negada.', 'error'); return; }
+          let payload = null;
+          try { payload = await response.json(); } catch (error) { payload = null; }
+          if (!response.ok) {
+            setFolderSyncFeedback(payload?.error || `Falha ao sincronizar (HTTP ${response.status}).`, 'error');
+            return;
+          }
+          const created = Number(payload?.created ?? 0);
+          const updated = Number(payload?.updated ?? 0);
+          const missing = Number(payload?.markedMissing ?? 0);
+          const errors = Number(payload?.errors ?? 0);
+          await loadFiles();
+          setFolderSyncFeedback(
+            `"${label}": ${created} novo(s), ${updated} atualizado(s), ${missing} ausente(s), ${errors} erro(s).`,
+            errors > 0 ? 'info' : 'success'
+          );
+        } catch (error) {
+          console.error('Erro ao sincronizar pasta:', error);
+          setFolderSyncFeedback('Falha ao sincronizar a pasta.', 'error');
+        } finally {
+          driveFolderTree.querySelectorAll('[data-folder-sync]').forEach((btn) => { btn.disabled = false; });
+        }
+      }
+
+      function render(files, paginationState) {
+        selectedIds.clear();
+        selectAll.checked = false;
+        clearEditForm();
+        setFeedback('');
+
+        const sourceFiles = Array.isArray(files) ? files : [];
+        const state = paginationState || pagination?.paginateItems(sourceFiles, currentPage, ITEMS_PER_PAGE) || {
+          items: sourceFiles,
+          totalItems: sourceFiles.length,
+          totalPages: 1,
+          perPage: ITEMS_PER_PAGE,
+          currentPage: 1,
+        };
+        const visibleFiles = Array.isArray(state.items) ? state.items : [];
+
+        const pendingCount = sourceFiles.filter((file) => file.status === 'Pendente').length;
+        const completeCount = sourceFiles.filter((file) => file.status === 'Completo').length;
+
+        if (countPending) countPending.textContent = `${pendingCount} itens`;
+        if (countComplete) countComplete.textContent = `${completeCount} itens`;
+
+        if (!sourceFiles.length) {
+          hidePagination();
+          renderTableMessage(tableBody, 'Nenhum arquivo encontrado.');
+          updateSelectionUi();
+          attachSelectionEvents();
+          return;
+        }
+
+        tableBody.innerHTML = visibleFiles.map((file) => `
+          <tr class="hover:bg-surface/70 transition-colors cursor-pointer group" data-row data-id="${escapeHtml(file.id)}">
+            <td class="px-4 py-3.5"><input type="checkbox" data-id="${escapeHtml(file.id)}" class="row-check file-checkbox w-4 h-4 rounded" onclick="event.stopPropagation()" /></td>
+            <td class="px-4 py-3.5">
+              <div class="flex items-center gap-1.5">
+                ${renderRowThumb(file)}
+                <button type="button" data-file-play="${escapeHtml(file.id)}" title="Ver arquivo"
+                  class="shrink-0 p-1 rounded text-muted hover:text-accent hover:bg-accent/10 transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">play_circle</span>
+                </button>
+              </div>
+            </td>
+            <td class="px-4 py-3.5">
+              <div class="flex flex-col gap-1.5">
+                <input type="text" data-display-name-input data-file-id="${escapeHtml(file.id)}" value="${escapeHtml(file.displayName)}" placeholder="${escapeHtml(file.nomeArquivoSemExtensao)}"
+                  class="w-full max-w-[260px] px-2.5 py-1.5 text-sm border border-border rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent placeholder-muted file-name-input"
+                  onclick="event.stopPropagation()" ${!canEdit ? 'disabled' : ''} />
+                <span class="text-[11px] text-muted leading-tight break-all">${escapeHtml(file.nomeArquivo)}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3.5"><span class="px-2 py-0.5 rounded text-xs font-medium ${mediaBadgeClass(file.tipoRaw)}">${escapeHtml(file.tipo)}</span></td>
+            <td class="px-4 py-3.5 text-gray-500">${escapeHtml(file.produtora)}</td>
+            <td class="px-4 py-3.5 text-gray-500">
+              <div class="flex flex-col gap-1">
+                <span>${escapeHtml(file.categoria)}</span>
+                ${file.categoriaId
+            ? '<span class="text-[11px] text-green-700">Categorizado</span>'
+            : '<span class="text-[11px] text-amber-700">Sem categoria</span>'}
+              </div>
+            </td>
+            <td class="px-4 py-3.5"><span class="text-xs text-muted">${escapeHtml(file.tagsText)}</span></td>
+            <td class="px-4 py-3.5 text-gray-400">${escapeHtml(file.data)}</td>
+            <td class="px-4 py-3.5 text-right">
+              <div class="flex items-center justify-end gap-1">
+                <button type="button" data-file-delete="${escapeHtml(file.id)}" title="Excluir do acervo (mantém no Google Drive)"
+                  class="p-1 rounded text-muted hover:text-red-600 hover:bg-red-50 transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+
+        hydrateTableThumbnails();
+        renderPagination(state);
+
+        attachSelectionEvents();
+        updateSelectionUi();
+      }
+
+      async function loadCatalogs() {
+        if (!canEdit) return;
+
+        const categoriesResponse = await auth.apiFetch('/api/categories');
+        if (categoriesResponse.status === 401 || categoriesResponse.status === 403) {
+          redirectToLogin();
+          return false;
+        }
+        if (!categoriesResponse.ok) {
+          throw new Error(`Falha ao carregar categorias (${categoriesResponse.status}).`);
+        }
+        const categoriesPayload = await categoriesResponse.json();
+        categoriesCatalog = Array.isArray(categoriesPayload) ? categoriesPayload : [];
+        renderSelectOptions(editCategorySelect, categoriesCatalog, 'Manter atual');
+        renderSelectOptions(filterCategorySelect, categoriesCatalog, 'Categoria');
+        renderCategoriesAdmin(categoriesCatalog);
+
+        const [tagsResult, producersResult] = await Promise.allSettled([
+          auth.apiFetch('/api/tags'),
+          auth.apiFetch('/api/producers')
+        ]);
+
+        let tags = [];
+        let producers = [];
+
+        if (tagsResult.status === 'fulfilled' && tagsResult.value.ok) {
+          const payload = await tagsResult.value.json();
+          tags = Array.isArray(payload) ? payload : [];
+        }
+        if (producersResult.status === 'fulfilled') {
+          if (producersResult.value.status === 401) {
+            redirectToLogin();
+            return;
+          }
+          if (producersResult.value.ok) {
+            const payload = await producersResult.value.json();
+            producers = Array.isArray(payload) ? payload : [];
+          }
+        }
+
+        tagsCatalog = tags;
+        renderTagsAdmin(tagsCatalog);
+        producersCatalog = producers;
+        renderProducerPickerList();
+        updateProducerPickerSummary();
+        renderSelectOptions(filterProducerSelect, producers, 'Produtora');
+        return true;
+      }
+
+      async function createCategory() {
+        if (!canEdit) {
+          setCategoryFeedback('Seu perfil nao pode gerenciar categorias.', 'error');
+          return;
+        }
+
+        const name = String(categoryNameInput?.value || '').trim();
+
+        if (!name) {
+          setCategoryFeedback('Informe o nome da categoria.', 'error');
+          return;
+        }
+
+        categoryCreateBtn.disabled = true;
+        setCategoryFeedback('Criando categoria...', 'info');
+
+        try {
+          const response = await auth.apiFetch('/api/categories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao criar categoria.');
+            setCategoryFeedback(message, 'error');
+            return;
+          }
+
+          categoryNameInput.value = '';
+          await loadCatalogs();
+          setCategoryFeedback('Categoria criada com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao criar categoria:', error);
+          setCategoryFeedback('Falha ao criar categoria.', 'error');
+        } finally {
+          categoryCreateBtn.disabled = false;
+        }
+      }
+
+      async function editCategory(categoryId) {
+        const category = categoriesCatalog.find((item) => item.id === categoryId);
+        if (!category) {
+          setCategoryFeedback('Categoria nao encontrada.', 'error');
+          return;
+        }
+
+        const nextNameRaw = window.prompt('Nome da categoria:', category.name || '');
+        if (nextNameRaw === null) return;
+        const nextName = nextNameRaw.trim();
+        if (!nextName) {
+          setCategoryFeedback('Nome da categoria nao pode ficar vazio.', 'error');
+          return;
+        }
+
+        if (nextName === String(category.name || '')) {
+          setCategoryFeedback('Nenhuma alteracao para salvar.', 'info');
+          return;
+        }
+
+        setCategoryFeedback('Atualizando categoria...', 'info');
+        try {
+          const response = await auth.apiFetch(`/api/categories/${encodeURIComponent(categoryId)}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: nextName }),
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao atualizar categoria.');
+            setCategoryFeedback(message, 'error');
+            return;
+          }
+
+          await loadCatalogs();
+          setCategoryFeedback('Categoria atualizada com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao atualizar categoria:', error);
+          setCategoryFeedback('Falha ao atualizar categoria.', 'error');
+        }
+      }
+
+      async function deleteCategory(categoryId) {
+        const category = categoriesCatalog.find((item) => item.id === categoryId);
+        if (!category) {
+          setCategoryFeedback('Categoria nao encontrada.', 'error');
+          return;
+        }
+
+        const usageCount = Number(category.usageCount || 0);
+        if (usageCount > 0) {
+          setCategoryFeedback(
+            `Categoria em uso por ${usageCount} arquivo${usageCount !== 1 ? 's' : ''}. Remocao bloqueada.`,
+            'error'
+          );
+          return;
+        }
+
+        const confirmed = window.confirm(`Remover a categoria "${category.name}"?`);
+        if (!confirmed) return;
+
+        setCategoryFeedback('Removendo categoria...', 'info');
+        try {
+          const response = await auth.apiFetch(`/api/categories/${encodeURIComponent(categoryId)}`, {
+            method: 'DELETE',
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao remover categoria.');
+            setCategoryFeedback(message, 'error');
+            return;
+          }
+
+          await loadCatalogs();
+          setCategoryFeedback('Categoria removida com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao remover categoria:', error);
+          setCategoryFeedback('Falha ao remover categoria.', 'error');
+        }
+      }
+
+      async function createTag() {
+        if (!canEdit) {
+          setTagFeedback('Seu perfil nao pode gerenciar tags.', 'error');
+          return;
+        }
+
+        const name = String(tagNameInput?.value || '').trim();
+
+        if (!name) {
+          setTagFeedback('Informe o nome da tag.', 'error');
+          return;
+        }
+
+        tagCreateBtn.disabled = true;
+        setTagFeedback('Criando tag...', 'info');
+
+        try {
+          const response = await auth.apiFetch('/api/tags', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao criar tag.');
+            setTagFeedback(message, 'error');
+            return;
+          }
+
+          tagNameInput.value = '';
+          await loadCatalogs();
+          setTagFeedback('Tag criada com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao criar tag:', error);
+          setTagFeedback('Falha ao criar tag.', 'error');
+        } finally {
+          tagCreateBtn.disabled = false;
+        }
+      }
+
+      function setPickerTagFeedback(message, type) {
+        if (!tagPickerFeedback) return;
+        const tone = type || 'info';
+        tagPickerFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          tagPickerFeedback.textContent = '';
+          tagPickerFeedback.classList.add('hidden');
+          return;
+        }
+        if (tone === 'error') {
+          tagPickerFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          tagPickerFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          tagPickerFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        tagPickerFeedback.textContent = message;
+      }
+
+      function syncPickerSelectionFromCheckboxes() {
+        if (!tagPickerList) return;
+        selectedTagIds.clear();
+        tagPickerList.querySelectorAll('.tag-picker-checkbox:checked').forEach((cb) => selectedTagIds.add(cb.value));
+      }
+
+      async function createTagInline() {
+        if (!canEdit) {
+          setPickerTagFeedback('Seu perfil nao pode criar tags.', 'error');
+          return;
+        }
+        const name = String(tagPickerNewInput?.value || '').trim();
+        if (!name) {
+          setPickerTagFeedback('Informe o nome da nova tag.', 'error');
+          return;
+        }
+        if (tagPickerAddBtn) tagPickerAddBtn.disabled = true;
+        setPickerTagFeedback('Criando tag...', 'info');
+        // preserva as selecoes atuais antes de recarregar a lista
+        syncPickerSelectionFromCheckboxes();
+        try {
+          const response = await auth.apiFetch('/api/tags', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao criar tag.');
+            setPickerTagFeedback(message, 'error');
+            return;
+          }
+          const created = await response.json().catch(() => null);
+          if (tagPickerNewInput) tagPickerNewInput.value = '';
+          await loadCatalogs();
+          if (created && created.id) selectedTagIds.add(created.id);
+          renderTagPickerList();
+          updateTagPickerSummary();
+          setPickerTagFeedback('Tag criada e marcada.', 'success');
+        } catch (error) {
+          console.error('Erro ao criar tag:', error);
+          setPickerTagFeedback('Falha ao criar tag.', 'error');
+        } finally {
+          if (tagPickerAddBtn) tagPickerAddBtn.disabled = false;
+        }
+      }
+
+      async function deleteTagInline(tagId) {
+        if (!canEdit) {
+          setPickerTagFeedback('Sem permissao para excluir.', 'error');
+          return;
+        }
+        const tag = tagsCatalog.find((item) => item.id === tagId);
+        if (!tag) {
+          setPickerTagFeedback('Tag nao encontrada.', 'error');
+          return;
+        }
+        const usageCount = Number(tag.usageCount || 0);
+        if (usageCount > 0) {
+          setPickerTagFeedback(`Tag em uso por ${usageCount} arquivo${usageCount !== 1 ? 's' : ''}. Exclusao bloqueada.`, 'error');
+          return;
+        }
+        if (!window.confirm(`Excluir a tag "${tag.name}"?`)) return;
+        setPickerTagFeedback('Excluindo tag...', 'info');
+        syncPickerSelectionFromCheckboxes();
+        try {
+          const response = await auth.apiFetch(`/api/tags/${encodeURIComponent(tagId)}`, { method: 'DELETE' });
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao excluir tag.');
+            setPickerTagFeedback(message, 'error');
+            return;
+          }
+          selectedTagIds.delete(tagId);
+          await loadCatalogs();
+          renderTagPickerList();
+          updateTagPickerSummary();
+          setPickerTagFeedback('Tag excluida.', 'success');
+        } catch (error) {
+          console.error('Erro ao excluir tag:', error);
+          setPickerTagFeedback('Falha ao excluir tag.', 'error');
+        }
+      }
+
+      function renderProducerPickerList() {
+        if (!producerPickerList) return;
+        if (!producersCatalog.length) {
+          producerPickerList.innerHTML = '<p class="text-xs text-muted">Nenhuma produtora criada ainda. Use o campo acima para adicionar a primeira.</p>';
+          return;
+        }
+        producerPickerList.innerHTML = producersCatalog.map((producer) => {
+          const checked = selectedProducerId === producer.id ? 'checked' : '';
+          return `
+            <div class="flex items-center gap-3 px-3 py-2 rounded-lg border border-border hover:bg-surface transition-colors">
+              <label class="flex items-center gap-3 flex-1 cursor-pointer">
+                <input type="radio" name="producer-pick" class="w-4 h-4 producer-picker-radio" value="${escapeHtml(producer.id)}" ${checked} />
+                <span class="text-sm text-gray-700">${escapeHtml(producer.name)}</span>
+              </label>
+              <button type="button" data-producer-delete="${escapeHtml(producer.id)}" title="Excluir produtora" class="text-muted hover:text-red-600 transition-colors shrink-0">
+                <span class="material-symbols-outlined text-[16px]">delete</span>
+              </button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function openProducerPicker() {
+        if (!producerPickerModal || !producerPickerList) return;
+        setPickerProducerFeedback('');
+        if (producerPickerNewInput) producerPickerNewInput.value = '';
+        renderProducerPickerList();
+        producerPickerModal.classList.remove('hidden');
+      }
+
+      function closeProducerPicker(saveChanges) {
+        if (!producerPickerModal) return;
+        if (saveChanges) {
+          const checked = producerPickerList.querySelector('.producer-picker-radio:checked');
+          selectedProducerId = checked ? checked.value : '';
+          updateProducerPickerSummary();
+        }
+        producerPickerModal.classList.add('hidden');
+      }
+
+      function updateProducerPickerSummary() {
+        if (!producerPickerSummary || !producerPickerBtn) return;
+        if (!selectedProducerId) {
+          producerPickerBtn.textContent = 'Selecionar produtora';
+          producerPickerSummary.classList.add('hidden');
+        } else {
+          const producer = producersCatalog.find((p) => p.id === selectedProducerId);
+          producerPickerBtn.textContent = producer ? `Produtora: ${producer.name}` : 'Produtora selecionada';
+          producerPickerSummary.textContent = producer ? producer.name : '';
+          producerPickerSummary.classList.remove('hidden');
+        }
+      }
+
+      function setPickerProducerFeedback(message, type) {
+        if (!producerPickerFeedback) return;
+        const tone = type || 'info';
+        producerPickerFeedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700', 'bg-surface', 'text-muted');
+        if (!message) {
+          producerPickerFeedback.textContent = '';
+          producerPickerFeedback.classList.add('hidden');
+          return;
+        }
+        if (tone === 'error') {
+          producerPickerFeedback.classList.add('bg-red-50', 'text-red-700');
+        } else if (tone === 'success') {
+          producerPickerFeedback.classList.add('bg-green-50', 'text-green-700');
+        } else {
+          producerPickerFeedback.classList.add('bg-surface', 'text-muted');
+        }
+        producerPickerFeedback.textContent = message;
+      }
+
+      async function createProducerInline() {
+        if (!canEdit) {
+          setPickerProducerFeedback('Seu perfil nao pode criar produtoras.', 'error');
+          return;
+        }
+        const name = String(producerPickerNewInput?.value || '').trim();
+        if (!name) {
+          setPickerProducerFeedback('Informe o nome da nova produtora.', 'error');
+          return;
+        }
+        if (producerPickerAddBtn) producerPickerAddBtn.disabled = true;
+        setPickerProducerFeedback('Criando produtora...', 'info');
+        const checkedNow = producerPickerList.querySelector('.producer-picker-radio:checked');
+        if (checkedNow) selectedProducerId = checkedNow.value;
+        try {
+          const response = await auth.apiFetch('/api/producers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name }),
+          });
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao criar produtora.');
+            setPickerProducerFeedback(message, 'error');
+            return;
+          }
+          const created = await response.json().catch(() => null);
+          if (producerPickerNewInput) producerPickerNewInput.value = '';
+          await loadCatalogs();
+          if (created && created.id) selectedProducerId = created.id;
+          renderProducerPickerList();
+          updateProducerPickerSummary();
+          setPickerProducerFeedback('Produtora criada e selecionada.', 'success');
+        } catch (error) {
+          console.error('Erro ao criar produtora:', error);
+          setPickerProducerFeedback('Falha ao criar produtora.', 'error');
+        } finally {
+          if (producerPickerAddBtn) producerPickerAddBtn.disabled = false;
+        }
+      }
+
+      async function deleteProducerInline(producerId) {
+        if (!canEdit) {
+          setPickerProducerFeedback('Sem permissao para excluir.', 'error');
+          return;
+        }
+        const producer = producersCatalog.find((p) => p.id === producerId);
+        if (!producer) {
+          setPickerProducerFeedback('Produtora nao encontrada.', 'error');
+          return;
+        }
+        if (!window.confirm(`Excluir a produtora "${producer.name}"?`)) return;
+        setPickerProducerFeedback('Excluindo produtora...', 'info');
+        const checkedNow = producerPickerList.querySelector('.producer-picker-radio:checked');
+        if (checkedNow) selectedProducerId = checkedNow.value;
+        try {
+          const response = await auth.apiFetch(`/api/producers/${encodeURIComponent(producerId)}`, { method: 'DELETE' });
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+          if (!response.ok) {
+            let message = await readApiErrorMessage(response, 'Falha ao excluir produtora.');
+            if (response.status === 409) {
+              message = 'Produtora em uso por arquivos/registros. Exclusao bloqueada.';
+            }
+            setPickerProducerFeedback(message, 'error');
+            return;
+          }
+          if (selectedProducerId === producerId) selectedProducerId = '';
+          await loadCatalogs();
+          renderProducerPickerList();
+          updateProducerPickerSummary();
+          setPickerProducerFeedback('Produtora excluida.', 'success');
+        } catch (error) {
+          console.error('Erro ao excluir produtora:', error);
+          setPickerProducerFeedback('Falha ao excluir produtora.', 'error');
+        }
+      }
+
+      async function editTag(tagId) {
+        const tag = tagsCatalog.find((item) => item.id === tagId);
+        if (!tag) {
+          setTagFeedback('Tag nao encontrada.', 'error');
+          return;
+        }
+
+        const nextNameRaw = window.prompt('Nome da tag:', tag.name || '');
+        if (nextNameRaw === null) return;
+        const nextName = nextNameRaw.trim();
+        if (!nextName) {
+          setTagFeedback('Nome da tag nao pode ficar vazio.', 'error');
+          return;
+        }
+
+        if (nextName === String(tag.name || '')) {
+          setTagFeedback('Nenhuma alteracao para salvar.', 'info');
+          return;
+        }
+
+        setTagFeedback('Atualizando tag...', 'info');
+        try {
+          const response = await auth.apiFetch(`/api/tags/${encodeURIComponent(tagId)}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: nextName }),
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao atualizar tag.');
+            setTagFeedback(message, 'error');
+            return;
+          }
+
+          await loadCatalogs();
+          setTagFeedback('Tag atualizada com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao atualizar tag:', error);
+          setTagFeedback('Falha ao atualizar tag.', 'error');
+        }
+      }
+
+      async function deleteTag(tagId) {
+        const tag = tagsCatalog.find((item) => item.id === tagId);
+        if (!tag) {
+          setTagFeedback('Tag nao encontrada.', 'error');
+          return;
+        }
+
+        const usageCount = Number(tag.usageCount || 0);
+        if (usageCount > 0) {
+          setTagFeedback(
+            `Tag em uso por ${usageCount} arquivo${usageCount !== 1 ? 's' : ''}. Remocao bloqueada.`,
+            'error'
+          );
+          return;
+        }
+
+        const confirmed = window.confirm(`Remover a tag "${tag.name}"?`);
+        if (!confirmed) return;
+
+        setTagFeedback('Removendo tag...', 'info');
+        try {
+          const response = await auth.apiFetch(`/api/tags/${encodeURIComponent(tagId)}`, {
+            method: 'DELETE',
+          });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao remover tag.');
+            setTagFeedback(message, 'error');
+            return;
+          }
+
+          await loadCatalogs();
+          setTagFeedback('Tag removida com sucesso.', 'success');
+        } catch (error) {
+          console.error('Erro ao remover tag:', error);
+          setTagFeedback('Falha ao remover tag.', 'error');
+        }
+      }
+
+      async function deleteFileFromMirror(fileId) {
+        const id = String(fileId || '').trim();
+        if (!id) return;
+        if (!canEdit) {
+          window.alert('Seu perfil nao pode excluir arquivos.');
+          return;
+        }
+        const file = filesById.get(id);
+        const fileName = file ? (file.displayName || file.nomeArquivo || 'arquivo') : 'arquivo';
+        const confirmed = window.confirm(
+          `Excluir "${fileName}" do acervo?\n\nO arquivo NAO sera apagado do Google Drive — ele apenas deixa de aparecer no portal.`
+        );
+        if (!confirmed) return;
+        try {
+          const response = await auth.apiFetch(`/api/files/${encodeURIComponent(id)}`, { method: 'DELETE' });
+          if (response.status === 401) { redirectToLogin(); return; }
+          if (response.status === 403) { window.alert('Sem permissao para excluir arquivos.'); return; }
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao excluir o arquivo.');
+            window.alert(message);
+            return;
+          }
+          selectedIds.delete(id);
+          await loadFiles();
+        } catch (error) {
+          console.error('Erro ao excluir arquivo:', error);
+          window.alert('Falha ao excluir o arquivo.');
+        }
+      }
+
+      async function loadFiles() {
+        if (countPending) countPending.textContent = 'Carregando...';
+        if (countComplete) countComplete.textContent = 'Carregando...';
+        renderTableMessage(tableBody, 'Carregando arquivos...');
+
+        const response = await auth.apiFetch('/api/files');
+        if (response.status === 401 || response.status === 403) {
+          redirectToLogin();
+          return false;
+        }
+        if (!response.ok) {
+          throw new Error(`Falha HTTP ${response.status}`);
+        }
+        const payload = await response.json();
+        const files = Array.isArray(payload) ? payload.map(normalizeFile) : [];
+        allFiles = sortFilesForTriage(files);
+        filesById.clear();
+        allFiles.forEach((file) => {
+          const fileId = String(file?.id || '').trim();
+          if (!fileId) return;
+          filesById.set(fileId, file);
+        });
+        driveFolderLabelsByKey = renderDriveFolderFilterOptions(filterDriveFolderSelect, allFiles);
+        applyActiveFilters();
+        return true;
+      }
+
+      async function runGoogleDriveSync() {
+        if (!canSyncDrive || !syncDriveBtn) {
+          setDriveSyncFeedback('Seu perfil não tem permissão para sincronizar o Google Drive.', 'error');
+          return;
+        }
+
+        const confirmed = window.confirm('Deseja iniciar a sincronização real do Google Drive agora?');
+        if (!confirmed) return;
+
+        const previousButtonMarkup = syncDriveBtn.innerHTML;
+        syncDriveBtn.disabled = true;
+        syncDriveBtn.classList.add('opacity-70', 'cursor-not-allowed');
+        syncDriveBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">hourglass_top</span>Sincronizando...';
+        setDriveSyncFeedback('Executando sincronização do Google Drive...', 'info');
+        renderDriveSyncSummary(null);
+
+        try {
+          const response = await auth.apiFetch('/api/integrations/google-drive/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dryRun: false }),
+          });
+
+          if (response.status === 401) {
+            redirectToLogin();
+            return;
+          }
+
+          if (response.status === 403) {
+            setDriveSyncFeedback('Permissão negada para sincronizar Google Drive.', 'error');
+            return;
+          }
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok) {
+            const message = payload?.error || `Falha ao sincronizar (HTTP ${response.status}).`;
+            setDriveSyncFeedback(message, 'error');
+            return;
+          }
+
+          const created = Number(payload?.created ?? payload?.wouldCreate ?? 0);
+          const updated = Number(payload?.updated ?? payload?.wouldUpdate ?? 0);
+          const missing = Number(payload?.markedMissing ?? payload?.wouldMarkMissing ?? 0);
+          const review = Number(payload?.reviewFlagged ?? payload?.wouldRequireReview ?? 0);
+          const errors = Number(payload?.errors ?? 0);
+
+          setDriveSyncFeedback(
+            `Sincronização concluída: ${created} criado(s), ${updated} atualizado(s), ${review} em revisão estrutural, ${missing} marcado(s) como ausente(s), ${errors} erro(s).`,
+            errors > 0 ? 'info' : 'success'
+          );
+          renderDriveSyncSummary(payload);
+          await loadFiles();
+        } catch (error) {
+          console.error('Erro ao sincronizar Google Drive:', error);
+          setDriveSyncFeedback('Falha ao executar sincronização no momento.', 'error');
+        } finally {
+          syncDriveBtn.disabled = false;
+          syncDriveBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+          syncDriveBtn.innerHTML = previousButtonMarkup;
+        }
+      }
+
+      function updateResetConfirmButtonState(isBusy) {
+        if (!resetAcervoConfirmBtn) return;
+        const typedText = String(resetAcervoConfirmInput?.value || '').trim();
+        const isValid = typedText === RESET_CONFIRMATION_TEXT;
+        resetAcervoConfirmBtn.disabled = Boolean(isBusy || !isValid);
+      }
+
+      function openResetAcervoModal() {
+        if (!resetAcervoModal || !resetAcervoConfirmInput) return;
+        resetAcervoConfirmInput.value = '';
+        setResetModalFeedback('');
+        updateResetConfirmButtonState(false);
+        resetAcervoModal.classList.remove('hidden');
+        setTimeout(() => resetAcervoConfirmInput.focus(), 0);
+      }
+
+      function closeResetAcervoModal() {
+        if (!resetAcervoModal || !resetAcervoConfirmInput) return;
+        resetAcervoConfirmInput.value = '';
+        setResetModalFeedback('');
+        updateResetConfirmButtonState(false);
+        resetAcervoModal.classList.add('hidden');
+      }
+
+      async function runAcervoReset() {
+        if (!canResetAcervo) {
+          setDriveSyncFeedback('Seu perfil não tem permissão para resetar o sistema.', 'error');
+          return;
+        }
+        const typedText = String(resetAcervoConfirmInput?.value || '').trim();
+        if (typedText !== RESET_CONFIRMATION_TEXT) {
+          setResetModalFeedback('Digite exatamente RESETAR SISTEMA para confirmar.', 'error');
+          updateResetConfirmButtonState(false);
+          return;
+        }
+
+        if (resetAcervoCancelBtn) resetAcervoCancelBtn.disabled = true;
+        if (resetAcervoConfirmBtn) {
+          resetAcervoConfirmBtn.textContent = 'Resetando...';
+        }
+        updateResetConfirmButtonState(true);
+        setResetModalFeedback('Executando reset do acervo no portal...', 'info');
+
+        try {
+          const response = await auth.apiFetch('/api/integrations/acervo/reset', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ confirmation: RESET_CONFIRMATION_TEXT }),
+          });
+
+          if (response.status === 401) {
+            redirectToLogin();
+            return;
+          }
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (response.status === 403) {
+            setResetModalFeedback('Permissão negada para resetar o acervo.', 'error');
+            return;
+          }
+
+          if (!response.ok) {
+            const message = payload?.error || `Falha ao resetar o acervo (HTTP ${response.status}).`;
+            setResetModalFeedback(message, 'error');
+            return;
+          }
+
+          const deletedCount = Number(payload?.countsAfter?.deletedDriveScopedRecords ?? 0);
+          const sanitizedCount = Number(payload?.countsAfter?.sanitizedResidualMetadataRecords ?? 0);
+          setDriveSyncFeedback(
+            `Reset concluído: ${deletedCount} arquivo(s) integrado(s) removido(s) e ${sanitizedCount} registro(s) residual(is) higienizado(s). Google Drive não foi alterado.`,
+            'success'
+          );
+          renderDriveSyncSummary(null);
+          closeResetAcervoModal();
+          await loadFiles();
+        } catch (error) {
+          console.error('Erro ao resetar integração do acervo:', error);
+          setResetModalFeedback('Falha ao executar reset no momento.', 'error');
+        } finally {
+          if (resetAcervoCancelBtn) resetAcervoCancelBtn.disabled = false;
+          if (resetAcervoConfirmBtn) {
+            resetAcervoConfirmBtn.textContent = 'Confirmar reset';
+          }
+          updateResetConfirmButtonState(false);
+        }
+      }
+
+      function buildMetadataPayload() {
+        const payload = {};
+        const categoryId = String(editCategorySelect.value || '').trim();
+        const producerId = String(selectedProducerId || '').trim();
+        const dateValue = String(editDateInput.value || '').trim();
+
+        if (categoryId) payload.categoryId = categoryId;
+        if (producerId) payload.producerId = producerId;
+        if (dateValue) payload.date = `${dateValue}T00:00:00.000Z`;
+
+        return payload;
+      }
+
+      async function patchFileMetadata(fileId, payload) {
+        const response = await auth.apiFetch(`/api/files/${encodeURIComponent(fileId)}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.status === 401) {
+          redirectToLogin();
+          throw new Error('Sessao expirada.');
+        }
+        if (response.status === 403) {
+          throw new Error('Sem permissao para editar arquivos.');
+        }
+        if (!response.ok) {
+          const message = await readApiErrorMessage(response, 'Falha ao atualizar arquivo.');
+          throw new Error(message);
+        }
+      }
+
+      async function runAutoCaption() {
+        const fileIds = [...selectedIds];
+        if (fileIds.length === 0 || fileIds.length > 12) return;
+
+        const originalLabel = autoCaptionBtn.innerHTML;
+        autoCaptionBtn.disabled = true;
+        autoCaptionBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span> Gerando legendas...';
+        setFeedback('Gerando legendas com IA, aguarde...', 'info');
+
+        try {
+          const response = await auth.apiFetch('/api/files/auto-caption', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fileIds }),
+            signal: AbortSignal.timeout(45000 * fileIds.length)
+          });
+
+          if (response.status === 401) {
+            redirectToLogin();
+            return;
+          }
+          if (!response.ok) {
+            const message = await readApiErrorMessage(response, 'Falha ao gerar legendas com IA.');
+            throw new Error(message);
+          }
+
+          const data = await response.json();
+          const results = Array.isArray(data?.results) ? data.results : [];
+          let successCount = 0;
+          let errorCount = 0;
+
+          results.forEach((result) => {
+            if (result.displayName) {
+              successCount += 1;
+              const file = filesById.get(result.fileId);
+              if (file) file.displayName = result.displayName;
+              const input = tableBody.querySelector(`input[data-display-name-input][data-file-id="${result.fileId}"]`);
+              if (input) input.value = result.displayName;
+            } else {
+              errorCount += 1;
+            }
+          });
+
+          if (errorCount === 0) {
+            setFeedback(`${successCount} legenda${successCount !== 1 ? 's' : ''} gerada${successCount !== 1 ? 's' : ''} com sucesso.`, 'success');
+          } else {
+            setFeedback(`${successCount} gerada(s), ${errorCount} falharam. Tente novamente para os que falharam.`, 'error');
+          }
+        } catch (error) {
+          const message = error.name === 'TimeoutError' || error.name === 'AbortError'
+            ? 'A geração de legendas demorou demais e foi cancelada. Tente novamente com menos arquivos.'
+            : (error.message || 'Falha ao gerar legendas com IA.');
+          setFeedback(message, 'error');
+        } finally {
+          autoCaptionBtn.innerHTML = originalLabel;
+          updateSelectionUi();
+        }
+      }
+
+      function buildTagPatch() {
+        if (selectedTagIds.size === 0) {
+          return { shouldPatch: false, tagIds: [] };
+        }
+
+        return {
+          shouldPatch: true,
+          tagIds: Array.from(selectedTagIds),
+          missing: []
+        };
+      }
+
+      async function patchFileTags(fileId, tagIds) {
+        const response = await auth.apiFetch(`/api/files/${encodeURIComponent(fileId)}/tags`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tagIds })
+        });
+
+        if (response.status === 401) {
+          redirectToLogin();
+          throw new Error('Sessao expirada.');
+        }
+        if (response.status === 403) {
+          throw new Error('Sem permissao para editar tags.');
+        }
+        if (!response.ok) {
+          const message = await readApiErrorMessage(response, 'Falha ao atualizar tags.');
+          throw new Error(message);
+        }
+      }
+
+      async function saveSelectedEdits() {
+        if (!canEdit) {
+          setFeedback('Seu perfil nao pode editar arquivos.', 'error');
+          return;
+        }
+
+        const ids = Array.from(selectedIds);
+        if (!ids.length) {
+          setFeedback('Selecione ao menos um arquivo para editar.', 'error');
+          return;
+        }
+
+        const metadataPayload = buildMetadataPayload();
+        const tagPatch = buildTagPatch();
+
+        if (tagPatch.missing && tagPatch.missing.length > 0) {
+          setFeedback(`Tags nao encontradas: ${tagPatch.missing.join(', ')}`, 'error');
+          return;
+        }
+
+        const hasMetadataChanges = Object.keys(metadataPayload).length > 0;
+        const hasTagChanges = tagPatch.shouldPatch;
+        if (!hasMetadataChanges && !hasTagChanges) {
+          setFeedback('Informe ao menos um campo para salvar.', 'error');
+          return;
+        }
+
+        setEditingEnabled(false);
+        setFeedback('Salvando alteracoes...', 'info');
+
+        let updatedCount = 0;
+        const failed = [];
+
+        for (const fileId of ids) {
+          try {
+            if (hasMetadataChanges) {
+              await patchFileMetadata(fileId, metadataPayload);
+            }
+            if (hasTagChanges) {
+              await patchFileTags(fileId, tagPatch.tagIds);
+            }
+            updatedCount += 1;
+          } catch (error) {
+            failed.push(error.message || `Falha ao atualizar ${fileId}.`);
+          }
+        }
+
+        setEditingEnabled(true);
+
+        if (updatedCount > 0) {
+          await loadFiles();
+          clearEditForm();
+        }
+
+        if (!failed.length) {
+          setFeedback(`${updatedCount} arquivo${updatedCount !== 1 ? 's' : ''} atualizado${updatedCount !== 1 ? 's' : ''} com sucesso.`, 'success');
+          return;
+        }
+
+        if (updatedCount > 0) {
+          setFeedback(`${updatedCount} atualizado(s). ${failed.length} falha(s): ${failed[0]}`, 'error');
+          return;
+        }
+
+        setFeedback(failed[0] || 'Nao foi possivel salvar as alteracoes.', 'error');
+      }
+
+      function openEditPanelModal() {
+        if (!editPanelModal || !quickEditBtn || quickEditBtn.disabled) return;
+        editPanelModal.classList.remove('hidden');
+      }
+
+      function closeEditPanelModal() {
+        if (!editPanelModal) return;
+        editPanelModal.classList.add('hidden');
+      }
+
+      window.closeEditPanel = function () {
+        selectedIds.clear();
+        selectAll.checked = false;
+        tableBody.querySelectorAll('.row-check').forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+        updateSelectionUi();
+      };
+
+      saveEditsBtn.addEventListener('click', saveSelectedEdits);
+      if (quickEditBtn) {
+        quickEditBtn.addEventListener('click', openEditPanelModal);
+      }
+      if (editPanelModal) {
+        editPanelModal.addEventListener('click', (event) => {
+          if (event.target === editPanelModal) {
+            closeEditPanelModal();
+          }
+        });
+      }
+      if (autoCaptionBtn) {
+        autoCaptionBtn.addEventListener('click', runAutoCaption);
+      }
+      if (categoryCreateBtn) {
+        categoryCreateBtn.addEventListener('click', createCategory);
+      }
+      if (categoriesAdminList) {
+        categoriesAdminList.addEventListener('click', async (event) => {
+          const actionButton = event.target.closest('[data-category-action]');
+          if (!actionButton) return;
+          const action = actionButton.getAttribute('data-category-action');
+          const categoryId = actionButton.getAttribute('data-category-id');
+          if (!action || !categoryId) return;
+
+          if (action === 'edit') {
+            await editCategory(categoryId);
+            return;
+          }
+          if (action === 'delete') {
+            await deleteCategory(categoryId);
+          }
+        });
+      }
+
+      if (filterSearchInput) {
+        filterSearchInput.addEventListener('input', () => {
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (filterProducerSelect) {
+        filterProducerSelect.addEventListener('change', () => {
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (filterCategorySelect) {
+        filterCategorySelect.addEventListener('change', () => {
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (filterDriveFolderSelect) {
+        filterDriveFolderSelect.addEventListener('change', () => {
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (filterMediaTypeSelect) {
+        filterMediaTypeSelect.addEventListener('change', () => {
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (tableBody) {
+        tableBody.addEventListener('click', (event) => {
+          const playBtn = event.target.closest('[data-file-play]');
+          if (playBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            gaOpenFileModal(playBtn.getAttribute('data-file-play') || '');
+            return;
+          }
+          const delBtn = event.target.closest('[data-file-delete]');
+          if (!delBtn) return;
+          event.preventDefault();
+          event.stopPropagation();
+          deleteFileFromMirror(delBtn.getAttribute('data-file-delete'));
+        });
+      }
+
+      // ── Modal de player ─────────────────────────────────────
+      let gaActiveModalFileId = '';
+
+      function gaOpenFileModal(fileId) {
+        const id = String(fileId || '').trim();
+        const file = filesById.get(id);
+        if (!file) return;
+        gaActiveModalFileId = id;
+
+        const nameEl = document.getElementById('ga-file-modal-name');
+        const metaEl = document.getElementById('ga-file-modal-meta');
+        const formatEl = document.getElementById('ga-file-modal-format');
+        const producerEl = document.getElementById('ga-file-modal-producer');
+        if (nameEl) nameEl.textContent = file.displayName || file.nomeArquivo || '';
+        if (metaEl) metaEl.textContent = [file.categoria, file.data].filter(s => s && s !== '-').join(' · ');
+        if (formatEl) formatEl.textContent = file.tipoRaw || '';
+        if (producerEl) producerEl.textContent = file.produtora && file.produtora !== 'Produtora nao informada' ? `Produtora: ${file.produtora}` : '';
+
+        const mediaEl = document.getElementById('ga-file-modal-media');
+        if (mediaEl) {
+          const iconHtml = `<div id="ga-file-modal-icon"><span class="material-symbols-outlined">${escapeHtml(file.mediaIcon || 'play_circle')}</span></div>`;
+          const gaVideoOverride = String(file.tipoRaw || '').toUpperCase() === 'VIDEO' && window.demoData ? window.demoData.videoOverrides[id] : '';
+          if (gaVideoOverride) {
+            mediaEl.innerHTML = iconHtml + `<video controls preload="metadata" src="${escapeHtml(gaVideoOverride)}"></video>`;
+            const video = mediaEl.querySelector('video');
+            if (video) {
+              video.addEventListener('canplay', () => {
+                video.classList.add('is-ready');
+                const icon = document.getElementById('ga-file-modal-icon');
+                if (icon) icon.style.display = 'none';
+              }, { once: true });
+            }
+          } else if (file.portalThumbPath) {
+            mediaEl.innerHTML = iconHtml + `<img data-thumb-file-id="${escapeHtml(id)}" alt="${escapeHtml(file.displayName || '')}" />`;
+            const img = mediaEl.querySelector('img');
+            if (img && auth && typeof auth.apiFetch === 'function') {
+              auth.apiFetch(file.portalThumbPath).then(r => r.ok ? r.blob() : null).then(blob => {
+                if (!blob) return;
+                img.src = URL.createObjectURL(blob);
+                const icon = document.getElementById('ga-file-modal-icon');
+                if (icon) icon.style.display = 'none';
+              }).catch(() => {});
+            }
+          } else {
+            mediaEl.innerHTML = `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2"><span class="material-symbols-outlined text-white/40 text-6xl">${escapeHtml(file.mediaIcon || 'insert_drive_file')}</span></div>`;
+          }
+        }
+
+        const downloadBtn = document.getElementById('ga-file-modal-download-btn');
+        if (downloadBtn) downloadBtn.dataset.fileId = id;
+
+        const overlay = document.getElementById('ga-file-modal-overlay');
+        if (overlay) { overlay.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+      }
+
+      function gaCloseFileModal() {
+        gaActiveModalFileId = '';
+        const overlay = document.getElementById('ga-file-modal-overlay');
+        if (!overlay) return;
+        const video = overlay.querySelector('video');
+        if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
+        overlay.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      }
+
+      const gaOverlay = document.getElementById('ga-file-modal-overlay');
+      const gaPanel = document.getElementById('ga-file-modal');
+      if (gaOverlay) gaOverlay.addEventListener('click', e => { if (gaPanel && !gaPanel.contains(e.target)) gaCloseFileModal(); });
+      const gaCloseBtn = document.getElementById('ga-file-modal-close');
+      if (gaCloseBtn) gaCloseBtn.addEventListener('click', gaCloseFileModal);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && gaActiveModalFileId) gaCloseFileModal(); });
+      const gaDownloadBtn = document.getElementById('ga-file-modal-download-btn');
+      if (gaDownloadBtn) {
+        gaDownloadBtn.addEventListener('click', () => {
+          const id = gaActiveModalFileId;
+          if (!id) return;
+          if (window.demoUi) window.demoUi.toast('Em uma conta real, isso baixaria o arquivo original.');
+        });
+      }
+      // ── Fim modal ────────────────────────────────────────────
+
+      if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', () => {
+          if (filterSearchInput) filterSearchInput.value = '';
+          if (filterProducerSelect) filterProducerSelect.value = '';
+          if (filterCategorySelect) filterCategorySelect.value = '';
+          if (filterDriveFolderSelect) filterDriveFolderSelect.value = '';
+          if (filterMediaTypeSelect) filterMediaTypeSelect.value = '';
+          onlyUncategorized = false;
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (quickFilterUncategorizedBtn) {
+        quickFilterUncategorizedBtn.addEventListener('click', () => {
+          onlyUncategorized = !onlyUncategorized;
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (driveFolderTree) {
+        driveFolderTree.addEventListener('click', (event) => {
+          const syncBtn = event.target.closest('[data-folder-sync]');
+          if (syncBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            syncSingleFolder(
+              syncBtn.getAttribute('data-folder-sync') || '',
+              syncBtn.getAttribute('data-folder-name') || ''
+            );
+            return;
+          }
+
+          const trigger = event.target.closest('[data-folder-key]');
+          if (!trigger) return;
+
+          // Abre a coluna seguinte com as subpastas desta pasta (substitui o que estava aberto
+          // a partir desta profundidade, igual ao comportamento de colunas do Finder/Explorer).
+          const depth = Number(trigger.getAttribute('data-folder-nav-depth'));
+          const folderId = trigger.getAttribute('data-folder-nav-enter') || '';
+          if (Number.isFinite(depth) && folderId) {
+            driveFolderNavPath = [...driveFolderNavPath.slice(0, depth), folderId];
+          }
+
+          const folderKey = String(trigger.getAttribute('data-folder-key') || '').trim();
+          if (filterDriveFolderSelect) {
+            filterDriveFolderSelect.value = folderKey;
+          }
+          applyActiveFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+
+      if (refreshFoldersBtn) {
+        refreshFoldersBtn.addEventListener('click', refreshDriveFolders);
+      }
+
+      (function setupDriveFolderResize() {
+        if (!driveFolderSidebar || !driveFolderResizeHandle) return;
+        const STORAGE_KEY = 'gestaoAcervoFolderPanelWidth';
+        const MIN_WIDTH = 240;
+        const MAX_WIDTH = 900;
+
+        const savedWidth = Number(localStorage.getItem(STORAGE_KEY));
+        if (Number.isFinite(savedWidth) && savedWidth >= MIN_WIDTH && savedWidth <= MAX_WIDTH) {
+          driveFolderSidebar.style.width = `${savedWidth}px`;
+        }
+
+        let dragging = false;
+        let startX = 0;
+        let startWidth = 0;
+
+        driveFolderResizeHandle.addEventListener('mousedown', (event) => {
+          dragging = true;
+          startX = event.clientX;
+          startWidth = driveFolderSidebar.getBoundingClientRect().width;
+          document.body.style.userSelect = 'none';
+          event.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (event) => {
+          if (!dragging) return;
+          const delta = event.clientX - startX;
+          const nextWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + delta));
+          driveFolderSidebar.style.width = `${nextWidth}px`;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (!dragging) return;
+          dragging = false;
+          document.body.style.userSelect = '';
+          localStorage.setItem(STORAGE_KEY, String(Math.round(driveFolderSidebar.getBoundingClientRect().width)));
+        });
+      })();
+
+      (function setupDriveFolderColumnResize() {
+        if (!driveFolderTree) return;
+        const MIN_WIDTH = 120;
+        const MAX_WIDTH = 480;
+
+        let dragging = false;
+        let depth = -1;
+        let startX = 0;
+        let startWidth = 0;
+        let columnEl = null;
+
+        driveFolderTree.addEventListener('mousedown', (event) => {
+          const handle = event.target.closest('[data-folder-column-resize]');
+          if (!handle) return;
+          depth = Number(handle.getAttribute('data-folder-column-resize'));
+          columnEl = driveFolderTree.querySelector(`[data-folder-column="${depth}"]`);
+          if (!columnEl || !Number.isFinite(depth)) return;
+          dragging = true;
+          startX = event.clientX;
+          startWidth = columnEl.getBoundingClientRect().width;
+          document.body.style.userSelect = 'none';
+          event.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (event) => {
+          if (!dragging || !columnEl) return;
+          const delta = event.clientX - startX;
+          const nextWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startWidth + delta));
+          columnEl.style.width = `${nextWidth}px`;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (!dragging) return;
+          dragging = false;
+          document.body.style.userSelect = '';
+          if (columnEl && depth >= 0) {
+            driveFolderColumnWidths[depth] = Math.round(columnEl.getBoundingClientRect().width);
+          }
+          columnEl = null;
+          depth = -1;
+        });
+      })();
+
+      if (paginationContainer) {
+        paginationContainer.addEventListener('click', (event) => {
+          const pageButton = event.target.closest('[data-page-target]');
+          if (pageButton) {
+            const nextPage = Number(pageButton.getAttribute('data-page-target') || 0);
+            if (Number.isFinite(nextPage) && nextPage > 0 && nextPage !== currentPage) {
+              currentPage = nextPage;
+              applyActiveFilters({ historyMode: 'push', scrollToTop: true });
+            }
+            return;
+          }
+
+          const actionButton = event.target.closest('[data-page-action]');
+          if (!actionButton) return;
+
+          const action = String(actionButton.getAttribute('data-page-action') || '').trim();
+          if (action === 'prev' && currentPage > 1) {
+            currentPage -= 1;
+            applyActiveFilters({ historyMode: 'push', scrollToTop: true });
+          } else if (action === 'next') {
+            currentPage += 1;
+            applyActiveFilters({ historyMode: 'push', scrollToTop: true });
+          }
+        });
+      }
+
+      window.addEventListener('popstate', () => {
+        currentPage = pagination?.getPageFromUrl?.() || 1;
+        applyActiveFilters({ scrollToTop: true });
+      });
+
+      if (manageCategoriesBtn) {
+        if (canEdit) {
+          manageCategoriesBtn.classList.remove('hidden');
+          manageCategoriesBtn.addEventListener('click', () => {
+            if (categoriesModal) {
+              setCategoryFeedback('');
+              categoriesModal.classList.remove('hidden');
+            }
+          });
+        }
+      }
+
+      if (openCategoriesBtn) {
+        openCategoriesBtn.addEventListener('click', () => {
+          if (!canEdit) return;
+          if (categoriesModal) {
+            setCategoryFeedback('');
+            categoriesModal.classList.remove('hidden');
+          }
+        });
+      }
+
+      if (closeCategoriesModalBtn && categoriesModal) {
+        closeCategoriesModalBtn.addEventListener('click', () => {
+          categoriesModal.classList.add('hidden');
+        });
+      }
+
+      if (categoriesModal) {
+        categoriesModal.addEventListener('click', (event) => {
+          if (event.target === categoriesModal) {
+            categoriesModal.classList.add('hidden');
+          }
+        });
+      }
+
+      if (manageTagsBtn) {
+        if (canEdit) {
+          manageTagsBtn.classList.remove('hidden');
+          manageTagsBtn.addEventListener('click', () => {
+            if (tagsModal) {
+              setTagFeedback('');
+              tagsModal.classList.remove('hidden');
+            }
+          });
+        }
+      }
+
+      if (closeTagsModalBtn && tagsModal) {
+        closeTagsModalBtn.addEventListener('click', () => {
+          tagsModal.classList.add('hidden');
+        });
+      }
+
+      if (tagsModal) {
+        tagsModal.addEventListener('click', (event) => {
+          if (event.target === tagsModal) {
+            tagsModal.classList.add('hidden');
+          }
+        });
+      }
+
+      if (tagPickerBtn) {
+        tagPickerBtn.addEventListener('click', openTagPicker);
+      }
+      if (closeTagPickerBtn) {
+        closeTagPickerBtn.addEventListener('click', () => closeTagPicker(false));
+      }
+      if (cancelTagPickerBtn) {
+        cancelTagPickerBtn.addEventListener('click', () => closeTagPicker(false));
+      }
+      if (confirmTagPickerBtn) {
+        confirmTagPickerBtn.addEventListener('click', () => closeTagPicker(true));
+      }
+      if (tagPickerModal) {
+        tagPickerModal.addEventListener('click', (event) => {
+          if (event.target === tagPickerModal) {
+            closeTagPicker(false);
+          }
+        });
+      }
+
+      if (tagPickerAddBtn) {
+        tagPickerAddBtn.addEventListener('click', createTagInline);
+      }
+      if (tagPickerNewInput) {
+        tagPickerNewInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            createTagInline();
+          }
+        });
+      }
+      if (tagPickerList) {
+        tagPickerList.addEventListener('click', (event) => {
+          const delBtn = event.target.closest('[data-tag-delete]');
+          if (!delBtn) return;
+          event.preventDefault();
+          event.stopPropagation();
+          deleteTagInline(delBtn.getAttribute('data-tag-delete'));
+        });
+      }
+
+      if (producerPickerBtn) {
+        producerPickerBtn.addEventListener('click', openProducerPicker);
+      }
+      if (closeProducerPickerBtn) {
+        closeProducerPickerBtn.addEventListener('click', () => closeProducerPicker(false));
+      }
+      if (cancelProducerPickerBtn) {
+        cancelProducerPickerBtn.addEventListener('click', () => closeProducerPicker(false));
+      }
+      if (confirmProducerPickerBtn) {
+        confirmProducerPickerBtn.addEventListener('click', () => closeProducerPicker(true));
+      }
+      if (producerPickerModal) {
+        producerPickerModal.addEventListener('click', (event) => {
+          if (event.target === producerPickerModal) {
+            closeProducerPicker(false);
+          }
+        });
+      }
+      if (producerPickerAddBtn) {
+        producerPickerAddBtn.addEventListener('click', createProducerInline);
+      }
+      if (producerPickerNewInput) {
+        producerPickerNewInput.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            createProducerInline();
+          }
+        });
+      }
+      if (producerPickerList) {
+        producerPickerList.addEventListener('click', (event) => {
+          const delBtn = event.target.closest('[data-producer-delete]');
+          if (!delBtn) return;
+          event.preventDefault();
+          event.stopPropagation();
+          deleteProducerInline(delBtn.getAttribute('data-producer-delete'));
+        });
+      }
+
+      if (tagCreateBtn) {
+        tagCreateBtn.addEventListener('click', createTag);
+      }
+      if (tagsAdminList) {
+        tagsAdminList.addEventListener('click', async (event) => {
+          const actionButton = event.target.closest('[data-tag-action]');
+          if (!actionButton) return;
+          const action = actionButton.getAttribute('data-tag-action');
+          const tagId = actionButton.getAttribute('data-tag-id');
+          if (!action || !tagId) return;
+
+          if (action === 'edit') {
+            await editTag(tagId);
+            return;
+          }
+          if (action === 'delete') {
+            await deleteTag(tagId);
+          }
+        });
+      }
+
+      if (syncDriveBtn) {
+        if (canSyncDrive) {
+          syncDriveBtn.classList.remove('hidden');
+          syncDriveBtn.addEventListener('click', runGoogleDriveSync);
+        } else {
+          syncDriveBtn.classList.add('hidden');
+        }
+      }
+
+      if (resetAcervoBtn) {
+        if (canResetAcervo) {
+          resetAcervoBtn.classList.remove('hidden');
+          resetAcervoBtn.addEventListener('click', openResetAcervoModal);
+        } else {
+          resetAcervoBtn.classList.add('hidden');
+        }
+      }
+
+      if (resetAcervoConfirmInput) {
+        resetAcervoConfirmInput.addEventListener('input', () => {
+          setResetModalFeedback('');
+          updateResetConfirmButtonState(false);
+        });
+      }
+
+      if (resetAcervoCancelBtn) {
+        resetAcervoCancelBtn.addEventListener('click', closeResetAcervoModal);
+      }
+
+      if (resetAcervoConfirmBtn) {
+        resetAcervoConfirmBtn.addEventListener('click', runAcervoReset);
+      }
+
+      if (resetAcervoModal) {
+        resetAcervoModal.addEventListener('click', (event) => {
+          if (event.target === resetAcervoModal) {
+            closeResetAcervoModal();
+          }
+        });
+      }
+
+      // Salvamento automático do displayName ao perder foco (blur)
+      async function saveDisplayName(fileId, newDisplayName) {
+        const trimmed = String(newDisplayName || '').trim();
+        const file = filesById.get(fileId);
+        if (!file) return;
+
+        const defaultName = file.nomeArquivoSemExtensao;
+        const currentDisplayName = file.displayName;
+
+        // Se o valor for igual ao atual, não faz nada
+        if (trimmed === currentDisplayName) return;
+        // Se estiver vazio e o atual já for o default, não faz nada
+        if (!trimmed && currentDisplayName === defaultName) return;
+
+        const payload = {};
+        if (trimmed && trimmed !== defaultName) {
+          payload.displayName = trimmed;
+        } else if (!trimmed) {
+          // Se limpou o campo, remove o displayName (volta ao default)
+          payload.displayName = null;
+        } else {
+          // trimmed === defaultName, volta ao default
+          payload.displayName = null;
+        }
+
+        try {
+          await patchFileMetadata(fileId, payload);
+          // Atualiza o cache local
+          file.displayName = trimmed || defaultName;
+          filesById.set(fileId, file);
+        } catch (error) {
+          console.error('Erro ao salvar nome de exibicao:', error);
+          // Reverte o input para o valor atual
+          const input = tableBody.querySelector(`[data-display-name-input][data-file-id="${escapeHtml(fileId)}"]`);
+          if (input) {
+            input.value = currentDisplayName;
+          }
+        }
+      }
+
+      if (tableBody) {
+        tableBody.addEventListener('blur', (event) => {
+          const input = event.target.closest('[data-display-name-input]');
+          if (!input) return;
+          const fileId = String(input.getAttribute('data-file-id') || '').trim();
+          if (!fileId || !canEdit) return;
+          const newValue = String(input.value || '').trim();
+          saveDisplayName(fileId, newValue);
+        }, true);
+      }
+
+      if (!canEdit) {
+        setEditingEnabled(false);
+        saveEditsBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        if (categoryCreateBtn) categoryCreateBtn.disabled = true;
+      }
+
+      try {
+        const catalogsLoaded = await loadCatalogs();
+        if (catalogsLoaded === false) {
+          return;
+        }
+        await loadFiles();
+      } catch (error) {
+        console.error('Erro ao carregar /api/files em gestao-acervo:', error);
+        if (countPending) countPending.textContent = 'Falha';
+        if (countComplete) countComplete.textContent = 'Falha';
+        renderTableMessage(tableBody, 'Nao foi possivel carregar os arquivos no momento.');
+      }
+    });
+  </script>
+
+  <!-- Modal de player -->
+  <div id="ga-file-modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ga-file-modal-name">
+    <div id="ga-file-modal">
+      <div id="ga-file-modal-media"></div>
+      <div class="p-5 flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h2 id="ga-file-modal-name" class="text-base font-semibold text-gray-800 leading-snug"></h2>
+            <p id="ga-file-modal-meta" class="text-xs text-gray-500 mt-0.5"></p>
+          </div>
+          <button id="ga-file-modal-close" type="button" class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors" aria-label="Fechar">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="ga-file-modal-format" class="px-2 py-0.5 rounded bg-gray-100 text-xs font-medium text-gray-600"></span>
+          <span id="ga-file-modal-producer" class="text-xs text-gray-500"></span>
+        </div>
+        <div>
+          <button id="ga-file-modal-download-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-white text-sm font-medium text-gray-600 hover:border-accent hover:text-accent transition-colors">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            Baixar arquivo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

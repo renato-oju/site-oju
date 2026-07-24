@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OJU Hub — Demonstração</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link rel="stylesheet" href="demo-hub/portal-base.css" />
+  <script src="demo-hub/demo-data.js"></script>
+  <script src="demo-hub/demo-auth.js"></script>
+  <script src="demo-hub/demo-ui.js"></script>
+  <script src="demo-hub/portal-theme.js"></script>
+  <script src="demo-hub/portal-pagination.js"></script>
+  <style>
+    /* Estilos compartilhados em portal-base.css */
+
+    /* Mosaico principal */
+    #view-mosaic .file-item { display: flex; flex-direction: column; }
+    #view-mosaic {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Thumb placeholder simulated */
+    .thumb-placeholder {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e6eaf1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .thumb-placeholder .acervo-thumb {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .acervo-content-layout {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .acervo-categories-nav {
+      width: 220px;
+      flex: 0 0 220px;
+      background: #ffffff;
+      border: 1px solid #e4e7ef;
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      position: sticky;
+      top: 5.5rem;
+    }
+
+    .acervo-category-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .acervo-category-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 0.625rem;
+      border-radius: 0.5rem;
+      border: 1px solid transparent;
+      font-size: 0.8125rem;
+      color: #4b5563;
+      background: transparent;
+      transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .acervo-category-btn:hover {
+      background: #f8f9fc;
+      border-color: #e4e7ef;
+      color: #1f2937;
+    }
+
+    .acervo-category-btn.active {
+      background: #e8edff;
+      border-color: #c7d2fe;
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+
+    .acervo-content-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .favorite-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #e4e7ef;
+      background: #f8f9fc;
+      color: #64748b;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+
+    .favorite-filter-btn:hover {
+      background: #f1f5fb;
+      border-color: #d8dfeb;
+      color: #374151;
+    }
+
+    .favorite-filter-btn.is-active {
+      background: #fff1f2;
+      border-color: #fecdd3;
+      color: #be123c;
+    }
+
+    /* Sistema unificado de acoes na thumbnail (favorito + download) */
+    .thumb-action-btn {
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(15, 23, 42, 0.42);
+      color: #f1f5f9;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 2px 8px rgba(2, 6, 23, 0.22);
+      transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, opacity 0.16s ease;
+      z-index: 12;
+      cursor: pointer;
+    }
+
+    .thumb-action-btn:hover {
+      transform: translateY(-1px) scale(1.06);
+      background: rgba(15, 23, 42, 0.62);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+    }
+
+    .thumb-action-btn:active {
+      transform: translateY(0) scale(0.96);
+    }
+
+    .thumb-action-btn[disabled] {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .thumb-fav-btn { top: 0.5rem; right: 0.5rem; }
+
+    .thumb-fav-btn.is-active {
+      background: rgba(225, 29, 72, 0.92);
+      border-color: rgba(255, 255, 255, 0.55);
+      color: #fff;
+    }
+
+    .thumb-download-btn { top: 2.75rem; right: 0.5rem; }
+
+    .thumb-download-btn:hover {
+      background: rgba(59, 91, 219, 0.92);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (max-width: 1024px) {
+      .acervo-content-layout {
+        flex-direction: column;
+      }
+
+      .acervo-categories-nav {
+        position: static;
+        width: 100%;
+        flex: none;
+      }
+
+      .acervo-category-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .acervo-category-btn {
+        width: auto;
+      }
+    }
+
+    /* Custom checkbox */
+    .file-checkbox { accent-color: #3b5bdb; }
+
+    /* Modal de arquivo */
+    #file-modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.60); display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(3px); }
+    #file-modal-overlay[hidden] { display:none !important; }
+    #file-modal { background:#fff; border-radius:1rem; box-shadow:0 24px 64px rgba(0,0,0,0.28); width:100%; max-width:780px; max-height:92vh; overflow-y:auto; display:flex; flex-direction:column; }
+
+    /* Proporção 16:9 fixa — sem salto ao carregar */
+    #file-modal-media { position:relative; width:100%; aspect-ratio:16/9; background:#141720; border-radius:1rem 1rem 0 0; overflow:hidden; }
+
+    /* Placeholder animado (shimmer) que fica embaixo do vídeo */
+    #file-modal-media::before {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, #1e2333 0%, #252c40 50%, #1e2333 100%);
+      background-size:200% 200%;
+      animation: modal-shimmer 2s ease infinite;
+    }
+    @keyframes modal-shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Ícone de play centralizado no placeholder */
+    #file-modal-media-icon {
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      pointer-events:none; z-index:1;
+    }
+    #file-modal-media-icon .material-symbols-outlined { font-size:56px; color:rgba(255,255,255,0.18); }
+
+    /* Vídeo ocupa todo o espaço, aparece com fade-in */
+    #file-modal-media video {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:contain; background:#000;
+      opacity:0; transition:opacity 0.35s ease; z-index:2;
+    }
+    #file-modal-media video.is-ready { opacity:1; }
+
+    /* Imagem (não-vídeo) */
+    #file-modal-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; z-index:2; }
+
+    /* Placeholder de ícone (outros tipos) */
+    #file-modal-media .modal-placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; z-index:2; }
+
+    #file-modal-fav-btn.is-active { color:#e11d48; border-color:#fecdd3; }
+
+  </style>
+</head>
+<body class="bg-surface text-gray-800 min-h-screen flex">
+
+  <!-- ================================================
+       MENU LATERAL FIXO
+  ================================================ -->
+  <aside class="fixed top-0 left-0 h-screen w-60 bg-sidebar flex flex-col z-30 select-none">
+    <div class="h-16 flex items-center px-5 border-b border-white/5 shrink-0">
+      <a href="demo-hub.html" class="text-white font-bold text-sm tracking-wide leading-tight hover:opacity-80 transition-opacity">OJU Hub<br /><span class="text-muted font-normal text-xs">Demonstração</span></a>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-0.5">
+      <a href="demo-hub.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-sidebar-active text-white text-sm font-medium">
+        <span class="material-symbols-outlined text-[18px]">video_library</span>
+        Acervo
+      </a>
+      <a href="demo-hub/gestao-acervo.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">manage_search</span>
+        Gestão do Acervo
+      </a>
+      <div class="my-2 border-t border-white/5"></div>
+      <a href="demo-hub/usuarios-permissoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+        Usuários e Permissões
+      </a>
+      <a href="demo-hub/configuracoes-integracoes.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted hover:bg-sidebar-hover hover:text-white text-sm">
+        <span class="material-symbols-outlined text-[18px]">settings</span>
+        Configurações e Integrações
+      </a>
+    </nav>
+    <!-- Rodapé da sidebar -->
+    <div class="shrink-0 border-t border-white/5 px-3 py-3">
+      <div class="flex items-center gap-2">
+        <img src="midia/geral/LOGO_OJU_small.png" alt="Logo Oju" class="w-6 h-6 object-contain opacity-70" />
+        <div class="flex flex-col leading-tight">
+          <span class="text-[10px] text-muted/60 uppercase tracking-widest">Desenvolvido por</span>
+          <span class="text-[11px] text-muted font-semibold tracking-wide">Oju &nbsp;·&nbsp; © 2026</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================================================
+       CONTEÚDO PRINCIPAL
+  ================================================ -->
+  <div class="ml-60 flex-1 flex flex-col min-h-screen">
+
+    <!-- TOPBAR -->
+    <header class="h-16 bg-white border-b border-border flex items-center justify-end px-6 shrink-0 sticky top-0 z-20">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 pl-4">
+          <div class="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center">
+            <span class="material-symbols-outlined text-[18px]">person</span>
+          </div>
+          <span class="text-sm text-gray-600 font-medium" data-perfil-label>Acesso interno</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ÁREA CENTRAL -->
+    <main class="portal-main">
+
+      <!-- A. CABEÇALHO DA PÁGINA -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 tracking-tight">Acervo audiovisual</h2>
+          <p class="text-sm text-muted mt-0.5">Arquivos cadastrados no sistema</p>
+        </div>
+      </div>
+
+      <div class="acervo-content-layout">
+        <aside class="acervo-categories-nav" aria-label="Categorias do acervo">
+          <p class="text-xs font-semibold uppercase tracking-wide text-muted">Categorias</p>
+          <div id="acervo-category-menu" class="acervo-category-menu">
+            <button type="button" class="acervo-category-btn active" data-category-id="">Todos</button>
+          </div>
+        </aside>
+
+        <section class="acervo-content-main">
+      <!-- B. BARRA DE FILTROS -->
+      <div class="bg-white border border-border rounded-xl p-4 flex flex-wrap gap-3 items-center">
+
+        <button id="filter-favorites-btn" type="button" class="favorite-filter-btn" aria-pressed="false">
+          <span class="material-symbols-outlined text-[17px]">favorite</span>
+          Somente favoritos
+        </button>
+
+        <!-- Produtora -->
+        
+
+        <!-- Tipo de mídia -->
+        <select id="filter-media-type-select" class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent min-w-[130px]">
+          <option value="">Tipo de mídia</option>
+          <option value="VIDEO">Vídeo</option>
+          <option value="IMAGE">Imagem</option>
+          <option value="AUDIO">Áudio</option>
+          <option value="DOCUMENT">Documento</option>
+        </select>
+
+        <!-- Data -->
+        <input id="filter-date-input" type="date" class="px-3 py-2 text-sm border border-border rounded-lg bg-surface text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent" />
+
+        <!-- Busca por palavra -->
+        <div class="relative flex-1 min-w-[180px]">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-muted pointer-events-none">search</span>
+          <input id="filter-search-input" type="text" placeholder="Buscar arquivo..." class="w-full pl-8 pr-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent bg-surface placeholder-muted" />
+        </div>
+
+        <!-- Limpar filtros -->
+        <button id="clear-filters-btn" class="px-3 py-2 text-sm text-muted hover:text-gray-700 border border-border rounded-lg bg-surface hover:bg-gray-50 transition-colors">
+          Limpar
+        </button>
+
+      </div>
+
+      <!-- C. BARRA DE CONTROLES DE VISUALIZAÇÃO + INFO -->
+      <div id="acervo-results-top" class="portal-pagination-anchor flex items-center justify-between gap-3">
+        <p class="text-xs text-muted" id="files-count" aria-live="polite">... arquivos encontrados</p>
+
+      </div>
+
+      <!-- D. ÁREA PRINCIPAL DE ARQUIVOS -->
+
+      <!-- MOSAICO -->
+      <div id="view-mosaic">
+        <!-- Renderizado dinamicamente -->
+      </div>
+
+      <div id="acervo-pagination" class="portal-pagination" hidden>
+        <p id="acervo-pagination-summary" class="portal-pagination__summary" aria-live="polite"></p>
+        <nav class="portal-pagination__nav" aria-label="Paginacao do acervo">
+          <button
+            id="acervo-pagination-prev"
+            type="button"
+            class="portal-pagination__button portal-pagination__button--control"
+            data-page-action="prev"
+            aria-label="Pagina anterior"
+          >
+            Anterior
+          </button>
+          <div id="acervo-pagination-pages" class="portal-pagination__pages"></div>
+          <p id="acervo-pagination-mobile-label" class="portal-pagination__mobile-label" aria-live="polite"></p>
+          <button
+            id="acervo-pagination-next"
+            type="button"
+            class="portal-pagination__button portal-pagination__button--control"
+            data-page-action="next"
+            aria-label="Proxima pagina"
+          >
+            Proxima
+          </button>
+        </nav>
+      </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    function getMediaLabel(mediaType) {
+      if (mediaType === 'VIDEO') return 'Vídeo';
+      if (mediaType === 'IMAGE') return 'Imagem';
+      if (mediaType === 'AUDIO') return 'Áudio';
+      if (mediaType === 'DOCUMENT') return 'Documento';
+      return 'Mídia';
+    }
+
+    function getMediaIcon(mediaType) {
+      if (mediaType === 'VIDEO') return 'play_circle';
+      if (mediaType === 'IMAGE') return 'image';
+      if (mediaType === 'AUDIO') return 'audio_file';
+      if (mediaType === 'DOCUMENT') return 'description';
+      return 'insert_drive_file';
+    }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return '-';
+      const parsed = new Date(dateValue);
+      if (Number.isNaN(parsed.getTime())) return '-';
+      return parsed.toLocaleDateString('pt-BR');
+    }
+
+    function getFormat(file) {
+      const explicit = String(file.format || '').trim();
+      if (explicit) {
+        return explicit.replace('.', '').toUpperCase();
+      }
+      const fileName = String(file.fileName || '');
+      const extension = fileName.includes('.') ? fileName.split('.').pop() : '';
+      return extension ? extension.toUpperCase() : '-';
+    }
+
+    function removeAccents(str) {
+      return String(str ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function buildPortalThumbPath(file) {
+      const explicit = String(file?.portalThumbnailUrl || '').trim();
+      if (explicit) return explicit;
+      const fileId = String(file?.id || '').trim();
+      if (!fileId) return '';
+      return `/api/files/${encodeURIComponent(fileId)}/thumbnail?size=800`;
+    }
+
+    function renderThumbContent(file, iconClass) {
+      const thumbUrl = String(file.thumbUrl || '').trim();
+      const fileId = String(file.id || '').trim();
+      if (!thumbUrl && !fileId) {
+        return `<span class="material-symbols-outlined ${iconClass}">${file.icone}</span>`;
+      }
+
+      const safeThumbUrl = thumbUrl ? escapeHtml(thumbUrl) : '';
+      const fallbackClass = thumbUrl ? 'hidden ' : '';
+      const imageClass = thumbUrl ? 'acervo-thumb' : 'acervo-thumb hidden';
+      const srcAttr = thumbUrl ? ' src="' + safeThumbUrl + '"' : '';
+      const fileIdAttr = fileId
+        ? ' data-thumb-file-id="' + escapeHtml(fileId) + '"'
+        : '';
+
+      return [
+        '<img' + srcAttr + fileIdAttr + ' alt="" loading="lazy" class="' + imageClass + '" />',
+        '<span data-thumb-fallback class="' + fallbackClass + 'material-symbols-outlined ' + iconClass + '">' + file.icone + '</span>'
+      ].join('\n        ');
+    }
+
+    function removeFileExtension(fileName) {
+      const normalized = String(fileName || '').trim();
+      const lastDotIndex = normalized.lastIndexOf('.');
+      if (lastDotIndex <= 0 || lastDotIndex === normalized.length - 1) {
+        return normalized;
+      }
+      return normalized.slice(0, lastDotIndex);
+    }
+
+    function normalizeApiFile(file) {
+      const mediaType = String(file.mediaType || '').toUpperCase();
+      const tags = Array.isArray(file.tags) ? file.tags.map((tag) => tag?.name).filter(Boolean) : [];
+      const rawFileName = file.fileName || 'Arquivo sem nome';
+      const displayName = file.displayName || removeFileExtension(rawFileName);
+      return {
+        id: file.id || '',
+        nomeArquivo: displayName,
+        nomeArquivoOriginal: rawFileName,
+        tipoMidia: getMediaLabel(mediaType),
+        tipoMidiaRaw: mediaType,
+        produtora: file.producer?.name || 'N/A',
+        categoria: file.category?.name || 'Sem categoria',
+        categoriaId: file.category?.id || '',
+        tagsText: tags.length ? tags.join(', ') : '-',
+        data: formatDate(file.date),
+        formato: getFormat(file),
+        icone: getMediaIcon(mediaType),
+        thumbUrl: '',
+        portalThumbPath: buildPortalThumbPath(file),
+        rawDateIso: file.date ? new Date(file.date).toISOString().split('T')[0] : '',
+        isFavorite: Boolean(file.isFavorite)
+      };
+    }
+
+    function renderMessage(mosaicContainer, message) {
+      mosaicContainer.innerHTML = `
+        <div class="col-span-full bg-white border border-border rounded-xl p-4 text-sm text-muted">
+          ${message}
+        </div>
+      `;
+    }
+
+    function renderCategoryFilterOptions(selectEl, categories, selectedCategoryId = '') {
+      if (!selectEl) return;
+      const list = Array.isArray(categories) ? categories : [];
+      const options = list.map((category) => {
+        const id = String(category?.id || '');
+        const selected = id === String(selectedCategoryId || '') ? ' selected' : '';
+        return `<option value="${escapeHtml(id)}"${selected}>${escapeHtml(category?.name || '')}</option>`;
+      }).join('');
+      const allSelected = String(selectedCategoryId || '') === '' ? ' selected' : '';
+      selectEl.innerHTML = `<option value=""${allSelected}>Categoria</option>${options}`;
+    }
+
+    function renderCategoryMenu(containerEl, categories, selectedCategoryId = '') {
+      if (!containerEl) return;
+      const list = Array.isArray(categories) ? categories : [];
+      const items = [{ id: '', name: 'Todos' }, ...list.map((category) => ({
+        id: String(category?.id || ''),
+        name: String(category?.name || ''),
+      }))];
+
+      containerEl.innerHTML = items
+        .map((item) => {
+          const activeClass = String(selectedCategoryId || '') === item.id ? ' active' : '';
+          return `<button type="button" class="acervo-category-btn${activeClass}" data-category-id="${escapeHtml(item.id)}">${escapeHtml(item.name)}</button>`;
+        })
+        .join('');
+    }
+
+    function filterFilesByCategory(files, categoryId) {
+      const normalizedCategoryId = String(categoryId || '');
+      if (!normalizedCategoryId) return files;
+      return files.filter((file) => String(file?.categoriaId || '') === normalizedCategoryId);
+    }
+
+    function buildFilesCountLabel(total) {
+      const count = Math.max(0, Number(total || 0));
+      const noun = count === 1 ? 'arquivo' : 'arquivos';
+      const verb = count === 1 ? 'encontrado' : 'encontrados';
+      return `${count} ${noun} ${verb}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const auth = window.portalAuth || null;
+      const pagination = window.portalPagination || null;
+      const ITEMS_PER_PAGE = Number(pagination?.DEFAULT_ITEMS_PER_PAGE || 24);
+      const mosaicContainer = document.getElementById('view-mosaic');
+      const countEl = document.getElementById('files-count');
+      const selectAllCheckbox = document.getElementById('select-all');
+      const searchInput = document.getElementById('filter-search-input');
+      const mediaTypeSelect = document.getElementById('filter-media-type-select');
+      const dateInput = document.getElementById('filter-date-input');
+      const clearBtn = document.getElementById('clear-filters-btn');
+      const favoritesFilterBtn = document.getElementById('filter-favorites-btn');
+      const categoryMenu = document.getElementById('acervo-category-menu');
+      const resultsTop = document.getElementById('acervo-results-top');
+      const paginationContainer = document.getElementById('acervo-pagination');
+      const paginationSummary = document.getElementById('acervo-pagination-summary');
+      const paginationPages = document.getElementById('acervo-pagination-pages');
+      const paginationMobileLabel = document.getElementById('acervo-pagination-mobile-label');
+      const paginationPrevBtn = document.getElementById('acervo-pagination-prev');
+      const paginationNextBtn = document.getElementById('acervo-pagination-next');
+      const redirectToLogin = () => {
+        location.replace(`login.html?next=${encodeURIComponent('acervo.html')}`);
+      };
+      let allFiles = [];
+      let categoriesCatalog = [];
+      let selectedCategoryId = '';
+      let favoritesOnly = false;
+      let currentPage = pagination?.getPageFromUrl?.() || 1;
+      const pendingFavoriteIds = new Set();
+      const thumbnailUrlCache = new Map();
+      const filesById = new Map();
+      const thumbnailQueue = [];
+      const queuedThumbnailNodes = new Set();
+      const THUMBNAIL_MAX_CONCURRENCY = 4;
+      const THUMBNAIL_PRELOAD_MARGIN = '280px 0px';
+      let thumbnailObserver = null;
+      let thumbnailActiveRequests = 0;
+
+      const revokeThumbnailUrls = () => {
+        if (thumbnailObserver) {
+          thumbnailObserver.disconnect();
+          thumbnailObserver = null;
+        }
+        thumbnailQueue.length = 0;
+        queuedThumbnailNodes.clear();
+        thumbnailActiveRequests = 0;
+        thumbnailUrlCache.forEach((objectUrl) => {
+          try {
+            URL.revokeObjectURL(objectUrl);
+          } catch (error) {
+            // noop
+          }
+        });
+        thumbnailUrlCache.clear();
+      };
+
+      window.addEventListener('beforeunload', revokeThumbnailUrls);
+
+      function applyVideoPosterFit(imageEl, mediaType) {
+        if (!imageEl) return;
+        const normalizedMediaType = String(mediaType || '').toUpperCase();
+
+        if (normalizedMediaType !== 'VIDEO') {
+          imageEl.style.objectFit = 'cover';
+          imageEl.style.background = '#0b0f1a';
+          return;
+        }
+
+        const width = Number(imageEl.naturalWidth) || 0;
+        const height = Number(imageEl.naturalHeight) || 0;
+        if ((!width || !height) && !imageEl.complete) {
+          imageEl.addEventListener('load', () => applyVideoPosterFit(imageEl, mediaType), { once: true });
+          return;
+        }
+        if (height > width && width > 0) {
+          imageEl.style.objectFit = 'contain';
+          imageEl.style.background = '#05070d';
+        } else {
+          imageEl.style.objectFit = 'cover';
+          imageEl.style.background = '#0b0f1a';
+        }
+      }
+
+      async function ensureThumbnailForImage(imageEl) {
+        if (!imageEl || !auth || typeof auth.apiFetch !== 'function') return;
+        const fileId = String(imageEl.getAttribute('data-thumb-file-id') || '').trim();
+        if (!fileId) return;
+
+        const sourceFile = filesById.get(fileId) || allFiles.find((item) => String(item.id || '') === fileId);
+        const mediaType = String(sourceFile?.tipoMidiaRaw || '').toUpperCase();
+
+        const cached = thumbnailUrlCache.get(fileId);
+        if (cached) {
+          imageEl.src = cached;
+          imageEl.classList.remove('hidden');
+          imageEl.dataset.thumbLoaded = '1';
+          applyVideoPosterFit(imageEl, mediaType);
+          const fallback = imageEl.parentElement?.querySelector('[data-thumb-fallback]');
+          if (fallback) fallback.classList.add('hidden');
+          return;
+        }
+
+        const portalThumbPath = String(sourceFile?.portalThumbPath || '').trim();
+        if (!portalThumbPath) return;
+
+        try {
+          const response = await auth.apiFetch(portalThumbPath);
+          if (!response.ok) return;
+          const blob = await response.blob();
+          const blobType = String(blob?.type || '').toLowerCase();
+          if (!blob || blob.size === 0) return;
+          if (blobType && !blobType.startsWith('image/')) return;
+
+          const objectUrl = URL.createObjectURL(blob);
+          thumbnailUrlCache.set(fileId, objectUrl);
+          imageEl.src = objectUrl;
+          imageEl.classList.remove('hidden');
+          imageEl.dataset.thumbLoaded = '1';
+          applyVideoPosterFit(imageEl, mediaType);
+          const fallback = imageEl.parentElement?.querySelector('[data-thumb-fallback]');
+          if (fallback) fallback.classList.add('hidden');
+        } catch (error) {
+          // noop
+        }
+      }
+
+      function scheduleThumbnailRequest(imageEl) {
+        if (!imageEl || imageEl.dataset.thumbLoaded === '1') return;
+        if (queuedThumbnailNodes.has(imageEl)) return;
+        queuedThumbnailNodes.add(imageEl);
+        thumbnailQueue.push(imageEl);
+        processThumbnailQueue();
+      }
+
+      function processThumbnailQueue() {
+        while (thumbnailActiveRequests < THUMBNAIL_MAX_CONCURRENCY && thumbnailQueue.length > 0) {
+          const nextImage = thumbnailQueue.shift();
+          queuedThumbnailNodes.delete(nextImage);
+          if (!nextImage || !nextImage.isConnected || nextImage.dataset.thumbLoaded === '1') {
+            continue;
+          }
+
+          thumbnailActiveRequests += 1;
+          nextImage.dataset.thumbLoading = '1';
+
+          Promise.resolve(ensureThumbnailForImage(nextImage))
+            .catch(() => {
+              // noop
+            })
+            .finally(() => {
+              delete nextImage.dataset.thumbLoading;
+              thumbnailActiveRequests = Math.max(0, thumbnailActiveRequests - 1);
+              processThumbnailQueue();
+            });
+        }
+      }
+
+      function ensureThumbnailObserver() {
+        if (thumbnailObserver || typeof IntersectionObserver !== 'function') return;
+        thumbnailObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            thumbnailObserver.unobserve(entry.target);
+            scheduleThumbnailRequest(entry.target);
+          });
+        }, {
+          root: null,
+          rootMargin: THUMBNAIL_PRELOAD_MARGIN,
+          threshold: 0.01
+        });
+      }
+
+      function hydrateMosaicThumbnails() {
+        ensureThumbnailObserver();
+        const imageNodes = mosaicContainer.querySelectorAll('img[data-thumb-file-id]');
+        imageNodes.forEach((img) => {
+          if (img.dataset.thumbLoaded === '1') return;
+          if (thumbnailObserver) {
+            thumbnailObserver.observe(img);
+          } else {
+            scheduleThumbnailRequest(img);
+          }
+        });
+      }
+
+      const updateFavoritesFilterButton = () => {
+        if (!favoritesFilterBtn) return;
+        favoritesFilterBtn.classList.toggle('is-active', favoritesOnly);
+        favoritesFilterBtn.setAttribute('aria-pressed', favoritesOnly ? 'true' : 'false');
+      };
+
+      const scrollResultsToTop = () => {
+        if (!resultsTop || typeof resultsTop.scrollIntoView !== 'function') return;
+        resultsTop.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      const hidePagination = () => {
+        if (paginationContainer) paginationContainer.hidden = true;
+        if (paginationSummary) paginationSummary.textContent = '';
+        if (paginationPages) paginationPages.innerHTML = '';
+        if (paginationMobileLabel) paginationMobileLabel.textContent = '';
+        if (paginationPrevBtn) {
+          paginationPrevBtn.disabled = true;
+          paginationPrevBtn.setAttribute('aria-disabled', 'true');
+        }
+        if (paginationNextBtn) {
+          paginationNextBtn.disabled = true;
+          paginationNextBtn.setAttribute('aria-disabled', 'true');
+        }
+      };
+
+      const renderPagination = (paginationState) => {
+        if (!pagination || !paginationContainer) return;
+
+        const totalItems = Number(paginationState?.totalItems || 0);
+        const perPage = Number(paginationState?.perPage || ITEMS_PER_PAGE);
+        if (totalItems <= perPage) {
+          hidePagination();
+          return;
+        }
+
+        paginationContainer.hidden = false;
+
+        if (paginationSummary) {
+          paginationSummary.textContent = pagination.formatRangeSummary(paginationState, {
+            singularLabel: 'arquivo',
+            pluralLabel: 'arquivos',
+          });
+        }
+
+        if (paginationMobileLabel) {
+          paginationMobileLabel.textContent = `Pagina ${paginationState.currentPage} de ${paginationState.totalPages}`;
+        }
+
+        if (paginationPrevBtn) {
+          const disabled = !paginationState?.hasPrevious;
+          paginationPrevBtn.disabled = disabled;
+          paginationPrevBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+        }
+
+        if (paginationNextBtn) {
+          const disabled = !paginationState?.hasNext;
+          paginationNextBtn.disabled = disabled;
+          paginationNextBtn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+        }
+
+        if (!paginationPages) return;
+
+        const pageModel = pagination.buildPageModel(
+          Number(paginationState?.currentPage || 1),
+          Number(paginationState?.totalPages || 1)
+        );
+
+        paginationPages.innerHTML = pageModel.map((item) => {
+          if (item.type === 'ellipsis') {
+            return '<span class="portal-pagination__ellipsis" aria-hidden="true">...</span>';
+          }
+
+          const activeClass = item.active ? ' is-active' : '';
+          const ariaCurrent = item.active ? ' aria-current="page"' : '';
+          const ariaLabel = item.active
+            ? `Pagina ${item.page}, atual`
+            : `Ir para a pagina ${item.page}`;
+
+          return `
+            <button
+              type="button"
+              class="portal-pagination__button${activeClass}"
+              data-page-target="${item.page}"
+              aria-label="${ariaLabel}"${ariaCurrent}
+            >
+              ${item.page}
+            </button>
+          `;
+        }).join('');
+      };
+
+      const render = (files, paginationState) => {
+        const totalFiles = Array.isArray(files) ? files.length : 0;
+        const state = paginationState || pagination?.paginateItems(files, currentPage, ITEMS_PER_PAGE) || {
+          items: Array.isArray(files) ? files : [],
+          totalItems: totalFiles,
+          totalPages: totalFiles > 0 ? 1 : 1,
+          perPage: ITEMS_PER_PAGE,
+          currentPage: 1,
+        };
+
+        countEl.textContent = buildFilesCountLabel(totalFiles);
+        if (selectAllCheckbox) {
+          selectAllCheckbox.checked = false;
+        }
+
+        if (totalFiles === 0) {
+          hidePagination();
+          if (favoritesOnly) {
+            renderMessage(mosaicContainer, 'Voce ainda nao favoritou arquivos.');
+          } else {
+            renderMessage(mosaicContainer, 'Nenhum arquivo encontrado.');
+          }
+          return;
+        }
+
+        const visibleFiles = Array.isArray(state.items) ? state.items : [];
+
+        mosaicContainer.innerHTML = visibleFiles.map(file => `
+          <div data-file-open="${escapeHtml(file.id)}" class="file-item bg-white border border-border rounded-xl overflow-hidden hover:border-accent/30 hover:shadow-sm transition-all cursor-pointer group">
+            <div class="relative">
+              <button
+                type="button"
+                class="thumb-action-btn thumb-fav-btn ${file.isFavorite ? 'is-active' : ''}"
+                data-favorite-toggle="${escapeHtml(file.id)}"
+                title="${file.isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}"
+                aria-label="${file.isFavorite ? 'Desfavoritar arquivo' : 'Favoritar arquivo'}"
+                ${pendingFavoriteIds.has(file.id) ? 'disabled' : ''}
+              >
+                <span class="material-symbols-outlined text-[18px]">${file.isFavorite ? 'favorite' : 'favorite_border'}</span>
+              </button>
+              <button
+                type="button"
+                class="thumb-action-btn thumb-download-btn"
+                data-download="${escapeHtml(file.id)}"
+                title="Baixar arquivo"
+                aria-label="Baixar arquivo"
+              >
+                <span class="material-symbols-outlined text-[18px]">download</span>
+              </button>
+              <div class="thumb-placeholder w-full aspect-[16/10]">
+                ${renderThumbContent(file, 'text-gray-300 text-5xl')}
+              </div>
+              <span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-semibold px-2 py-0.5 rounded uppercase z-[6]">${file.formato}</span>
+            </div>
+            <div class="p-3 flex flex-col gap-1">
+              <p class="text-sm font-semibold text-gray-700 truncate">${file.nomeArquivo}</p>
+              <p class="text-xs text-gray-500 truncate">${file.categoria}</p>
+              <p class="text-[11px] text-gray-400">${file.data}</p>
+            </div>
+          </div>
+        `).join('');
+
+        hydrateMosaicThumbnails();
+        renderPagination(state);
+      };
+
+      const updateFavoriteState = (fileId, isFavorite) => {
+        const normalizedId = String(fileId || '').trim();
+        if (!normalizedId) return;
+        allFiles = allFiles.map((file) => {
+          if (String(file.id || '') !== normalizedId) return file;
+          const updatedFile = { ...file, isFavorite: Boolean(isFavorite) };
+          filesById.set(normalizedId, updatedFile);
+          return updatedFile;
+        });
+      };
+
+      const toggleFileFavorite = async (fileId) => {
+        const normalizedId = String(fileId || '').trim();
+        if (!normalizedId || pendingFavoriteIds.has(normalizedId)) return;
+
+        const targetFile = allFiles.find((file) => String(file.id || '') === normalizedId);
+        if (!targetFile) return;
+
+        const nextFavoriteState = !Boolean(targetFile.isFavorite);
+        pendingFavoriteIds.add(normalizedId);
+        applyFilters();
+
+        try {
+          const method = nextFavoriteState ? 'PUT' : 'DELETE';
+          const response = await auth.apiFetch(`/api/files/${encodeURIComponent(normalizedId)}/favorite`, { method });
+
+          if (response.status === 401 || response.status === 403) {
+            redirectToLogin();
+            return;
+          }
+
+          if (!response.ok) {
+            throw new Error(`Falha HTTP ${response.status}`);
+          }
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          updateFavoriteState(normalizedId, payload?.isFavorite ?? nextFavoriteState);
+          applyFilters();
+        } catch (error) {
+          console.error('Erro ao alternar favorito:', error);
+        } finally {
+          pendingFavoriteIds.delete(normalizedId);
+          applyFilters();
+        }
+      };
+
+      const applyFilters = (options = {}) => {
+        const opts = options && typeof options === 'object' ? options : {};
+        if (opts.resetPage) {
+          currentPage = 1;
+        }
+
+        const query = String(searchInput?.value || '').trim().toLowerCase();
+        const selectedMediaType = String(mediaTypeSelect?.value || '').trim();
+        const selectedDate = String(dateInput?.value || '').trim();
+
+        const filteredFiles = allFiles.filter((file) => {
+          if (favoritesOnly && !file.isFavorite) return false;
+          if (selectedCategoryId && String(file?.categoriaId || '') !== selectedCategoryId) return false;
+          if (query) {
+            const searchable = removeAccents(`${file.nomeArquivo} ${file.categoria} ${file.produtora} ${file.tagsText}`).toLowerCase();
+            if (!searchable.includes(query)) return false;
+          }
+          if (selectedMediaType && file.tipoMidiaRaw !== selectedMediaType) return false;
+          if (selectedDate && file.rawDateIso !== selectedDate) return false;
+          return true;
+        });
+
+        const paginationState = pagination
+          ? pagination.paginateItems(filteredFiles, currentPage, ITEMS_PER_PAGE)
+          : {
+              items: filteredFiles,
+              totalItems: filteredFiles.length,
+              totalPages: 1,
+              perPage: ITEMS_PER_PAGE,
+              currentPage: 1,
+              hasPrevious: false,
+              hasNext: false,
+              wasClamped: false,
+            };
+
+        currentPage = Number(paginationState?.currentPage || 1);
+
+        if (pagination && opts.syncUrl !== false) {
+          const historyMode = opts.historyMode || (paginationState?.wasClamped ? 'replace' : '');
+          if (historyMode === 'push') {
+            pagination.syncPageInUrl(currentPage, { replace: false });
+          } else if (historyMode === 'replace') {
+            pagination.syncPageInUrl(currentPage, { replace: true });
+          }
+        }
+
+        render(filteredFiles, paginationState);
+
+        if (opts.scrollToTop) {
+          requestAnimationFrame(scrollResultsToTop);
+        }
+      };
+
+      const setSelectedCategory = (categoryId, options = {}) => {
+        selectedCategoryId = String(categoryId || '');
+        renderCategoryMenu(categoryMenu, categoriesCatalog, selectedCategoryId);
+        applyFilters(options);
+      };
+
+      if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function () {
+          mosaicContainer.querySelectorAll('.file-checkbox').forEach((checkbox) => {
+            checkbox.checked = this.checked;
+          });
+        });
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          applyFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (mediaTypeSelect) {
+        mediaTypeSelect.addEventListener('change', () => {
+          applyFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+      if (dateInput) {
+        dateInput.addEventListener('change', () => {
+          applyFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (searchInput) searchInput.value = '';
+          if (mediaTypeSelect) mediaTypeSelect.value = '';
+          if (dateInput) dateInput.value = '';
+          favoritesOnly = false;
+          updateFavoritesFilterButton();
+          setSelectedCategory('', { resetPage: true, historyMode: 'replace' });
+        });
+      }
+
+      if (favoritesFilterBtn) {
+        favoritesFilterBtn.addEventListener('click', () => {
+          favoritesOnly = !favoritesOnly;
+          updateFavoritesFilterButton();
+          applyFilters({ resetPage: true, historyMode: 'replace' });
+        });
+      }
+
+      if (categoryMenu) {
+        categoryMenu.addEventListener('click', (event) => {
+          const trigger = event.target.closest('[data-category-id]');
+          if (!trigger) return;
+          setSelectedCategory(trigger.getAttribute('data-category-id') || '', {
+            resetPage: true,
+            historyMode: 'replace',
+          });
+        });
+      }
+
+      function triggerDownload(fileId) {
+        const id = String(fileId || '').trim();
+        if (!id) return;
+        if (window.demoUi) window.demoUi.toast('Em uma conta real, isso baixaria o arquivo original.');
+      }
+
+      // ── Modal de arquivo ────────────────────────────────────
+      let activeModalFileId = '';
+
+      function setModalFavoriteState(isFav) {
+        const btn = document.getElementById('file-modal-fav-btn');
+        const icon = document.getElementById('file-modal-fav-icon');
+        const label = document.getElementById('file-modal-fav-label');
+        if (!btn) return;
+        btn.classList.toggle('is-active', Boolean(isFav));
+        if (icon) icon.textContent = isFav ? 'favorite' : 'favorite_border';
+        if (label) label.textContent = isFav ? 'Favoritado' : 'Favoritar';
+      }
+
+      function openFileModal(fileId) {
+        const id = String(fileId || '').trim();
+        const file = filesById.get(id);
+        if (!file) return;
+        activeModalFileId = id;
+
+        const nameEl = document.getElementById('file-modal-name');
+        const metaEl = document.getElementById('file-modal-meta');
+        const formatEl = document.getElementById('file-modal-format');
+        const producerEl = document.getElementById('file-modal-producer');
+        const tagsEl = document.getElementById('file-modal-tags');
+        if (nameEl) nameEl.textContent = file.nomeArquivo || '';
+        if (metaEl) metaEl.textContent = [file.categoria, file.data].filter(s => s && s !== '-').join(' · ');
+        if (formatEl) formatEl.textContent = file.formato || '';
+        if (producerEl) producerEl.textContent = file.produtora && file.produtora !== 'N/A' ? `Produtora: ${file.produtora}` : '';
+        if (tagsEl) tagsEl.textContent = file.tagsText && file.tagsText !== '-' ? `Tags: ${file.tagsText}` : '';
+
+        setModalFavoriteState(file.isFavorite);
+
+        const mediaEl = document.getElementById('file-modal-media');
+        if (mediaEl) {
+          const iconHtml = `<div id="file-modal-media-icon"><span class="material-symbols-outlined">${escapeHtml(file.icone)}</span></div>`;
+          const videoOverride = file.tipoMidiaRaw === 'VIDEO' && window.demoData ? window.demoData.videoOverrides[id] : '';
+          if (videoOverride) {
+            mediaEl.innerHTML = iconHtml + `<video controls preload="metadata" src="${escapeHtml(videoOverride)}"></video>`;
+            const video = mediaEl.querySelector('video');
+            if (video) {
+              video.addEventListener('canplay', () => {
+                video.classList.add('is-ready');
+                const icon = document.getElementById('file-modal-media-icon');
+                if (icon) icon.style.display = 'none';
+              }, { once: true });
+            }
+          } else if (file.portalThumbPath) {
+            mediaEl.innerHTML = iconHtml + `<img data-thumb-file-id="${escapeHtml(id)}" alt="${escapeHtml(file.nomeArquivo)}" class="acervo-thumb" />`;
+            const img = mediaEl.querySelector('img');
+            if (img) {
+              img.addEventListener('load', () => {
+                const icon = document.getElementById('file-modal-media-icon');
+                if (icon) icon.style.display = 'none';
+              }, { once: true });
+              scheduleThumbnailRequest(img);
+            }
+          } else {
+            mediaEl.innerHTML = `<div class="modal-placeholder"><span class="material-symbols-outlined text-white/40 text-6xl">${escapeHtml(file.icone)}</span></div>`;
+          }
+        }
+
+        const overlay = document.getElementById('file-modal-overlay');
+        if (overlay) {
+          overlay.removeAttribute('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeFileModal() {
+        activeModalFileId = '';
+        const overlay = document.getElementById('file-modal-overlay');
+        if (!overlay) return;
+        const video = overlay.querySelector('video');
+        if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
+        overlay.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+      }
+
+      const modalOverlay = document.getElementById('file-modal-overlay');
+      const modalPanel = document.getElementById('file-modal');
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+          if (modalPanel && !modalPanel.contains(e.target)) closeFileModal();
+        });
+      }
+      const modalCloseBtn = document.getElementById('file-modal-close');
+      if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeFileModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && activeModalFileId) closeFileModal();
+      });
+
+      const modalFavBtn = document.getElementById('file-modal-fav-btn');
+      if (modalFavBtn) {
+        modalFavBtn.addEventListener('click', async () => {
+          const fid = activeModalFileId;
+          if (!fid) return;
+          await toggleFileFavorite(fid);
+          if (activeModalFileId === fid) {
+            const updated = filesById.get(fid);
+            setModalFavoriteState(Boolean(updated?.isFavorite));
+          }
+        });
+      }
+
+      const modalDownloadBtn = document.getElementById('file-modal-download-btn');
+      if (modalDownloadBtn) {
+        modalDownloadBtn.addEventListener('click', () => {
+          if (activeModalFileId) triggerDownload(activeModalFileId);
+        });
+      }
+      // ── Fim modal ───────────────────────────────────────────
+
+      if (mosaicContainer) {
+        mosaicContainer.addEventListener('click', async (event) => {
+          const downloadTrigger = event.target.closest('[data-download]');
+          if (downloadTrigger) {
+            event.preventDefault();
+            event.stopPropagation();
+            triggerDownload(downloadTrigger.getAttribute('data-download') || '');
+            return;
+          }
+          const favTrigger = event.target.closest('[data-favorite-toggle]');
+          if (favTrigger) {
+            event.preventDefault();
+            event.stopPropagation();
+            await toggleFileFavorite(favTrigger.getAttribute('data-favorite-toggle') || '');
+            return;
+          }
+          const fileCard = event.target.closest('[data-file-open]');
+          if (fileCard) {
+            openFileModal(fileCard.getAttribute('data-file-open') || '');
+          }
+        });
+      }
+
+      if (paginationContainer) {
+        paginationContainer.addEventListener('click', (event) => {
+          const pageButton = event.target.closest('[data-page-target]');
+          if (pageButton) {
+            const nextPage = Number(pageButton.getAttribute('data-page-target') || 0);
+            if (Number.isFinite(nextPage) && nextPage > 0 && nextPage !== currentPage) {
+              currentPage = nextPage;
+              applyFilters({ historyMode: 'push', scrollToTop: true });
+            }
+            return;
+          }
+
+          const actionButton = event.target.closest('[data-page-action]');
+          if (!actionButton) return;
+
+          const action = String(actionButton.getAttribute('data-page-action') || '').trim();
+          if (action === 'prev' && currentPage > 1) {
+            currentPage -= 1;
+            applyFilters({ historyMode: 'push', scrollToTop: true });
+          } else if (action === 'next') {
+            currentPage += 1;
+            applyFilters({ historyMode: 'push', scrollToTop: true });
+          }
+        });
+      }
+
+      window.addEventListener('popstate', () => {
+        currentPage = pagination?.getPageFromUrl?.() || 1;
+        applyFilters({ scrollToTop: true });
+      });
+
+      countEl.textContent = 'Carregando arquivos...';
+      renderMessage(mosaicContainer, 'Carregando acervo...');
+      renderCategoryMenu(categoryMenu, [], selectedCategoryId);
+      updateFavoritesFilterButton();
+
+      try {
+        if (!auth || typeof auth.bootstrapAuth !== 'function') {
+          redirectToLogin();
+          return;
+        }
+
+        const currentUser = await auth.bootstrapAuth({
+          next: 'acervo.html',
+        });
+        if (!currentUser) {
+          return;
+        }
+
+        try {
+          const categoriesResponse = await auth.apiFetch('/api/categories');
+          if (categoriesResponse.status === 401 || categoriesResponse.status === 403) {
+            redirectToLogin();
+            return;
+          }
+          if (categoriesResponse.ok) {
+            const categoriesPayload = await categoriesResponse.json();
+            categoriesCatalog = Array.isArray(categoriesPayload) ? categoriesPayload : [];
+            renderCategoryMenu(categoryMenu, categoriesCatalog, selectedCategoryId);
+          }
+        } catch (categoryError) {
+          console.error('Erro ao carregar /api/categories:', categoryError);
+        }
+
+        const response = await auth.apiFetch('/api/files');
+
+        if (response.status === 401 || response.status === 403) {
+          redirectToLogin();
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`Falha HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        allFiles = Array.isArray(data) ? data.map(normalizeApiFile) : [];
+        filesById.clear();
+        allFiles.forEach((file) => {
+          const fileId = String(file?.id || '').trim();
+          if (!fileId) return;
+          filesById.set(fileId, file);
+        });
+
+        applyFilters();
+      } catch (error) {
+        console.error('Erro ao carregar /api/files:', error);
+        countEl.textContent = 'Falha ao carregar arquivos';
+        renderMessage(mosaicContainer, 'Nao foi possivel carregar o acervo no momento.');
+      }
+    });
+  </script>
+
+  <!-- Modal de arquivo -->
+  <div id="file-modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="file-modal-name">
+    <div id="file-modal">
+      <div id="file-modal-media"></div>
+      <div class="p-5 flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h2 id="file-modal-name" class="text-base font-semibold text-gray-800 leading-snug"></h2>
+            <p id="file-modal-meta" class="text-xs text-gray-500 mt-0.5"></p>
+          </div>
+          <button id="file-modal-close" type="button" class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors" aria-label="Fechar">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="file-modal-format" class="px-2 py-0.5 rounded bg-gray-100 text-xs font-medium text-gray-600"></span>
+          <span id="file-modal-producer" class="text-xs text-gray-500"></span>
+          <span id="file-modal-tags" class="text-xs text-gray-400"></span>
+        </div>
+        <div class="flex gap-2">
+          <button id="file-modal-fav-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-white text-sm font-medium text-gray-600 hover:border-accent hover:text-accent transition-colors">
+            <span class="material-symbols-outlined text-[18px]" id="file-modal-fav-icon">favorite_border</span>
+            <span id="file-modal-fav-label">Favoritar</span>
+          </button>
+          <button id="file-modal-download-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-white text-sm font-medium text-gray-600 hover:border-accent hover:text-accent transition-colors">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            Baixar arquivo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
