@@ -109,16 +109,24 @@ a{ color:inherit; text-decoration:none; }
 
 <!-- ===================== CASE HERO ===================== -->
 <section class="case-hero" aria-label="Case Gente com História">
-  <img class="case-hero__bg" src="midia/case-gente-com-historia/hero-brevant-sementes.png" alt="" aria-hidden="true">
-  <div class="case-hero__overlay" aria-hidden="true"></div>
-  <div class="case-hero__fade-bottom" aria-hidden="true"></div>
-
   <div class="container case-hero__content">
     <a class="case-hero__back" href="agencia.html">← Agência</a>
-    <p class="case-hero__eyebrow">case · brevant sementes</p>
-    <h1 class="case-hero__title">GENTE COM<br>HISTÓRIA</h1>
-    <p class="case-hero__subtitle">Como uma campanha criada em poucos dias se tornou um dos conteúdos mais relevantes da marca Brevant no Brasil.</p>
-    <p class="case-hero__tag">Dia do Engenheiro Agrônomo · Série em 4 episódios</p>
+    <div class="case-hero__layout">
+      <div>
+        <p class="case-hero__eyebrow">case · brevant sementes</p>
+        <h1 class="case-hero__title">GENTE COM<br>HISTÓRIA</h1>
+        <p class="case-hero__subtitle">Como uma campanha criada em poucos dias se tornou um dos conteúdos mais relevantes da marca Brevant no Brasil.</p>
+        <p class="case-hero__tag">Dia do Engenheiro Agrônomo · Série em 4 episódios</p>
+        <nav class="case-hero__links" aria-label="Explorar o case">
+          <a href="#case-contexto">Conheça o projeto ↓</a>
+          <a href="#case-episodios">Assista aos episódios ↗</a>
+        </nav>
+      </div>
+      <figure class="case-hero__visual">
+        <img src="midia/case-gente-com-historia/a1.png" alt="Conversa entre participantes da série Gente com História" fetchpriority="high">
+        <figcaption>Gente com História · Brevant Sementes</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -137,7 +145,7 @@ a{ color:inherit; text-decoration:none; }
 </section>
 
 <!-- ===================== O CONTEXTO DO DESAFIO ===================== -->
-<section class="case-section" aria-label="O contexto do desafio">
+<section class="case-section case-story" id="case-contexto" aria-label="O contexto do desafio">
   <div class="container">
     <div class="case-section__header">
       <p class="case-eyebrow">o contexto</p>
@@ -173,7 +181,7 @@ a{ color:inherit; text-decoration:none; }
 </section>
 
 <!-- ===================== O GATILHO DO PROJETO ===================== -->
-<section class="case-section case-section--secundaria" aria-label="O gatilho do projeto">
+<section class="case-section case-section--secundaria case-story" aria-label="O gatilho do projeto">
   <div class="container">
     <div class="case-section__header">
       <p class="case-eyebrow">como a oju entrou</p>
@@ -231,7 +239,7 @@ a{ color:inherit; text-decoration:none; }
 </section>
 
 <!-- ===================== CONSTRUÇÃO CRIATIVA DA CAMPANHA (abas) ===================== -->
-<section class="case-section case-section--secundaria" aria-label="Construção criativa da campanha">
+<section class="case-section case-section--secundaria" id="case-criacao" aria-label="Construção criativa da campanha">
   <div class="container">
     <div class="case-section__header">
       <p class="case-eyebrow">do conceito à tela</p>
@@ -332,7 +340,7 @@ a{ color:inherit; text-decoration:none; }
 </section>
 
 <!-- ===================== RESULTADOS ATINGIDOS ===================== -->
-<section class="case-resultados" aria-label="Resultados atingidos">
+<section id="case-episodios" class="case-resultados" aria-label="Resultados atingidos">
   <div class="container">
     <div class="case-section__header">
       <p class="case-eyebrow">fechamento do case</p>
@@ -351,23 +359,24 @@ a{ color:inherit; text-decoration:none; }
 
       <div class="case-resultados__video">
         <div class="case-resultados__player">
-          <iframe id="case-player" src="https://www.youtube.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" title="Gente com História — Episódio 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="case-player" src="https://www.youtube-nocookie.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" title="Gente com História — Episódio 1" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
+        <p class="case-video-link"><a id="case-youtube-link" href="https://www.youtube.com/watch?v=Dy4p-9ePdsg" target="_blank" rel="noopener">Assistir ao episódio no YouTube ↗</a></p>
         <div class="case-resultados__episodios" id="episode-nav">
-          <button class="case-ep is-active" type="button" data-ep-src="https://www.youtube.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 1">
+          <button class="case-ep is-active" type="button" data-ep-src="https://www.youtube-nocookie.com/embed/Dy4p-9ePdsg?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 1">
             <span class="case-ep__frame"><img src="https://img.youtube.com/vi/Dy4p-9ePdsg/mqdefault.jpg" alt="Thumbnail episódio 1" loading="lazy"></span>
             <span class="case-ep__caption">Episódio 1</span>
           </button>
-          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/q8Sa_mLBvqI?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 2">
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube-nocookie.com/embed/q8Sa_mLBvqI?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 2">
             <span class="case-ep__frame"><img src="https://img.youtube.com/vi/q8Sa_mLBvqI/mqdefault.jpg" alt="Thumbnail episódio 2" loading="lazy"></span>
             <span class="case-ep__caption">Episódio 2</span>
           </button>
-          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/daS44FKYHaE?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 3">
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube-nocookie.com/embed/daS44FKYHaE?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 3">
             <span class="case-ep__frame"><img src="https://img.youtube.com/vi/daS44FKYHaE/mqdefault.jpg" alt="Thumbnail episódio 3" loading="lazy"></span>
             <span class="case-ep__caption">Episódio 3</span>
           </button>
-          <button class="case-ep" type="button" data-ep-src="https://www.youtube.com/embed/J28CDsQAFZY?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 4">
+          <button class="case-ep" type="button" data-ep-src="https://www.youtube-nocookie.com/embed/J28CDsQAFZY?rel=0&amp;modestbranding=1&amp;color=white" data-ep-title="Gente com História — Episódio 4">
             <span class="case-ep__frame"><img src="https://img.youtube.com/vi/J28CDsQAFZY/mqdefault.jpg" alt="Thumbnail episódio 4" loading="lazy"></span>
             <span class="case-ep__caption">Episódio 4</span>
           </button>
@@ -449,8 +458,8 @@ a{ color:inherit; text-decoration:none; }
       <div class="reveal-footer__lead">
         <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
         <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
-        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
-        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+        <a class="reveal-footer__cta" href="mailto:oju@ojufilmes.com?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a></p>
       </div>
 
       <nav class="reveal-footer__col" aria-label="Áreas">
@@ -463,16 +472,16 @@ a{ color:inherit; text-decoration:none; }
 
       <nav class="reveal-footer__col" aria-label="Redes sociais">
         <p class="reveal-footer__col-title">Redes</p>
-        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+
+
+        <a href="https://vimeo.com/user43019673" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+
       </nav>
 
       <div class="reveal-footer__col">
         <p class="reveal-footer__col-title">Contato</p>
-        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
-        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a>
+
         <p class="reveal-footer__addr">São Paulo · Brasil</p>
       </div>
     </div>
@@ -482,7 +491,7 @@ a{ color:inherit; text-decoration:none; }
     <div class="reveal-footer__bottom">
       <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
       <div class="reveal-footer__bottom-right">
-        <a href="privacidade.html">Política de privacidade</a>
+
         <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
       </div>
     </div>
@@ -1272,6 +1281,7 @@ a{ color:inherit; text-decoration:none; }
 .lenis, .lenis-smooth{ scroll-behavior: auto !important; }
 
 </style>
+<link rel="stylesheet" href="case-gente-com-historia.css">
 
 <!-- Lenis — smooth scroll de toda a página (mesmo padrão de agencia.html / producao.html) -->
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
@@ -1279,11 +1289,17 @@ a{ color:inherit; text-decoration:none; }
 <script>
 (function(){
 
-  var lenis = new Lenis({
+  var lenis = typeof Lenis === 'function' ? new Lenis({
     duration: 1.1,
     easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
     smoothWheel: true
-  });
+  }) : {
+    raf: function(){},
+    scrollTo: function(target){
+      if(target && target.scrollIntoView) target.scrollIntoView({behavior:'smooth'});
+      else window.scrollTo({top:target, behavior:'smooth'});
+    }
+  };
   function raf(time){
     lenis.raf(time);
     requestAnimationFrame(raf);
@@ -1331,6 +1347,7 @@ a{ color:inherit; text-decoration:none; }
   requestAnimationFrame(footerLoop);
   window.addEventListener('resize', measureFooter, { passive: true });
   window.addEventListener('load',   initFooter);
+  if(window.ResizeObserver && shell) new ResizeObserver(measureFooter).observe(shell);
 
   /* --- CTAs que revelam o footer --- */
   function revealFooter(){
@@ -1380,14 +1397,28 @@ a{ color:inherit; text-decoration:none; }
     if(!menu) return;
     var items  = menu.querySelectorAll('.case-tabs__menu-item');
     var panels = document.querySelectorAll('.case-tabs__panel');
-    items.forEach(function(item){
+    items.forEach(function(item, index){
+      item.id = 'case-step-' + index;
+      item.tabIndex = index === 0 ? 0 : -1;
+      document.getElementById(item.getAttribute('data-target')).setAttribute('aria-labelledby', item.id);
+      item.addEventListener('keydown', function(e){
+        var next;
+        if(e.key === 'ArrowRight') next = (index + 1) % items.length;
+        else if(e.key === 'ArrowLeft') next = (index - 1 + items.length) % items.length;
+        else if(e.key === 'Home') next = 0;
+        else if(e.key === 'End') next = items.length - 1;
+        else return;
+        e.preventDefault(); items[next].click(); items[next].focus();
+      });
       item.addEventListener('click', function(){
         var targetId = item.getAttribute('data-target');
         items.forEach(function(i){
           i.classList.toggle('is-active', i === item);
           i.setAttribute('aria-selected', i === item ? 'true' : 'false');
+          i.tabIndex = i === item ? 0 : -1;
         });
         panels.forEach(function(p){ p.hidden = (p.id !== targetId); });
+        measureFooter();
       });
     });
   })();
@@ -1398,16 +1429,16 @@ a{ color:inherit; text-decoration:none; }
     var player = document.getElementById('case-player');
     if(!epBtns.length || !player) return;
     epBtns.forEach(function(btn){
+      btn.setAttribute('aria-pressed', btn.classList.contains('is-active') ? 'true' : 'false');
       btn.addEventListener('click', function(){
-        epBtns.forEach(function(b){ b.classList.remove('is-active'); });
+        epBtns.forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-pressed','false'); });
+        btn.setAttribute('aria-pressed','true');
         btn.classList.add('is-active');
         var newSrc = btn.getAttribute('data-ep-src');
         var newTitle = btn.getAttribute('data-ep-title');
-        player.src = '';
-        setTimeout(function(){
-          player.src = newSrc;
-          player.title = newTitle;
-        }, 80);
+        player.title = newTitle;
+        player.src = newSrc + '&autoplay=1';
+        document.getElementById('case-youtube-link').href = 'https://www.youtube.com/watch?v=' + newSrc.split('/embed/')[1].split('?')[0];
       });
     });
   })();

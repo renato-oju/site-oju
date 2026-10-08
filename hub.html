@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OJU Hub — OJU</title>
+<title>OJU Hub — Do acervo a novos conteúdos</title>
+<meta name="description" content="Organize o acervo audiovisual da sua empresa, encontre os materiais certos e reúna imagens, roteiros e referências para novas produções com o OJU Hub.">
+<link rel="stylesheet" href="hub.css">
+<script src="hub-demo-flow.js" defer></script>
 
 <!-- head.html (centralizado) -->
 <style>
@@ -107,85 +110,165 @@ a{ color:inherit; text-decoration:none; }
 <!-- ===================== PAGE SHELL (cobre o footer revelado) ===================== -->
 <main class="page-shell">
 
-<!-- ===================== HERO ===================== -->
-<section class="hero hub-hero" aria-label="Primeira seção">
-  <div class="container hub-hero__content">
-    <p class="hero__eyebrow">oju hub</p>
-    <h1 class="hub-hero__title">OJU HUB<span class="hub-hero__dot">.</span></h1>
-    <p class="hero__subtitle hub-hero__subtitle">seu acervo de mídia, organizado e sempre à mão</p>
-  </div>
-</section>
-
-<!-- ===================== O PROBLEMA QUE RESOLVE ===================== -->
-<section class="hub-problema" aria-label="Problema que o Hub resolve">
-  <div class="container">
-    <p class="hub-problema__eyebrow">o problema que resolve</p>
-    <h2 class="hub-problema__title">chega de material espalhado em links, pastas e arquivos difíceis de achar</h2>
-    <p class="hub-problema__text">curadoria, categorização e busca simples para tudo que já foi produzido</p>
-  </div>
-</section>
-
-<!-- ===================== O QUE ISSO PERMITE ===================== -->
-<section class="hub-permite" aria-label="O que isso permite">
-  <div class="container">
-    <div class="hub-permite__grid" role="list">
-      <div class="hub-permite__item" role="listitem"><h3>+ velocidade</h3></div>
-      <div class="hub-permite__item" role="listitem"><h3>+ consistência visual</h3></div>
-      <div class="hub-permite__item" role="listitem"><h3>− custo de produção</h3></div>
+<!-- Apresentação pública do Hub: acervo, projetos e demonstração. -->
+<section class="hub-hero" aria-labelledby="hub-title">
+  <div class="container hub-hero__layout">
+    <div class="hub-hero__copy">
+      <p class="hub-eyebrow">OJU HUB</p>
+      <h1 id="hub-title">SEU ACERVO.<br>NOVAS<br>POSSIBILIDADES<span class="hub-dot">.</span></h1>
+      <p class="hub-lead">Tudo o que sua empresa já produziu pode ser o começo de uma nova ideia.</p>
+      <p class="hub-body">A OJU compila, organiza e prepara seu acervo audiovisual. No Hub, sua empresa encontra os materiais prontos para consultar e aproveitar em novos projetos.</p>
     </div>
+    <figure class="hub-hero__visual">
+      <img src="midia/agencia/img_hub.png" width="1024" height="1024" alt="Ilustração de um acervo organizado por assuntos, acompanhado pelo personagem da OJU" fetchpriority="high">
+      <figcaption>ACERVO ORGANIZADO. MATERIAL PARA CRIAR.</figcaption>
+    </figure>
+  </div>
+</section>
 
-    <div class="hub-video">
-      <div class="hub-video__frame">
-        <div class="hub-video__play" aria-hidden="true">
-          <span class="hub-video__play-tri"></span>
+<section class="hub-preparation" id="hub-preparacao" aria-labelledby="hub-preparation-title">
+  <div class="container">
+    <div class="hub-preparation__intro">
+      <div>
+        <p class="hub-eyebrow">COMO SEU HUB É PREPARADO</p>
+        <h2 id="hub-preparation-title">DO MATERIAL BRUTO<br>AO ACERVO PRONTO.</h2>
+      </div>
+    </div>
+    <ol class="hub-preparation__flow" aria-label="Da preparação à entrega do acervo">
+      <li>
+        <div class="hub-preparation__figure" aria-hidden="true">
+          <svg viewBox="0 0 180 126" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="16" width="58" height="38" rx="5" fill="#fff"/>
+            <path d="m37 31-5 5a5 5 0 0 0 7 7l5-5m-3 1 5-5a5 5 0 0 0-7-7l-5 5m3 5 7-7"/>
+            <rect x="12" y="73" width="58" height="38" rx="5" fill="#fff"/>
+            <path d="M25 83h8l3-4h12l3 4h7v19H25Z"/>
+            <circle cx="41" cy="92" r="6" fill="#FEC200"/>
+            <path d="M77 35h10v28h20m-30 29h10V63m15-4 5 4-5 4" stroke="#999"/>
+            <path d="M117 48v-8h20l6 8h25v42h-51Z" fill="#fff"/>
+            <path d="M117 48h51v13h-51Z" fill="#FEC200" stroke="none"/>
+            <path d="M117 48h51v42h-51Z"/>
+            <path d="M129 71h27m-27 7h17" stroke="#aaa"/>
+          </svg>
         </div>
-        <span class="hub-video__label">vídeo em breve</span>
-      </div>
-      <div class="hub-video__caption">
-        <strong>Apresentação OJU Hub</strong>
-        <span>placeholder</span>
-      </div>
-    </div>
+        <span class="hub-preparation__number">01 / MATERIAL DE ORIGEM</span>
+        <h3>RECEBEMOS<br>OU CAPTAMOS.</h3>
+        <p>Você envia os links do acervo existente ou a OJU realiza uma diária de captação para a sua empresa.</p>
+      </li>
+      <li>
+        <div class="hub-preparation__figure" aria-hidden="true">
+          <svg viewBox="0 0 180 126" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="30" width="156" height="54" rx="3" fill="#fff"/>
+            <path d="M12 41h156M12 73h156" stroke="#ccc"/>
+            <path d="M24 34v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4M24 77v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4m12-4v4" stroke="#bbb"/>
+            <rect x="67" y="42" width="46" height="30" fill="#FEC200" stroke="none"/>
+            <path d="m85 49 12 8-12 8Z" fill="#fff"/>
+            <path d="M61 22v67m58-67v67" stroke="#999" stroke-dasharray="3 4"/>
+            <circle cx="52" cy="106" r="5" fill="#fff"/><circle cx="72" cy="106" r="5" fill="#fff"/>
+            <path d="m56 102 15-17m-3 17L53 85"/>
+            <path d="M119 96h38m-5-4 5 4-5 4" stroke="#aaa"/>
+          </svg>
+        </div>
+        <span class="hub-preparation__number">02 / CURADORIA E EDIÇÃO</span>
+        <h3>SELECIONAMOS<br>OS TRECHOS ÚTEIS.</h3>
+        <p>Revisamos o material e editamos trechos práticos, que podem ser reaproveitados em novas peças.</p>
+      </li>
+      <li>
+        <div class="hub-preparation__figure" aria-hidden="true">
+          <svg viewBox="0 0 180 126" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="20" y="17" width="140" height="94" rx="5" fill="#fff"/>
+            <path d="M20 37h140" stroke="#ccc"/>
+            <rect x="29" y="24" width="10" height="6" rx="1" fill="#FEC200" stroke="none"/>
+            <path d="M47 27h34m57 0h12" stroke="#aaa"/>
+            <rect x="30" y="48" width="34" height="27" rx="2" fill="#F5F5F3"/>
+            <rect x="73" y="48" width="34" height="27" rx="2" fill="#F5F5F3"/>
+            <rect x="116" y="48" width="34" height="27" rx="2" fill="#F5F5F3"/>
+            <path d="m43 55 10 7-10 6Zm43 0 10 7-10 6Zm43 0 10 7-10 6Z" fill="#FEC200" stroke="none"/>
+            <path d="M30 83h24m19 0h24m19 0h24M30 90h17m26 0h17m26 0h17" stroke="#aaa"/>
+            <rect x="30" y="98" width="22" height="5" rx="2" fill="#FEC200" stroke="none"/>
+            <rect x="73" y="98" width="22" height="5" rx="2" fill="#eee" stroke="none"/>
+            <rect x="116" y="98" width="22" height="5" rx="2" fill="#eee" stroke="none"/>
+          </svg>
+        </div>
+        <span class="hub-preparation__number">03 / ORGANIZAÇÃO</span>
+        <h3>MONTAMOS<br>O SEU HUB.</h3>
+        <p>Nomeamos e categorizamos os arquivos, com informações que ajudam sua equipe a encontrar cada cena.</p>
+      </li>
+      <li>
+        <div class="hub-preparation__figure" aria-hidden="true">
+          <svg viewBox="0 0 180 126" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="27" width="107" height="69" rx="4" fill="#fff"/>
+            <path d="M14 42h107m-69 54v11m27-11v11m-37 0h47"/>
+            <rect x="23" y="32" width="10" height="5" rx="1" fill="#FEC200" stroke="none"/>
+            <rect x="26" y="52" width="24" height="21" rx="2" fill="#F5F5F3" stroke="#ccc"/>
+            <rect x="56" y="52" width="24" height="21" rx="2" fill="#FEC200" stroke="none"/>
+            <rect x="86" y="52" width="23" height="21" rx="2" fill="#F5F5F3" stroke="#ccc"/>
+            <path d="M26 80h21m9 0h20m10 0h21" stroke="#bbb"/>
+            <rect x="132" y="47" width="35" height="64" rx="5" fill="#fff"/>
+            <path d="M143 53h13m-11 52h9" stroke="#aaa"/>
+            <rect x="137" y="60" width="25" height="36" rx="2" fill="#FEC200" stroke="none"/>
+            <path d="m145 70 10 8-10 8Z" fill="#fff" stroke="none"/>
+            <path d="M97 17h52v22m-4-4 4 4 4-4" stroke="#999"/>
+          </svg>
+        </div>
+        <span class="hub-preparation__number">04 / ACESSO AO CLIENTE</span>
+        <h3>PRONTO PARA<br>NOVOS CONTEÚDOS.</h3>
+        <p>Sua equipe recebe acesso ao acervo preparado, pronto para servir de base a conteúdos para as mídias sociais.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ===================== DEMO INTERATIVA (conteúdo da demo — pendência) ===================== -->
-<section class="hub-demo" aria-label="Demonstração interativa">
-  <div class="hub-demo__inner">
-    <p class="hub-demo__eyebrow">demonstração</p>
-    <a class="btn btn--primario" href="demo-hub.html">abrir demo interativa</a>
-  </div>
-</section>
-
-<!-- ===================== COMO FUNCIONA (destaque) =====================
-     Ativado por Captação avulsa OU Plano periódico — nunca vendido isolado;
-     linha discreta de exceção para quem quer só a ferramenta. -->
-<section class="hub-como" aria-label="Como funciona">
+<section class="hub-product" id="hub-demonstracao" aria-labelledby="hub-product-title">
   <div class="container">
-    <p class="hub-como__eyebrow">como funciona</p>
-
-    <div class="hub-como__opcoes">
-      <div class="hub-como__opcao">
-        <h3 class="hub-como__opcao-title">diária de captação avulsa</h3>
-      </div>
-      <span class="hub-como__ou">ou</span>
-      <div class="hub-como__opcao">
-        <h3 class="hub-como__opcao-title">plano periódico</h3>
-      </div>
+    <div class="hub-product__intro">
+      <div><p class="hub-eyebrow">O HUB POR DENTRO</p><h2 id="hub-product-title">SEU ACERVO.<br>SEU ESPAÇO DE TRABALHO.</h2></div>
+      <div class="hub-product__intro-copy"><p>Todos os arquivos do acervo são compilados e preparados pela OJU. Você encontra os materiais organizados e conectados ao Google Drive™ para usar em novos projetos.</p><span class="drive-badge"><img src="midia/hub/google-drive.png" alt="" width="24" height="24">Integração com Google Drive</span></div>
     </div>
-
-    <p class="hub-como__text">ativa o hub — quanto maior o compromisso, mais acessível o acesso</p>
-
-    <div class="hub-como__excecao">
-      <a href="mailto:contato@oju.com.br?subject=Interesse%20na%20ferramenta%20OJU%20Hub">interessado só na ferramenta, sem captação ou plano? fale com a gente</a>
+    <div class="hub-console">
+      <div class="hub-console__top"><div class="hub-console__brand"><img src="midia/geral/LOGO_OJU_small.png" alt="OJU" width="34" height="34"><strong>Hub<span> / ambiente da sua empresa</span></strong></div><span class="hub-console__demo">DEMONSTRAÇÃO INTERATIVA</span></div>
+      <div class="hub-console__layout">
+        <aside class="hub-sidebar" aria-label="Navegação da demonstração">
+          <p class="hub-sidebar__label">ESPAÇO DE TRABALHO</p>
+          <div class="hub-app-tabs" role="tablist" aria-label="Explore o Hub" aria-orientation="vertical">
+            <button type="button" role="tab" id="hub-tab-archive" aria-controls="hub-panel-archive" aria-selected="true" tabindex="0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Acervo</span><span class="hub-sidebar__step">01</span></button>
+            <button type="button" role="tab" id="hub-tab-project" aria-controls="hub-panel-project" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg><span>Projeto</span><span class="hub-sidebar__step">02</span></button>
+            <button type="button" role="tab" id="hub-tab-drive" aria-controls="hub-panel-drive" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m10 13 4-4 M8 16l-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0 M13 17a4 4 0 0 0 6 0l4-4a4 4 0 0 0-6-6l-1 1"/></svg><span>Google Drive</span><span class="hub-sidebar__step">03</span></button>
+          </div>
+          <div class="hub-sidebar__bottom"><img src="midia/hub/google-drive.png" alt="" width="24" height="24"><div><strong>Google Drive</strong><span>Arquivos conectados<br>ao seu acervo</span></div></div>
+        </aside>
+        <div class="hub-console__workspace">
+          <section class="hub-app-panel" id="hub-panel-archive" role="tabpanel" aria-labelledby="hub-tab-archive" tabindex="0">
+            <div class="hub-app-heading"><div><p class="hub-breadcrumb">ESPAÇO DE TRABALHO / ACERVO</p><h3>Acervo audiovisual</h3><p>Uma coleção simples, organizada e preparada pela OJU.</p></div><span class="hub-count-pill">3 imagens</span></div>
+            <div class="hub-toolbar"><label class="hub-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span class="hub-sr">Buscar no acervo de demonstração</span><input id="hub-search" type="search" placeholder="Buscar no acervo…" autocomplete="off"></label></div>
+            <div class="hub-archive-meta"><span id="hub-result-count" role="status">3 arquivos encontrados</span><span>Coleção exemplo · Caneca amarela</span></div>
+            <div class="hub-asset-grid" id="hub-assets">
+<label class="hub-asset" data-asset="geral" data-title="Vista geral" data-category="Caneca amarela"><div class="hub-asset__media"><img src="midia/hub/caneca-geral.webp" alt="Ilustração minimalista de uma caneca amarela sobre fundo claro" width="1344" height="752" loading="lazy"><span class="hub-asset__format">Imagem</span><input type="checkbox" value="geral" aria-label="Selecionar Vista geral" checked><span class="hub-asset__check" aria-hidden="true">✓</span></div><div class="hub-asset__info"><strong>Vista geral</strong><span>Caneca amarela<img src="midia/hub/google-drive.png" alt="Google Drive" width="14" height="14"></span></div></label>
+<label class="hub-asset" data-asset="detalhe" data-title="Detalhe" data-category="Caneca amarela"><div class="hub-asset__media"><img src="midia/hub/caneca-detalhe.webp" alt="Detalhe da alça e da borda da caneca amarela" width="1344" height="752" loading="lazy"><span class="hub-asset__format">Imagem</span><input type="checkbox" value="detalhe" aria-label="Selecionar Detalhe"><span class="hub-asset__check" aria-hidden="true">✓</span></div><div class="hub-asset__info"><strong>Detalhe</strong><span>Caneca amarela<img src="midia/hub/google-drive.png" alt="Google Drive" width="14" height="14"></span></div></label>
+<label class="hub-asset" data-asset="contexto" data-title="Em contexto" data-category="Caneca amarela"><div class="hub-asset__media"><img src="midia/hub/caneca-contexto.webp" alt="Caneca amarela junto a um caderno branco" width="1344" height="752" loading="lazy"><span class="hub-asset__format">Imagem</span><input type="checkbox" value="contexto" aria-label="Selecionar Em contexto" checked><span class="hub-asset__check" aria-hidden="true">✓</span></div><div class="hub-asset__info"><strong>Em contexto</strong><span>Caneca amarela<img src="midia/hub/google-drive.png" alt="Google Drive" width="14" height="14"></span></div></label></div>
+            <p class="hub-empty" id="hub-empty" hidden>Nenhum material encontrado. Busque por vista geral, detalhe ou contexto.</p>
+            <div class="hub-curation"><span class="hub-curation__mark" aria-hidden="true">✓</span><div><strong>CURADORIA E PREPARAÇÃO OJU</strong><p>Compilamos os arquivos, organizamos as informações e deixamos o acervo pronto para a sua equipe usar.</p></div></div>
+            <div class="hub-selection-bar"><span><strong id="hub-selection-count" aria-live="polite">2 selecionados</strong><small>para a apresentação da caneca</small></span><button type="button" id="hub-open-project">VER NO PROJETO <span aria-hidden="true">→</span></button></div>
+          </section>
+          <section class="hub-app-panel" id="hub-panel-project" role="tabpanel" aria-labelledby="hub-tab-project" tabindex="0" hidden>
+            <div class="hub-app-heading"><div><p class="hub-breadcrumb">ESPAÇO DE TRABALHO / PROJETOS</p><h3>Apresentação da caneca</h3><p>Um projeto de exemplo já preenchido com imagens do acervo preparado pela OJU.</p></div><span class="hub-count-pill">Projeto exemplo</span></div>
+            <div class="hub-project-location"><img src="midia/hub/google-drive.png" alt="" width="20" height="20"><span>Google Drive / Projetos / Apresentação da caneca</span></div>
+            <div class="hub-project-section"><div class="hub-panel-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg><h4>Acervo selecionado</h4><span id="hub-project-count">2 arquivos</span></div><div class="hub-project-assets" id="hub-project-assets"></div><div class="hub-project-empty" id="hub-project-empty"><p>Sua seleção aparece aqui.</p><span>Volte ao acervo e escolha imagens para experimentar o fluxo.</span><button type="button" data-hub-view="archive">SELECIONAR NO ACERVO <span aria-hidden="true">→</span></button></div></div>
+            <div class="hub-project-section"><div class="hub-panel-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg><h4>Roteiro e documentos</h4><span>Exemplos</span></div><div class="hub-doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H5v18h14V8Z M14 3v6h5 M8 13h8 M8 17h5"/></svg><div><strong>Briefing da produção</strong><span>Apresentar a caneca em uma peça simples</span></div><span>PDF</span></div><div class="hub-doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H5v18h14V8Z M14 3v6h5 M8 13h8 M8 17h5"/></svg><div><strong>Roteiro da apresentação</strong><span>Vista geral do produto → imagem em contexto</span></div><span>DOC</span></div><div class="hub-doc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H5v18h14V8Z M14 3v6h5 M8 13h8 M8 17h5"/></svg><div><strong>Referências visuais</strong><span>Fundo claro, poucos elementos e destaque para o produto</span></div><span>PDF</span></div></div>
+            <div class="hub-project-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg><p>As imagens escolhidas no acervo aparecem neste projeto. Você pode trocar a seleção e ver a organização mudar.</p></div>
+          </section>
+          <section class="hub-app-panel" id="hub-panel-drive" role="tabpanel" aria-labelledby="hub-tab-drive" tabindex="0" hidden>
+            <div class="hub-app-heading"><div><p class="hub-breadcrumb">ESPAÇO DE TRABALHO / INTEGRAÇÃO</p><h3>Conectado ao Google Drive</h3><p>Seus arquivos no Drive. A organização e o contexto no Hub.</p></div></div>
+            <div class="hub-drive-connection"><div class="hub-drive-node"><img src="midia/hub/google-drive.png" alt="Google Drive" width="48" height="48"><strong>Google Drive</strong><span>Arquivos e pastas</span></div><div class="hub-connection-line"><span>INTEGRAÇÃO</span><i aria-hidden="true"></i></div><div class="hub-drive-node"><img src="midia/geral/LOGO_OJU_small.png" alt="OJU" width="58" height="58"><strong>OJU Hub</strong><span>Acervo e projetos</span></div></div>
+            <div class="hub-drive-explain"><article><span>01 / ACERVO</span><h4>Consulte os arquivos.<br>Preserve os originais.</h4><p>A OJU reúne e prepara os materiais do acervo. O Hub consulta os arquivos no Drive e apresenta a organização feita pela nossa equipe.</p></article><article><span>02 / PROJETO</span><h4>Reúna as cópias.<br>Prepare a produção.</h4><p>Os materiais selecionados podem ser copiados para a pasta do projeto, junto aos roteiros e documentos de trabalho.</p></article></div>
+            <div class="hub-drive-tree"><div class="hub-panel-label"><img src="midia/hub/google-drive.png" alt="" width="20" height="20"><h4>Estrutura de um projeto no Drive</h4><span>Exemplo</span></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg><strong>APRESENTAÇÃO DA CANECA</strong><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg> Acervo selecionado</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg> Roteiro e documentos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7V5a1 1 0 0 1 1-1h6l2 3h8a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/></svg> Material da produção</li></ul></li></ul></div>
+          </section>
+        </div>
+      </div>
+      <div class="hub-console__status"><span>Acervo → Projeto → Produção</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== ESCALA DE USO ===================== -->
-<section class="hub-escala" aria-label="Escala de uso">
-  <div class="container">
-    <p class="hub-escala__text">de uma empresa pequena organizando seu primeiro banco de imagens, até uma conta grande com anos de material acumulado <span class="hub-escala__dash">—</span> a mesma estrutura, em escalas diferentes</p>
+    <div class="hub-product__caption"><p>Um produto, três imagens e um projeto já preenchido. Experimente mudar a seleção para ver como o acervo preparado pela OJU ajuda a iniciar uma nova produção.</p><a href="demo-hub.html" class="hub-text-link">Explorar o portal demo <span aria-hidden="true">↗</span></a></div>
+    <p class="hub-brand-credit">Google Drive é uma marca do Google LLC.</p>
+    <noscript><p class="hub-body">Ative o JavaScript para experimentar o painel ou <a href="demo-hub.html">acesse o portal de demonstração</a>.</p></noscript>
   </div>
 </section>
 
@@ -237,8 +320,8 @@ a{ color:inherit; text-decoration:none; }
       <div class="reveal-footer__lead">
         <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
         <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
-        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
-        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+        <a class="reveal-footer__cta" href="mailto:oju@ojufilmes.com?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a></p>
       </div>
 
       <nav class="reveal-footer__col" aria-label="Áreas">
@@ -251,16 +334,16 @@ a{ color:inherit; text-decoration:none; }
 
       <nav class="reveal-footer__col" aria-label="Redes sociais">
         <p class="reveal-footer__col-title">Redes</p>
-        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+
+
+        <a href="https://vimeo.com/user43019673" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+
       </nav>
 
       <div class="reveal-footer__col">
         <p class="reveal-footer__col-title">Contato</p>
-        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
-        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a>
+
         <p class="reveal-footer__addr">São Paulo · Brasil</p>
       </div>
     </div>
@@ -270,7 +353,7 @@ a{ color:inherit; text-decoration:none; }
     <div class="reveal-footer__bottom">
       <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
       <div class="reveal-footer__bottom-right">
-        <a href="privacidade.html">Política de privacidade</a>
+
         <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
       </div>
     </div>
@@ -385,288 +468,6 @@ a{ color:inherit; text-decoration:none; }
   }
   .site-nav.menu-open .nav-link::after{ bottom: -6px; }
 }
-
-/* ===================== HERO (sem vídeo — texto sobre fundo bege) ===================== */
-.hero{
-  position: relative;
-  width: 100%;
-  min-height: calc(100vh - 64px);
-  min-height: calc(100svh - 64px);
-  margin-top: 64px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  background: #f0ede8;
-}
-.hero__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.45);
-  margin: 0 0 clamp(18px, 2.6vh, 32px);
-  font-family: var(--font-body);
-}
-.hero__subtitle{
-  font-size: clamp(14px, 1.15vw, 17px);
-  line-height: 1.55;
-  color: rgba(0,0,0,.55);
-  max-width: 42ch;
-  margin: clamp(16px, 2.2vh, 26px) 0 0;
-}
-.hub-hero__content{
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: clamp(60px, 10vh, 100px);
-  width: 100%;
-}
-.hub-hero__title{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--tipo-display);
-  line-height: .92;
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  color: #000;
-  max-width: 14ch;
-  margin: 0;
-}
-.hub-hero__dot{ color: var(--cor-destaque); }
-.hub-hero__subtitle{ max-width: 36ch; }
-
-/* ===================== O PROBLEMA QUE RESOLVE ===================== */
-.hub-problema{
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  padding-block: clamp(64px, 9vw, 110px);
-  background: var(--cor-fundo-primario);
-}
-.hub-problema__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  margin: 0 0 clamp(14px, 1.8vw, 20px);
-}
-.hub-problema__title{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--tipo-titulo-1);
-  line-height: 1.02;
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  max-width: 20ch;
-  margin: 0 0 clamp(18px, 2.4vw, 28px);
-}
-.hub-problema__text{
-  font-size: clamp(15px, 1.35vw, 19px);
-  line-height: 1.55;
-  color: rgba(0,0,0,.65);
-  max-width: 56ch;
-  margin: 0;
-}
-
-/* ===================== O QUE ISSO PERMITE ===================== */
-.hub-permite{
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  padding-block: clamp(64px, 9vw, 110px);
-  background: var(--cor-fundo-primario);
-}
-.hub-permite__grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: rgba(0,0,0,.1);
-  margin-bottom: clamp(40px, 6vw, 72px);
-}
-.hub-permite__item{
-  background: var(--cor-fundo-secundario);
-  padding: clamp(28px, 3.4vw, 44px) clamp(20px, 2.4vw, 30px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.hub-permite__item h3{
-  font-size: clamp(20px, 2.3vw, 32px);
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-@media (max-width: 760px){
-  .hub-permite__grid{ grid-template-columns: 1fr; }
-}
-
-/* Placeholder de vídeo — mesma linguagem visual do .hero__player
-   (moldura fina, frame 16:9 escuro, legenda em mono abaixo). */
-.hub-video{
-  border: 1px solid var(--cor-borda);
-  background: #0a0a0a;
-}
-.hub-video__frame{
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 14px;
-}
-.hub-video__play{
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hub-video__play-tri{
-  width: 0; height: 0;
-  border-top: 11px solid transparent;
-  border-bottom: 11px solid transparent;
-  border-left: 18px solid #fff;
-  margin-left: 4px;
-}
-.hub-video__label{
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 10.5px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-}
-.hub-video__caption{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: #fff;
-  border-top: 1px solid rgba(0,0,0,.08);
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 9.5px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--cor-texto-terciario);
-}
-.hub-video__caption strong{ font-weight: 400; color: #000; }
-
-/* ===================== DEMO INTERATIVA ===================== */
-.hub-demo{
-  padding-block: clamp(64px, 9vw, 110px);
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  background: var(--cor-fundo-primario);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hub-demo__inner{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(16px, 2vw, 22px);
-  text-align: center;
-}
-.hub-demo__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  margin: 0;
-}
-
-/* ===================== COMO FUNCIONA (destaque) ===================== */
-.hub-como{
-  padding-block: clamp(72px, 10vw, 130px);
-  background: var(--cor-fundo-secundario);
-}
-.hub-como__eyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.4);
-  margin: 0 0 clamp(28px, 3.6vw, 40px);
-  text-align: center;
-}
-.hub-como__opcoes{
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: clamp(20px, 3vw, 40px);
-  flex-wrap: wrap;
-  margin-bottom: clamp(28px, 3.6vw, 40px);
-}
-.hub-como__opcao{
-  flex: 1 1 320px;
-  max-width: 420px;
-  border: 1px solid var(--cor-borda);
-  background: #fff;
-  padding: clamp(28px, 3.2vw, 44px) clamp(22px, 2.6vw, 32px);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hub-como__opcao-title{
-  font-size: var(--tipo-titulo-3);
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  line-height: 1.1;
-}
-.hub-como__ou{
-  flex: 0 0 auto;
-  align-self: center;
-  font-size: clamp(14px, 1.2vw, 17px);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.45);
-}
-.hub-como__text{
-  text-align: center;
-  font-size: clamp(15px, 1.4vw, 20px);
-  line-height: 1.5;
-  color: rgba(0,0,0,.7);
-  max-width: 52ch;
-  margin: 0 auto clamp(36px, 4.6vw, 56px);
-}
-.hub-como__excecao{
-  border-top: 1px dashed rgba(0,0,0,.3);
-  padding-top: clamp(18px, 2.2vw, 26px);
-  text-align: center;
-}
-.hub-como__excecao a{
-  font-size: 13px;
-  color: rgba(0,0,0,.55);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color .2s ease;
-}
-.hub-como__excecao a:hover{ color: var(--cor-destaque); }
-
-/* ===================== ESCALA DE USO ===================== */
-.hub-escala{
-  padding-block: clamp(72px, 10vw, 130px);
-  border-bottom: 1px solid rgba(0,0,0,.08);
-  background: var(--cor-fundo-primario);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hub-escala__text{
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--tipo-titulo-2);
-  line-height: 1.15;
-  letter-spacing: -.01em;
-  text-transform: uppercase;
-  color: #000;
-}
-.hub-escala__dash{ color: var(--cor-destaque); }
 
 /* ===================== AGENDAMENTO (Cal.com — mesmo padrão do agencia.html/producao.html) ===================== */
 .agenda-section{
@@ -960,6 +761,7 @@ a{ color:inherit; text-decoration:none; }
   requestAnimationFrame(footerLoop);
   window.addEventListener('resize', measureFooter, { passive: true });
   window.addEventListener('load',   initFooter);
+  if (window.ResizeObserver && shell) new ResizeObserver(measureFooter).observe(shell);
 
   /* --- CTAs que revelam o footer (rolam até o fim da página) --- */
   function revealFooter(){

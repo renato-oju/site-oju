@@ -1,0 +1,10 @@
+# Serve the approved portal at the domain root.
+DirectoryIndex index-portal.html index.html
+Options -Indexes
+
+# Keep repository metadata and internal reference files off the public website.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+  RewriteRule ^(?:CLAUDE\.md|AGENTS\.md|oju-design-system\.md|serve\.py)$ - [F,L,NC]
+</IfModule>

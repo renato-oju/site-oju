@@ -676,35 +676,35 @@ body::before{
       <div class="login-card__header">
         <div class="login-card__eyebrow">Acesso</div>
         <h2 class="login-card__title">Entrar no portal</h2>
-        <p class="login-card__sub">Acompanhe entregas, aprove materiais e converse com o seu time OJU.</p>
+        <p class="login-card__sub">Em breve: um espaço para acompanhar suas entregas. Por enquanto, fale diretamente com a OJU.</p>
       </div>
 
-      <form onsubmit="event.preventDefault();" autocomplete="off">
+      <form onsubmit="event.preventDefault();" autocomplete="off" aria-label="Acesso ao portal em breve">
 
         <div class="login-field">
           <label for="portal-email">E-mail</label>
-          <input type="email" id="portal-email" name="email" placeholder="voce@empresa.com">
+          <input type="email" id="portal-email" name="email" disabled placeholder="voce@empresa.com">
         </div>
 
         <div class="login-field">
           <label for="portal-senha">Senha</label>
-          <input type="password" id="portal-senha" name="senha" placeholder="••••••••">
+          <input type="password" id="portal-senha" name="senha" disabled placeholder="••••••••">
         </div>
 
         <div class="login-row">
           <label class="login-remember">
-            <input type="checkbox" name="lembrar">
+            <input type="checkbox" name="lembrar" disabled>
             <span class="login-check"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
             Lembrar de mim
           </label>
-          <a class="login-forgot" href="#">Esqueceu a senha?</a>
+          <a class="login-forgot" href="mailto:oju@ojufilmes.com">Fale com a OJU</a>
         </div>
 
-        <button type="submit" class="btn btn--primary"><span>Entrar</span></button>
+        <button type="submit" class="btn btn--primary" disabled><span>Em breve</span></button>
 
         <div class="login-divider">ou</div>
 
-        <button type="button" class="btn btn--google">
+        <button type="button" class="btn btn--google" disabled>
           <span>
             <svg width="18" height="18" viewBox="0 0 18 18">
               <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/>
@@ -719,12 +719,12 @@ body::before{
       </form>
 
       <div class="login-footer">
-        Ainda não tem acesso? <a href="#">Fale com a gente</a>
+        Ainda não tem acesso? <a href="mailto:oju@ojufilmes.com">Fale com a gente</a>
       </div>
 
       <div class="login-secure">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-        Conexão segura · OJU
+        Área do cliente · Em preparação
       </div>
 
     </div>
@@ -746,8 +746,8 @@ body::before{
       <div class="reveal-footer__lead">
         <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
         <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
-        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
-        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+        <a class="reveal-footer__cta" href="mailto:oju@ojufilmes.com?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a></p>
       </div>
 
       <nav class="reveal-footer__col" aria-label="Áreas">
@@ -760,16 +760,16 @@ body::before{
 
       <nav class="reveal-footer__col" aria-label="Redes sociais">
         <p class="reveal-footer__col-title">Redes</p>
-        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+
+
+        <a href="https://vimeo.com/user43019673" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+
       </nav>
 
       <div class="reveal-footer__col">
         <p class="reveal-footer__col-title">Contato</p>
-        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
-        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a>
+
         <p class="reveal-footer__addr">São Paulo · Brasil</p>
       </div>
     </div>
@@ -779,7 +779,7 @@ body::before{
     <div class="reveal-footer__bottom">
       <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
       <div class="reveal-footer__bottom-right">
-        <a href="privacidade.html">Política de privacidade</a>
+
         <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
       </div>
     </div>

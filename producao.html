@@ -138,30 +138,18 @@ a{ color:inherit; text-decoration:none; }
   </div>
 </section>
 
-<!-- ===================== DUAS CAPACIDADES CENTRAIS =====================
-     Seção independente logo após o hero (antes vivia incorporada ao hero). -->
-<section class="prod-capacidades" aria-label="Nossa estrutura">
+<!-- ===================== CRIAÇÃO COM IA GENERATIVA ===================== -->
+<section class="prod-ia" id="somos-hibridos" aria-labelledby="prod-ia-title">
   <div class="container">
-    <div class="prod-capacidades__header">
-      <h2 class="prod-capacidades__title">Somos híbridos</h2>
-      <p class="prod-capacidades__intro">Captação real e geração por IA não competem: se complementam.</p>
-    </div>
-    <div class="prod-capacidades__split">
-      <div class="prod-capacidades__col">
-        <div class="prod-capacidades__frame">
-          <img src="midia/producao/captacao-aerea.jpg" alt="Imagem aérea de rodovias captada com drone" loading="lazy">
-        </div>
-        <h3 class="prod-capacidades__col-title">Live Action</h3>
-        <p class="prod-capacidades__col-text">Equipamento, estúdio e equipe prontos do início ao fim: da captação à pós-produção, com tudo que seu conteúdo precisa pra sair do papel.</p>
+    <div class="prod-ia__intro">
+      <div class="prod-ia__copy">
+        <h2 class="prod-ia__title" id="prod-ia-title">IA GENERATIVA</h2>
+        <p>Também criamos com IA: exploramos conceitos visuais, desenvolvemos cenas e experimentamos composições. Mais possibilidades de criação, com direção e acabamento da OJU.</p>
       </div>
-
-      <div class="prod-capacidades__divider" aria-hidden="true"></div>
-
-      <div class="prod-capacidades__col">
-        <div class="prod-capacidades__frame"></div>
-        <h3 class="prod-capacidades__col-title">IA Generativa</h3>
-        <p class="prod-capacidades__col-text">De olho nas últimas plataformas e tendências de IA, sempre atualizadas, para compor e acelerar cada entrega.</p>
-      </div>
+      <video class="prod-ia__video" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" aria-label="Vídeo de criação com IA generativa da OJU">
+        <source src="midia/producao/ia-generativa.mp4" type="video/mp4">
+        <a href="midia/producao/ia-generativa.mp4">Assistir ao vídeo de IA generativa</a>
+      </video>
     </div>
   </div>
 </section>
@@ -219,7 +207,7 @@ a{ color:inherit; text-decoration:none; }
         </figure>
         <div class="prod-metodo__passo-info">
           <h3 class="prod-metodo__passo-titulo">Hub</h3>
-          <p class="prod-metodo__passo-texto">Depois de produzido, o material vira acervo: o OJU Hub organiza e cataloga cada entrega, pronta pra virar conteúdo sempre que sua marca precisar.</p>
+          <p class="prod-metodo__passo-texto">Nós selecionamos, preparamos e organizamos o material produzido no OJU Hub. Um acervo pronto para sua equipe encontrar e usar em novos conteúdos.</p>
           <a class="prod-metodo__passo-link" href="hub.html">Visitar Hub <span aria-hidden="true">↗</span></a>
         </div>
       </div>
@@ -237,116 +225,94 @@ a{ color:inherit; text-decoration:none; }
   </div>
 </section>
 
-<!-- ===================== PORTFÓLIO =====================
-     Frames reais de trabalhos entregues (acervo do site antigo).
-     Links dos vídeos completos (YouTube/Vimeo) a definir — por ora
-     os cards são estáticos. -->
-<section class="prod-portfolio" aria-label="Portfólio">
+<!-- ===================== PORTFÓLIO ===================== -->
+<section class="prod-portfolio" id="portfolio" aria-label="Portfólio">
   <div class="container">
     <div class="prod-portfolio__header">
       <h2 class="prod-portfolio__title">PORTFÓLIO</h2>
+      <p class="prod-portfolio__intro">Histórias, marcas e diferentes formas de comunicar.</p>
     </div>
-
-    <!-- Menu do portfólio: "Geral" mostra o acervo atual (cases + mosaico);
-         as demais abas filtram por frente, com mosaico de vídeos próprio
-         (placeholders por enquanto). Mesmo padrão de aba de "O que fazemos". -->
-    <div class="prod-portfolio__menu" role="tablist" aria-label="Filtrar portfólio">
-      <button class="prod-portfolio__menu-item is-active" type="button" role="tab" aria-selected="true" aria-controls="portfolio-geral" data-target="portfolio-geral">
-        <span class="prod-portfolio__menu-name">Geral</span>
-      </button>
-      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-podcast" data-target="portfolio-podcast">
-        <span class="prod-portfolio__menu-name">Podcast</span>
-      </button>
-      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-midias-sociais" data-target="portfolio-midias-sociais">
-        <span class="prod-portfolio__menu-name">Mídias Sociais</span>
-      </button>
-      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-comunicacao-interna" data-target="portfolio-comunicacao-interna">
-        <span class="prod-portfolio__menu-name">Comunicação Interna</span>
-      </button>
-      <button class="prod-portfolio__menu-item" type="button" role="tab" aria-selected="false" aria-controls="portfolio-produto" data-target="portfolio-produto">
-        <span class="prod-portfolio__menu-name">Produto</span>
-      </button>
-    </div>
-
-    <div class="prod-portfolio__panels">
-
-      <div class="prod-portfolio__panel" id="portfolio-geral" role="tabpanel">
-        <!-- Mural de cases (página Cases do site antigo): mesma estrutura de
-             conteúdo de lá — cliente + categoria + vídeo — em faixas finas
-             horizontais, 2 colunas × 2 linhas, acima do mosaico. -->
-        <p class="prod-portfolio__subeyebrow">cases</p>
-        <div class="prod-cases" role="list">
-          <div class="prod-case" role="listitem">
-            <div class="prod-case__video">
-              <iframe src="https://www.youtube.com/embed/j4I36zlsB0c" title="Case Brevant Sementes — web série" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <div class="prod-case__text">
-              <p class="prod-case__cat">web série</p>
-              <h3 class="prod-case__client">BREVANT SEMENTES</h3>
-            </div>
-          </div>
-          <div class="prod-case" role="listitem">
-            <div class="prod-case__video">
-              <iframe src="https://www.youtube.com/embed/vB3pBQFcokg" title="Case Ambev — comunicação interna" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <div class="prod-case__text">
-              <p class="prod-case__cat">comunicação interna</p>
-              <h3 class="prod-case__client">AMBEV</h3>
-            </div>
-          </div>
-          <div class="prod-case" role="listitem">
-            <div class="prod-case__video">
-              <iframe src="https://www.youtube.com/embed/U0OY34pF2jc" title="Case Jadlog — vídeos para mídias sociais" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <div class="prod-case__text">
-              <p class="prod-case__cat">vídeos para mídias sociais</p>
-              <h3 class="prod-case__client">JADLOG</h3>
-            </div>
-          </div>
-          <div class="prod-case" role="listitem">
-            <div class="prod-case__video">
-              <iframe src="https://player.vimeo.com/video/743552615" title="Case Raízen — comunicação interna" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <div class="prod-case__text">
-              <p class="prod-case__cat">comunicação interna</p>
-              <h3 class="prod-case__client">RAÍZEN</h3>
-            </div>
-          </div>
+    <h3 class="prod-portfolio__group-title">Cases</h3>
+    <div class="prod-cases">
+      <article class="prod-case">
+        <button class="prod-case__video" type="button" data-video-open="j4I36zlsB0c" data-video-provider="youtube" data-video-title="Brevant Sementes" aria-label="Assistir case Brevant Sementes">
+          <img src="https://i.ytimg.com/vi/j4I36zlsB0c/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720">
+          <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir case</span>
+        </button>
+        <div class="prod-case__text">
+          <h3 class="prod-case__client">Brevant Sementes</h3>
+          <p class="prod-case__cat">Websérie</p>
         </div>
-
-        <p class="prod-portfolio__subeyebrow">trabalhos selecionados</p>
+      </article>
+      <article class="prod-case">
+        <button class="prod-case__video" type="button" data-video-open="vB3pBQFcokg" data-video-provider="youtube" data-video-title="Ambev" aria-label="Assistir case Ambev">
+          <img src="https://i.ytimg.com/vi/vB3pBQFcokg/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720">
+          <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir case</span>
+        </button>
+        <div class="prod-case__text">
+          <h3 class="prod-case__client">Ambev</h3>
+          <p class="prod-case__cat">Comunicação interna</p>
+        </div>
+      </article>
+      <article class="prod-case">
+        <button class="prod-case__video" type="button" data-video-open="U0OY34pF2jc" data-video-provider="youtube" data-video-title="Jadlog" aria-label="Assistir case Jadlog">
+          <img src="https://i.ytimg.com/vi/U0OY34pF2jc/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720">
+          <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir case</span>
+        </button>
+        <div class="prod-case__text">
+          <h3 class="prod-case__client">Jadlog</h3>
+          <p class="prod-case__cat">Mídias sociais</p>
+        </div>
+      </article>
+      <article class="prod-case">
+        <button class="prod-case__video" type="button" data-video-open="743552615" data-video-provider="vimeo" data-video-title="Raízen" aria-label="Assistir case Raízen">
+          <img src="https://i.vimeocdn.com/video/1495785264-c80f1979551613b796bc476a60c7924223ee48b0307d5dc45004c4f3b6ea1029-d_1280?region=us" alt="" loading="lazy" width="1280" height="720">
+          <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir case</span>
+        </button>
+        <div class="prod-case__text">
+          <h3 class="prod-case__client">Raízen</h3>
+          <p class="prod-case__cat">Comunicação interna</p>
+        </div>
+      </article>
+    </div>
+    <div class="prod-portfolio__selection">
+      <h3 class="prod-portfolio__group-title">Filmes e campanhas</h3>
         <div class="prod-portfolio__grid" role="list">
           <div class="prod-portfolio__item" role="listitem">
-            <div class="prod-portfolio__frame">
+            <button class="prod-portfolio__frame prod-case__video" type="button" data-video-open="521064919" data-video-provider="vimeo" data-video-title="Klabin — campanha de Natal" aria-label="Assistir Klabin — campanha de Natal">
               <img src="midia/producao/portfolio-klabin-natal.jpg" alt="Papai Noel em campanha de Natal da Klabin" loading="lazy">
-            </div>
+              <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir vídeo</span>
+            </button>
             <div class="prod-portfolio__caption">
               <strong>Klabin</strong>
               <span>campanha de natal</span>
             </div>
           </div>
           <div class="prod-portfolio__item" role="listitem">
-            <div class="prod-portfolio__frame">
+            <button class="prod-portfolio__frame prod-case__video" type="button" data-video-open="569555313" data-video-provider="vimeo" data-video-title="Jadlog — campanha" aria-label="Assistir Jadlog — campanha">
               <img src="midia/producao/portfolio-jadlog.jpg" alt="Entregador em campanha da Jadlog" loading="lazy">
-            </div>
+              <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir vídeo</span>
+            </button>
             <div class="prod-portfolio__caption">
               <strong>Jadlog</strong>
               <span>campanha</span>
             </div>
           </div>
           <div class="prod-portfolio__item" role="listitem">
-            <div class="prod-portfolio__frame">
+            <button class="prod-portfolio__frame prod-case__video" type="button" data-video-open="465819421" data-video-provider="vimeo" data-video-title="Serramar — branded content" aria-label="Assistir Serramar — branded content">
               <img src="midia/producao/portfolio-serramar.jpg" alt="Carros elétricos no Serramar Parque Shopping" loading="lazy">
-            </div>
+              <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir vídeo</span>
+            </button>
             <div class="prod-portfolio__caption">
               <strong>Serramar</strong>
               <span>branded content</span>
             </div>
           </div>
           <div class="prod-portfolio__item" role="listitem">
-            <div class="prod-portfolio__frame">
+            <button class="prod-portfolio__frame prod-case__video" type="button" data-video-open="361391828" data-video-provider="vimeo" data-video-title="3 Corações + Alok" aria-label="Assistir 3 Corações + Alok">
               <img src="midia/producao/portfolio-3coracoes-alok.jpg" alt="Alok em campanha da 3 Corações" loading="lazy">
-            </div>
+              <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir vídeo</span>
+            </button>
             <div class="prod-portfolio__caption">
               <strong>3 Corações + Alok</strong>
               <span>campanha</span>
@@ -362,61 +328,16 @@ a{ color:inherit; text-decoration:none; }
             </div>
           </div>
           <div class="prod-portfolio__item" role="listitem">
-            <div class="prod-portfolio__frame">
+            <button class="prod-portfolio__frame prod-case__video" type="button" data-video-open="461798282" data-video-provider="vimeo" data-video-title="Animação — motion graphics" aria-label="Assistir Animação — motion graphics">
               <img src="midia/producao/portfolio-motion.jpg" alt="Animação em motion graphics com cadeado e correntes" loading="lazy">
-            </div>
+              <span class="prod-case__play" aria-hidden="true"><span>▶</span> Assistir vídeo</span>
+            </button>
             <div class="prod-portfolio__caption">
               <strong>Animação</strong>
               <span>motion graphics</span>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="prod-portfolio__panel" id="portfolio-podcast" role="tabpanel" hidden>
-        <div class="prod-portfolio__mosaico" role="list">
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-        </div>
-      </div>
-
-      <div class="prod-portfolio__panel" id="portfolio-midias-sociais" role="tabpanel" hidden>
-        <div class="prod-portfolio__mosaico" role="list">
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-        </div>
-      </div>
-
-      <div class="prod-portfolio__panel" id="portfolio-comunicacao-interna" role="tabpanel" hidden>
-        <div class="prod-portfolio__mosaico" role="list">
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-        </div>
-      </div>
-
-      <div class="prod-portfolio__panel" id="portfolio-produto" role="tabpanel" hidden>
-        <div class="prod-portfolio__mosaico" role="list">
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-          <div class="prod-portfolio__placeholder" role="listitem"><span class="prod-portfolio__placeholder-play"></span></div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -428,8 +349,7 @@ a{ color:inherit; text-decoration:none; }
     <h2 class="prod-planos__title">ESCOLHA O RITMO DA SUA PRODUÇÃO</h2>
     <p class="prod-planos__text">Do vídeo avulso ao calendário fechado pro ano inteiro.<br>Monte um plano que acompanha o volume que você precisa produzir.</p>
     <div class="prod-planos__cta">
-      <a class="btn btn--primario" href="orcamento.html">SIMULE SEU ORÇAMENTO</a>
-      <p class="prod-planos__alt">Prefere conversar antes? <button type="button" class="prod-planos__alt-link" data-action="ir-agenda">Agende um papo de 30 minutos.</button></p>
+      <a class="btn btn--primario" href="#agenda-producao" data-action="ir-agenda">AGENDE UMA CONVERSA</a>
     </div>
   </div>
 </section>
@@ -482,8 +402,8 @@ a{ color:inherit; text-decoration:none; }
       <div class="reveal-footer__lead">
         <h2 class="reveal-footer__title">VAMOS CRIAR<br>JUNTOS<span class="reveal-footer__dot">.</span></h2>
         <p class="reveal-footer__text">Conta o que você imagina. A gente une criação, estratégia e produção no mesmo lugar — do conceito à entrega, sem agência tradicional no meio.</p>
-        <a class="reveal-footer__cta" href="mailto:contato@oju.com.br?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
-        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:contato@oju.com.br">contato@oju.com.br</a></p>
+        <a class="reveal-footer__cta" href="mailto:oju@ojufilmes.com?subject=Quero%20agendar%20uma%20conversa" data-action="agendar-cal">Agendar conversa <span aria-hidden="true">→</span></a>
+        <p class="reveal-footer__alt">Prefere direto? <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a></p>
       </div>
 
       <nav class="reveal-footer__col" aria-label="Áreas">
@@ -496,16 +416,16 @@ a{ color:inherit; text-decoration:none; }
 
       <nav class="reveal-footer__col" aria-label="Redes sociais">
         <p class="reveal-footer__col-title">Redes</p>
-        <a href="#" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">YouTube <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+
+
+        <a href="https://vimeo.com/user43019673" target="_blank" rel="noopener">Vimeo <span aria-hidden="true">↗</span></a>
+
       </nav>
 
       <div class="reveal-footer__col">
         <p class="reveal-footer__col-title">Contato</p>
-        <a href="mailto:contato@oju.com.br">contato@oju.com.br</a>
-        <a href="https://wa.me/5511000000000" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a>
+        <a href="mailto:oju@ojufilmes.com">oju@ojufilmes.com</a>
+
         <p class="reveal-footer__addr">São Paulo · Brasil</p>
       </div>
     </div>
@@ -515,7 +435,7 @@ a{ color:inherit; text-decoration:none; }
     <div class="reveal-footer__bottom">
       <p class="reveal-footer__copy">© OJU 2026 — Todos os direitos reservados</p>
       <div class="reveal-footer__bottom-right">
-        <a href="privacidade.html">Política de privacidade</a>
+
         <button class="reveal-footer__totop" type="button" data-action="totop">Voltar ao topo <span aria-hidden="true">↑</span></button>
       </div>
     </div>
@@ -524,13 +444,13 @@ a{ color:inherit; text-decoration:none; }
 </footer>
 
 <!-- ===================== LIGHTBOX (vídeo em popup) ===================== -->
-<div class="video-lightbox" id="video-lightbox" aria-hidden="true">
+<dialog class="video-lightbox" id="video-lightbox" aria-label="Vídeo OJU">
   <div class="video-lightbox__backdrop" data-video-close></div>
   <button class="video-lightbox__close" type="button" aria-label="Fechar" data-video-close>&times;</button>
   <div class="video-lightbox__frame">
     <iframe class="video-lightbox__iframe" id="video-lightbox-iframe" src="" title="Video Reel OJU Produção" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </div>
-</div>
+</dialog>
 
 <style>
 
@@ -789,78 +709,49 @@ a{ color:inherit; text-decoration:none; }
   color: #000;
 }
 
-/* ===================== DUAS CAPACIDADES CENTRAIS ===================== */
-.prod-capacidades{
-  border-bottom: 1px solid rgba(0,0,0,.08);
+/* ===================== CRIAÇÃO COM IA GENERATIVA ===================== */
+.prod-ia{
+  scroll-margin-top: 88px;
   padding-block: clamp(56px, 8vw, 96px);
+  border-bottom: 1px solid rgba(0,0,0,.08);
   background: var(--cor-fundo-primario);
 }
-.prod-capacidades__header{
-  margin-bottom: clamp(32px, 4vw, 48px);
-  text-align: center;
+.prod-ia__intro{
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(28px, 3vw, 44px);
+  max-width: 1040px;
+  margin-inline: auto;
 }
-.prod-capacidades__title{
+.prod-ia__title{
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--tipo-titulo-2);
   letter-spacing: -.03em;
-  text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.05;
+  margin: 0 0 22px;
+}
+.prod-ia__copy{ max-width: 52ch; }
+.prod-ia__copy p{
   margin: 0;
+  font-size: var(--tipo-corpo);
+  line-height: 1.65;
+  color: var(--cor-texto-secundario);
 }
-.prod-capacidades__intro{
-  font-size: clamp(15px, 1.35vw, 19px);
-  line-height: 1.6;
-  color: rgba(0,0,0,.55);
-  max-width: 62ch;
-  margin: clamp(12px, 1.5vw, 18px) auto 0;
-}
-.prod-capacidades__split{
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: start;
-  gap: clamp(32px, 5vw, 64px);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.prod-capacidades__divider{
-  width: 1px;
-  align-self: stretch;
-  background: rgba(0,0,0,.15);
-}
-.prod-capacidades__frame{
+.prod-ia__video{
+  display: block;
   width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
+  height: auto;
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--cor-borda);
-  background: var(--cor-fundo-secundario);
-  margin-bottom: clamp(18px, 2.4vw, 28px);
+  background: #000;
+  object-fit: contain;
 }
-.prod-capacidades__frame img,
-.prod-capacidades__frame video{
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.prod-capacidades__col-title{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(18px, 1.8vw, 24px);
-  text-transform: uppercase;
-  letter-spacing: -.02em;
-  line-height: 1.1;
-  color: #000;
-  margin: 0 0 10px;
-}
-.prod-capacidades__col-text{
-  font-size: clamp(14px, 1.15vw, 17px);
-  color: rgba(0,0,0,.55);
-  line-height: 1.55;
-  margin: 0;
-  max-width: 40ch;
-}
-@media (max-width: 760px){
-  .prod-capacidades__split{ grid-template-columns: 1fr; }
-  .prod-capacidades__divider{ width: 100%; height: 1px; }
+@media(max-width: 700px){
+  .prod-ia__intro{ grid-template-columns: 1fr; gap: 28px; }
+  .prod-ia > .container{ width: calc(100% - 40px); margin-inline: auto; }
+  .prod-ia__intro{ max-width: 520px; }
 }
 
 /* ===================== COMO TRABALHAMOS (MÉTODO EM 3 PASSOS) ===================== */
@@ -979,220 +870,106 @@ a{ color:inherit; text-decoration:none; }
   border-bottom: 1px solid rgba(0,0,0,.08);
   padding-block: clamp(56px, 8vw, 96px);
   background: var(--cor-fundo-primario);
+  scroll-margin-top: 90px;
 }
-.prod-portfolio__header{
-  margin-bottom: clamp(32px, 4vw, 48px);
-}
+.prod-portfolio__header{ margin-bottom: clamp(28px, 4vw, 48px); }
 .prod-portfolio__title{
   font-family: var(--font-display);
   font-weight: 800;
   font-size: var(--tipo-titulo-1);
   letter-spacing: -.03em;
-  text-transform: uppercase;
   line-height: 1;
   margin: 0;
 }
-
-/* Menu do portfólio: mesmo padrão de aba de "O que fazemos" (linha de
-   botões, indicador ativo em âmbar embaixo), agora filtrando o mosaico. */
-.prod-portfolio__menu{
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: clamp(32px, 4vw, 48px);
-  border-top: 1px solid var(--cor-borda);
-  border-bottom: 1px solid var(--cor-borda);
-}
-.prod-portfolio__menu-item{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 1vw, 12px);
-  flex: 1 1 clamp(140px, 20%, 220px);
-  padding: clamp(16px, 1.8vw, 22px) clamp(12px, 1.4vw, 18px);
-  background: #fff;
-  border: none;
-  border-right: 1px solid rgba(0,0,0,.08);
-  border-bottom: 3px solid transparent;
-  font: inherit;
-  text-align: center;
-  cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
-}
-.prod-portfolio__menu-item:last-child{ border-right: none; }
-.prod-portfolio__menu-item:hover{ background: var(--cor-fundo-secundario); }
-.prod-portfolio__menu-item.is-active{
-  background: var(--cor-fundo-secundario);
-  border-bottom-color: var(--cor-destaque);
-}
-.prod-portfolio__menu-name{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(15px, 1.3vw, 18px);
-  text-transform: uppercase;
-  letter-spacing: -.01em;
-  line-height: 1.15;
-  color: rgba(0,0,0,.65);
-  transition: color .2s ease;
-}
-.prod-portfolio__menu-item:hover .prod-portfolio__menu-name,
-.prod-portfolio__menu-item.is-active .prod-portfolio__menu-name{ color: #000; }
-@media (max-width: 700px){
-  .prod-portfolio__menu-item{ flex: 1 1 50%; }
-}
-
-.prod-portfolio__panels{ position: relative; }
-.prod-portfolio__panel[hidden]{ display: none; }
-
-/* Mosaico placeholder das abas por frente (conteúdo real a definir) */
-.prod-portfolio__mosaico{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 2.4vw, 28px);
-}
-.prod-portfolio__placeholder{
-  aspect-ratio: 16/9;
-  border: 1px solid var(--cor-borda);
-  background: var(--cor-fundo-secundario);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.prod-portfolio__placeholder-play{
-  width: clamp(40px, 4vw, 52px);
-  height: clamp(40px, 4vw, 52px);
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.prod-portfolio__placeholder-play::after{
-  content: '';
-  border-style: solid;
-  border-width: 7px 0 7px 11px;
-  border-color: transparent transparent transparent rgba(0,0,0,.3);
-  margin-left: 2px;
-}
-@media (max-width: 900px){
-  .prod-portfolio__mosaico{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px){
-  .prod-portfolio__mosaico{ grid-template-columns: 1fr; }
-}
-
-.prod-portfolio__subeyebrow{
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(0,0,0,.38);
-  margin: 0 0 clamp(12px, 1.5vw, 18px);
-}
-/* Mural de cases: faixas finas horizontais em 2 colunas × 2 linhas.
-   Vídeo embedado à esquerda (player real, YouTube/Vimeo), texto à direita
-   com a mesma estrutura da página Cases antiga (categoria + cliente). */
-.prod-cases{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(18px, 2.4vw, 28px);
-  margin-bottom: clamp(28px, 3.5vw, 44px);
-}
-.prod-case{
-  display: flex;
-  align-items: stretch;
-  border: 1px solid var(--cor-borda);
-  background: #fff;
-}
-.prod-case__video{
-  position: relative;
-  flex: 0 0 clamp(150px, 16vw, 220px);
-  aspect-ratio: 16/9;
-  background: #0a0a0a;
-}
-.prod-case__video iframe{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  border: 0;
-}
-.prod-case__text{
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  padding: clamp(12px, 1.6vw, 20px) clamp(14px, 1.8vw, 22px);
-  border-left: 1px solid rgba(0,0,0,.08);
-}
-.prod-case__cat{
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 9.5px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
+.prod-portfolio__intro{
+  margin: 16px 0 0;
+  font-size: var(--tipo-corpo);
+  line-height: 1.5;
   color: var(--cor-texto-terciario);
-  margin: 0;
 }
-.prod-case__client{
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(15px, 1.4vw, 20px);
-  text-transform: uppercase;
-  letter-spacing: -.01em;
-  line-height: 1.1;
-  color: #000;
-  margin: 0;
-}
-@media (max-width: 900px){
-  .prod-cases{ grid-template-columns: 1fr; }
-}
-
-/* Cards no mesmo padrão do player do Hero: moldura fina, frame escuro,
-   legenda em mono na barra branca abaixo, zoom no hover. */
-.prod-portfolio__grid{
+.prod-portfolio > .container{ max-width: 1200px; }
+.prod-cases, .prod-portfolio__grid{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 2.4vw, 28px);
+  gap: 24px 20px;
 }
-.prod-portfolio__item{
-  border: 1px solid var(--cor-borda);
-  background: #0a0a0a;
+.prod-cases{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.prod-portfolio__grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.prod-portfolio__group-title{
+  margin: 0 0 18px;
+  font: 11px var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--cor-texto-terciario);
 }
-.prod-portfolio__frame{
+.prod-portfolio__selection{
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0,0,0,.15);
+}
+.prod-case, .prod-portfolio__item{ min-width: 0; }
+.prod-case__video, .prod-portfolio__frame{
   position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  border: 1px solid var(--cor-borda);
   background: #0a0a0a;
 }
-.prod-portfolio__frame img{
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
+.prod-case__video img, .prod-portfolio__frame img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
   object-fit: cover;
-  transition: transform .6s ease;
 }
-.prod-portfolio__item:hover .prod-portfolio__frame img{ transform: scale(1.05); }
-.prod-portfolio__caption{
+.prod-case__video{ display: block; width: 100%; padding: 0; cursor: pointer; font: inherit; }
+.prod-case__video img{ transition: transform .35s ease; }
+.prod-case__video:hover img{ transform: scale(1.035); }
+.prod-case__video:focus-visible{ outline: 3px solid var(--cor-destaque); outline-offset: 4px; }
+.prod-case__play{
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 6px;
+  padding: 6px 8px;
   background: #fff;
-  border-top: 1px solid rgba(0,0,0,.08);
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 9.5px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--cor-texto-terciario);
-}
-.prod-portfolio__caption strong{
-  font-weight: 400;
   color: #000;
+  border: 1px solid #000;
+  font-size: 11px;
+  font-weight: 600;
 }
-@media (max-width: 900px){
-  .prod-portfolio__grid{ grid-template-columns: repeat(2, 1fr); }
+.prod-case__play span{ font-size: 10px; }
+.prod-case__video:hover .prod-case__play{ background: var(--cor-destaque); }
+.prod-case__text, .prod-portfolio__caption{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px 0 0;
 }
-@media (max-width: 560px){
-  .prod-portfolio__grid{ grid-template-columns: 1fr; }
+.prod-case__client, .prod-portfolio__caption strong{
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.25vw, 18px);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.prod-case__cat, .prod-portfolio__caption span{
+  margin: 0;
+  font-size: 12px;
+  color: var(--cor-texto-terciario);
+  line-height: 1.4;
+}
+@media (max-width: 700px){
+  .prod-cases, .prod-portfolio__grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px){
+  .prod-cases, .prod-portfolio__grid{ grid-template-columns: 1fr; }
 }
 
 /* ===================== CHAMADA PARA PLANOS DE ASSINATURA ===================== */
@@ -1471,15 +1248,11 @@ a{ color:inherit; text-decoration:none; }
 /* ===================== LIGHTBOX (vídeo em popup) ===================== */
 .video-lightbox{
   position: fixed; inset: 0; z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
+  width: 100%; max-width: none; height: 100%; max-height: none;
+  margin: 0; border: 0; background: transparent;
   padding: clamp(20px, 4vw, 56px);
-  opacity: 0; visibility: hidden;
-  transition: opacity .25s ease, visibility 0s linear .25s;
 }
-.video-lightbox.is-open{
-  opacity: 1; visibility: visible;
-  transition: opacity .25s ease, visibility 0s linear 0s;
-}
+.video-lightbox[open]{ display: flex; align-items: center; justify-content: center; }
 .video-lightbox__backdrop{
   position: absolute; inset: 0;
   background: rgba(0,0,0,.9);
@@ -1526,11 +1299,17 @@ a{ color:inherit; text-decoration:none; }
      então o resto do JS abaixo (parallax do footer, menu sticky)
      continua lendo window.pageYOffset/getBoundingClientRect
      normalmente — só a transição entre posições passa a ser suave. */
-  var lenis = new Lenis({
+  var lenis = typeof Lenis === 'function' ? new Lenis({
     duration: 1.1,
     easing: function(t){ return Math.min(1, 1 - Math.pow(2, -10 * t)); },
     smoothWheel: true
-  });
+  }) : {
+    raf: function(){},
+    scrollTo: function(target){
+      if(target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth' });
+      else window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  };
   function raf(time){
     lenis.raf(time);
     requestAnimationFrame(raf);
@@ -1610,7 +1389,7 @@ a{ color:inherit; text-decoration:none; }
     el.addEventListener('click', function(e){
       e.preventDefault();
       var alvo = document.getElementById('agenda-producao');
-      if(alvo) lenis.scrollTo(alvo, { duration: 3.0 });
+      if(alvo) lenis.scrollTo(alvo, { duration: 1.2, offset: -80 });
     });
   });
 
@@ -1633,59 +1412,43 @@ a{ color:inherit; text-decoration:none; }
     });
   }
 
-  /* --- Portfólio: menu de filtro (Geral/Podcast/Mídias Sociais/...) --- */
-  (function setupProdPortfolio(){
-    var menu = document.querySelector('.prod-portfolio__menu');
-    if(!menu) return;
-    var items  = menu.querySelectorAll('.prod-portfolio__menu-item');
-    var panels = document.querySelectorAll('.prod-portfolio__panel');
-    items.forEach(function(item){
-      item.addEventListener('click', function(){
-        var targetId = item.getAttribute('data-target');
-        items.forEach(function(i){
-          i.classList.toggle('is-active', i === item);
-          i.setAttribute('aria-selected', i === item ? 'true' : 'false');
-        });
-        panels.forEach(function(p){ p.hidden = (p.id !== targetId); });
-        /* Cada painel tem altura diferente (mosaico de placeholders vs.
-           cases+grid) — sem remedir, a zona de reveal do footer (calculada
-           uma vez no load) fica desalinhada com a nova altura da página. */
-        measureFooter();
-        computeTarget();
-      });
-    });
-  })();
-
-  /* --- Lightbox: abre o Video Reel em popup, com o mínimo de HUD do
-     player (rel=0, modestbranding, sem anotações) --- */
+  /* Vídeos sob demanda: um único player para o reel e todo o portfólio. */
   (function setupVideoLightbox(){
     var lightbox = document.getElementById('video-lightbox');
     var iframe = document.getElementById('video-lightbox-iframe');
     if(!lightbox || !iframe) return;
-
-    function openVideo(id){
-      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1';
-      lightbox.classList.add('is-open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeVideo(){
-      lightbox.classList.remove('is-open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      iframe.src = '';
-    }
+    var lastTrigger, previousOverflow, videoScrollY;
 
     document.querySelectorAll('[data-video-open]').forEach(function(trigger){
       trigger.addEventListener('click', function(){
-        openVideo(trigger.getAttribute('data-video-open'));
+        var id = trigger.getAttribute('data-video-open');
+        var vimeo = trigger.getAttribute('data-video-provider') === 'vimeo';
+        var title = trigger.getAttribute('data-video-title') || 'Video Reel OJU Produção';
+        lastTrigger = trigger;
+        videoScrollY = window.scrollY;
+        previousOverflow = document.body.style.overflow;
+        iframe.title = title;
+        lightbox.setAttribute('aria-label', title);
+        iframe.src = vimeo
+          ? 'https://player.vimeo.com/video/' + id + '?autoplay=1'
+          : 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+        lightbox.showModal();
+        document.body.style.overflow = 'hidden';
+        if(lenis.stop) lenis.stop();
+        lightbox.querySelector('button').focus();
       });
     });
-    lightbox.querySelectorAll('[data-video-close]').forEach(function(btn){
-      btn.addEventListener('click', closeVideo);
+    lightbox.querySelectorAll('[data-video-close]').forEach(function(button){
+      button.addEventListener('click', function(){ lightbox.close(); });
     });
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape' && lightbox.classList.contains('is-open')) closeVideo();
+    lightbox.addEventListener('close', function(){
+      iframe.src = '';
+      document.body.style.overflow = previousOverflow || '';
+      if(lenis.start){
+        lenis.start();
+        lenis.scrollTo(videoScrollY, { immediate: true, force: true });
+      }
+      if(lastTrigger) lastTrigger.focus({ preventScroll: true });
     });
   })();
 

@@ -1,0 +1,28 @@
+{
+  "provider": "Higgsfield",
+  "purpose": "Illustrative media-library assets; not client portfolio work.",
+  "created": "2026-10-06",
+  "assets": [
+    {
+      "file": "caneca-geral.webp",
+      "job_id": "72d27493-1e84-4e24-96fe-6e5c2da050ef",
+      "model": "gpt_image_2_5",
+      "original_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BQuYUErUpUXyCBFlv8T5kwd7fK/hf_20261006_174912_72d27493-1e84-4e24-96fe-6e5c2da050ef.png",
+      "prompt": "Create a minimal, elegant 3D editorial product illustration for a Brazilian creative agency's media library demo. A single simple unbranded matte warm-yellow ceramic coffee mug (#FEC200), perfectly cylindrical body, thick rounded circular handle, no taper, no saucer, empty. Off-white seamless background (#F5F5F3), soft diffuse studio light, subtle short shadow, restrained off-white and yellow palette only, no dark or saturated backgrounds. Soft clay-render appearance with realistic ceramic shape, clean contemporary design. NO text, lettering, logos, people, characters, icons, interface, borders, collage or watermarks. Landscape 16:9 image. This is part of a coherent series showing exactly the same generic yellow mug. SHOT 1: hero product view. The complete mug centered, handle to the right, eye-level three-quarter angle slightly above the rim. Product occupies about 50% of frame width with ample negative space. Only mug and shadow on seamless off-white ground."
+    },
+    {
+      "file": "caneca-detalhe.webp",
+      "job_id": "81f9f1a3-cc0e-47ff-aaa7-ae3662787554",
+      "model": "gpt_image_2_5",
+      "original_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BQuYUErUpUXyCBFlv8T5kwd7fK/hf_20261006_174912_81f9f1a3-cc0e-47ff-aaa7-ae3662787554.png",
+      "prompt": "Create a minimal, elegant 3D editorial product illustration for a Brazilian creative agency's media library demo. A single simple unbranded matte warm-yellow ceramic coffee mug (#FEC200), perfectly cylindrical body, thick rounded circular handle, no taper, no saucer, empty. Off-white seamless background (#F5F5F3), soft diffuse studio light, subtle short shadow, restrained off-white and yellow palette only, no dark or saturated backgrounds. Soft clay-render appearance with realistic ceramic shape, clean contemporary design. NO text, lettering, logos, people, characters, icons, interface, borders, collage or watermarks. Landscape 16:9 image. This is part of a coherent series showing exactly the same generic yellow mug. SHOT 2: macro detail. Close-up of the same mug's circular handle and its junction with the cylindrical body, showing the matte yellow ceramic and a portion of the rim. Cropped thoughtfully, the large simple geometry fills about 70% of the frame, off-white negative space around it. Not abstract: clearly recognizable mug detail."
+    },
+    {
+      "file": "caneca-contexto.webp",
+      "job_id": "e3acf2b7-78ab-4b73-a893-e1ee262a6577",
+      "model": "gpt_image_2_5",
+      "original_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3BQuYUErUpUXyCBFlv8T5kwd7fK/hf_20261006_174912_e3acf2b7-78ab-4b73-a893-e1ee262a6577.png",
+      "prompt": "Create a minimal, elegant 3D editorial product illustration for a Brazilian creative agency's media library demo. A single simple unbranded matte warm-yellow ceramic coffee mug (#FEC200), perfectly cylindrical body, thick rounded circular handle, no taper, no saucer, empty. Off-white seamless background (#F5F5F3), soft diffuse studio light, subtle short shadow, restrained off-white and yellow palette only, no dark or saturated backgrounds. Soft clay-render appearance with realistic ceramic shape, clean contemporary design. NO text, lettering, logos, people, characters, icons, interface, borders, collage or watermarks. Landscape 16:9 image. This is part of a coherent series showing exactly the same generic yellow mug. SHOT 3: context view. The same complete yellow mug with handle to the right sits on a minimal off-white desk next to a single CLOSED plain white notebook. Wide simple composition, no pen, no additional props, no writing. Mug and notebook occupy the central 60% of the image. Same studio lighting and clay render aesthetic."
+    }
+  ]
+}
