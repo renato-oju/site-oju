@@ -51,6 +51,9 @@ input,select,textarea{font:inherit;color:inherit}
 .modo{display:flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;flex-shrink:0}
 .modo button{border:0;background:transparent;padding:7px 14px;font-size:13px;color:var(--ink)}
 .modo button[aria-pressed="true"]{background:var(--ink);color:var(--fundo)}
+.modo a{display:block;text-decoration:none;padding:7px 14px;font-size:13px;color:var(--ink);white-space:nowrap}
+.modo a:hover{background:var(--fundo-2)}
+.modo a[aria-current="page"]{background:var(--ink);color:var(--fundo)}
 
 /* ---------- seções ---------- */
 section{padding-block:56px;border-bottom:1px solid var(--linha)}
@@ -529,6 +532,10 @@ section:nth-of-type(even) .cx-grupo{background:var(--fundo-app)}
       <a href="#modulos">Módulos</a>
       <a href="#creditos">Valores</a>
       <a href="#marcas">Calculadora</a>
+    </nav>
+    <nav class="modo" aria-label="Páginas">
+      <a href="./" aria-current="page">Apresentação</a>
+      <a href="painel-vylor/">Painel do cliente</a>
     </nav>
   </div>
 </header>

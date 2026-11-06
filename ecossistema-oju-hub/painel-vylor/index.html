@@ -45,7 +45,13 @@ a{color:inherit}
 .nav{display:flex;gap:4px;margin-left:auto}
 .nav a{color:var(--texto);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:999px;white-space:nowrap}
 .nav a:hover{background:var(--fundo-2);color:var(--ink)}
-@media (max-width:760px){.nav{display:none}.marca b{display:none}}
+.modo{display:flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;flex-shrink:0}
+.modo a{display:block;text-decoration:none;padding:7px 14px;font-size:13px;color:var(--ink);white-space:nowrap}
+.modo a:hover{background:var(--fundo-2)}
+.modo a[aria-current="page"]{background:var(--ink);color:var(--fundo)}
+.nav+.modo{margin-left:8px}
+@media (max-width:900px){.nav{display:none}.modo{margin-left:auto}}
+@media (max-width:560px){.marca b{display:none}.modo a{padding:6px 10px;font-size:12px}.cliente-logo{padding-left:12px}}
 
 /* abertura */
 .abertura{padding-block:44px 8px}
@@ -169,6 +175,10 @@ footer a{color:var(--texto)}
       <a href="#resumo">Resumo</a>
       <a href="#graficos">Consumo e previsão</a>
       <a href="#entregas">Entregas</a>
+    </nav>
+    <nav class="modo" aria-label="Páginas">
+      <a href="../">Apresentação</a>
+      <a href="./" aria-current="page">Painel do cliente</a>
     </nav>
   </div>
 </header>
